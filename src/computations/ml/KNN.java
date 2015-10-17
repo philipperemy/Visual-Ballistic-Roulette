@@ -21,7 +21,11 @@ public class KNN {
 																	// Frequency
 		for (int i = 0; i < records.size(); i++) {
 			DataRecord record = records.get(i);
-			Integer shift = shifts.get(i);
+
+			Integer shift = 0;
+			if (shifts != null) {
+				shift = shifts.get(i);
+			}
 			Integer number = record.outcome.number + shift;
 			outcomeNumbers.add(number);
 

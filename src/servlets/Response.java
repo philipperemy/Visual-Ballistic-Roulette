@@ -12,10 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import computations.predictor.Predictor;
 import computations.session.SessionManager;
+import computations.wheel.Wheel;
+import computations.wheel.Wheel.WheelWay;
 import database.DatabaseAccessor;
 
 @WebServlet("/Response")
-public class Response extends HttpServlet {	
+public class Response extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private DatabaseAccessor da;
@@ -48,14 +50,6 @@ public class Response extends HttpServlet {
 			Helper.notifyInvalidFieldError(response, Parameters.SESSION_ID);
 		}
 	}
-	
-	private List<Double> convertToSeconds(List<Double> listInMilliseconds) {
-		List<Double> listInSeconds = new ArrayList<>();
-		for(Double itemMsec : listInMilliseconds) {
-			listInSeconds.add(itemMsec * 0.001); 
-		}
-		return listInSeconds;
-	}
 
 	public int predictMostProbableNumber(String sessionId) {
 		List<Double> wheelLapTimes = da.selectWheelLapTimes(sessionId);
@@ -64,11 +58,12 @@ public class Response extends HttpServlet {
 		if (wheelLapTimes.isEmpty() || ballLapTimes.isEmpty()) {
 			throw new RuntimeException("Invalid sessionId");
 		}
-		
-		List<Double> wheelLapTimesSeconds = convertToSeconds(wheelLapTimes);
-		List<Double> ballLapTimesSeconds = convertToSeconds(ballLapTimes);
 
-		int mostProbableNumber = pr.predict(wheelLapTimesSeconds, ballLapTimesSeconds);
+		List<Double> wheelLapTimesSeconds = Helper.convertToSeconds(wheelLapTimes);
+		List<Double> ballLapTimesSeconds = Helper.convertToSeconds(ballLapTimes);
+
+		WheelWay wheelWay = Wheel.convert(da.selectClockwise(sessionId));
+		int mostProbableNumber = pr.predict(wheelLapTimesSeconds, ballLapTimesSeconds, wheelWay);
 		return mostProbableNumber;
 	}
 

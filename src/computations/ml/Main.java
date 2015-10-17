@@ -5,7 +5,7 @@ import org.apache.commons.math3.stat.regression.SimpleRegression;
 public class Main {
 
 	public static void main(String[] args) {
-		SimpleRegression regression = new SimpleRegression(); 
+		SimpleRegression regression = new SimpleRegression();
 		regression.addData(1d, 2d);
 		// At this point, with only one observation,
 		// all regression statistics will return NaN
@@ -17,7 +17,7 @@ public class Main {
 
 		regression.addData(3d, 3d);
 		// Now all statistics are defined.
-		
+
 		System.out.println(regression.getIntercept());
 		// displays intercept of regression line
 
@@ -27,5 +27,5 @@ public class Main {
 		System.out.println(regression.getSlopeStdErr());
 		// displays slope standard error
 	}
-	
+
 }

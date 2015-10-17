@@ -7,17 +7,17 @@ import computations.Constants;
 import computations.ml.DataRecord;
 import computations.ml.KNN;
 import computations.outcome.OutcomeStatistics;
-import computations.predictor.BallisticManager.AccelerationModel;
 import computations.wheel.Type;
 import computations.wheel.Wheel;
 import computations.wheel.Wheel.WheelWay;
 import database.DatabaseAccessor;
+import log.Logger;
+import servlets.Helper;
 
 public class Predictor {
 
 	private static volatile Predictor instance = null;
 	private DatabaseAccessor da;
-
 	private List<DataRecord> cache = new ArrayList<>();
 
 	public void init(DatabaseAccessor da) {
@@ -32,20 +32,30 @@ public class Predictor {
 			List<Double> ballLapTimes = da.selectBallLapTimes(sessionId);
 			List<Double> wheelLapTimes = da.selectWheelLapTimes(sessionId);
 
-			DataRecord record = buildRecord(ballLapTimes, wheelLapTimes);
-			if(record != null) {
+			List<Double> wheelLapTimesSeconds = Helper.convertToSeconds(wheelLapTimes);
+			List<Double> ballLapTimesSeconds = Helper.convertToSeconds(ballLapTimes);
+			
+			WheelWay wheelWay = Wheel.convert(da.selectClockwise(sessionId));
+			DataRecord record = buildRecord(ballLapTimesSeconds, wheelLapTimesSeconds, wheelWay);
+			if (record != null) {
 				record.outcome = da.getOutcome(sessionId);
 				cache.add(record);
 			}
 		}
 	}
 
-	private DataRecord buildRecord(List<Double> ballLapTimes, List<Double> wheelLapTimes) {
+	private DataRecord buildRecord(List<Double> ballLapTimes, List<Double> wheelLapTimes, WheelWay wheelWay) {
+
+		Logger.traceINFO("____________");
+		Logger.traceINFO("Build record");
+		Logger.traceINFO("Ball lap times : " + ballLapTimes.toString());
+		Logger.traceINFO("Wheel lap times : " + ballLapTimes.toString());
+		Logger.traceINFO("Wheel way : " + wheelWay.toString());
 		
-		if(ballLapTimes.isEmpty() || wheelLapTimes.isEmpty()) {
+		if (ballLapTimes.isEmpty() || wheelLapTimes.isEmpty()) {
 			return null;
 		}
-		
+
 		DataRecord record = new DataRecord();
 		AccelerationModel ballAccModel = BallisticManager.computeModel(ballLapTimes, Type.BALL);
 		AccelerationModel wheelAccModel = BallisticManager.computeModel(wheelLapTimes, Type.WHEEL);
@@ -65,13 +75,11 @@ public class Predictor {
 			double correspondingBallLapTime = Phase.getNextTimeBallIsInFrontOfRef(ballLapTimes, wheelLapTime);
 			double lastWheelSpeed = BallisticManager.getWheelSpeed(previousWheelLapTime, wheelLapTime);
 
-			/**
-			 * TODO: implement in the database the CLOCKWISE/ANTICLOCKWISE way
-			 * column in a table. Change WheelWay.ANTICLOCKWISE
-			 */
 			record.phases.add(Phase.findPhaseBetweenBallAndWheel(correspondingBallLapTime, wheelLapTime, lastWheelSpeed,
-					WheelWay.ANTICLOCKWISE));
+					wheelWay));
 		}
+		
+		Logger.traceINFO("Record : " + record.toString());
 		return record;
 	}
 
@@ -117,8 +125,8 @@ public class Predictor {
 		return selectedShift;
 	}
 
-	public int predict(List<Double> wheelLapTimes, List<Double> ballLapTimes) {
-		DataRecord recordToPredict = buildRecord(ballLapTimes, wheelLapTimes); // phase
+	public int predict(List<Double> wheelLapTimes, List<Double> ballLapTimes, WheelWay wheelWay) {
+		DataRecord recordToPredict = buildRecord(ballLapTimes, wheelLapTimes, wheelWay); // phase
 																				// is
 																				// filled.
 

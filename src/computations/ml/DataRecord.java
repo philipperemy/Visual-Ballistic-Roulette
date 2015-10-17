@@ -10,6 +10,14 @@ import computations.wheel.Wheel.WheelWay;
 
 public class DataRecord implements Cloneable {
 
+	@Override
+	public String toString() {
+		return "DataRecord [" + (ballSpeeds != null ? "ballSpeeds=" + ballSpeeds + ", " : "")
+				+ (wheelSpeeds != null ? "wheelSpeeds=" + wheelSpeeds + ", " : "")
+				+ (outcome != null ? "outcome=" + outcome + ", " : "") + (way != null ? "way=" + way + ", " : "")
+				+ (phases != null ? "phases=" + phases : "") + "]";
+	}
+
 	/**
 	 * Absolute time is taken when the wheel (its 0) is in front of the
 	 * landmark.

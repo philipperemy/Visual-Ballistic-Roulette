@@ -2,6 +2,7 @@ package log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class Logger {
 	private static final String infoKey = "INFO";
@@ -36,20 +37,6 @@ public class Logger {
 
 	public static void traceERROR(String msg) {
 		out.println(baseLogMessage(errorKey, msg));
-	}
-
-	public static void traceINFO(int level, long[] array) {
-		StringBuilder sBuilder = new StringBuilder();
-		sBuilder.append(level + " : ");
-		for (int i = 0; i < array.length; i++) {
-			if (i == array.length - 1) {
-
-				sBuilder.append(array[i]);
-			} else {
-				sBuilder.append(array[i] + ", ");
-			}
-		}
-		traceINFO(sBuilder.toString());
 	}
 
 	public static void traceINFO(String... msgs) {

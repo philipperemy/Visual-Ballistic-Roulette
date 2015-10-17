@@ -8,6 +8,17 @@ public class Wheel {
 	public static enum WheelWay {
 		CLOCKWISE, ANTICLOCKWISE
 	};
+	
+	public static WheelWay convert(String clockwise) {
+		switch(clockwise) {
+		case "1":
+			return WheelWay.CLOCKWISE;
+		case "0":
+			return WheelWay.ANTICLOCKWISE;
+			default:
+				throw new RuntimeException("Invalid clockwise : " + clockwise);
+		}
+	}
 
 	public static int getIndex(int index) {
 		if (index < 0) {

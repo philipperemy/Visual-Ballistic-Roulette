@@ -31,7 +31,7 @@ public class SessionManager {
 		if (queryTime - timestampOfLastQuery > Constants.THRESHOLD_BEFORE_NEW_SESSION_IN_MS) {
 			// Start new session
 			newSessionId = da.incrementAndGetSessionId();
-			da.insertClockwiseFromPrevious(newSessionId); //Start new clockwise
+			da.insertClockwiseFromPrevious(newSessionId); // Start new clockwise
 		} else {
 			newSessionId = da.getLastSessionId();
 		}
