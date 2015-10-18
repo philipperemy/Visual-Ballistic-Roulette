@@ -4,6 +4,13 @@ import java.util.Map;
 
 public class OutcomeStatistics {
 
+	@Override
+	public String toString() {
+		return "OutcomeStatistics [meanNumber=" + meanNumber + ", stdDeviation=" + stdDeviation + ", "
+				+ (frequency != null ? "frequency=" + frequency + ", " : "") + "mostProbablyNumber="
+				+ mostProbablyNumber + "]";
+	}
+
 	public int meanNumber;
 
 	public double stdDeviation;

@@ -22,5 +22,4 @@ public class TestServlet {
 		Response response = new Response();
 		Assert.assertEquals(15, response.predictMostProbableNumber("1"));
 	}
-
 }

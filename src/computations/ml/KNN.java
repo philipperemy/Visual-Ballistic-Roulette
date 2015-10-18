@@ -48,7 +48,7 @@ public class KNN {
 		double var = 0;
 		for (int i = 0; i < outcomeNumbers.size(); i++) {
 			int dist = Wheel.distanceBetweenNumbers(outcomeNumbers.get(i), meanNumber);
-			var += Math.pow(dist, 2); // dist^2
+			var += Math.pow(dist, 2); // distance^2
 		}
 
 		int maxFreq = 0;
@@ -71,18 +71,23 @@ public class KNN {
 		return outcomeStatistics;
 	}
 
-	public static List<DataRecord> getNeighbors(DataRecord recordToPredict, List<DataRecord> datasetRecords) {
-		Map<Double, DataRecord> dists = new TreeMap<>(); // TreeMap is sorted
-															// using the natural
-															// order of the keys
+	public static Map<DataRecord, Double> getNeighbors(DataRecord recordToPredict, List<DataRecord> datasetRecords) {
+		Map<Double, DataRecord> recordsMap = new TreeMap<>(); // TreeMap is
+																// sorted using
+																// the natural
+																// order of the
+																// keys
+
 		for (DataRecord datasetRecord : datasetRecords) {
-			dists.put(computeMaeDist(recordToPredict, datasetRecord), datasetRecord);
+			recordsMap.put(computeDistance(recordToPredict, datasetRecord), datasetRecord);
 		}
 
-		List<DataRecord> neighbors = new ArrayList<>();
+		Map<DataRecord, Double> neighbors = new HashMap<>();
 		int i = 0;
-		for (Entry<Double, DataRecord> dist : dists.entrySet()) {
-			neighbors.add(dist.getValue());
+		for (Entry<Double, DataRecord> dist : recordsMap.entrySet()) {
+			Double distance = dist.getKey();
+			DataRecord neighbor = dist.getValue();
+			neighbors.put(neighbor, distance);
 			if (++i > Constants.NUMBER_OF_NEIGHBORS_KNN) {
 				break;
 			}
@@ -90,16 +95,23 @@ public class KNN {
 		return neighbors;
 	}
 
-	private static double computeMaeDist(DataRecord line1, DataRecord line2) {
-		if (line1.way != line2.way) {
+	// MAE(balls) + MAE(wheels) = they add up.
+	public static double computeDistance(DataRecord record1, DataRecord record2) {
+		if (record1.way != record2.way) {
 			return Double.MAX_VALUE;
 		}
 
-		double dist = compareDistanceFromSpeeds(line1.ballSpeeds, line2.ballSpeeds);
-		dist /= line1.ballSpeeds.size(); // Should have the same size.
+		double dist = compareDistanceFromSpeeds(record1.ballSpeeds, record2.ballSpeeds);
 
-		double dist2 = compareDistanceFromSpeeds(line1.wheelSpeeds, line2.wheelSpeeds);
-		dist2 /= line1.wheelSpeeds.size();
+		if (!record1.ballSpeeds.isEmpty()) {
+			dist /= record1.ballSpeeds.size(); // Should have the same size.
+		}
+
+		double dist2 = compareDistanceFromSpeeds(record1.wheelSpeeds, record2.wheelSpeeds);
+
+		if (!record1.wheelSpeeds.isEmpty()) {
+			dist2 /= record1.wheelSpeeds.size();
+		}
 
 		return dist + dist2;
 	}
@@ -110,7 +122,11 @@ public class KNN {
 			return Double.MAX_VALUE;
 		}
 
-		if (list1.size() == 0) {
+		if (list1.isEmpty() && list2.isEmpty()) {
+			return 0;
+		}
+
+		if (list1.isEmpty() || list2.isEmpty()) {
 			throw new RuntimeException();
 		}
 
@@ -121,7 +137,7 @@ public class KNN {
 		return dist;
 	}
 
-	private static double computeDistanceFromSpeed(ClockSpeed co1, ClockSpeed co2) {
-		return co1.time == co2.time ? Double.MAX_VALUE : Math.abs(co1.speed - co2.speed);
+	private static double computeDistanceFromSpeed(ClockSpeed cs1, ClockSpeed cs2) {
+		return (Double.compare(cs1.time, cs2.time) == 0) ? Math.abs(cs1.speed - cs2.speed) : Double.MAX_VALUE;
 	}
 }

@@ -8,15 +8,15 @@ public class Wheel {
 	public static enum WheelWay {
 		CLOCKWISE, ANTICLOCKWISE
 	};
-	
+
 	public static WheelWay convert(String clockwise) {
-		switch(clockwise) {
+		switch (clockwise) {
 		case "1":
 			return WheelWay.CLOCKWISE;
 		case "0":
 			return WheelWay.ANTICLOCKWISE;
-			default:
-				throw new RuntimeException("Invalid clockwise : " + clockwise);
+		default:
+			throw new RuntimeException("Invalid clockwise : " + clockwise);
 		}
 	}
 
@@ -65,6 +65,14 @@ public class Wheel {
 		return NUMBERS[getIndex(newIdx)];
 	}
 
+	//Test it. Force the test by using Deprecated.
+	@Deprecated 
+	public static int getNextNumberClockwise(int number) {
+		int idx = findIndexOfNumber(number);
+		idx++;
+		return NUMBERS[getIndex(idx)];
+	}
+	
 	public static int findIndexOfNumber(int number) {
 		for (int i = 0; i < NUMBERS.length; i++) {
 			if (number == NUMBERS[i]) {
@@ -74,6 +82,13 @@ public class Wheel {
 		throw new RuntimeException();
 	}
 
+	//TODO: test it. Number1 - Number2. Rename it! Always positive.
+	public static int signedDistanceBetweenNumbers(int number1, int number2) {
+		int idx1 = findIndexOfNumber(number1);
+		int idx2 = findIndexOfNumber(number2);
+		return getIndex(idx1 - idx2);
+	}
+	
 	public static int distanceBetweenNumbers(int number1, int number2) {
 		int idx1 = findIndexOfNumber(number1);
 		int idx2 = findIndexOfNumber(number2);

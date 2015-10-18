@@ -2,7 +2,6 @@ package log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 public class Logger {
 	private static final String infoKey = "INFO";
@@ -10,7 +9,7 @@ public class Logger {
 
 	private static final Printer out = new Printer();
 
-	public static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	public static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss_SSS");
 
 	private static String getCallingClass() {
 		final Throwable t = new Throwable();
@@ -21,6 +20,10 @@ public class Logger {
 
 	private static String baseLogMessage(String key, String msg) {
 		return sdf.format(new Date()) + " [" + key + "] [" + getCallingClass() + "] " + msg;
+	}
+
+	public static void traceINFO(Object obj) {
+		out.println(baseLogMessage(infoKey, obj.toString()));
 	}
 
 	public static void traceINFO(String msg) {
@@ -49,7 +52,7 @@ public class Logger {
 				sBuilder.append(msgs[i] + ", ");
 			}
 		}
-		traceINFO(sBuilder.toString());
+		out.println(baseLogMessage(infoKey, sBuilder.toString()));
 	}
 
 	public static void traceERROR(Exception e) {

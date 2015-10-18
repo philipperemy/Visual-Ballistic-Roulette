@@ -20,6 +20,7 @@ public class Phase {
 		throw new RuntimeException();
 	}
 
+	@Deprecated
 	public static int findNumberInFrontOfRefWhenBallIsLaunched(double timeOfLastPassageOfZeroInFrontOfRef,
 			double timeWhenBallWasLaunched, double lastWheelSpeed, WheelWay way) {
 		double diffTime = timeWhenBallWasLaunched - timeOfLastPassageOfZeroInFrontOfRef;
@@ -38,8 +39,10 @@ public class Phase {
 		return Wheel.NUMBERS[Wheel.getIndex(idx)];
 	}
 
-	public static int findPhaseBetweenBallAndWheel(double timeOfBallInFrontOfMark, double timeOfWheelInFrontOfMark,
-			double lastWheelSpeed, WheelWay way) {
+	// We want to find the number of the wheel where the ball passes in front of
+	// the mark.
+	public static int findPhaseNumberBetweenBallAndWheel(double timeOfBallInFrontOfMark,
+			double timeOfWheelInFrontOfMark, double lastWheelSpeed, WheelWay way) {
 
 		double diffTime = Math.abs(timeOfBallInFrontOfMark - timeOfWheelInFrontOfMark);
 		double timeForOneWheelLoop = BallisticManager.getTimeForOneWheelLoop(lastWheelSpeed);

@@ -9,7 +9,7 @@ public class Constants {
 	public static final double WHEEL_DIAMETER = 0.80;
 	public static final double CASE_DIAMETER = 1.20;
 
-	public static final double PI = 3.1415;
+	public static final double PI = Math.PI;
 
 	public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * PI;
 	public static final double BALL_CIRCUMFERENCE = CASE_DIAMETER * PI;

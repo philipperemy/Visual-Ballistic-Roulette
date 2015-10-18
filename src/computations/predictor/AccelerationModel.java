@@ -1,5 +1,7 @@
 package computations.predictor;
 
+import log.Logger;
+
 /**
  * Assuming the deceleration is constant. (1/Y) = AX + B
  */
@@ -21,6 +23,7 @@ public class AccelerationModel {
 	public AccelerationModel(double A, double B) {
 		this.slope = A;
 		this.intercept = B;
+		Logger.traceINFO(toString());
 	}
 
 	public AccelerationModel() {

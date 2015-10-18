@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -63,7 +62,7 @@ public class Response extends HttpServlet {
 		List<Double> ballLapTimesSeconds = Helper.convertToSeconds(ballLapTimes);
 
 		WheelWay wheelWay = Wheel.convert(da.selectClockwise(sessionId));
-		int mostProbableNumber = pr.predict(wheelLapTimesSeconds, ballLapTimesSeconds, wheelWay);
+		int mostProbableNumber = pr.predict(ballLapTimesSeconds, wheelLapTimesSeconds, wheelWay);
 		return mostProbableNumber;
 	}
 

@@ -184,7 +184,7 @@ public class DatabaseAccessor {
 			Logger.traceERROR(e);
 		}
 	}
-	
+
 	public String selectClockwise(String sessionId) {
 		String query = "SELECT * FROM `clockwise` WHERE SESSION_ID = " + sessionId;
 		return select(query, "CLOCKWISE");

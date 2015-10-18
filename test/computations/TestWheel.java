@@ -38,24 +38,6 @@ public class TestWheel {
 		Assert.assertEquals(2.51, BallisticManager.getWheelSpeed(0, 1), 0.01);
 	}
 
-	// https://www.youtube.com/watch?v=nztuIbJhq6o
-	// Beginning of video. ANTICLOCKWISE
-	/*
-	 * BALLS =
-	 * 
-	 * 522 1160 2132 3239 4484 // You Tube 0:07. Almost 0.08 //ALIGNED WITH 10,5
-	 * 5807 7354 8862 10523 12369 14394 16586
-	 * 
-	 * WHEELS =
-	 * 
-	 * 122 3492 7159 10809 14495 18198
-	 * 
-	 * REAL MEASURES
-	 * 
-	 * BALLS = 2858 3591 4421 5456 6625 7950 9355 10887 12539 14336 16302 18387
-	 * WHEELS = 2600 6168 9810 13427 17154 20810
-	 * 
-	 */
 	@Test
 	public void testHelperStrategy2() {
 		// Let assume we are at 5000.
@@ -63,9 +45,11 @@ public class TestWheel {
 		double timeOfWheelInFrontOfMark = 6168 * 0.001;
 		double lastWheelSpeed = BallisticManager.getWheelSpeed(2600 * 0.001, 6168 * 0.001);
 
-		int phaseNumberAt5807 = Phase.findPhaseBetweenBallAndWheel(timeOfBallInFrontOfMark, timeOfWheelInFrontOfMark,
+		// We want to find the number of the wheel where the ball passes in
+		// front of the mark.
+		int phaseNumber = Phase.findPhaseNumberBetweenBallAndWheel(timeOfBallInFrontOfMark, timeOfWheelInFrontOfMark,
 				lastWheelSpeed, WheelWay.ANTICLOCKWISE);
-		System.out.println(phaseNumberAt5807); // 12 is correct
+		Assert.assertEquals(29, phaseNumber); // 29 is correct
 	}
 
 	// https://www.youtube.com/watch?v=nztuIbJhq6o
@@ -81,36 +65,45 @@ public class TestWheel {
 	 */
 	@Test
 	public void testHelperStrategy3() {
-		// Let assume we are at 35326.
+		// Let assume we are at 35000.
 		double timeOfBallInFrontOfMark = 35326 * 0.001;
 		double timeOfWheelInFrontOfMark = 35749 * 0.001;
 		double lastWheelSpeed = BallisticManager.getWheelSpeed(31866 * 0.001, 35749 * 0.001);
 
-		int phaseNumberAt5807 = Phase.findPhaseBetweenBallAndWheel(timeOfBallInFrontOfMark, timeOfWheelInFrontOfMark,
+		int phaseNumber = Phase.findPhaseNumberBetweenBallAndWheel(timeOfBallInFrontOfMark, timeOfWheelInFrontOfMark,
 				lastWheelSpeed, WheelWay.CLOCKWISE);
-		System.out.println(phaseNumberAt5807); // 4 is correct
-
+		Assert.assertEquals(4, phaseNumber); // 4 is correct
 	}
 
-	/*
-	 * Third part of the video. BALLS = 53965 54925 56010 57233 58569 59994
-	 * 61556 63262 65092 67067 69234 WHEELS = 53442 57176 60846 64611 68360
-	 * 72208
-	 */
 	@Test
 	public void testHelperStrategy4() {
-		// Let assume we are at 35326.
-		double timeOfBallInFrontOfMark = 35326 * 0.001;
-		double timeOfWheelInFrontOfMark = 35749 * 0.001;
-		double lastWheelSpeed = BallisticManager.getWheelSpeed(31866 * 0.001, 35749 * 0.001);
+		// Let assume we are at 57000.
+		double timeOfBallInFrontOfMark = 61564 * 0.001;
+		double timeOfWheelInFrontOfMark = 60882 * 0.001;
+		double lastWheelSpeed = BallisticManager.getWheelSpeed(57196 * 0.001, 60882 * 0.001);
 
-		int phaseNumberAt5807 = Phase.findPhaseBetweenBallAndWheel(timeOfBallInFrontOfMark, timeOfWheelInFrontOfMark,
-				lastWheelSpeed, WheelWay.CLOCKWISE);
-		System.out.println(phaseNumberAt5807); // 4 is correct
-
+		int phaseNumber = Phase.findPhaseNumberBetweenBallAndWheel(timeOfBallInFrontOfMark, timeOfWheelInFrontOfMark,
+				lastWheelSpeed, WheelWay.ANTICLOCKWISE);
+		Assert.assertEquals(2, phaseNumber); // 2 is correct
 	}
 
-	// @Test
+	// Can predict the ball before the wheel passes by.
+	// TODO: must be really careful when trying to estimate the phases. ball
+	// after or ball before?
+	@Test
+	public void testHelperStrategy5() {
+		// Let assume we are at 57000.
+		double timeOfBallInFrontOfMark = 58547 * 0.001;
+		double timeOfWheelInFrontOfMark = 60882 * 0.001;
+		double lastWheelSpeed = BallisticManager.getWheelSpeed(57196 * 0.001, 60882 * 0.001);
+
+		int phaseNumber = Phase.findPhaseNumberBetweenBallAndWheel(timeOfBallInFrontOfMark, timeOfWheelInFrontOfMark,
+				lastWheelSpeed, WheelWay.ANTICLOCKWISE);
+		Assert.assertEquals(11, phaseNumber); // 11 is correct
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
 	public void testHelperStrategy() {
 		double lastKnownSpeed = BallisticManager.getBallSpeed(0, 1);
 
@@ -121,25 +114,21 @@ public class TestWheel {
 		Assert.assertEquals(0,
 				Phase.findNumberInFrontOfRefWhenBallIsLaunched(0, 1, lastKnownSpeed, WheelWay.ANTICLOCKWISE));
 
-		// Half a turn. 5 or 10
+		// Half a turn. 5 or 10. Anti clockwise
 		Assert.assertEquals(10,
-				Phase.findNumberInFrontOfRefWhenBallIsLaunched(0, 0.5, lastKnownSpeed, WheelWay.CLOCKWISE));
+				Phase.findNumberInFrontOfRefWhenBallIsLaunched(0, 0.5, lastKnownSpeed, WheelWay.ANTICLOCKWISE));
 
 		// A quarter of turn. 22 or 9. Clockwise
 		Assert.assertEquals(22,
 				Phase.findNumberInFrontOfRefWhenBallIsLaunched(0, 0.25, lastKnownSpeed, WheelWay.CLOCKWISE));
 
 		// A quarter of turn. 34 or 6. Clockwise
-		Assert.assertEquals(34,
+		Assert.assertEquals(6,
 				Phase.findNumberInFrontOfRefWhenBallIsLaunched(0, 0.75, lastKnownSpeed, WheelWay.CLOCKWISE));
 
 		// A quarter of turn. Anti Clockwise
 		Assert.assertEquals(34,
 				Phase.findNumberInFrontOfRefWhenBallIsLaunched(0, 0.25, lastKnownSpeed, WheelWay.ANTICLOCKWISE));
-
-		// A quarter of turn. Anti Clockwise
-		Assert.assertEquals(22,
-				Phase.findNumberInFrontOfRefWhenBallIsLaunched(0, 0.75, lastKnownSpeed, WheelWay.ANTICLOCKWISE));
 	}
 
 	/*

@@ -25,7 +25,6 @@ public class Helper {
 	public static void notifyInvalidFieldError(HttpServletResponse response, String invalidField) {
 		notifyError(response, invalidField + " invalid");
 	}
-	
 
 	public static List<Double> convertToSeconds(List<Double> listInMilliseconds) {
 		List<Double> listInSeconds = new ArrayList<>();
@@ -34,6 +33,5 @@ public class Helper {
 		}
 		return listInSeconds;
 	}
-
 
 }

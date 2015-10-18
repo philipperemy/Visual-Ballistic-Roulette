@@ -7,12 +7,13 @@ import org.apache.commons.math3.stat.regression.SimpleRegression;
 
 import computations.Constants;
 import computations.wheel.Type;
+import log.Logger;
 
 public class BallisticManager {
 
 	// Could interpolate with ML stuffs.
 	public static double getTimeForOneBallLoop(double ballSpeed) {
-		return Constants.BALL_CIRCUMFERENCE / (ballSpeed * 100);
+		return Constants.BALL_CIRCUMFERENCE / ballSpeed;
 	}
 
 	// Could interpolate with ML stuffs.
@@ -46,24 +47,23 @@ public class BallisticManager {
 	 * Each speed is the average of the measurements intervals
 	 */
 	public static List<ClockSpeed> computeInstantAverageSpeeds(List<Double> lapTimes, Type type) {
-		List<ClockSpeed> SpeedMeasurements = new ArrayList<>(lapTimes.size() - 1);
+		List<ClockSpeed> speedMeasurements = new ArrayList<>(lapTimes.size() - 1);
 		for (int i = 1; i < lapTimes.size(); i++) {
 			double t1 = lapTimes.get(i - 1);
 			double t2 = lapTimes.get(i);
-			ClockSpeed SpeedMeasurement = new ClockSpeed();
-			SpeedMeasurement.speed = getSpeed(t1, t2, type);
-			SpeedMeasurement.time = 0.5 * t1 + 0.5 * t2;
-			SpeedMeasurements.add(SpeedMeasurement);
+			ClockSpeed speedMeasurement = new ClockSpeed();
+			speedMeasurement.speed = getSpeed(t1, t2, type);
+			speedMeasurement.time = 0.5 * t1 + 0.5 * t2;
+			speedMeasurements.add(speedMeasurement);
 		}
-		return SpeedMeasurements;
+		Logger.traceINFO("computeInstantAverageSpeeds(" + type + ") - " + speedMeasurements.toString());
+		return speedMeasurements;
 	}
 
-	
-	
 	public static double inverseSpeed(double speed) {
 		return (double) 1.0 / speed;
 	}
-	
+
 	/*
 	 * Speed is inverted to have a linear problem.
 	 */
@@ -73,7 +73,7 @@ public class BallisticManager {
 		double[] y = new double[n];
 		for (int i = 0; i < n; i++) {
 			x[i] = speedMeasurements.get(i).time;
-			y[i] = inverseSpeed( speedMeasurements.get(i).speed );
+			y[i] = inverseSpeed(speedMeasurements.get(i).speed);
 		}
 
 		SimpleRegression regression = new SimpleRegression();
