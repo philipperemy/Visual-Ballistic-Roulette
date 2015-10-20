@@ -2,6 +2,11 @@ package computations.outcome;
 
 public class Outcome implements Cloneable {
 
+	@Override
+	public String toString() {
+		return "Outcome [number=" + number + ", obstaclesHitCount=" + obstaclesHitCount + "]";
+	}
+
 	public int number;
 	public int obstaclesHitCount;
 

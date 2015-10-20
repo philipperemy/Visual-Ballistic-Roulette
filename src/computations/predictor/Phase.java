@@ -17,7 +17,7 @@ public class Phase {
 				return ballTimeInFrontOfRef;
 			}
 		}
-		throw new RuntimeException();
+		throw new RuntimeException("getNextTimeBallIsInFrontOfRef()");
 	}
 
 	@Deprecated

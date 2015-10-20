@@ -8,20 +8,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import computations.session.SessionManager;
 import database.DatabaseAccessor;
+import database.DatabaseAccessorInterface;
 
 @WebServlet("/Request")
 public class Request extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private DatabaseAccessor da;
+	public DatabaseAccessorInterface da;
 	private SessionManager sm;
 
+	public Request(DatabaseAccessorInterface dai) {
+		init(dai);
+	}
+
 	public Request() {
-		da = DatabaseAccessor.getInstance();
-		sm = SessionManager.getInstance();
-		sm.init(da);
+		init(DatabaseAccessor.getInstance());
+	}
+
+	private void init(DatabaseAccessorInterface da) {
+		this.da = da;
+		this.sm = SessionManager.getInstance();
+		this.sm.init(da);
 	}
 
 	// http://localhost:8080/RouletteServer/Request?time=121212&type=wheel

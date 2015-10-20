@@ -1,7 +1,7 @@
 package computations.session;
 
 import computations.Constants;
-import database.DatabaseAccessor;
+import database.DatabaseAccessorInterface;
 
 /**
  * A session corresponds to a game played or measured
@@ -9,10 +9,10 @@ import database.DatabaseAccessor;
 public class SessionManager {
 
 	private static volatile SessionManager instance = null;
-	private DatabaseAccessor da;
+	private DatabaseAccessorInterface da;
 	private long timestampOfLastQuery = 0;
 
-	public void init(DatabaseAccessor da) {
+	public void init(DatabaseAccessorInterface da) {
 		this.da = da;
 	}
 

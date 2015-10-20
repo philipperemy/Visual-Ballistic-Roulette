@@ -12,7 +12,7 @@ import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
 import computations.outcome.Outcome;
 import log.Logger;
 
-public class DatabaseAccessor {
+public class DatabaseAccessor implements DatabaseAccessorInterface {
 
 	private static final String WHEEL_LAP_TIMES_TABLE_NAME = "wheel_lap_times";
 	private static final String BALL_LAP_TIMES_TABLE_NAME = "ball_lap_times";
@@ -31,7 +31,7 @@ public class DatabaseAccessor {
 		readDataBase();
 	}
 
-	public void readDataBase() {
+	private void readDataBase() {
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
@@ -55,7 +55,7 @@ public class DatabaseAccessor {
 		insert(WHEEL_LAP_TIMES_TABLE_NAME, sessionId, lapTime);
 	}
 
-	public void insert(String tableName, String sessionId, String lapTime) {
+	private void insert(String tableName, String sessionId, String lapTime) {
 		String query = "INSERT INTO `roulette_db`.`" + tableName + "` (`ID`, `SESSION_ID`, `TIME`) VALUES (NULL, '"
 				+ sessionId + "', '" + lapTime + "');";
 		try {
@@ -143,7 +143,7 @@ public class DatabaseAccessor {
 		return list;
 	}
 
-	public String select(String SQLquery, String field) {
+	private String select(String SQLquery, String field) {
 		try {
 			ResultSet resultSet = connect.createStatement().executeQuery(SQLquery);
 			while (resultSet.next()) {
@@ -203,6 +203,17 @@ public class DatabaseAccessor {
 			Logger.traceERROR(e);
 		}
 		return null;
+	}
+
+	//TODO: to test
+	@Override
+	public void insertOutcome(String sessionId, String number) {
+		String query = "INSERT INTO `roulette_db`.`outcomes` (`ID`, `SESSION_ID`, `NUMBER`, `OBSTACLES`) VALUES (NULL, '" + sessionId + "', '" + number + "', '0');";
+		try {
+			connect.createStatement().execute(query);
+		} catch (SQLException e) {
+			Logger.traceERROR(e);
+		}
 	}
 
 }

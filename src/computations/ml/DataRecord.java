@@ -33,9 +33,9 @@ public class DataRecord implements Cloneable {
 	 * to shift the outcome.
 	 */
 	public List<Integer> phases = new ArrayList<>();
-	
+
 	public DataRecord() {
-		
+
 	}
 
 	// For testing purposes.

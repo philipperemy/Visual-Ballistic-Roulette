@@ -1,8 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,12 +24,12 @@ public class Helper {
 		notifyError(response, invalidField + " invalid");
 	}
 
-	public static List<Double> convertToSeconds(List<Double> listInMilliseconds) {
-		List<Double> listInSeconds = new ArrayList<>();
-		for (Double itemMsec : listInMilliseconds) {
-			listInSeconds.add(itemMsec * 0.001);
+	public static void notifyNotReadyYet(HttpServletResponse response, String numberOfRecordedWheelTimes) {
+		try {
+			response.getWriter().append(numberOfRecordedWheelTimes);
+		} catch (IOException e) {
+			Logger.traceERROR(e);
 		}
-		return listInSeconds;
 	}
 
 }

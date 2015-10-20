@@ -56,7 +56,7 @@ public class BallisticManager {
 			speedMeasurement.time = 0.5 * t1 + 0.5 * t2;
 			speedMeasurements.add(speedMeasurement);
 		}
-		Logger.traceINFO("computeInstantAverageSpeeds(" + type + ") - " + speedMeasurements.toString());
+		Logger.traceDEBUG("computeInstantAverageSpeeds(" + type + ") - " + speedMeasurements.toString());
 		return speedMeasurements;
 	}
 

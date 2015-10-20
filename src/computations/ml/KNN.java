@@ -1,6 +1,7 @@
 package computations.ml;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import computations.Constants;
 import computations.outcome.OutcomeStatistics;
 import computations.predictor.ClockSpeed;
 import computations.wheel.Wheel;
+import computations.wheel.Wheel.WheelWay;
 
 public class KNN {
 
@@ -26,7 +28,8 @@ public class KNN {
 			if (shifts != null) {
 				shift = shifts.get(i);
 			}
-			Integer number = record.outcome.number + shift;
+			// https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/European_roulette_wheel.svg/2000px-European_roulette_wheel.svg.png
+			Integer number = Wheel.getNumberWithPhase(record.outcome.number, shift, WheelWay.ANTICLOCKWISE);
 			outcomeNumbers.add(number);
 
 			Integer freq = frequencyPerNumber.get(number);
@@ -71,7 +74,8 @@ public class KNN {
 		return outcomeStatistics;
 	}
 
-	public static Map<DataRecord, Double> getNeighbors(DataRecord recordToPredict, List<DataRecord> datasetRecords) {
+	public static Map<DataRecord, Double> getNeighbors(DataRecord recordToPredict,
+			Collection<DataRecord> datasetRecords) {
 		Map<Double, DataRecord> recordsMap = new TreeMap<>(); // TreeMap is
 																// sorted using
 																// the natural
@@ -100,6 +104,7 @@ public class KNN {
 		if (record1.way != record2.way) {
 			return Double.MAX_VALUE;
 		}
+		//maybe we can use the mirroring.
 
 		double dist = compareDistanceFromSpeeds(record1.ballSpeeds, record2.ballSpeeds);
 

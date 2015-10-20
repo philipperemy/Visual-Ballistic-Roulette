@@ -1,56 +1,66 @@
 package computations.predictor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import computations.Constants;
+import computations.Helper;
 import computations.ml.DataRecord;
 import computations.ml.KNN;
 import computations.outcome.OutcomeStatistics;
 import computations.wheel.Type;
 import computations.wheel.Wheel;
 import computations.wheel.Wheel.WheelWay;
-import database.DatabaseAccessor;
+import database.DatabaseAccessorInterface;
 import log.Logger;
-import servlets.Helper;
 
 public class Predictor {
 
 	private static volatile Predictor instance = null;
-	private DatabaseAccessor da;
-	private List<DataRecord> cache = new ArrayList<>();
+	private DatabaseAccessorInterface da;
+	private Map<String, DataRecord> cache = new HashMap<>();
 
-	public void init(DatabaseAccessor da) {
+	public void init(DatabaseAccessorInterface da) {
 		this.da = da;
 		preLoadDataSet();
 	}
 
 	private void preLoadDataSet() {
 		List<String> sessionIds = da.getSessionIds();
-		for (String sessionId : sessionIds) {
+		for (String sessionId : sessionIds) { // SessionID = GameID
 
 			List<Double> ballLapTimes = da.selectBallLapTimes(sessionId);
 			List<Double> wheelLapTimes = da.selectWheelLapTimes(sessionId);
 
-			List<Double> wheelLapTimesSeconds = Helper.convertToSeconds(wheelLapTimes);
-			List<Double> ballLapTimesSeconds = Helper.convertToSeconds(ballLapTimes);
+			List<Double> wheelLapTimesSeconds = computations.Helper.convertToSeconds(wheelLapTimes);
+			List<Double> ballLapTimesSeconds = computations.Helper.convertToSeconds(ballLapTimes);
 
 			String clockwise = da.selectClockwise(sessionId);
 			if (clockwise == null) {
-				Logger.traceERROR("No Clockwise for session id = " + sessionId);
+				Logger.traceERROR(
+						"[preLoadDataSet] No Clockwise for session id = " + sessionId + ". Ignoring this game.");
 				continue;
 			}
 
-			WheelWay wheelWay = Wheel.convert(clockwise);
-			DataRecord record = buildRecord(ballLapTimesSeconds, wheelLapTimesSeconds, wheelWay);
-			if (record != null) {
-				record.outcome = da.getOutcome(sessionId);
-				cache.add(record);
-				Logger.traceINFO("[Cache] Record added : " + record.toString());
+			try {
+				WheelWay wheelWay = Wheel.convert(clockwise);
+				DataRecord record = buildRecord(ballLapTimesSeconds, wheelLapTimesSeconds, wheelWay);
+				if (record != null) {
+					record.outcome = da.getOutcome(sessionId);
 
+					if (cache.get(sessionId) == null) {
+						cache.put(sessionId, record);
+						Logger.traceINFO(
+								"[Cache] Record added : " + record.toString() + ", for sessionId = " + sessionId);
+					}
+				}
+			} catch (Exception e) {
+				Logger.traceERROR(e);
 			}
+
 		}
 	}
 
@@ -60,24 +70,25 @@ public class Predictor {
 			return null;
 		}
 
-		Logger.traceINFO("____________");
-		Logger.traceINFO("buildRecord()");
-		Logger.traceINFO("Ball lap times : " + ballLapTimes.toString());
-		Logger.traceINFO("Wheel lap times : " + wheelLapTimes.toString());
-		Logger.traceINFO("Wheel way : " + wheelWay.toString());
+		Logger.traceDEBUG("____________");
+		Logger.traceDEBUG("buildRecord()");
+		Logger.traceDEBUG("Ball lap times : " + ballLapTimes.toString());
+		Logger.traceDEBUG("Wheel lap times : " + wheelLapTimes.toString());
+		Logger.traceDEBUG("Wheel way : " + wheelWay.toString());
 
 		DataRecord record = new DataRecord();
+		record.way = wheelWay;
 		AccelerationModel ballAccModel = BallisticManager.computeModel(ballLapTimes, Type.BALL);
 		AccelerationModel wheelAccModel = BallisticManager.computeModel(wheelLapTimes, Type.WHEEL);
 
 		double refTime = wheelLapTimes.get(0);
-		Logger.traceINFO("Reference time for measurements : " + refTime);
+		Logger.traceDEBUG("Reference time for measurements : " + refTime);
 		double timeInterval = Constants.TIME_BEFORE_FORECASTING / Constants.NUMBER_OF_SPEEDS_IN_DATASET;
-		Logger.traceINFO("Time interval is : " + timeInterval);
+		Logger.traceDEBUG("Time interval is : " + timeInterval);
 		for (int i = 1; i <= Constants.NUMBER_OF_SPEEDS_IN_DATASET; i++) {
 			double timeForDataset = refTime + i * timeInterval;
-			record.ballSpeeds.add(new ClockSpeed(timeForDataset, ballAccModel.estimateSpeed(timeForDataset)));
-			record.wheelSpeeds.add(new ClockSpeed(timeForDataset, wheelAccModel.estimateSpeed(timeForDataset)));
+			record.ballSpeeds.add(new ClockSpeed(i * timeInterval, ballAccModel.estimateSpeed(timeForDataset)));
+			record.wheelSpeeds.add(new ClockSpeed(i * timeInterval, wheelAccModel.estimateSpeed(timeForDataset)));
 		}
 
 		// maybe upgrade a little more the model to make it more understandable.
@@ -121,18 +132,16 @@ public class Predictor {
 		for (int i = 0; i < dr1.phases.size(); i++) {
 			double positiveShift = Wheel.signedDistanceBetweenNumbers(dr2.phases.get(i), dr1.phases.get(i));
 			double negativeShift = Wheel.signedDistanceBetweenNumbers(dr1.phases.get(i), dr2.phases.get(i));
-			//Take smallest of all.
-			if(positiveShift < negativeShift) {
+			// Take smallest of all.
+			if (positiveShift < negativeShift) {
 				shift += positiveShift;
 			} else {
 				shift -= negativeShift;
 			}
 		}
 		shift /= dr1.phases.size();
-		return (int) Math.round(shift); //0.6667 => 1, 0.3332 => 0.
+		return (int) Math.round(shift); // 0.6667 => 1, 0.3332 => 0.
 	}
-	
-	
 
 	public int predict(List<Double> ballLapTimes, List<Double> wheelLapTimes, WheelWay wheelWay) {
 		DataRecord recordToPredict = buildRecord(ballLapTimes, wheelLapTimes, wheelWay); // phase
@@ -140,15 +149,22 @@ public class Predictor {
 																							// filled.
 		Logger.traceINFO("Record to predict : " + recordToPredict);
 
-		Map<DataRecord, Double> neighbors = KNN.getNeighbors(recordToPredict, cache);
+		Map<DataRecord, Double> neighbors = KNN.getNeighbors(recordToPredict, cache.values());
+
+		if (neighbors.isEmpty()) {
+			String errMsg = "No neighbours in dataset.";
+			Logger.traceERROR(errMsg);
+			throw new RuntimeException(errMsg);
+		}
+		
 		List<Integer> shifts = new ArrayList<>();
 		for (Entry<DataRecord, Double> entry : neighbors.entrySet()) {
 			DataRecord neighbor = entry.getKey();
 			Double distance = entry.getValue();
-			int alignedPhase = getShiftFromPhaseNumbers(neighbor, recordToPredict);
-			Logger.traceINFO(
-					"Dist = " + distance + ", phase = " + alignedPhase + ", neighbour = " + neighbor.toString());
-			shifts.add(alignedPhase);
+			int alignedShift = getShiftFromPhaseNumbers(neighbor, recordToPredict);
+			Logger.traceINFO("Dist = " + Helper.printValueOrInfty(distance) + ", shift = " + alignedShift
+					+ ", neighbour = " + neighbor.toString());
+			shifts.add(alignedShift);
 		}
 
 		OutcomeStatistics outcomeStatistics = KNN.getOutcomeStatistics(new ArrayList<>(neighbors.keySet()), shifts);

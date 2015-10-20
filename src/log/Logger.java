@@ -6,8 +6,19 @@ import java.util.Date;
 public class Logger {
 	private static final String infoKey = "INFO";
 	private static final String errorKey = "ERROR";
+	private static final String debugKey = "DEBUG";
+	
+	private static boolean isDebug = false;
 
 	private static final Printer out = new Printer();
+	
+	private static boolean isDebugEnabled() {
+		return isDebug;
+	}
+	
+	public static void setDebug(boolean debug) {
+		isDebug = debug;
+	}
 
 	public static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss_SSS");
 
@@ -28,6 +39,12 @@ public class Logger {
 
 	public static void traceINFO(String msg) {
 		out.println(baseLogMessage(infoKey, msg));
+	}
+	
+	public static void traceDEBUG(String msg) {
+		if(isDebugEnabled()) {
+			out.println(baseLogMessage(debugKey, msg));
+		}
 	}
 
 	public static void traceINFO_NoNewLine(String msg) {

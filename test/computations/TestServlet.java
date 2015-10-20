@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import servlets.Response;
+import servlets.SessionNotReadyException;
 
 public class TestServlet {
 
@@ -18,8 +19,9 @@ public class TestServlet {
 	 * ANTICLOCKWISE.
 	 */
 	@Test
-	public void test() {
+	public void test() throws SessionNotReadyException {
 		Response response = new Response();
 		Assert.assertEquals(15, response.predictMostProbableNumber("1"));
+		Assert.assertEquals("[0, 4, 15, 19, 21, 26, 32]", response.predictMostProbableRegion("1").toString()); // sorted
 	}
 }
