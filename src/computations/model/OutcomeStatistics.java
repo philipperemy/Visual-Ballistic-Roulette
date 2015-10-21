@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import computations.Helper;
 import computations.wheel.Wheel;
 
 public class OutcomeStatistics {
 
 	@Override
 	public String toString() {
-		return "OutcomeStatistics [meanNumber=" + meanNumber + ", stdDeviation=" + stdDeviation + ", "
+		return "OutcomeStatistics [meanNumber=" + meanNumber + ", stdDeviation=" + Helper.printDigit(stdDeviation) + ", "
 				+ (frequency != null ? "frequency=" + frequency + ", " : "") + "]";
 	}
 

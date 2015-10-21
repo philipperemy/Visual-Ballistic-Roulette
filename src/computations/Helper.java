@@ -3,6 +3,7 @@ package computations;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,4 +77,7 @@ public class Helper {
 		return String.valueOf(value);
 	}
 
+	public static String printDigit(double number) {
+		return new DecimalFormat("###.####").format(number);
+	}
 }

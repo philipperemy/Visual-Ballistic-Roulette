@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import computations.Constants;
+import computations.Helper;
 import computations.wheel.Wheel;
 import computations.wheel.Wheel.WheelWay;
 import log.Logger;
@@ -49,7 +50,7 @@ public class DataRecord {
 		for (DataRecord cacheSmr : cacheSMR) {
 			double dist = cacheSmr.mae(smr);
 			smrMap.put(dist, cacheSmr);
-			Logger.traceINFO("Dist : " + dist + ", record : " + cacheSmr);
+			Logger.traceINFO("Dist : " + Helper.printDigit(dist) + ", " + cacheSmr);
 		}
 
 		int i = 0;
@@ -75,7 +76,6 @@ public class DataRecord {
 			if (smr.way != matched.way) {
 				predictedOutcome = Wheel.getMirrorNumber(predictedOutcome);
 			}
-
 			outcomeNumbersList.add(predictedOutcome);
 		}
 		
@@ -117,8 +117,8 @@ public class DataRecord {
 
 	@Override
 	public String toString() {
-		return "DataRecord [ballSpeedInFrontOfMark=" + ballSpeedInFrontOfMark + ", wheelSpeedInFrontOfMark="
-				+ wheelSpeedInFrontOfMark + ", phaseOfWheelWhenBallPassesInFrontOfMark="
+		return "DataRecord [BS=" + Helper.printDigit(ballSpeedInFrontOfMark) + " m/s, WS="
+				+ Helper.printDigit(wheelSpeedInFrontOfMark) + " m/s, PH_NUMBER="
 				+ phaseOfWheelWhenBallPassesInFrontOfMark + "]";
 	}
 

@@ -1,5 +1,6 @@
 package computations.predictor;
 
+import computations.Helper;
 import computations.wheel.Type;
 import log.Logger;
 
@@ -10,7 +11,7 @@ public class AccelerationModel {
 
 	@Override
 	public String toString() {
-		return "AccelerationModel" + type + " [slope=" + slope + ", intercept=" + intercept + "]";
+		return "AccelerationModel" + type + " [slope=" + Helper.printDigit(slope) + ", intercept=" + Helper.printDigit(intercept) + "]";
 	}
 
 	double slope;
