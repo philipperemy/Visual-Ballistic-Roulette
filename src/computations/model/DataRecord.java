@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import computations.Constants;
 import computations.wheel.Wheel;
 import computations.wheel.Wheel.WheelWay;
 import log.Logger;
@@ -21,7 +22,7 @@ public class DataRecord {
 
 	public double ballSpeedInFrontOfMark;
 	public double wheelSpeedInFrontOfMark;
-	
+
 	/**
 	 * Phases of the ball when the zero of the ball is in front of a landmark.
 	 * After it's just looking at the phase between each phase and what we have
@@ -43,9 +44,7 @@ public class DataRecord {
 				+ Math.abs(smr.wheelSpeedInFrontOfMark - this.wheelSpeedInFrontOfMark);
 	}
 
-	// TODO: check it. And change it when necessary.
-	//KNN!
-	public static DataRecord matchCache(DataRecord smr) {
+	public static List<DataRecord> matchCache(DataRecord smr) {
 		Map<Double, DataRecord> smrMap = new TreeMap<>();
 		for (DataRecord cacheSmr : cacheSMR) {
 			double dist = cacheSmr.mae(smr);
@@ -53,24 +52,36 @@ public class DataRecord {
 			Logger.traceINFO("Dist : " + dist + ", record : " + cacheSmr);
 		}
 
+		int i = 0;
+		List<DataRecord> knnList = new ArrayList<>();
 		for (Entry<Double, DataRecord> orderedCache : smrMap.entrySet()) {
-			return orderedCache.getValue();
+			if (i++ < Constants.NUMBER_OF_NEIGHBORS_KNN) {
+				knnList.add(orderedCache.getValue());
+				Logger.traceINFO("Selected : {" + orderedCache + "}");
+			}
 		}
-		return null;
+		return knnList;
 	}
 
 	public static int predictOutcome(DataRecord smr) {
-		DataRecord matchedSmr = matchCache(smr);
-		int dist = Wheel.signedDistanceBetweenNumbers(matchedSmr.phaseOfWheelWhenBallPassesInFrontOfMark,
-				smr.phaseOfWheelWhenBallPassesInFrontOfMark);
-		int predictedOutcome = Wheel.getNumberWithPhase(matchedSmr.outcome, dist, WheelWay.ANTICLOCKWISE);
 
-		// TODO: check it.
-		if (smr.way != matchedSmr.way) {
-			predictedOutcome = Wheel.getMirrorNumber(predictedOutcome);
+		List<DataRecord> matchedRecordsList = matchCache(smr);
+		List<Integer> outcomeNumbersList = new ArrayList<>();
+		for (DataRecord matched : matchedRecordsList) {
+			int dist = Wheel.signedDistanceBetweenNumbers(matched.phaseOfWheelWhenBallPassesInFrontOfMark,
+					smr.phaseOfWheelWhenBallPassesInFrontOfMark);
+			int predictedOutcome = Wheel.getNumberWithPhase(matched.outcome, dist, WheelWay.ANTICLOCKWISE);
+			// TODO: check it.
+			if (smr.way != matched.way) {
+				predictedOutcome = Wheel.getMirrorNumber(predictedOutcome);
+			}
+
+			outcomeNumbersList.add(predictedOutcome);
 		}
-
-		return predictedOutcome;
+		
+		OutcomeStatistics stat = OutcomeStatistics.create(outcomeNumbersList);
+		Logger.traceINFO("Statistics : " + stat);
+		return stat.meanNumber;
 	}
 
 	@Override
@@ -106,7 +117,7 @@ public class DataRecord {
 
 	@Override
 	public String toString() {
-		return "SmallDataRecord [ballSpeedInFrontOfMark=" + ballSpeedInFrontOfMark + ", wheelSpeedInFrontOfMark="
+		return "DataRecord [ballSpeedInFrontOfMark=" + ballSpeedInFrontOfMark + ", wheelSpeedInFrontOfMark="
 				+ wheelSpeedInFrontOfMark + ", phaseOfWheelWhenBallPassesInFrontOfMark="
 				+ phaseOfWheelWhenBallPassesInFrontOfMark + "]";
 	}
