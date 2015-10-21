@@ -83,7 +83,15 @@ public class KNN {
 																// keys
 
 		for (DataRecord datasetRecord : datasetRecords) {
-			recordsMap.put(computeDistance(recordToPredict, datasetRecord), datasetRecord);
+			if(datasetRecord.way == recordToPredict.way) {
+				recordsMap.put(computeDistance(recordToPredict, datasetRecord), datasetRecord);
+			} else {
+				//TODO: check
+				//Usage of mirroring. x2 on the dataset.
+				DataRecord mirror = DataRecord.createMirror(datasetRecord);
+				boolean checkWheelWay = false;
+				recordsMap.put(computeDistanceClockwiseCheck(recordToPredict, datasetRecord, checkWheelWay), mirror);
+			}
 		}
 
 		Map<DataRecord, Double> neighbors = new HashMap<>();
@@ -100,12 +108,14 @@ public class KNN {
 	}
 
 	// MAE(balls) + MAE(wheels) = they add up.
-	public static double computeDistance(DataRecord record1, DataRecord record2) {
-		if (record1.way != record2.way) {
-			return Double.MAX_VALUE;
+	public static double computeDistanceClockwiseCheck(DataRecord record1, DataRecord record2, boolean checkClockwise) {
+		
+		if(checkClockwise) {
+			if (record1.way != record2.way) {
+				return Double.MAX_VALUE;
+			}
 		}
-		//maybe we can use the mirroring.
-
+		
 		double dist = compareDistanceFromSpeeds(record1.ballSpeeds, record2.ballSpeeds);
 
 		if (!record1.ballSpeeds.isEmpty()) {
@@ -119,6 +129,10 @@ public class KNN {
 		}
 
 		return dist + dist2;
+	}
+	
+	public static double computeDistance(DataRecord record1, DataRecord record2) {
+		return computeDistanceClockwiseCheck(record1, record2, true);
 	}
 
 	private static double compareDistanceFromSpeeds(List<ClockSpeed> list1, List<ClockSpeed> list2) {

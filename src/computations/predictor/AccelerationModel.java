@@ -23,7 +23,7 @@ public class AccelerationModel {
 	public AccelerationModel(double A, double B) {
 		this.slope = A;
 		this.intercept = B;
-		Logger.traceDEBUG(toString());
+		Logger.traceINFO(toString());
 	}
 
 	public AccelerationModel() {

@@ -42,7 +42,7 @@ public class Response extends HttpServlet {
 		this.sm = SessionManager.getInstance();
 		this.pr = Predictor.getInstance();
 		this.sm.init(da);
-		this.pr.init(da);
+		//this.pr.init(da); //TODO: change it.
 	}
 	
 	public void forceDatasetReInit() {

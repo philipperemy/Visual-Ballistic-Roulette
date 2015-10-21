@@ -21,7 +21,7 @@ public class Constants {
 	public static final long TIME_BEFORE_FORECASTING = 9;
 	public static final int NUMBER_OF_SPEEDS_IN_DATASET = 2; //TODO: tune it.
 
-	public static final double NUMBER_OF_NEIGHBORS_KNN = 5;
+	public static final double NUMBER_OF_NEIGHBORS_KNN = 1;
 
 	public static final int REGION_HALF_SIZE = 3; // Region is 3+1+3 = 7.
 
