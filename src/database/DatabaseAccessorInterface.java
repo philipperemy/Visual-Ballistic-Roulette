@@ -2,7 +2,7 @@ package database;
 
 import java.util.List;
 
-import computations.outcome.Outcome;
+import computations.model.Outcome;
 
 public interface DatabaseAccessorInterface {
 
@@ -25,7 +25,7 @@ public interface DatabaseAccessorInterface {
 	public void insertClockwiseFromPrevious(String sessionId);
 
 	public void insertClockwise(String sessionId, String clockwise);
-	
+
 	public void insertOutcome(String sessionId, String number);
 
 	public String selectClockwise(String sessionId);

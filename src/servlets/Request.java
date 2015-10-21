@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import computations.session.SessionManager;
 import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;

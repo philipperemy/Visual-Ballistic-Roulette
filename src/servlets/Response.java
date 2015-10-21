@@ -32,7 +32,7 @@ public class Response extends HttpServlet {
 	public Response(DatabaseAccessorInterface dai) {
 		init(dai);
 	}
-	
+
 	public Response() {
 		init(DatabaseAccessor.getInstance());
 	}
@@ -42,13 +42,13 @@ public class Response extends HttpServlet {
 		this.sm = SessionManager.getInstance();
 		this.pr = Predictor.getInstance();
 		this.sm.init(da);
-		//this.pr.init(da); //TODO: change it.
+		this.pr.init(da); // TODO: change it.
 	}
-	
+
 	public void forceDatasetReInit() {
 		pr.init(da);
 	}
-	
+
 	/**
 	 * To be implemented Basically, 4 measures of wheel loop.
 	 */

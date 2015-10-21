@@ -28,6 +28,10 @@ public class Helper {
 		return list;
 	}
 
+	public static <T> T pop(List<T> list) {
+		return list.get(list.size() - 1);
+	}
+
 	static long lastQueryTimestamp = System.currentTimeMillis();
 
 	private static String queryResponseServlet(String sessionId, boolean isTest, String URL) throws Exception {
@@ -64,9 +68,9 @@ public class Helper {
 		Logger.traceINFO("Predicting next session id : " + currentSessionId + " -> " + nextSessionId);
 		return nextSessionId;
 	}
-	
+
 	public static String printValueOrInfty(Double value) {
-		if(value > Constants.VERY_HIGH_NUMBER) {
+		if (value > Constants.VERY_HIGH_NUMBER) {
 			return "+oo";
 		}
 		return String.valueOf(value);

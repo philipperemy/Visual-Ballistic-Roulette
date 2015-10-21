@@ -13,10 +13,10 @@ public class Test_UivnKJokxP0 {
 	public static String getTime(int hour, int min, int sec, int millis) {
 		return String.valueOf((hour * 3600 + min * 60 + sec) * 1000 + millis);
 	}
-	
+
 	static final String CLOCKWISE = "1";
 	static final String ANTI_CLOCKWISE = "0";
-	
+
 	private static DatabaseAccessorInterface dbRef;
 	private static Response response;
 
@@ -43,7 +43,7 @@ public class Test_UivnKJokxP0 {
 
 		if (addOutcome) {
 			dbRef.insertOutcome(sessionId, "4");
-			//response.forceDatasetReInit();
+			// response.forceDatasetReInit();
 		}
 	}
 
@@ -63,7 +63,7 @@ public class Test_UivnKJokxP0 {
 
 		if (addOutcome) {
 			dbRef.insertOutcome(sessionId, "28");
-			//response.forceDatasetReInit();
+			// response.forceDatasetReInit();
 		}
 
 	}
@@ -87,7 +87,7 @@ public class Test_UivnKJokxP0 {
 
 		if (addOutcome) {
 			dbRef.insertOutcome(sessionId, "13");
-			//response.forceDatasetReInit();
+			// response.forceDatasetReInit();
 		}
 	}
 
@@ -109,7 +109,7 @@ public class Test_UivnKJokxP0 {
 
 		if (addOutcome) {
 			dbRef.insertOutcome(sessionId, "35");
-			//response.forceDatasetReInit();
+			// response.forceDatasetReInit();
 		}
 	}
 
@@ -138,11 +138,11 @@ public class Test_UivnKJokxP0 {
 
 		if (addOutcome) {
 			dbRef.insertOutcome(sessionId, "34");
-			//response.forceDatasetReInit();
+			// response.forceDatasetReInit();
 		}
 
 	}
-	
+
 	private void fill_18_27_336(String sessionId, boolean addOutcome) {
 		dbRef.insertClockwise(sessionId, ANTI_CLOCKWISE);
 
@@ -160,17 +160,17 @@ public class Test_UivnKJokxP0 {
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 18, 41, 560));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 18, 43, 207));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 18, 44, 935));
-		
+
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 18, 31, 590));
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 18, 37, 270));
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 18, 43, 557));
-		
+
 		if (addOutcome) {
 			dbRef.insertOutcome(sessionId, "32");
-			//response.forceDatasetReInit();
+			// response.forceDatasetReInit();
 		}
 	}
-	
+
 	@Test
 	public void test_2() throws SessionNotReadyException {
 		String sessionId = dbRef.getLastSessionId();
@@ -183,12 +183,12 @@ public class Test_UivnKJokxP0 {
 		fill_2_25_944(sessionId, true); // 4
 		sessionId = dbRef.incrementAndGetSessionId();
 		fill_7_54_507(sessionId, true); // 5
-		
+
 		response.forceDatasetReInit();
-		
+
 		sessionId = dbRef.incrementAndGetSessionId();
 		fill_18_27_336(sessionId, false);
-		
+
 		response.predictMostProbableNumber(sessionId);
 
 		// 13.

@@ -19,7 +19,7 @@ public class Constants {
 	public static final long THRESHOLD_BEFORE_NEW_SESSION_IN_MS = 30 * 1000;
 
 	public static final long TIME_BEFORE_FORECASTING = 9;
-	public static final int NUMBER_OF_SPEEDS_IN_DATASET = 2; //TODO: tune it.
+	public static final int NUMBER_OF_SPEEDS_IN_DATASET = 2; // TODO: tune it.
 
 	public static final double NUMBER_OF_NEIGHBORS_KNN = 1;
 
@@ -37,6 +37,6 @@ public class Constants {
 	public static final long POLLING_INTERVAL_MS = 1000;
 
 	public static final int MINIMUM_NUMBER_OF_WHEEL_TIMES_BEFORE_FORECASTING = 3;
-	
+
 	public static final double VERY_HIGH_NUMBER = 1_000_000_000;
 }

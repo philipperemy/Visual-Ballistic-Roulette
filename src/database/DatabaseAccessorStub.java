@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import computations.outcome.Outcome;
+import computations.model.Outcome;
 
 public class DatabaseAccessorStub implements DatabaseAccessorInterface {
 
@@ -23,10 +23,10 @@ public class DatabaseAccessorStub implements DatabaseAccessorInterface {
 		list.add(Double.valueOf(value));
 		map.put(key, list);
 	}
-	
+
 	private List<Double> getFromMap(Map<String, List<Double>> map, String key) {
 		List<Double> list = map.get(key);
-		if(list == null) {
+		if (list == null) {
 			list = new ArrayList<>();
 		}
 		return list;
@@ -95,7 +95,7 @@ public class DatabaseAccessorStub implements DatabaseAccessorInterface {
 	@Override
 	public String selectClockwise(String sessionId) {
 		Boolean clockwise = _clockwise.get(sessionId);
-		if(clockwise == null) {
+		if (clockwise == null) {
 			return null;
 		}
 		return clockwise ? "1" : "0";

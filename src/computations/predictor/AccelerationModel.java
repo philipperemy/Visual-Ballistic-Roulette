@@ -1,5 +1,6 @@
 package computations.predictor;
 
+import computations.wheel.Type;
 import log.Logger;
 
 /**
@@ -9,20 +10,22 @@ public class AccelerationModel {
 
 	@Override
 	public String toString() {
-		return "AccelerationModel [slope=" + slope + ", intercept=" + intercept + "]";
+		return "AccelerationModel" + type + " [slope=" + slope + ", intercept=" + intercept + "]";
 	}
 
 	double slope;
 	double intercept;
+	Type type;
 
 	// The model fitted is f(x) = 1/y, f linear.
 	public double estimateSpeed(double time) {
 		return BallisticManager.inverseSpeed(slope * time + intercept);
 	}
 
-	public AccelerationModel(double A, double B) {
+	public AccelerationModel(double A, double B, Type type) {
 		this.slope = A;
 		this.intercept = B;
+		this.type = type;
 		Logger.traceINFO(toString());
 	}
 

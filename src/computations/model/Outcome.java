@@ -1,4 +1,4 @@
-package computations.outcome;
+package computations.model;
 
 public class Outcome implements Cloneable {
 

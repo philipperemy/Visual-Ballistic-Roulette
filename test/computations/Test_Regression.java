@@ -1,8 +1,8 @@
-package computations.ml;
+package computations;
 
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
-public class Main {
+public class Test_Regression {
 
 	public static void main(String[] args) {
 		SimpleRegression regression = new SimpleRegression();

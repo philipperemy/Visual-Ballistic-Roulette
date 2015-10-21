@@ -7,15 +7,15 @@ public class Logger {
 	private static final String infoKey = "INFO";
 	private static final String errorKey = "ERROR";
 	private static final String debugKey = "DEBUG";
-	
+
 	private static boolean isDebug = false;
 
 	private static final Printer out = new Printer();
-	
+
 	private static boolean isDebugEnabled() {
 		return isDebug;
 	}
-	
+
 	public static void setDebug(boolean debug) {
 		isDebug = debug;
 	}
@@ -40,9 +40,9 @@ public class Logger {
 	public static void traceINFO(String msg) {
 		out.println(baseLogMessage(infoKey, msg));
 	}
-	
+
 	public static void traceDEBUG(String msg) {
-		if(isDebugEnabled()) {
+		if (isDebugEnabled()) {
 			out.println(baseLogMessage(debugKey, msg));
 		}
 	}

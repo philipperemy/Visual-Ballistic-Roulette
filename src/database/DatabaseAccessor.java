@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
 
-import computations.outcome.Outcome;
+import computations.model.Outcome;
 import log.Logger;
 
 public class DatabaseAccessor implements DatabaseAccessorInterface {
@@ -205,10 +205,11 @@ public class DatabaseAccessor implements DatabaseAccessorInterface {
 		return null;
 	}
 
-	//TODO: to test
+	// TODO: to test
 	@Override
 	public void insertOutcome(String sessionId, String number) {
-		String query = "INSERT INTO `roulette_db`.`outcomes` (`ID`, `SESSION_ID`, `NUMBER`, `OBSTACLES`) VALUES (NULL, '" + sessionId + "', '" + number + "', '0');";
+		String query = "INSERT INTO `roulette_db`.`outcomes` (`ID`, `SESSION_ID`, `NUMBER`, `OBSTACLES`) VALUES (NULL, '"
+				+ sessionId + "', '" + number + "', '0');";
 		try {
 			connect.createStatement().execute(query);
 		} catch (SQLException e) {

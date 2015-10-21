@@ -67,7 +67,7 @@ public class BallisticManager {
 	/*
 	 * Speed is inverted to have a linear problem.
 	 */
-	private static AccelerationModel performLinearRegression(List<ClockSpeed> speedMeasurements) {
+	private static AccelerationModel performLinearRegression(List<ClockSpeed> speedMeasurements, Type type) {
 		int n = speedMeasurements.size();
 		double[] x = new double[n];
 		double[] y = new double[n];
@@ -81,7 +81,7 @@ public class BallisticManager {
 			regression.addData(x[i], y[i]);
 		}
 
-		return new AccelerationModel(regression.getSlope(), regression.getIntercept());
+		return new AccelerationModel(regression.getSlope(), regression.getIntercept(), type);
 	}
 
 	// Should not be used
@@ -98,7 +98,7 @@ public class BallisticManager {
 
 	public static AccelerationModel computeModel(List<Double> times, Type type) {
 		List<ClockSpeed> speeds = BallisticManager.computeInstantAverageSpeeds(times, type);
-		return performLinearRegression(speeds);
+		return performLinearRegression(speeds, type);
 	}
 
 }
