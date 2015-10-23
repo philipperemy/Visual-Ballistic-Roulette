@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import computations.Constants;
 import computations.model.Outcome;
 
 public class DatabaseAccessorStub implements DatabaseAccessorInterface {
@@ -52,7 +53,11 @@ public class DatabaseAccessorStub implements DatabaseAccessorInterface {
 	@Override
 	public Outcome getOutcome(String sessionId) {
 		Outcome outcome = new Outcome();
-		outcome.number = _outcomes.get(sessionId);
+		Integer num = _outcomes.get(sessionId);
+		if (num == null) {
+			return null;
+		}
+		outcome.number = num;
 		outcome.obstaclesHitCount = 0;
 		return outcome;
 	}
@@ -89,7 +94,7 @@ public class DatabaseAccessorStub implements DatabaseAccessorInterface {
 
 	@Override
 	public void insertClockwise(String sessionId, String clockwise) {
-		_clockwise.put(sessionId, clockwise.equals("1"));
+		_clockwise.put(sessionId, clockwise.equals(Constants.WHEEL_CLOCKWISE));
 	}
 
 	@Override
@@ -98,7 +103,7 @@ public class DatabaseAccessorStub implements DatabaseAccessorInterface {
 		if (clockwise == null) {
 			return null;
 		}
-		return clockwise ? "1" : "0";
+		return clockwise ? Constants.WHEEL_CLOCKWISE : Constants.WHEEL_ANTICLOCKWISE;
 	}
 
 	@Override

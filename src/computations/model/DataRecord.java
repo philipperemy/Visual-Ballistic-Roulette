@@ -24,13 +24,15 @@ public class DataRecord {
 	public double ballSpeedInFrontOfMark;
 	public double wheelSpeedInFrontOfMark;
 
+	public String sessionId;
+
 	/**
 	 * Phases of the ball when the zero of the ball is in front of a landmark.
 	 * After it's just looking at the phase between each phase and what we have
 	 * to shift the outcome.
 	 */
 	public int phaseOfWheelWhenBallPassesInFrontOfMark;
-	public int outcome; // outcome of the game.
+	public Integer outcome = null; // outcome of the game.
 	public WheelWay way;
 
 	public static List<DataRecord> cacheSMR = new ArrayList<>();
@@ -49,8 +51,14 @@ public class DataRecord {
 		Map<Double, DataRecord> smrMap = new TreeMap<>();
 		for (DataRecord cacheSmr : cacheSMR) {
 			double dist = cacheSmr.mae(smr);
-			smrMap.put(dist, cacheSmr);
-			Logger.traceINFO("Dist : " + Helper.printDigit(dist) + ", " + cacheSmr);
+			if (smr.way == cacheSmr.way) { // For now discarding if the way is
+											// different.
+				smrMap.put(dist, cacheSmr);
+				Logger.traceINFO("Dist : " + Helper.printDigit(dist) + ", " + cacheSmr);
+			} else {
+				Logger.traceINFO("Dist : DISCARDED (WAY) " + Helper.printDigit(dist) + ", " + cacheSmr);
+			}
+
 		}
 
 		int i = 0;
@@ -65,20 +73,13 @@ public class DataRecord {
 	}
 
 	public static int predictOutcome(DataRecord smr) {
-
 		List<DataRecord> matchedRecordsList = matchCache(smr);
 		List<Integer> outcomeNumbersList = new ArrayList<>();
 		for (DataRecord matched : matchedRecordsList) {
-			int dist = Wheel.signedDistanceBetweenNumbers(matched.phaseOfWheelWhenBallPassesInFrontOfMark,
-					smr.phaseOfWheelWhenBallPassesInFrontOfMark);
-			int predictedOutcome = Wheel.getNumberWithPhase(matched.outcome, dist, WheelWay.ANTICLOCKWISE);
-			// TODO: check it.
-			if (smr.way != matched.way) {
-				predictedOutcome = Wheel.getMirrorNumber(predictedOutcome);
-			}
+			int predictedOutcome = Wheel.predictOutcomeWithShift(matched.phaseOfWheelWhenBallPassesInFrontOfMark, matched.outcome, smr.phaseOfWheelWhenBallPassesInFrontOfMark);
 			outcomeNumbersList.add(predictedOutcome);
 		}
-		
+
 		OutcomeStatistics stat = OutcomeStatistics.create(outcomeNumbersList);
 		Logger.traceINFO("Statistics : " + stat);
 		return stat.meanNumber;
@@ -117,9 +118,11 @@ public class DataRecord {
 
 	@Override
 	public String toString() {
-		return "DataRecord [BS=" + Helper.printDigit(ballSpeedInFrontOfMark) + " m/s, WS="
-				+ Helper.printDigit(wheelSpeedInFrontOfMark) + " m/s, PH_NUMBER="
-				+ phaseOfWheelWhenBallPassesInFrontOfMark + "]";
+		return "DataRecord [BS=" + Helper.printDigit(ballSpeedInFrontOfMark) + ", WS="
+				+ Helper.printDigit(wheelSpeedInFrontOfMark) + ", "
+				+ (sessionId != null ? "SessionId=" + sessionId + ", " : "") + "Phase="
+				+ phaseOfWheelWhenBallPassesInFrontOfMark + ", Outcome=" + outcome + ", "
+				+ (way != null ? "Way=" + way : "") + "]";
 	}
 
 }

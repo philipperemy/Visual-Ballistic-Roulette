@@ -6,6 +6,7 @@ import java.util.List;
 import computations.Constants;
 import computations.Helper;
 import computations.model.DataRecord;
+import computations.model.Outcome;
 import computations.wheel.Type;
 import computations.wheel.Wheel;
 import computations.wheel.Wheel.WheelWay;
@@ -41,10 +42,15 @@ public class Predictor {
 
 			try {
 				WheelWay wheelWay = Wheel.convert(clockwise);
-				List<DataRecord> records = buildRecord(ballLapTimesSeconds, wheelLapTimesSeconds, wheelWay);
+				List<DataRecord> records = buildRecord(ballLapTimesSeconds, wheelLapTimesSeconds, wheelWay, sessionId);
 				for (DataRecord record : records) {
+					Outcome outcome = da.getOutcome(sessionId);
+					if(outcome != null) {
+						record.outcome = outcome.number;
+					} else {
+						Logger.traceERROR("No outcome for session = " + sessionId);
+					}
 					record.cacheIt();
-					record.outcome = da.getOutcome(sessionId).number;
 				}
 			} catch (Exception e) {
 				Logger.traceERROR(e);
@@ -54,8 +60,7 @@ public class Predictor {
 	}
 
 	// only return the last one.
-	private List<DataRecord> buildRecord(List<Double> ballLapTimes, List<Double> wheelLapTimes,
-			WheelWay wheelWay) {
+	private List<DataRecord> buildRecord(List<Double> ballLapTimes, List<Double> wheelLapTimes, WheelWay wheelWay, String sessionId) {
 
 		if (ballLapTimes.isEmpty() || wheelLapTimes.isEmpty()) {
 			return null;
@@ -95,6 +100,7 @@ public class Predictor {
 			smr.ballSpeedInFrontOfMark = ballAccModel.estimateSpeed(correspondingBallLapTime);
 			smr.wheelSpeedInFrontOfMark = lastWheelSpeed; // May be improved
 			smr.way = wheelWay;
+			smr.sessionId = sessionId;
 
 			int phase = Phase.findPhaseNumberBetweenBallAndWheel(correspondingBallLapTime, wheelLapTimeInFrontOfRef,
 					lastWheelSpeed, wheelWay);
@@ -116,9 +122,9 @@ public class Predictor {
 	private Predictor() {
 	}
 
-	public int predict(List<Double> ballLapTimes, List<Double> wheelLapTimes, WheelWay wheelWay) {
+	public int predict(List<Double> ballLapTimes, List<Double> wheelLapTimes, WheelWay wheelWay, String sessionId) {
 		// Phase is filled. All lap times are used to build the model.
-		List<DataRecord> recordToPredicts = buildRecord(ballLapTimes, wheelLapTimes, wheelWay);
+		List<DataRecord> recordToPredicts = buildRecord(ballLapTimes, wheelLapTimes, wheelWay, sessionId);
 
 		if (recordToPredicts.isEmpty()) {
 			String errMsg = "No records to predict.";

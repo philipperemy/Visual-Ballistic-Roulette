@@ -42,7 +42,7 @@ public class Response extends HttpServlet {
 		this.sm = SessionManager.getInstance();
 		this.pr = Predictor.getInstance();
 		this.sm.init(da);
-		this.pr.init(da); // TODO: change it.
+		this.pr.init(da);
 	}
 
 	public void forceDatasetReInit() {
@@ -102,7 +102,7 @@ public class Response extends HttpServlet {
 		List<Double> ballLapTimesSeconds = computations.Helper.convertToSeconds(ballLapTimes);
 
 		WheelWay wheelWay = Wheel.convert(da.selectClockwise(sessionId));
-		int mostProbableNumber = pr.predict(ballLapTimesSeconds, wheelLapTimesSeconds, wheelWay);
+		int mostProbableNumber = pr.predict(ballLapTimesSeconds, wheelLapTimesSeconds, wheelWay, sessionId);
 		return mostProbableNumber;
 	}
 

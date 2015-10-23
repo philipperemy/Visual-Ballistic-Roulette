@@ -5,13 +5,15 @@ import computations.wheel.Type;
 import log.Logger;
 
 /**
- * Assuming the deceleration is constant. (1/Y) = AX + B
+ * Assuming the deceleration is constant. (1/Y) = AX + B TODO: check it. It will
+ * depend on the training set.
  */
 public class AccelerationModel {
 
 	@Override
 	public String toString() {
-		return "AccelerationModel" + type + " [slope=" + Helper.printDigit(slope) + ", intercept=" + Helper.printDigit(intercept) + "]";
+		return "AccelerationModel" + type + " [slope=" + Helper.printDigit(slope) + ", intercept="
+				+ Helper.printDigit(intercept) + "]";
 	}
 
 	double slope;

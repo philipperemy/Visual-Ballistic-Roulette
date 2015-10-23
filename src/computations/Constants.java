@@ -21,7 +21,7 @@ public class Constants {
 	public static final long TIME_BEFORE_FORECASTING = 9;
 	public static final int NUMBER_OF_SPEEDS_IN_DATASET = 2; // TODO: tune it.
 
-	public static final double NUMBER_OF_NEIGHBORS_KNN = 2;
+	public static final double NUMBER_OF_NEIGHBORS_KNN = 1;
 
 	public static final int REGION_HALF_SIZE = 3; // Region is 3+1+3 = 7.
 
@@ -39,4 +39,7 @@ public class Constants {
 	public static final int MINIMUM_NUMBER_OF_WHEEL_TIMES_BEFORE_FORECASTING = 3;
 
 	public static final double VERY_HIGH_NUMBER = 1_000_000_000;
+
+	public static final String WHEEL_CLOCKWISE = "1";
+	public static final String WHEEL_ANTICLOCKWISE = "0";
 }

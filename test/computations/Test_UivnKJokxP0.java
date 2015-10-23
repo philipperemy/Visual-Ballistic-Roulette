@@ -1,34 +1,13 @@
 package computations;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import database.DatabaseAccessorInterface;
-import database.DatabaseAccessorStub;
-import servlets.Response;
 import servlets.SessionNotReadyException;
 
-public class Test_UivnKJokxP0 {
-
-	public static String getTime(int hour, int min, int sec, int millis) {
-		return String.valueOf((hour * 3600 + min * 60 + sec) * 1000 + millis);
-	}
-
-	static final String CLOCKWISE = "1";
-	static final String ANTI_CLOCKWISE = "0";
-
-	private static DatabaseAccessorInterface dbRef;
-	private static Response response;
-
-	@BeforeClass
-	public static void setUp() {
-		dbRef = new DatabaseAccessorStub();
-		response = new Response(dbRef);
-		response.da = dbRef;
-	}
+public class Test_UivnKJokxP0 extends TestClass {
 
 	private void fill_1_23_601(String sessionId, boolean addOutcome) {
-		dbRef.insertClockwise(sessionId, ANTI_CLOCKWISE);
+		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 1, 23, 601));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 1, 24, 992));
@@ -48,7 +27,7 @@ public class Test_UivnKJokxP0 {
 	}
 
 	private void fill_1_47_071(String sessionId, boolean addOutcome) {
-		dbRef.insertClockwise(sessionId, ANTI_CLOCKWISE);
+		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 1, 47, 071));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 1, 48, 276));
@@ -70,7 +49,7 @@ public class Test_UivnKJokxP0 {
 
 	// OTHER BALL!
 	private void fill_2_07_462(String sessionId, boolean addOutcome) {
-		dbRef.insertClockwise(sessionId, ANTI_CLOCKWISE);
+		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 2, 7, 462));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 2, 8, 807));
@@ -93,7 +72,7 @@ public class Test_UivnKJokxP0 {
 
 	private void fill_2_25_944(String sessionId, boolean addOutcome) {
 
-		dbRef.insertClockwise(sessionId, ANTI_CLOCKWISE);
+		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 2, 26, 020));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 2, 27, 508));
@@ -115,7 +94,7 @@ public class Test_UivnKJokxP0 {
 
 	private void fill_7_54_507(String sessionId, boolean addOutcome) {
 
-		dbRef.insertClockwise(sessionId, ANTI_CLOCKWISE);
+		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 7, 54, 525));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 7, 55, 138));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 7, 55, 883));
@@ -144,7 +123,7 @@ public class Test_UivnKJokxP0 {
 	}
 
 	private void fill_18_27_336(String sessionId, boolean addOutcome) {
-		dbRef.insertClockwise(sessionId, ANTI_CLOCKWISE);
+		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 18, 32, 015));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 18, 32, 764));
@@ -187,8 +166,9 @@ public class Test_UivnKJokxP0 {
 		response.forceDatasetReInit();
 
 		sessionId = dbRef.incrementAndGetSessionId();
-		fill_18_27_336(sessionId, false);
-
+		//fill_18_27_336(sessionId, false);
+		fill_7_54_507(sessionId, true); // 5
+		
 		response.predictMostProbableNumber(sessionId);
 
 		// 13.

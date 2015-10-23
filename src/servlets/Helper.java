@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
 
 import javax.servlet.http.HttpServletResponse;
 

@@ -21,7 +21,8 @@ public class TestServlet {
 	@Test
 	public void test() throws SessionNotReadyException {
 		Response response = new Response();
-		Assert.assertEquals(15, response.predictMostProbableNumber("1"));
-		Assert.assertEquals("[0, 4, 15, 19, 21, 26, 32]", response.predictMostProbableRegion("1").toString()); // sorted
+		Assert.assertEquals(15, response.predictMostProbableNumber(Constants.WHEEL_CLOCKWISE));
+		Assert.assertEquals("[0, 4, 15, 19, 21, 26, 32]",
+				response.predictMostProbableRegion(Constants.WHEEL_CLOCKWISE).toString()); // sorted
 	}
 }

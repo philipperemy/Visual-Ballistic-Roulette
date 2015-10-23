@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
 
+import computations.Constants;
 import computations.model.Outcome;
 import log.Logger;
 
@@ -167,9 +168,9 @@ public class DatabaseAccessor implements DatabaseAccessorInterface {
 	}
 
 	public void insertClockwiseFromPrevious(String sessionId) {
-		String clockwise = getLastClockwise().equals("0") ? "1" : "0"; // compute
-																		// new
-																		// one
+		// Compute new one
+		String clockwise = getLastClockwise().equals(Constants.WHEEL_ANTICLOCKWISE) ? Constants.WHEEL_CLOCKWISE
+				: Constants.WHEEL_ANTICLOCKWISE;
 		insertClockwise(sessionId, clockwise);
 	}
 

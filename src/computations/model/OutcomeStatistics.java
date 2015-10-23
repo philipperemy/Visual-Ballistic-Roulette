@@ -12,19 +12,19 @@ public class OutcomeStatistics {
 
 	@Override
 	public String toString() {
-		return "OutcomeStatistics [meanNumber=" + meanNumber + ", stdDeviation=" + Helper.printDigit(stdDeviation) + ", "
-				+ (frequency != null ? "frequency=" + frequency + ", " : "") + "]";
+		return "OutcomeStatistics [meanNumber=" + meanNumber + ", stdDeviation=" + Helper.printDigit(stdDeviation)
+				+ ", " + (frequency != null ? "frequency=" + frequency + ", " : "") + "]";
 	}
 
 	public int meanNumber;
 	public double stdDeviation;
 	public Map<Integer, Integer> frequency;
-	
+
 	public static OutcomeStatistics create(List<Integer> outcomeNumbers) {
 		Map<Integer, Integer> frequencyPerNumber = new HashMap<>(); // Number
 																	// <->
 																	// Frequency
-		for(Integer number : outcomeNumbers) {
+		for (Integer number : outcomeNumbers) {
 
 			Integer freq = frequencyPerNumber.get(number);
 			if (freq == null || freq.intValue() == 0) {
@@ -34,13 +34,21 @@ public class OutcomeStatistics {
 			}
 		}
 
-		double meanIndex = 0;
-		for (int i = 0; i < outcomeNumbers.size(); i++) {
-			int currentIndex = Wheel.findIndexOfNumber(outcomeNumbers.get(i));
-			meanIndex += currentIndex;
+		//Reduce the Residuals Sum of Squares (RSS).
+		int meanNumber = 0;
+		double minRss = Double.MAX_VALUE;
+		for( int idxMean = 0; idxMean < Wheel.NUMBERS.length; idxMean++) {
+			
+			double rss = 0;
+			for(Integer outcomeNumber : outcomeNumbers) {
+				rss += Math.pow(Wheel.distanceBetweenNumbers(outcomeNumber, Wheel.NUMBERS[idxMean]), 2);
+			}
+			
+			if(rss < minRss) {
+				meanNumber = Wheel.NUMBERS[idxMean];
+				minRss = rss;
+			}
 		}
-		meanIndex /= outcomeNumbers.size();
-		int meanNumber = Wheel.NUMBERS[(int) meanIndex];
 
 		double var = 0;
 		for (int i = 0; i < outcomeNumbers.size(); i++) {

@@ -1,5 +1,6 @@
 package earpad;
 
+import computations.Constants;
 import computations.Helper;
 import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;
@@ -19,7 +20,7 @@ public class Main {
 		 * TODO: change it. Absolutely.
 		 */
 		Main main = new Main();
-		main.firstSessionId = "1";
+		main.firstSessionId = Constants.WHEEL_CLOCKWISE;
 		Logger.traceINFO("Starting the program with session id = " + main.firstSessionId);
 
 		CallBack callback = new CallBack() {
@@ -28,6 +29,8 @@ public class Main {
 			public boolean onResponse(String response) {
 				Logger.traceINFO("[Callback] Response is : " + response);
 				switch (response) {
+				case "E":
+					return false;
 				case "0":
 				case "1":
 				case "2":

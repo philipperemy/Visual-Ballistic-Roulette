@@ -88,8 +88,6 @@ public class TestWheel {
 	}
 
 	// Can predict the ball before the wheel passes by.
-	// TODO: must be really careful when trying to estimate the phases. ball
-	// after or ball before?
 	@Test
 	public void testHelperStrategy5() {
 		// Let assume we are at 57000.

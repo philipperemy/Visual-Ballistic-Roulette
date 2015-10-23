@@ -1,5 +1,7 @@
 package computations.wheel;
 
+import computations.Constants;
+
 public class Wheel {
 
 	public static final int[] NUMBERS = { 0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24,
@@ -11,9 +13,9 @@ public class Wheel {
 
 	public static WheelWay convert(String clockwise) {
 		switch (clockwise) {
-		case "1":
+		case Constants.WHEEL_CLOCKWISE:
 			return WheelWay.CLOCKWISE;
-		case "0":
+		case Constants.WHEEL_ANTICLOCKWISE:
 			return WheelWay.ANTICLOCKWISE;
 		default:
 			throw new RuntimeException("Invalid clockwise : " + clockwise);
@@ -82,13 +84,17 @@ public class Wheel {
 		throw new RuntimeException();
 	}
 
-	// TODO: test it. Number1 - Number2. Rename it! Always positive.
-	public static int signedDistanceBetweenNumbers(int number1, int number2) {
-		int idx1 = findIndexOfNumber(number1);
-		int idx2 = findIndexOfNumber(number2);
-		return getIndex(idx1 - idx2);
+	public static int predictOutcomeWithShift(int phase1, int outcome1, int phase2) {
+		int idx_p1 = findIndexOfNumber(phase1);
+		int idx_o1 = findIndexOfNumber(outcome1);
+		int diffIdxBetweenPhaseAndOutcome1 = getIndex(idx_o1 - idx_p1);
+		
+		int id_p2 = findIndexOfNumber(phase2);
+		int id_o2 = getIndex(id_p2 + diffIdxBetweenPhaseAndOutcome1);
+		return NUMBERS[id_o2];
 	}
 
+	// Here max distance is 37/2. Opposite of the wheel.
 	public static int distanceBetweenNumbers(int number1, int number2) {
 		int idx1 = findIndexOfNumber(number1);
 		int idx2 = findIndexOfNumber(number2);
@@ -97,9 +103,11 @@ public class Wheel {
 		return diff < diff_to_maxlen ? diff : diff_to_maxlen;
 	}
 
-	// TODO: use it. For now. It has only been tested.
+	//TODO: this is false. Check it.
+	@Deprecated
 	public static int getMirrorNumber(int number) {
 		int idx = findIndexOfNumber(number);
+		//int newIdx = getIndex(idx + NUMBERS.length/2);
 		int newIdx = getIndex(-idx + NUMBERS.length);
 		return NUMBERS[newIdx];
 	}
