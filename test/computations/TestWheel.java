@@ -12,7 +12,7 @@ public class TestWheel {
 
 	@Test
 	public void testWheel() {
-		Assert.assertEquals(0 , Wheel.findIndexOfNumber(0), 0);
+		Assert.assertEquals(0, Wheel.findIndexOfNumber(0), 0);
 		Assert.assertEquals(Wheel.NUMBERS.length - 1, Wheel.findIndexOfNumber(26));
 		Assert.assertEquals(2, Wheel.findIndexOfNumber(15));
 

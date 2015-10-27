@@ -1,6 +1,7 @@
 package computations;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -11,6 +12,8 @@ import log.Logger;
 
 public class Helper {
 
+	static long lastQueryTimestamp = System.currentTimeMillis();
+	
 	public static List<Double> convertToSeconds(List<Double> listInMilliseconds) {
 		List<Double> listInSeconds = new ArrayList<>();
 		for (Double itemMsec : listInMilliseconds) {
@@ -20,8 +23,8 @@ public class Helper {
 	}
 
 	// [0, 4, 15, 19, 21, 26, 32]
-	public static List<Integer> unserialize(String str) {
-		str = str.substring(1, str.length() - 1);
+	public static List<Integer> unserialize(String input) {
+		String str = input.substring(1, input.length() - 1);
 		List<Integer> list = new ArrayList<>();
 		for (String chunk : str.split(",")) {
 			list.add(Integer.parseInt(chunk.trim()));
@@ -33,16 +36,14 @@ public class Helper {
 		return list.get(list.size() - 1);
 	}
 
-	static long lastQueryTimestamp = System.currentTimeMillis();
-
-	private static String queryResponseServlet(String sessionId, boolean isTest, String URL) throws Exception {
+	private static String queryResponseServlet(boolean isTest, String urlString) throws InterruptedException, IOException  {
 		String fullString = "";
-		Logger.traceINFO("QUERY : " + URL);
+		Logger.traceINFO("QUERY : " + urlString);
 		if (System.currentTimeMillis() - lastQueryTimestamp < Constants.POLLING_INTERVAL_MS) {
 			Thread.sleep(Constants.POLLING_INTERVAL_MS);
 		}
 		lastQueryTimestamp = System.currentTimeMillis();
-		URL url = new URL(URL);
+		URL url = new URL(urlString);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 		String line;
 		while ((line = reader.readLine()) != null) {
@@ -58,13 +59,13 @@ public class Helper {
 		String query = isTest ? Constants.LOCALHOST_SERVER_RESPONSE_QUERY_URL + sessionId
 				: Constants.SERVER_RESPONSE_QUERY_URL + sessionId;
 		queryAndResponseList.add(query);
-		queryAndResponseList.add(queryResponseServlet(sessionId, isTest, query));
+		queryAndResponseList.add(queryResponseServlet(isTest, query));
 		return queryAndResponseList;
 	}
 
 	// Not the best but okay for the purpose.
 	public static String predictNextSessionId(String currentSessionId) {
-		int cur = Integer.valueOf(currentSessionId).intValue();
+		int cur = Integer.valueOf(currentSessionId);
 		String nextSessionId = String.valueOf(++cur);
 		Logger.traceINFO("Predicting next session id : " + currentSessionId + " -> " + nextSessionId);
 		return nextSessionId;
@@ -79,5 +80,9 @@ public class Helper {
 
 	public static String printDigit(double number) {
 		return new DecimalFormat("###.####").format(number);
+	}
+	
+	public static double inverseSpeed(final double speed) {
+		return (double) 1.0 / speed;
 	}
 }

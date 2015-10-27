@@ -92,7 +92,7 @@ public class Predictor {
 			double correspondingBallLapTime = Phase.getNextTimeBallIsInFrontOfRef(ballLapTimes,
 					previousWheelLapTimeInFrontOfRef);
 
-			// We can do even better. Why don't we use the model?
+			// TODO: We can do even better. Why don't we use the model?
 			double lastWheelSpeed = BallisticManager.getWheelSpeed(previousWheelLapTimeInFrontOfRef,
 					wheelLapTimeInFrontOfRef);
 

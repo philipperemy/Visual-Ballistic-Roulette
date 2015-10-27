@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
 import computations.Constants;
+import computations.Helper;
 import computations.wheel.Type;
 import log.Logger;
 
@@ -60,9 +61,6 @@ public class BallisticManager {
 		return speedMeasurements;
 	}
 
-	public static double inverseSpeed(double speed) {
-		return (double) 1.0 / speed;
-	}
 
 	/*
 	 * Speed is inverted to have a linear problem.
@@ -73,7 +71,7 @@ public class BallisticManager {
 		double[] y = new double[n];
 		for (int i = 0; i < n; i++) {
 			x[i] = speedMeasurements.get(i).time;
-			y[i] = inverseSpeed(speedMeasurements.get(i).speed);
+			y[i] = Helper.inverseSpeed(speedMeasurements.get(i).speed);
 		}
 
 		SimpleRegression regression = new SimpleRegression();
@@ -84,21 +82,8 @@ public class BallisticManager {
 		return new AccelerationModel(regression.getSlope(), regression.getIntercept(), type);
 	}
 
-	// Should not be used
-	@SuppressWarnings("unused")
-	@Deprecated
-	private static AccelerationModel performSimpleLinearRegression(List<ClockSpeed> speedMeasurements) {
-		ClockSpeed start = speedMeasurements.get(0);
-		ClockSpeed end = speedMeasurements.get(speedMeasurements.size() - 1);
-		AccelerationModel ac = new AccelerationModel();
-		ac.slope = (end.speed - start.speed) / (end.time - start.time);
-		ac.intercept = end.speed - ac.slope * end.time;
-		return ac;
-	}
-
 	public static AccelerationModel computeModel(List<Double> times, Type type) {
 		List<ClockSpeed> speeds = BallisticManager.computeInstantAverageSpeeds(times, type);
 		return performLinearRegression(speeds, type);
 	}
-
 }

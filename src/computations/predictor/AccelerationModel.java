@@ -5,8 +5,8 @@ import computations.wheel.Type;
 import log.Logger;
 
 /**
- * Assuming the deceleration is constant. (1/Y) = AX + B TODO: check it. It will
- * depend on the training set.
+ * Assuming the deceleration is constant. (1/Y) = AX + B.
+ * According to Roulette computers.com, it is true.
  */
 public class AccelerationModel {
 
@@ -22,14 +22,14 @@ public class AccelerationModel {
 
 	// The model fitted is f(x) = 1/y, f linear.
 	public double estimateSpeed(double time) {
-		return BallisticManager.inverseSpeed(slope * time + intercept);
+		return Helper.inverseSpeed(slope * time + intercept);
 	}
 
-	public AccelerationModel(double A, double B, Type type) {
-		this.slope = A;
-		this.intercept = B;
+	public AccelerationModel(double slope, double intercept, Type type) {
+		this.slope = slope;
+		this.intercept = intercept;
 		this.type = type;
-		Logger.traceINFO(toString());
+		Logger.traceDEBUG(toString());
 	}
 
 	public AccelerationModel() {
