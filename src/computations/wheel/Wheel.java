@@ -2,17 +2,21 @@ package computations.wheel;
 
 import computations.Constants;
 
-public class Wheel {
+public class Wheel
+{
 
-	public static final int[] NUMBERS = { 0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24,
-			16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26 };
+	public static final int[] NUMBERS = { 0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22,
+			18, 29, 7, 28, 12, 35, 3, 26 };
 
-	public static enum WheelWay {
+	public static enum WheelWay
+	{
 		CLOCKWISE, ANTICLOCKWISE
 	};
 
-	public static WheelWay convert(String clockwise) {
-		switch (clockwise) {
+	public static WheelWay convert(String clockwise)
+	{
+		switch (clockwise)
+		{
 		case Constants.WHEEL_CLOCKWISE:
 			return WheelWay.CLOCKWISE;
 		case Constants.WHEEL_ANTICLOCKWISE:
@@ -22,35 +26,42 @@ public class Wheel {
 		}
 	}
 
-	public static int getIndex(int index) {
-		if (index < 0) {
+	public static int getIndex(int index)
+	{
+		if (index < 0)
+		{
 			index += NUMBERS.length;
 		}
-		if (index >= NUMBERS.length) {
+		if (index >= NUMBERS.length)
+		{
 			index -= NUMBERS.length;
 		}
 		return index;
 	}
 
-	public static int[] getNearbyNumbers(int referenceNumber, int size) {
+	public static int[] getNearbyNumbers(int referenceNumber, int size)
+	{
 		int idxNumber = findIndexOfNumber(referenceNumber);
 		int firstIxNumber = getIndex(idxNumber - size);
 		int numOfElements = size * 2 + 1;
 		int[] res = new int[numOfElements];
 		int c = 0;
 		int cur = firstIxNumber;
-		while (c < numOfElements) {
+		while (c < numOfElements)
+		{
 			cur = getIndex(cur);
 			res[c++] = NUMBERS[cur++];
 		}
 		return res;
 	}
 
-	public static int getNumberWithPhase(int referenceNumber, int phaseCount, WheelWay way) {
+	public static int getNumberWithPhase(int referenceNumber, int phaseCount, WheelWay way)
+	{
 		int idxReferenceNumber = findIndexOfNumber(referenceNumber);
 
 		int newIdx = 0;
-		switch (way) {
+		switch (way)
+		{
 
 		case CLOCKWISE:
 			newIdx = idxReferenceNumber - phaseCount;
@@ -69,22 +80,27 @@ public class Wheel {
 
 	// Test it. Force the test by using Deprecated.
 	@Deprecated
-	public static int getNextNumberClockwise(int number) {
+	public static int getNextNumberClockwise(int number)
+	{
 		int idx = findIndexOfNumber(number);
 		idx++;
 		return NUMBERS[getIndex(idx)];
 	}
 
-	public static int findIndexOfNumber(int number) {
-		for (int i = 0; i < NUMBERS.length; i++) {
-			if (number == NUMBERS[i]) {
+	public static int findIndexOfNumber(int number)
+	{
+		for (int i = 0; i < NUMBERS.length; i++)
+		{
+			if (number == NUMBERS[i])
+			{
 				return i;
 			}
 		}
 		throw new RuntimeException();
 	}
 
-	public static int predictOutcomeWithShift(int phase1, int outcome1, int phase2) {
+	public static int predictOutcomeWithShift(int phase1, int outcome1, int phase2)
+	{
 		int idx_p1 = findIndexOfNumber(phase1);
 		int idx_o1 = findIndexOfNumber(outcome1);
 		int diffIdxBetweenPhaseAndOutcome1 = getIndex(idx_o1 - idx_p1);
@@ -95,7 +111,8 @@ public class Wheel {
 	}
 
 	// Here max distance is 37/2. Opposite of the wheel.
-	public static int distanceBetweenNumbers(int number1, int number2) {
+	public static int distanceBetweenNumbers(int number1, int number2)
+	{
 		int idx1 = findIndexOfNumber(number1);
 		int idx2 = findIndexOfNumber(number2);
 		int diff = Math.abs(idx1 - idx2);
@@ -106,7 +123,8 @@ public class Wheel {
 	// Do not use it. We do not know the mirroring because we do not know at
 	// time 0.
 	@Deprecated
-	public static int getMirrorNumber(int number) {
+	public static int getMirrorNumber(int number)
+	{
 		int idx = findIndexOfNumber(number);
 		// int newIdx = getIndex(idx + NUMBERS.length/2);
 		int newIdx = getIndex(-idx + NUMBERS.length);

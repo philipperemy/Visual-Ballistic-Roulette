@@ -1,9 +1,11 @@
 package computations.model;
 
-public class Outcome implements Cloneable {
+public class Outcome implements Cloneable
+{
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + number;
@@ -12,7 +14,8 @@ public class Outcome implements Cloneable {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -28,19 +31,22 @@ public class Outcome implements Cloneable {
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "Outcome [number=" + number + ", obstaclesHitCount=" + obstaclesHitCount + "]";
 	}
 
 	public int number;
 	public int obstaclesHitCount;
 
-	public Outcome(int number, int obstaclesHitCount) {
+	public Outcome(int number, int obstaclesHitCount)
+	{
 		this.number = number;
 		this.obstaclesHitCount = obstaclesHitCount;
 	}
 
-	public Outcome() {
+	public Outcome()
+	{
 	}
 
 }

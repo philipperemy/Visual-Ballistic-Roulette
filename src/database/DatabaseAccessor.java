@@ -13,14 +13,17 @@ import computations.Constants;
 import computations.model.Outcome;
 import log.Logger;
 
-public class DatabaseAccessor implements DatabaseAccessorInterface {
+public class DatabaseAccessor implements DatabaseAccessorInterface
+{
 
 	private static final String WHEEL_LAP_TIMES_TABLE_NAME = "wheel_lap_times";
 	private static final String BALL_LAP_TIMES_TABLE_NAME = "ball_lap_times";
 	private static volatile DatabaseAccessor instance;
 
-	public static DatabaseAccessor getInstance() {
-		if (instance == null) {
+	public static DatabaseAccessor getInstance()
+	{
+		if (instance == null)
+		{
 			instance = new DatabaseAccessor();
 		}
 		return instance;
@@ -28,179 +31,226 @@ public class DatabaseAccessor implements DatabaseAccessorInterface {
 
 	private Connection connect = null;
 
-	private DatabaseAccessor() {
+	private DatabaseAccessor()
+	{
 		readDataBase();
 	}
 
-	private void readDataBase() {
-		try {
+	private void readDataBase()
+	{
+		try
+		{
 
 			Class.forName("com.mysql.jdbc.Driver");
 			connect = DriverManager.getConnection("jdbc:mysql://localhost/roulette_db?" + "user=root&password=");
 
-		} catch (CommunicationsException ce) {
+		} catch (CommunicationsException ce)
+		{
 			Logger.traceERROR(ce);
 			System.exit(0);
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			Logger.traceERROR(e);
 		}
 	}
 
-	public void insertBallLapTimes(String sessionId, String lapTime) {
+	public void insertBallLapTimes(String sessionId, String lapTime)
+	{
 		Logger.traceINFO("insertBallLapTimes, sessionId = " + sessionId + ", laptime = " + lapTime);
 		insert(BALL_LAP_TIMES_TABLE_NAME, sessionId, lapTime);
 	}
 
-	public void insertWheelLapTimes(String sessionId, String lapTime) {
+	public void insertWheelLapTimes(String sessionId, String lapTime)
+	{
 		Logger.traceINFO("insertWheelLapTimes, sessionId = " + sessionId + ", laptime = " + lapTime);
 		insert(WHEEL_LAP_TIMES_TABLE_NAME, sessionId, lapTime);
 	}
 
-	private void insert(String tableName, String sessionId, String lapTime) {
-		String query = "INSERT INTO `roulette_db`.`" + tableName + "` (`ID`, `SESSION_ID`, `TIME`) VALUES (NULL, '"
-				+ sessionId + "', '" + lapTime + "');";
-		try {
+	private void insert(String tableName, String sessionId, String lapTime)
+	{
+		String query = "INSERT INTO `roulette_db`.`" + tableName + "` (`ID`, `SESSION_ID`, `TIME`) VALUES (NULL, '" + sessionId + "', '" + lapTime
+				+ "');";
+		try
+		{
 			connect.createStatement().execute(query);
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			Logger.traceERROR(e);
 		}
 	}
 
-	public String incrementAndGetSessionId() {
+	public String incrementAndGetSessionId()
+	{
 		String query = "INSERT INTO `roulette_db`.`session` (`ID`) VALUES (NULL);";
-		try {
+		try
+		{
 			connect.createStatement().execute(query);
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			Logger.traceERROR(e);
 		}
 		return getLastSessionId();
 	}
 
-	public Outcome getOutcome(String sessionId) {
+	public Outcome getOutcome(String sessionId)
+	{
 		String query = "SELECT * FROM `outcomes` WHERE SESSION_ID = " + sessionId + ";";
-		try {
+		try
+		{
 			ResultSet resultSet = connect.createStatement().executeQuery(query);
 			Outcome outcome = new Outcome();
-			if (resultSet.next()) {
+			if (resultSet.next())
+			{
 				outcome.number = Integer.parseInt(resultSet.getString("NUMBER"));
 				outcome.obstaclesHitCount = Integer.parseInt(resultSet.getString("OBSTACLES"));
 				return outcome;
 			}
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			Logger.traceERROR(e);
 		}
 		return null;
 	}
 
-	public List<String> getSessionIds() {
+	public List<String> getSessionIds()
+	{
 		String query = "SELECT ID from session";
 		List<String> ids = new ArrayList<>();
-		try {
+		try
+		{
 			ResultSet resultSet = connect.createStatement().executeQuery(query);
-			while (resultSet.next()) {
+			while (resultSet.next())
+			{
 				ids.add(resultSet.getString("ID"));
 			}
 
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			Logger.traceERROR(e);
 		}
 		return ids;
 	}
 
-	public String getLastSessionId() {
+	public String getLastSessionId()
+	{
 		String query = "SELECT ID from session ORDER BY id DESC LIMIT 1";
-		try {
+		try
+		{
 			ResultSet resultSet = connect.createStatement().executeQuery(query);
-			while (resultSet.next()) {
+			while (resultSet.next())
+			{
 				return resultSet.getString("ID");
 			}
 
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			Logger.traceERROR(e);
 		}
 		return null;
 	}
 
-	public List<Double> selectBallLapTimes(String sessionId) {
+	public List<Double> selectBallLapTimes(String sessionId)
+	{
 		return selectLapTimes(BALL_LAP_TIMES_TABLE_NAME, sessionId);
 	}
 
-	public List<Double> selectWheelLapTimes(String sessionId) {
+	public List<Double> selectWheelLapTimes(String sessionId)
+	{
 		return selectLapTimes(WHEEL_LAP_TIMES_TABLE_NAME, sessionId);
 	}
 
-	private List<Double> selectLapTimes(String tableName, String sessionId) {
+	private List<Double> selectLapTimes(String tableName, String sessionId)
+	{
 		String sqlQuery = "SELECT TIME FROM `" + tableName + "` WHERE SESSION_ID = " + sessionId + ";";
 		List<Double> list = new ArrayList<>();
-		try {
+		try
+		{
 			ResultSet resultSet = connect.createStatement().executeQuery(sqlQuery);
-			while (resultSet.next()) {
+			while (resultSet.next())
+			{
 				list.add(Double.valueOf(resultSet.getString("TIME")));
 			}
 
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			Logger.traceERROR(e);
 		}
 		return list;
 	}
 
-	private String select(String SQLquery, String field) {
-		try {
+	private String select(String SQLquery, String field)
+	{
+		try
+		{
 			ResultSet resultSet = connect.createStatement().executeQuery(SQLquery);
-			while (resultSet.next()) {
+			while (resultSet.next())
+			{
 				return resultSet.getString(field);
 			}
 
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			Logger.traceERROR(e);
 		}
 		return null;
 	}
 
-	public void close() {
-		try {
-			if (connect != null) {
+	public void close()
+	{
+		try
+		{
+			if (connect != null)
+			{
 				connect.close();
 			}
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			Logger.traceERROR(e);
 		}
 	}
 
-	public void insertClockwiseFromPrevious(String sessionId) {
+	public void insertClockwiseFromPrevious(String sessionId)
+	{
 		// Compute new one
-		String clockwise = getLastClockwise().equals(Constants.WHEEL_ANTICLOCKWISE) ? Constants.WHEEL_CLOCKWISE
-				: Constants.WHEEL_ANTICLOCKWISE;
+		String clockwise = getLastClockwise().equals(Constants.WHEEL_ANTICLOCKWISE) ? Constants.WHEEL_CLOCKWISE : Constants.WHEEL_ANTICLOCKWISE;
 		insertClockwise(sessionId, clockwise);
 	}
 
 	// Should check if exist and update accordingly. The user should be able to
 	// overwrite the default values.
-	public void insertClockwise(String sessionId, String clockwise) {
-		String query = "INSERT INTO `roulette_db`.`clockwise` (`ID`, `CLOCKWISE`, `SESSION_ID`) VALUES (NULL, '"
-				+ clockwise + "', '" + sessionId + "');";
-		try {
+	public void insertClockwise(String sessionId, String clockwise)
+	{
+		String query = "INSERT INTO `roulette_db`.`clockwise` (`ID`, `CLOCKWISE`, `SESSION_ID`) VALUES (NULL, '" + clockwise + "', '" + sessionId
+				+ "');";
+		try
+		{
 			connect.createStatement().execute(query);
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			Logger.traceERROR(e);
 		}
 	}
 
-	public String selectClockwise(String sessionId) {
+	public String selectClockwise(String sessionId)
+	{
 		String query = "SELECT * FROM `clockwise` WHERE SESSION_ID = " + sessionId;
 		return select(query, "CLOCKWISE");
 	}
 
-	public String getLastClockwise() {
+	public String getLastClockwise()
+	{
 		// too dangerous to choose the last session.
 		String query = "SELECT * FROM `clockwise` WHERE ID = (SELECT MAX(ID) FROM `clockwise`)";
-		try {
+		try
+		{
 			ResultSet resultSet = connect.createStatement().executeQuery(query);
-			while (resultSet.next()) {
+			while (resultSet.next())
+			{
 				return resultSet.getString("CLOCKWISE");
 			}
 
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			Logger.traceERROR(e);
 		}
 		return null;
@@ -208,12 +258,15 @@ public class DatabaseAccessor implements DatabaseAccessorInterface {
 
 	// TODO: to test
 	@Override
-	public void insertOutcome(String sessionId, String number) {
-		String query = "INSERT INTO `roulette_db`.`outcomes` (`ID`, `SESSION_ID`, `NUMBER`, `OBSTACLES`) VALUES (NULL, '"
-				+ sessionId + "', '" + number + "', '0');";
-		try {
+	public void insertOutcome(String sessionId, String number)
+	{
+		String query = "INSERT INTO `roulette_db`.`outcomes` (`ID`, `SESSION_ID`, `NUMBER`, `OBSTACLES`) VALUES (NULL, '" + sessionId + "', '"
+				+ number + "', '0');";
+		try
+		{
 			connect.createStatement().execute(query);
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			Logger.traceERROR(e);
 		}
 	}

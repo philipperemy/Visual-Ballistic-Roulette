@@ -4,11 +4,13 @@ import org.junit.Test;
 
 import servlets.SessionNotReadyException;
 
-public class TestWorkflow extends TestClass {
+public class TestWorkflow extends TestClass
+{
 
 	// From video.
 	@Test
-	public void test_1() throws SessionNotReadyException {
+	public void test_1() throws SessionNotReadyException
+	{
 		String sessionId = dbRef.getLastSessionId();
 		game_1(sessionId, true);
 		sessionId = dbRef.incrementAndGetSessionId();
@@ -20,7 +22,8 @@ public class TestWorkflow extends TestClass {
 		response.predictMostProbableNumber(sessionId);
 	}
 
-	public void game_3(String sessionId, boolean train) {
+	public void game_3(String sessionId, boolean train)
+	{
 		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 0, 53, 994));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 0, 54, 929));
@@ -40,12 +43,14 @@ public class TestWorkflow extends TestClass {
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 1, 4, 616));
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 1, 8, 382));
 
-		if (train) {
+		if (train)
+		{
 			dbRef.insertOutcome(sessionId, "33");
 		}
 	}
 
-	public void game_2(String sessionId, boolean train) {
+	public void game_2(String sessionId, boolean train)
+	{
 		dbRef.insertClockwise(sessionId, Constants.WHEEL_CLOCKWISE);
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 0, 28, 170));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 0, 28, 713));
@@ -70,12 +75,14 @@ public class TestWorkflow extends TestClass {
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 0, 43, 743));
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 0, 47, 769));
 
-		if (train) {
+		if (train)
+		{
 			dbRef.insertOutcome(sessionId, "13");
 		}
 	}
 
-	public void game_1(String sessionId, boolean train) {
+	public void game_1(String sessionId, boolean train)
+	{
 		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 0, 2, 871));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 0, 3, 582));
@@ -96,7 +103,8 @@ public class TestWorkflow extends TestClass {
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 0, 13, 461));
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 0, 17, 114));
 
-		if (train) {
+		if (train)
+		{
 			dbRef.insertOutcome(sessionId, "15");
 		}
 	}

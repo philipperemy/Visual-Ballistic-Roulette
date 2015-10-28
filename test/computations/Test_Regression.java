@@ -2,9 +2,11 @@ package computations;
 
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
-public class Test_Regression {
+public class Test_Regression
+{
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		SimpleRegression regression = new SimpleRegression();
 		regression.addData(1d, 2d);
 		// At this point, with only one observation,

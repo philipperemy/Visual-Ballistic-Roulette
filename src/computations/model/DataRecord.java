@@ -12,7 +12,8 @@ import computations.wheel.Wheel;
 import computations.wheel.Wheel.WheelWay;
 import log.Logger;
 
-public class DataRecord {
+public class DataRecord
+{
 
 	// Principle:
 	// BallSpeed known in front of mark
@@ -37,30 +38,37 @@ public class DataRecord {
 
 	public static List<DataRecord> cacheSMR = new ArrayList<>();
 
-	public void cacheIt() {
+	public void cacheIt()
+	{
 		Logger.traceINFO("[Cache] Record added : " + toString());
 		cacheSMR.add(this);
 	}
 
-	public double mae(DataRecord smr) {
+	public double mae(DataRecord smr)
+	{
 		return Math.abs(smr.ballSpeedInFrontOfMark - this.ballSpeedInFrontOfMark)
 				+ Math.abs(smr.wheelSpeedInFrontOfMark - this.wheelSpeedInFrontOfMark);
 	}
 
-	public static List<DataRecord> matchCache(DataRecord smr, int knnNumber) {
+	public static List<DataRecord> matchCache(DataRecord smr, int knnNumber)
+	{
 		Map<Double, DataRecord> smrMap = new TreeMap<>();
-		for (DataRecord cacheSmr : cacheSMR) {
+		for (DataRecord cacheSmr : cacheSMR)
+		{
 			double dist = cacheSmr.mae(smr);
-			if (smr.way == cacheSmr.way) { // For now discarding if the way is
-											// different.
+			if (smr.way == cacheSmr.way)
+			{ // For now discarding if the way is
+				// different.
 				smrMap.put(dist, cacheSmr);
-			} else {
+			} else
+			{
 				Logger.traceINFO("Dist : DISCARDED (WAY) " + Helper.printDigit(dist) + ", " + cacheSmr);
 			}
 		}
 
 		// print all them.
-		for (Entry<Double, DataRecord> entry : smrMap.entrySet()) {
+		for (Entry<Double, DataRecord> entry : smrMap.entrySet())
+		{
 			double dist = entry.getKey();
 			DataRecord cacheSmr = entry.getValue();
 			Logger.traceINFO("Dist : " + Helper.printDigit(dist) + ", " + cacheSmr);
@@ -68,8 +76,10 @@ public class DataRecord {
 
 		int i = 0;
 		List<DataRecord> knnList = new ArrayList<>();
-		for (Entry<Double, DataRecord> orderedCache : smrMap.entrySet()) {
-			if (i++ < knnNumber) {
+		for (Entry<Double, DataRecord> orderedCache : smrMap.entrySet())
+		{
+			if (i++ < knnNumber)
+			{
 				knnList.add(orderedCache.getValue());
 				Logger.traceINFO("Selected : {" + orderedCache + "}");
 			}
@@ -78,12 +88,14 @@ public class DataRecord {
 	}
 
 	// Simple Scheme
-	public static int predictOutcome_old(DataRecord predict) {
+	public static int predictOutcome_old(DataRecord predict)
+	{
 		List<DataRecord> matchedRecordsList = matchCache(predict, Constants.NUMBER_OF_NEIGHBORS_KNN);
 		List<Integer> outcomeNumbersList = new ArrayList<>();
-		for (DataRecord matched : matchedRecordsList) {
-			int predictedOutcome = Wheel.predictOutcomeWithShift(matched.phaseOfWheelWhenBallPassesInFrontOfMark,
-					matched.outcome, predict.phaseOfWheelWhenBallPassesInFrontOfMark);
+		for (DataRecord matched : matchedRecordsList)
+		{
+			int predictedOutcome = Wheel.predictOutcomeWithShift(matched.phaseOfWheelWhenBallPassesInFrontOfMark, matched.outcome,
+					predict.phaseOfWheelWhenBallPassesInFrontOfMark);
 			outcomeNumbersList.add(predictedOutcome);
 		}
 
@@ -93,19 +105,22 @@ public class DataRecord {
 	}
 
 	// Complex Weighting Aggregation Scheme
-	public static int predictOutcome(DataRecord predict) {
+	public static int predictOutcome(DataRecord predict)
+	{
 		List<DataRecord> matchedRecordsList = matchCache(predict, Constants.NUMBER_OF_NEIGHBORS_KNN);
 		List<Integer> outcomeNumbersList = new ArrayList<>();
-		for (DataRecord matched : matchedRecordsList) {
-			int predictedOutcome = Wheel.predictOutcomeWithShift(matched.phaseOfWheelWhenBallPassesInFrontOfMark,
-					matched.outcome, predict.phaseOfWheelWhenBallPassesInFrontOfMark);
+		for (DataRecord matched : matchedRecordsList)
+		{
+			int predictedOutcome = Wheel.predictOutcomeWithShift(matched.phaseOfWheelWhenBallPassesInFrontOfMark, matched.outcome,
+					predict.phaseOfWheelWhenBallPassesInFrontOfMark);
 			outcomeNumbersList.add(predictedOutcome);
 		}
 
 		// Do that in order to have a stable KNN. What is the behavior of my
 		// result if I change some parameters to the model?
 		List<Integer> outcomeMeanNumbersList = new ArrayList<>();
-		for (int knnNumber = 1; knnNumber <= Constants.NUMBER_OF_NEIGHBORS_KNN; knnNumber++) {
+		for (int knnNumber = 1; knnNumber <= Constants.NUMBER_OF_NEIGHBORS_KNN; knnNumber++)
+		{
 			OutcomeStatistics stat = OutcomeStatistics.create(outcomeNumbersList.subList(0, knnNumber));
 			Logger.traceINFO("Statistics : " + stat);
 			outcomeMeanNumbersList.add(stat.meanNumber);
@@ -117,17 +132,20 @@ public class DataRecord {
 	}
 
 	// Simple Weighting Scheme
-	public static int predictOutcome_new(DataRecord predict) {
+	public static int predictOutcome_new(DataRecord predict)
+	{
 		List<DataRecord> matchedRecordsList = matchCache(predict, Constants.NUMBER_OF_NEIGHBORS_KNN);
 		List<Integer> outcomeNumbersList = new ArrayList<>();
 
 		// Weight the outcome.
-		for (int i = 0; i < matchedRecordsList.size(); i++) {
+		for (int i = 0; i < matchedRecordsList.size(); i++)
+		{
 			DataRecord matched = matchedRecordsList.get(i);
-			int predictedOutcome = Wheel.predictOutcomeWithShift(matched.phaseOfWheelWhenBallPassesInFrontOfMark,
-					matched.outcome, predict.phaseOfWheelWhenBallPassesInFrontOfMark);
+			int predictedOutcome = Wheel.predictOutcomeWithShift(matched.phaseOfWheelWhenBallPassesInFrontOfMark, matched.outcome,
+					predict.phaseOfWheelWhenBallPassesInFrontOfMark);
 
-			for (int j = 0; j < matchedRecordsList.size() - i; j++) {
+			for (int j = 0; j < matchedRecordsList.size() - i; j++)
+			{
 				outcomeNumbersList.add(predictedOutcome);
 			}
 		}
@@ -138,7 +156,8 @@ public class DataRecord {
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		final int prime = 31;
 		int result = 1;
 		long temp;
@@ -151,7 +170,8 @@ public class DataRecord {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -169,12 +189,11 @@ public class DataRecord {
 	}
 
 	@Override
-	public String toString() {
-		return "DataRecord [BS=" + Helper.printDigit(ballSpeedInFrontOfMark) + ", WS="
-				+ Helper.printDigit(wheelSpeedInFrontOfMark) + ", "
-				+ (sessionId != null ? "SessionId=" + sessionId + ", " : "") + "Phase="
-				+ phaseOfWheelWhenBallPassesInFrontOfMark + ", Outcome=" + outcome + ", "
-				+ (way != null ? "Way=" + way : "") + "]";
+	public String toString()
+	{
+		return "DataRecord [BS=" + Helper.printDigit(ballSpeedInFrontOfMark) + ", WS=" + Helper.printDigit(wheelSpeedInFrontOfMark) + ", "
+				+ (sessionId != null ? "SessionId=" + sessionId + ", " : "") + "Phase=" + phaseOfWheelWhenBallPassesInFrontOfMark + ", Outcome="
+				+ outcome + ", " + (way != null ? "Way=" + way : "") + "]";
 	}
 
 }

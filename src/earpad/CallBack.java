@@ -1,6 +1,7 @@
 package earpad;
 
-public interface CallBack {
+public interface CallBack
+{
 
 	// True: terminate thread.
 	// False: no we are not done yet.

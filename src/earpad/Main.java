@@ -6,16 +6,19 @@ import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;
 import log.Logger;
 
-public class Main {
+public class Main
+{
 
 	private DatabaseAccessorInterface da = DatabaseAccessor.getInstance();
 	private String firstSessionId = da.getLastSessionId();
 
-	public Main() {
+	public Main()
+	{
 		da.getLastSessionId();
 	}
 
-	public void run() throws InterruptedException {
+	public void run() throws InterruptedException
+	{
 		/**
 		 * TODO: change it. Absolutely.
 		 */
@@ -26,9 +29,11 @@ public class Main {
 		CallBack callback = new CallBack() {
 
 			@Override
-			public boolean onResponse(String response) {
+			public boolean onResponse(String response)
+			{
 				Logger.traceINFO("[Callback] Response is : " + response);
-				switch (response) {
+				switch (response)
+				{
 				case "E":
 					return false;
 				case "0":
@@ -43,13 +48,15 @@ public class Main {
 			}
 
 			@Override
-			public void onError(Exception e) {
+			public void onError(Exception e)
+			{
 				Logger.traceERROR(e);
 			}
 		};
 
 		String currentSessionId = main.firstSessionId;
-		while (true) {
+		while (true)
+		{
 			GameTask pollerTask = new GameTask();
 			pollerTask.init(currentSessionId, callback);
 			Thread thread = new Thread(pollerTask);
@@ -62,7 +69,8 @@ public class Main {
 
 	}
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception
+	{
 		Main main = new Main();
 		main.run();
 		// Logger.traceINFO("Should never see this message except in the case

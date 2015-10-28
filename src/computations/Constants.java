@@ -1,6 +1,7 @@
 package computations;
 
-public class Constants {
+public class Constants
+{
 
 	/**
 	 * TODO: To be measured
@@ -27,11 +28,9 @@ public class Constants {
 	public static final String IP_ADDRESS = "89.87.50.128";
 	public static final String IP_LOCALHOST = "localhost";
 
-	public static final String SERVER_RESPONSE_QUERY_URL = "http://" + IP_ADDRESS
-			+ ":8080/RouletteServer/Response?sessionid=";
+	public static final String SERVER_RESPONSE_QUERY_URL = "http://" + IP_ADDRESS + ":8080/RouletteServer/Response?sessionid=";
 
-	public static final String LOCALHOST_SERVER_RESPONSE_QUERY_URL = "http://" + IP_LOCALHOST
-			+ ":8080/RouletteServer/Response?sessionid=";
+	public static final String LOCALHOST_SERVER_RESPONSE_QUERY_URL = "http://" + IP_LOCALHOST + ":8080/RouletteServer/Response?sessionid=";
 
 	public static final long POLLING_INTERVAL_MS = 1000;
 

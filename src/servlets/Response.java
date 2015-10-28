@@ -22,22 +22,26 @@ import log.Logger;
 
 //http://localhost:8080/RouletteServer/Response
 @WebServlet("/Response")
-public class Response extends HttpServlet {
+public class Response extends HttpServlet
+{
 	private static final long serialVersionUID = 1L;
 
 	public DatabaseAccessorInterface da;
 	private SessionManager sm;
 	private Predictor pr;
 
-	public Response(DatabaseAccessorInterface dai) {
+	public Response(DatabaseAccessorInterface dai)
+	{
 		init(dai);
 	}
 
-	public Response() {
+	public Response()
+	{
 		init(DatabaseAccessor.getInstance());
 	}
 
-	private void init(DatabaseAccessorInterface da) {
+	private void init(DatabaseAccessorInterface da)
+	{
 		this.da = da;
 		this.sm = SessionManager.getInstance();
 		this.pr = Predictor.getInstance();
@@ -45,27 +49,32 @@ public class Response extends HttpServlet {
 		this.pr.init(da);
 	}
 
-	public void forceDatasetReInit() {
+	public void forceDatasetReInit()
+	{
 		pr.init(da);
 	}
 
 	/**
 	 * To be implemented Basically, 4 measures of wheel loop.
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		String sessionId = request.getParameter(Parameters.SESSION_ID);
-		if (sessionId == null) {
+		if (sessionId == null)
+		{
 			Helper.notifyMissingFieldError(response, Parameters.SESSION_ID);
 			return;
 		}
 
-		try {
+		try
+		{
 			List<Integer> region = predictMostProbableRegion(sessionId);
 			response.getWriter().append(region.toString());
-		} catch (SessionNotReadyException snre) { // Good exception
+		} catch (SessionNotReadyException snre)
+		{ // Good exception
 			Helper.notifyNotReadyYet(response, snre.getNumberOfRecordedTimesOfWheel());
-		} catch (Exception e) { // Bad exception
+		} catch (Exception e)
+		{ // Bad exception
 			Logger.traceERROR(e);
 			Helper.notifyNotReadyYet(response, "E"); // E means EXCEPTION! So
 														// stop everything for
@@ -73,11 +82,13 @@ public class Response extends HttpServlet {
 		}
 	}
 
-	public List<Integer> predictMostProbableRegion(String sessionId) throws SessionNotReadyException {
+	public List<Integer> predictMostProbableRegion(String sessionId) throws SessionNotReadyException
+	{
 		int mostProbableNumber = predictMostProbableNumber(sessionId);
 		int[] numbers = Wheel.getNearbyNumbers(mostProbableNumber, Constants.REGION_HALF_SIZE);
 		List<Integer> regionNumbersList = new ArrayList<>();
-		for (int number : numbers) {
+		for (int number : numbers)
+		{
 			regionNumbersList.add(number);
 		}
 		Collections.sort(regionNumbersList); // Sort it. The table is sorted.
@@ -85,16 +96,19 @@ public class Response extends HttpServlet {
 		return regionNumbersList;
 	}
 
-	public int predictMostProbableNumber(String sessionId) throws SessionNotReadyException {
+	public int predictMostProbableNumber(String sessionId) throws SessionNotReadyException
+	{
 		List<Double> wheelLapTimes = da.selectWheelLapTimes(sessionId);
 		List<Double> ballLapTimes = da.selectBallLapTimes(sessionId);
 
-		if (wheelLapTimes.isEmpty() || ballLapTimes.isEmpty()) {
+		if (wheelLapTimes.isEmpty() || ballLapTimes.isEmpty())
+		{
 			throw new SessionNotReadyException(0);
 		}
 
 		int numberOfRecordedWheelTimes = wheelLapTimes.size();
-		if (wheelLapTimes.size() < Constants.MINIMUM_NUMBER_OF_WHEEL_TIMES_BEFORE_FORECASTING) {
+		if (wheelLapTimes.size() < Constants.MINIMUM_NUMBER_OF_WHEEL_TIMES_BEFORE_FORECASTING)
+		{
 			throw new SessionNotReadyException(numberOfRecordedWheelTimes);
 		}
 
@@ -106,8 +120,8 @@ public class Response extends HttpServlet {
 		return mostProbableNumber;
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		doGet(request, response);
 	}
 

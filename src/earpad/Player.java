@@ -6,7 +6,8 @@ import java.util.List;
 import computations.Helper;
 import log.Logger;
 
-public class Player {
+public class Player
+{
 
 	private static final String SOUND_NAME_0_RECORDS_FILENAME = "record_0.wav";
 	private static final String SOUND_NAME_1_RECORDS_FILENAME = "record_1.wav";
@@ -14,8 +15,10 @@ public class Player {
 	private static final String REPEAT_FILENAME = "repeat.wav";
 	private static final String TERMINATED_FILENAME = "terminated.wav";
 
-	public static void playSound_NumberOfRecordedWheelTimes(String ref) {
-		switch (ref) {
+	public static void playSound_NumberOfRecordedWheelTimes(String ref)
+	{
+		switch (ref)
+		{
 		case "0":
 			audioPlay(SOUND_NAME_0_RECORDS_FILENAME);
 			break;
@@ -32,28 +35,33 @@ public class Player {
 		}
 	}
 
-	public static void playSound_Numbers(String response) {
+	public static void playSound_Numbers(String response)
+	{
 		List<Integer> numbers = Helper.unserialize(response);
 		List<String> filenames = new ArrayList<>();
-		for (Integer num : numbers) {
+		for (Integer num : numbers)
+		{
 			String filename = getFilename(num);
 			audioPlay(filename);
 			filenames.add(filename);
 		}
 		audioPlay(REPEAT_FILENAME); // Say it is going to repeat.
 
-		for (String filename : filenames) {
+		for (String filename : filenames)
+		{
 			audioPlay(filename);
 		}
 		audioPlay(TERMINATED_FILENAME); // Say it is going to repeat.
 	}
 
-	private static String getFilename(Integer num) {
+	private static String getFilename(Integer num)
+	{
 		String numStr = String.valueOf(num);
 		return "number_" + numStr + ".wav";
 	}
 
-	private static void audioPlay(String soundNameRecordsFilename) {
+	private static void audioPlay(String soundNameRecordsFilename)
+	{
 		// TODO: implement it. Dependent on the software.
 		Logger.traceERROR("Play : " + soundNameRecordsFilename);
 	}

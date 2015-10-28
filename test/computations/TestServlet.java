@@ -6,7 +6,8 @@ import org.junit.Test;
 import servlets.Response;
 import servlets.SessionNotReadyException;
 
-public class TestServlet {
+public class TestServlet
+{
 
 	/*
 	 * Make sure the database is started
@@ -19,7 +20,8 @@ public class TestServlet {
 	 * ANTICLOCKWISE.
 	 */
 	@Test
-	public void test() throws SessionNotReadyException {
+	public void test() throws SessionNotReadyException
+	{
 		Response response = new Response();
 		String sessionId = "1";
 		Constants.NUMBER_OF_NEIGHBORS_KNN = 1;

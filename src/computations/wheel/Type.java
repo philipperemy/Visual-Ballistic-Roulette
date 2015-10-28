@@ -1,5 +1,6 @@
 package computations.wheel;
 
-public enum Type {
+public enum Type
+{
 	BALL, WHEEL
 }

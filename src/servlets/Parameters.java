@@ -1,6 +1,7 @@
 package servlets;
 
-public class Parameters {
+public class Parameters
+{
 
 	// Request
 	public static final String TIME = "time";

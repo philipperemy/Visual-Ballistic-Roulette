@@ -4,9 +4,11 @@ import org.junit.Test;
 
 import servlets.SessionNotReadyException;
 
-public class Test_UivnKJokxP0 extends TestClass {
+public class Test_UivnKJokxP0 extends TestClass
+{
 
-	private void fill_1_23_601(String sessionId, boolean addOutcome) {
+	private void fill_1_23_601(String sessionId, boolean addOutcome)
+	{
 		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 1, 23, 601));
@@ -20,13 +22,15 @@ public class Test_UivnKJokxP0 extends TestClass {
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 1, 29, 723));
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 1, 36, 510));
 
-		if (addOutcome) {
+		if (addOutcome)
+		{
 			dbRef.insertOutcome(sessionId, "4");
 			// response.forceDatasetReInit();
 		}
 	}
 
-	private void fill_1_47_071(String sessionId, boolean addOutcome) {
+	private void fill_1_47_071(String sessionId, boolean addOutcome)
+	{
 		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 1, 47, 071));
@@ -40,7 +44,8 @@ public class Test_UivnKJokxP0 extends TestClass {
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 1, 54, 153));
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 1, 59, 717));
 
-		if (addOutcome) {
+		if (addOutcome)
+		{
 			dbRef.insertOutcome(sessionId, "28");
 			// response.forceDatasetReInit();
 		}
@@ -48,7 +53,8 @@ public class Test_UivnKJokxP0 extends TestClass {
 	}
 
 	// OTHER BALL!
-	private void fill_2_07_462(String sessionId, boolean addOutcome) {
+	private void fill_2_07_462(String sessionId, boolean addOutcome)
+	{
 		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 2, 7, 462));
@@ -64,13 +70,15 @@ public class Test_UivnKJokxP0 extends TestClass {
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 2, 18, 577));
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 2, 26, 026));
 
-		if (addOutcome) {
+		if (addOutcome)
+		{
 			dbRef.insertOutcome(sessionId, "13");
 			// response.forceDatasetReInit();
 		}
 	}
 
-	private void fill_2_25_944(String sessionId, boolean addOutcome) {
+	private void fill_2_25_944(String sessionId, boolean addOutcome)
+	{
 
 		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 
@@ -86,13 +94,15 @@ public class Test_UivnKJokxP0 extends TestClass {
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 2, 34, 386));
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 2, 43, 995));
 
-		if (addOutcome) {
+		if (addOutcome)
+		{
 			dbRef.insertOutcome(sessionId, "35");
 			// response.forceDatasetReInit();
 		}
 	}
 
-	private void fill_7_54_507(String sessionId, boolean addOutcome) {
+	private void fill_7_54_507(String sessionId, boolean addOutcome)
+	{
 
 		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 7, 54, 525));
@@ -115,13 +125,15 @@ public class Test_UivnKJokxP0 extends TestClass {
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 8, 0, 853));
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 8, 7, 171));
 
-		if (addOutcome) {
+		if (addOutcome)
+		{
 			dbRef.insertOutcome(sessionId, "34");
 			// response.forceDatasetReInit();
 		}
 	}
 
-	private void fill_18_27_336(String sessionId, boolean addOutcome) {
+	private void fill_18_27_336(String sessionId, boolean addOutcome)
+	{
 		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 18, 32, 015));
@@ -143,14 +155,16 @@ public class Test_UivnKJokxP0 extends TestClass {
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 18, 37, 270));
 		dbRef.insertWheelLapTimes(sessionId, getTime(0, 18, 43, 557));
 
-		if (addOutcome) {
+		if (addOutcome)
+		{
 			dbRef.insertOutcome(sessionId, "32");
 			// response.forceDatasetReInit();
 		}
 	}
 
 	@Test
-	public void test_2() throws SessionNotReadyException {
+	public void test_2() throws SessionNotReadyException
+	{
 		String sessionId = dbRef.getLastSessionId();
 		fill_1_23_601(sessionId, true); // 1
 		sessionId = dbRef.incrementAndGetSessionId();
@@ -171,7 +185,8 @@ public class Test_UivnKJokxP0 extends TestClass {
 	}
 
 	@Test
-	public void test_3() throws SessionNotReadyException {
+	public void test_3() throws SessionNotReadyException
+	{
 		String sessionId = dbRef.getLastSessionId();
 		fill_1_23_601(sessionId, true); // 1
 		sessionId = dbRef.incrementAndGetSessionId();
@@ -211,9 +226,10 @@ public class Test_UivnKJokxP0 extends TestClass {
 		// 13.
 	}
 
-	@Test(expected=SessionNotReadyException.class)
-	public void test_4() throws SessionNotReadyException {
-		
+	@Test(expected = SessionNotReadyException.class)
+	public void test_4() throws SessionNotReadyException
+	{
+
 		String sessionId = dbRef.getLastSessionId();
 		fill_1_23_601(sessionId, true); // 1
 		sessionId = dbRef.incrementAndGetSessionId();
@@ -252,5 +268,5 @@ public class Test_UivnKJokxP0 extends TestClass {
 
 		// 13.
 	}
-	
+
 }
