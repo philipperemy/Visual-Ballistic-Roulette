@@ -12,6 +12,7 @@ import computations.wheel.Wheel;
 import computations.wheel.Wheel.WheelWay;
 import database.DatabaseAccessorInterface;
 import log.Logger;
+import servlets.SessionNotReadyException;
 
 public class Predictor {
 
@@ -68,14 +69,19 @@ public class Predictor {
 	private List<DataRecord> buildRecord2(List<Double> ballLapTimes, List<Double> wheelLapTimes, WheelWay wheelWay,
 			String sessionId) {
 
+		List<DataRecord> smallDataRecords = new ArrayList<>();
+		
 		if (ballLapTimes.isEmpty() || wheelLapTimes.isEmpty()) {
-			return null;
+			return smallDataRecords;
+		}
+		
+		if(ballLapTimes.size() < Constants.MINIMUM_NUMBER_OF_BALL_TIMES_BEFORE_FORECASTING) { //We need at least three ball measures. To build the model.
+			return smallDataRecords;
 		}
 
 		AccelerationModel ballAccModel = BallisticManager.computeModel(ballLapTimes, Type.BALL);
 		AccelerationModel wheelAccModel = BallisticManager.computeModel(wheelLapTimes, Type.WHEEL);
-
-		List<DataRecord> smallDataRecords = new ArrayList<>();
+		
 		for (int i = 0; i < ballLapTimes.size(); i++) {
 
 			double correspondingBallLapTime = ballLapTimes.get(i);
@@ -84,11 +90,11 @@ public class Predictor {
 			Double lastWheelLapTimeInFrontOfRef = Helper.getLastTimeWheelIsInFrontOfRef(wheelLapTimes,
 					correspondingBallLapTime);
 
-			//It means that the first record is a ball lap times.
-			if(lastWheelLapTimeInFrontOfRef == null) {
+			// It means that the first record is a ball lap times.
+			if (lastWheelLapTimeInFrontOfRef == null) {
 				continue;
 			}
-			
+
 			int phase = Phase.findPhaseNumberBetweenBallAndWheel(correspondingBallLapTime, lastWheelLapTimeInFrontOfRef,
 					wheelSpeedInFrontOfMark, wheelWay);
 
@@ -158,14 +164,14 @@ public class Predictor {
 	private Predictor() {
 	}
 
-	public int predict(List<Double> ballLapTimes, List<Double> wheelLapTimes, WheelWay wheelWay, String sessionId) {
+	public int predict(List<Double> ballLapTimes, List<Double> wheelLapTimes, WheelWay wheelWay, String sessionId) throws SessionNotReadyException {
 		// Phase is filled. All lap times are used to build the model.
 		List<DataRecord> recordToPredicts = buildRecord2(ballLapTimes, wheelLapTimes, wheelWay, sessionId);
 
 		if (recordToPredicts.isEmpty()) {
 			String errMsg = "No records to predict.";
 			Logger.traceERROR(errMsg);
-			throw new RuntimeException(errMsg);
+			throw new SessionNotReadyException(wheelLapTimes.size());
 		}
 
 		// Take the last one.

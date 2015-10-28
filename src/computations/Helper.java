@@ -102,8 +102,8 @@ public class Helper {
 
 	public static Double getLastTimeWheelIsInFrontOfRef(List<Double> wheelLapTimes, double ballLapTimeInFrontOfRef) {
 		Double res = null;
-		for(Double wheelTimeInFrontOfRef : wheelLapTimes) {
-			if(wheelTimeInFrontOfRef < ballLapTimeInFrontOfRef) {
+		for (Double wheelTimeInFrontOfRef : wheelLapTimes) {
+			if (wheelTimeInFrontOfRef < ballLapTimeInFrontOfRef) {
 				res = wheelTimeInFrontOfRef;
 			}
 		}

@@ -22,6 +22,7 @@ public class TestServlet {
 	public void test() throws SessionNotReadyException {
 		Response response = new Response();
 		String sessionId = "1";
+		Constants.NUMBER_OF_NEIGHBORS_KNN = 1;
 		Assert.assertEquals(15, response.predictMostProbableNumber(sessionId));
 		Assert.assertEquals("[0, 4, 15, 19, 21, 26, 32]", response.predictMostProbableRegion(sessionId).toString()); // sorted
 	}

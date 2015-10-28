@@ -20,7 +20,7 @@ public class Constants {
 
 	public static final long TIME_BEFORE_FORECASTING = 9;
 
-	public static final double NUMBER_OF_NEIGHBORS_KNN = 3;
+	public static int NUMBER_OF_NEIGHBORS_KNN = 6;
 
 	public static final int REGION_HALF_SIZE = 3; // Region is 3+1+3 = 7.
 
@@ -35,7 +35,8 @@ public class Constants {
 
 	public static final long POLLING_INTERVAL_MS = 1000;
 
-	public static final int MINIMUM_NUMBER_OF_WHEEL_TIMES_BEFORE_FORECASTING = 3;
+	public static final int MINIMUM_NUMBER_OF_WHEEL_TIMES_BEFORE_FORECASTING = 2;
+	public static final int MINIMUM_NUMBER_OF_BALL_TIMES_BEFORE_FORECASTING = 3;
 
 	public static final double VERY_HIGH_NUMBER = 1_000_000_000;
 

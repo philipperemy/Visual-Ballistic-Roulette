@@ -83,6 +83,13 @@ public class BallisticManager {
 
 	public static AccelerationModel computeModel(List<Double> times, Type type) {
 		List<ClockSpeed> speeds = BallisticManager.computeInstantAverageSpeeds(times, type);
+
+		// Last known speed in the model.
+		if (speeds.size() == 1) {
+			Logger.traceINFO("Only one speed detected for type: " + type);
+			return new AccelerationModelOneSpeed(type, speeds.get(0).speed);
+		}
+
 		return performLinearRegression(speeds, type);
 	}
 }
