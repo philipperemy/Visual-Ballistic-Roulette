@@ -160,15 +160,12 @@ public class Test_UivnKJokxP0 extends TestClass {
 		fill_2_07_462(sessionId, true); // 3
 		sessionId = dbRef.incrementAndGetSessionId();
 		fill_2_25_944(sessionId, true); // 4
-		sessionId = dbRef.incrementAndGetSessionId();
-		fill_7_54_507(sessionId, true); // 5
 
 		response.forceDatasetReInit();
 
 		sessionId = dbRef.incrementAndGetSessionId();
-		//fill_18_27_336(sessionId, false);
-		fill_7_54_507(sessionId, true); // 5
-		
+		fill_7_54_507(sessionId, false); // 5
+
 		response.predictMostProbableNumber(sessionId);
 
 		// 13.

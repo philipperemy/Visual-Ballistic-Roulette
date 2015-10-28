@@ -61,7 +61,6 @@ public class BallisticManager {
 		return speedMeasurements;
 	}
 
-
 	/*
 	 * Speed is inverted to have a linear problem.
 	 */

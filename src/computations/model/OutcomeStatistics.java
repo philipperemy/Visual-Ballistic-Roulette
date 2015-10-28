@@ -34,17 +34,17 @@ public class OutcomeStatistics {
 			}
 		}
 
-		//Reduce the Residuals Sum of Squares (RSS).
+		// Reduce the Residuals Sum of Squares (RSS).
 		int meanNumber = 0;
 		double minRss = Double.MAX_VALUE;
-		for( int idxMean = 0; idxMean < Wheel.NUMBERS.length; idxMean++) {
-			
+		for (int idxMean = 0; idxMean < Wheel.NUMBERS.length; idxMean++) {
+
 			double rss = 0;
-			for(Integer outcomeNumber : outcomeNumbers) {
+			for (Integer outcomeNumber : outcomeNumbers) {
 				rss += Math.pow(Wheel.distanceBetweenNumbers(outcomeNumber, Wheel.NUMBERS[idxMean]), 2);
 			}
-			
-			if(rss < minRss) {
+
+			if (rss < minRss) {
 				meanNumber = Wheel.NUMBERS[idxMean];
 				minRss = rss;
 			}

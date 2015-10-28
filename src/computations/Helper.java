@@ -13,7 +13,7 @@ import log.Logger;
 public class Helper {
 
 	static long lastQueryTimestamp = System.currentTimeMillis();
-	
+
 	public static List<Double> convertToSeconds(List<Double> listInMilliseconds) {
 		List<Double> listInSeconds = new ArrayList<>();
 		for (Double itemMsec : listInMilliseconds) {
@@ -36,7 +36,8 @@ public class Helper {
 		return list.get(list.size() - 1);
 	}
 
-	private static String queryResponseServlet(boolean isTest, String urlString) throws InterruptedException, IOException  {
+	private static String queryResponseServlet(boolean isTest, String urlString)
+			throws InterruptedException, IOException {
 		String fullString = "";
 		Logger.traceINFO("QUERY : " + urlString);
 		if (System.currentTimeMillis() - lastQueryTimestamp < Constants.POLLING_INTERVAL_MS) {
@@ -81,8 +82,32 @@ public class Helper {
 	public static String printDigit(double number) {
 		return new DecimalFormat("###.####").format(number);
 	}
-	
+
 	public static double inverseSpeed(final double speed) {
 		return (double) 1.0 / speed;
 	}
+
+	/**
+	 * Should find out if ball considered before is better or not but stay
+	 * coherent across the data set.
+	 */
+	public static double getNextTimeBallIsInFrontOfRef(List<Double> ballLapTimes, double wheelLapTimeInFrontOfRef) {
+		for (Double ballTimeInFrontOfRef : ballLapTimes) {
+			if (ballTimeInFrontOfRef > wheelLapTimeInFrontOfRef) {
+				return ballTimeInFrontOfRef;
+			}
+		}
+		throw new RuntimeException("getNextTimeBallIsInFrontOfRef()");
+	}
+
+	public static Double getLastTimeWheelIsInFrontOfRef(List<Double> wheelLapTimes, double ballLapTimeInFrontOfRef) {
+		Double res = null;
+		for(Double wheelTimeInFrontOfRef : wheelLapTimes) {
+			if(wheelTimeInFrontOfRef < ballLapTimeInFrontOfRef) {
+				res = wheelTimeInFrontOfRef;
+			}
+		}
+		return res;
+	}
+
 }

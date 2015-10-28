@@ -17,11 +17,9 @@ public class TestClass {
 		response = new Response(dbRef);
 		response.da = dbRef;
 	}
-	
-	
+
 	public static String getTime(int hour, int min, int sec, int millis) {
 		return String.valueOf((hour * 3600 + min * 60 + sec) * 1000 + millis);
 	}
 
-	
 }

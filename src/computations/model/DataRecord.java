@@ -51,14 +51,18 @@ public class DataRecord {
 		Map<Double, DataRecord> smrMap = new TreeMap<>();
 		for (DataRecord cacheSmr : cacheSMR) {
 			double dist = cacheSmr.mae(smr);
-			if (smr.way == cacheSmr.way) { // For now discarding if the way is
-											// different.
+			if (smr.way == cacheSmr.way) { // For now discarding if the way is different.
 				smrMap.put(dist, cacheSmr);
-				Logger.traceINFO("Dist : " + Helper.printDigit(dist) + ", " + cacheSmr);
 			} else {
 				Logger.traceINFO("Dist : DISCARDED (WAY) " + Helper.printDigit(dist) + ", " + cacheSmr);
 			}
-
+		}
+		
+		//print all them.
+		for(Entry<Double, DataRecord> entry : smrMap.entrySet()) {
+			double dist = entry.getKey();
+			DataRecord cacheSmr = entry.getValue();
+			Logger.traceINFO("Dist : " + Helper.printDigit(dist) + ", " + cacheSmr);
 		}
 
 		int i = 0;
@@ -72,11 +76,12 @@ public class DataRecord {
 		return knnList;
 	}
 
-	public static int predictOutcome(DataRecord smr) {
-		List<DataRecord> matchedRecordsList = matchCache(smr);
+	public static int predictOutcome(DataRecord predict) {
+		List<DataRecord> matchedRecordsList = matchCache(predict);
 		List<Integer> outcomeNumbersList = new ArrayList<>();
 		for (DataRecord matched : matchedRecordsList) {
-			int predictedOutcome = Wheel.predictOutcomeWithShift(matched.phaseOfWheelWhenBallPassesInFrontOfMark, matched.outcome, smr.phaseOfWheelWhenBallPassesInFrontOfMark);
+			int predictedOutcome = Wheel.predictOutcomeWithShift(matched.phaseOfWheelWhenBallPassesInFrontOfMark,
+					matched.outcome, predict.phaseOfWheelWhenBallPassesInFrontOfMark);
 			outcomeNumbersList.add(predictedOutcome);
 		}
 

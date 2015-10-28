@@ -1,24 +1,9 @@
 package computations.predictor;
 
-import java.util.List;
-
 import computations.wheel.Wheel;
 import computations.wheel.Wheel.WheelWay;
 
 public class Phase {
-
-	/**
-	 * Should find out if ball considered before is better or not but stay
-	 * coherent across the data set.
-	 */
-	public static double getNextTimeBallIsInFrontOfRef(List<Double> ballLapTimes, double wheelLapTimeInFrontOfRef) {
-		for (Double ballTimeInFrontOfRef : ballLapTimes) {
-			if (ballTimeInFrontOfRef > wheelLapTimeInFrontOfRef) {
-				return ballTimeInFrontOfRef;
-			}
-		}
-		throw new RuntimeException("getNextTimeBallIsInFrontOfRef()");
-	}
 
 	@Deprecated
 	public static int findNumberInFrontOfRefWhenBallIsLaunched(double timeOfLastPassageOfZeroInFrontOfRef,

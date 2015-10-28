@@ -88,7 +88,7 @@ public class Wheel {
 		int idx_p1 = findIndexOfNumber(phase1);
 		int idx_o1 = findIndexOfNumber(outcome1);
 		int diffIdxBetweenPhaseAndOutcome1 = getIndex(idx_o1 - idx_p1);
-		
+
 		int id_p2 = findIndexOfNumber(phase2);
 		int id_o2 = getIndex(id_p2 + diffIdxBetweenPhaseAndOutcome1);
 		return NUMBERS[id_o2];
@@ -103,11 +103,12 @@ public class Wheel {
 		return diff < diff_to_maxlen ? diff : diff_to_maxlen;
 	}
 
-	//TODO: this is false. Check it.
+	// Do not use it. We do not know the mirroring because we do not know at
+	// time 0.
 	@Deprecated
 	public static int getMirrorNumber(int number) {
 		int idx = findIndexOfNumber(number);
-		//int newIdx = getIndex(idx + NUMBERS.length/2);
+		// int newIdx = getIndex(idx + NUMBERS.length/2);
 		int newIdx = getIndex(-idx + NUMBERS.length);
 		return NUMBERS[newIdx];
 	}

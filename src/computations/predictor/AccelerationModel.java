@@ -5,8 +5,8 @@ import computations.wheel.Type;
 import log.Logger;
 
 /**
- * Assuming the deceleration is constant. (1/Y) = AX + B.
- * According to Roulette computers.com, it is true.
+ * Assuming the deceleration is constant. (1/Y) = AX + B. According to Roulette
+ * computers.com, it is true.
  */
 public class AccelerationModel {
 

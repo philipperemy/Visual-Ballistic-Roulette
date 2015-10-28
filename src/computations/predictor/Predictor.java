@@ -33,6 +33,12 @@ public class Predictor {
 			List<Double> wheelLapTimesSeconds = computations.Helper.convertToSeconds(wheelLapTimes);
 			List<Double> ballLapTimesSeconds = computations.Helper.convertToSeconds(ballLapTimes);
 
+			if (wheelLapTimes.isEmpty() || ballLapTimes.isEmpty()) {
+				Logger.traceERROR("[preLoadDataSet] ball or wheel speeds are empty for session id = " + sessionId
+						+ ". Ignoring this game.");
+				continue;
+			}
+
 			String clockwise = da.selectClockwise(sessionId);
 			if (clockwise == null) {
 				Logger.traceERROR(
@@ -42,10 +48,10 @@ public class Predictor {
 
 			try {
 				WheelWay wheelWay = Wheel.convert(clockwise);
-				List<DataRecord> records = buildRecord(ballLapTimesSeconds, wheelLapTimesSeconds, wheelWay, sessionId);
+				List<DataRecord> records = buildRecord2(ballLapTimesSeconds, wheelLapTimesSeconds, wheelWay, sessionId);
 				for (DataRecord record : records) {
 					Outcome outcome = da.getOutcome(sessionId);
-					if(outcome != null) {
+					if (outcome != null) {
 						record.outcome = outcome.number;
 					} else {
 						Logger.traceERROR("No outcome for session = " + sessionId);
@@ -59,8 +65,49 @@ public class Predictor {
 		}
 	}
 
-	// only return the last one.
-	private List<DataRecord> buildRecord(List<Double> ballLapTimes, List<Double> wheelLapTimes, WheelWay wheelWay, String sessionId) {
+	private List<DataRecord> buildRecord2(List<Double> ballLapTimes, List<Double> wheelLapTimes, WheelWay wheelWay,
+			String sessionId) {
+
+		if (ballLapTimes.isEmpty() || wheelLapTimes.isEmpty()) {
+			return null;
+		}
+
+		AccelerationModel ballAccModel = BallisticManager.computeModel(ballLapTimes, Type.BALL);
+		AccelerationModel wheelAccModel = BallisticManager.computeModel(wheelLapTimes, Type.WHEEL);
+
+		List<DataRecord> smallDataRecords = new ArrayList<>();
+		for (int i = 0; i < ballLapTimes.size(); i++) {
+
+			double correspondingBallLapTime = ballLapTimes.get(i);
+			double wheelSpeedInFrontOfMark = wheelAccModel.estimateSpeed(correspondingBallLapTime);
+
+			Double lastWheelLapTimeInFrontOfRef = Helper.getLastTimeWheelIsInFrontOfRef(wheelLapTimes,
+					correspondingBallLapTime);
+
+			//It means that the first record is a ball lap times.
+			if(lastWheelLapTimeInFrontOfRef == null) {
+				continue;
+			}
+			
+			int phase = Phase.findPhaseNumberBetweenBallAndWheel(correspondingBallLapTime, lastWheelLapTimeInFrontOfRef,
+					wheelSpeedInFrontOfMark, wheelWay);
+
+			DataRecord smr = new DataRecord();
+			smr.ballSpeedInFrontOfMark = ballAccModel.estimateSpeed(correspondingBallLapTime);
+			smr.wheelSpeedInFrontOfMark = wheelSpeedInFrontOfMark;
+			smr.way = wheelWay;
+			smr.sessionId = sessionId;
+			smr.phaseOfWheelWhenBallPassesInFrontOfMark = phase;
+
+			smallDataRecords.add(smr);
+		}
+
+		return smallDataRecords;
+	}
+
+	@SuppressWarnings("unused")
+	private List<DataRecord> buildRecord(List<Double> ballLapTimes, List<Double> wheelLapTimes, WheelWay wheelWay,
+			String sessionId) {
 
 		if (ballLapTimes.isEmpty() || wheelLapTimes.isEmpty()) {
 			return null;
@@ -73,37 +120,26 @@ public class Predictor {
 		Logger.traceDEBUG("Wheel way : " + wheelWay.toString());
 
 		AccelerationModel ballAccModel = BallisticManager.computeModel(ballLapTimes, Type.BALL);
-		// AccelerationModel wheelAccModel =
-		// BallisticManager.computeModel(wheelLapTimes, Type.WHEEL);
-
-		double refTime = wheelLapTimes.get(0);
-		Logger.traceDEBUG("Reference time for measurements : " + refTime);
-		double timeInterval = Constants.TIME_BEFORE_FORECASTING / Constants.NUMBER_OF_SPEEDS_IN_DATASET;
-		Logger.traceDEBUG("Time interval is : " + timeInterval);
+		AccelerationModel wheelAccModel = BallisticManager.computeModel(wheelLapTimes, Type.WHEEL);
 
 		List<DataRecord> smallDataRecords = new ArrayList<>();
-		for (int i = 1; i <= Constants.NUMBER_OF_SPEEDS_IN_DATASET; i++) {
+		for (int i = 1; i < wheelLapTimes.size(); i++) {
 			double wheelLapTimeInFrontOfRef = wheelLapTimes.get(i);
 			double previousWheelLapTimeInFrontOfRef = wheelLapTimes.get(i - 1);
 
-			// TODO: was improved. CHECK IT.
-			// Before it was Phase.getNextTimeBallIsInFrontOfRef(ballLapTimes,
-			// wheelLapTimeInFrontOfRef);
-			double correspondingBallLapTime = Phase.getNextTimeBallIsInFrontOfRef(ballLapTimes,
+			double correspondingBallLapTime = Helper.getNextTimeBallIsInFrontOfRef(ballLapTimes,
 					previousWheelLapTimeInFrontOfRef);
 
-			// TODO: We can do even better. Why don't we use the model?
-			double lastWheelSpeed = BallisticManager.getWheelSpeed(previousWheelLapTimeInFrontOfRef,
-					wheelLapTimeInFrontOfRef);
+			double wheelSpeedInFrontOfMark = wheelAccModel.estimateSpeed(correspondingBallLapTime);
+
+			int phase = Phase.findPhaseNumberBetweenBallAndWheel(correspondingBallLapTime, wheelLapTimeInFrontOfRef,
+					wheelSpeedInFrontOfMark, wheelWay);
 
 			DataRecord smr = new DataRecord();
 			smr.ballSpeedInFrontOfMark = ballAccModel.estimateSpeed(correspondingBallLapTime);
-			smr.wheelSpeedInFrontOfMark = lastWheelSpeed; // May be improved
+			smr.wheelSpeedInFrontOfMark = wheelSpeedInFrontOfMark;
 			smr.way = wheelWay;
 			smr.sessionId = sessionId;
-
-			int phase = Phase.findPhaseNumberBetweenBallAndWheel(correspondingBallLapTime, wheelLapTimeInFrontOfRef,
-					lastWheelSpeed, wheelWay);
 			smr.phaseOfWheelWhenBallPassesInFrontOfMark = phase;
 
 			smallDataRecords.add(smr);
@@ -124,7 +160,7 @@ public class Predictor {
 
 	public int predict(List<Double> ballLapTimes, List<Double> wheelLapTimes, WheelWay wheelWay, String sessionId) {
 		// Phase is filled. All lap times are used to build the model.
-		List<DataRecord> recordToPredicts = buildRecord(ballLapTimes, wheelLapTimes, wheelWay, sessionId);
+		List<DataRecord> recordToPredicts = buildRecord2(ballLapTimes, wheelLapTimes, wheelWay, sessionId);
 
 		if (recordToPredicts.isEmpty()) {
 			String errMsg = "No records to predict.";
