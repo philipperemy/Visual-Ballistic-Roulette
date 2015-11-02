@@ -59,6 +59,9 @@ public class Response extends HttpServlet
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		Logger.traceINFO("Request received : " + request);
+		Helper.enableAjax(response);
+
 		String sessionId = request.getParameter(Parameters.SESSION_ID);
 		if (sessionId == null)
 		{

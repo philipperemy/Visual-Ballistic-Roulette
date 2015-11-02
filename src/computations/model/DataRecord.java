@@ -57,8 +57,8 @@ public class DataRecord
 		{
 			double dist = cacheSmr.mae(smr);
 			if (smr.way == cacheSmr.way)
-			{ // For now discarding if the way is
-				// different.
+			{
+				// For now discarding if the way is different.
 				smrMap.put(dist, cacheSmr);
 			} else
 			{

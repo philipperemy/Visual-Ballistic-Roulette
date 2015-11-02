@@ -2,6 +2,7 @@ package computations.session;
 
 import computations.Constants;
 import database.DatabaseAccessorInterface;
+import log.Logger;
 
 /**
  * A session corresponds to a game played or measured
@@ -38,6 +39,7 @@ public class SessionManager
 		{
 			// Start new session
 			newSessionId = da.incrementAndGetSessionId();
+			Logger.traceINFO("Starting new session with id = " + newSessionId);
 			da.insertClockwiseFromPrevious(newSessionId); // Start new clockwise
 		} else
 		{

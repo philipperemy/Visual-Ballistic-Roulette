@@ -4,9 +4,8 @@ import org.junit.Test;
 
 import servlets.SessionNotReadyException;
 
-public class Test_UivnKJokxP0 extends TestClass
+public class Test_Video2 extends TestClass
 {
-
 	private void fill_1_23_601(String sessionId, boolean addOutcome)
 	{
 		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
@@ -265,7 +264,7 @@ public class Test_UivnKJokxP0 extends TestClass
 
 		// 13.
 	}
-	
+
 	@Test
 	public void test_5() throws SessionNotReadyException
 	{
@@ -307,7 +306,5 @@ public class Test_UivnKJokxP0 extends TestClass
 
 		// 13.
 	}
-
-
 
 }
