@@ -2,7 +2,6 @@ package computations.model;
 
 public class Outcome implements Cloneable
 {
-
 	@Override
 	public int hashCode()
 	{

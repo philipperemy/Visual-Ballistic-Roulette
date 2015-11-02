@@ -8,7 +8,6 @@ import log.Logger;
 
 public class Player
 {
-
 	private static final String SOUND_NAME_0_RECORDS_FILENAME = "record_0.wav";
 	private static final String SOUND_NAME_1_RECORDS_FILENAME = "record_1.wav";
 	private static final String SOUND_NAME_2_RECORDS_FILENAME = "record_2.wav";

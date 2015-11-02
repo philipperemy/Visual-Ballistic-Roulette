@@ -10,7 +10,6 @@ import computations.wheel.Wheel;
 
 public class OutcomeStatistics
 {
-
 	@Override
 	public String toString()
 	{

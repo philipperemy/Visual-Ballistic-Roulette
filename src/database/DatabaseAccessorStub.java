@@ -10,7 +10,6 @@ import computations.model.Outcome;
 
 public class DatabaseAccessorStub implements DatabaseAccessorInterface
 {
-
 	Map<String, List<Double>> _ballLapTimes = new HashMap<>();
 	Map<String, List<Double>> _wheelLapTimes = new HashMap<>();
 	Map<String, Integer> _outcomes = new HashMap<>();

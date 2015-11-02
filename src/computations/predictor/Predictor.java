@@ -16,7 +16,6 @@ import servlets.SessionNotReadyException;
 
 public class Predictor
 {
-
 	private static volatile Predictor instance = null;
 	private DatabaseAccessorInterface da;
 

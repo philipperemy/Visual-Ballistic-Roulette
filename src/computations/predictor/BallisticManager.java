@@ -12,7 +12,6 @@ import log.Logger;
 
 public class BallisticManager
 {
-
 	// Could interpolate with ML stuffs.
 	public static double getTimeForOneBallLoop(double ballSpeed)
 	{

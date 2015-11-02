@@ -10,7 +10,6 @@ import log.Logger;
  */
 public class AccelerationModel
 {
-
 	@Override
 	public String toString()
 	{

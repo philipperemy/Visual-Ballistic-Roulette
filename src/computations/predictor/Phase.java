@@ -5,7 +5,6 @@ import computations.wheel.Wheel.WheelWay;
 
 public class Phase
 {
-
 	@Deprecated
 	public static int findNumberInFrontOfRefWhenBallIsLaunched(double timeOfLastPassageOfZeroInFrontOfRef, double timeWhenBallWasLaunched,
 			double lastWheelSpeed, WheelWay way)

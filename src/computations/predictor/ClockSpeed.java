@@ -2,7 +2,6 @@ package computations.predictor;
 
 public class ClockSpeed
 {
-
 	@Override
 	public String toString()
 	{

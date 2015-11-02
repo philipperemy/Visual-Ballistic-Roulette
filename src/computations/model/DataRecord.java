@@ -14,7 +14,6 @@ import log.Logger;
 
 public class DataRecord
 {
-
 	// Principle:
 	// BallSpeed known in front of mark
 	// Wheel speed known in front of mark

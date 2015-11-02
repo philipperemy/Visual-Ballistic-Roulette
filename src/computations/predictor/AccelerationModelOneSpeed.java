@@ -6,7 +6,6 @@ import computations.wheel.Type;
 //So we create an object to emulate this model, which returns the last wheel speed.
 public class AccelerationModelOneSpeed extends AccelerationModel
 {
-
 	private double lastSpeed;
 
 	@Override
