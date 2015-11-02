@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import computations.session.SessionManager;
 import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;
+import log.Logger;
 
+//http://localhost:8080/RouletteServer/Request?time=121212&type=wheel
 @WebServlet("/Request")
 public class Request extends HttpServlet
 {
@@ -40,7 +42,7 @@ public class Request extends HttpServlet
 	// http://localhost:8080/RouletteServer/Request?time=121212&type=wheel
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-
+		Logger.traceINFO(Helper.toString(request));
 		long currentTimeMillis = System.currentTimeMillis();
 		String sessionId = sm.callManager(currentTimeMillis);
 

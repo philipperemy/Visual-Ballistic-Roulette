@@ -9,14 +9,20 @@ import log.Logger;
 public class Main
 {
 
+	/**
+	 * to be updated if needed.
+	 */
+	
 	private DatabaseAccessorInterface da = DatabaseAccessor.getInstance();
 	private String firstSessionId = da.getLastSessionId();
 
+	@Deprecated
 	public Main()
 	{
 		da.getLastSessionId();
 	}
 
+	@Deprecated
 	public void run() throws InterruptedException
 	{
 		/**

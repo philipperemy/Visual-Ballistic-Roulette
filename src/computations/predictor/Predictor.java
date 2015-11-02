@@ -124,6 +124,7 @@ public class Predictor
 	}
 
 	@SuppressWarnings("unused")
+	@Deprecated
 	private List<DataRecord> buildRecord(List<Double> ballLapTimes, List<Double> wheelLapTimes, WheelWay wheelWay, String sessionId)
 	{
 
@@ -193,7 +194,7 @@ public class Predictor
 		}
 
 		// Take the last one.
-		DataRecord sdr = Helper.pop(recordToPredicts);
+		DataRecord sdr = Helper.peek(recordToPredicts);
 		Logger.traceINFO("Record to predict : " + sdr);
 
 		int mostProbableNumber = DataRecord.predictOutcome(sdr);

@@ -59,11 +59,17 @@ public class Response extends HttpServlet
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		Logger.traceINFO("Request received : " + request);
+		Logger.traceINFO(Helper.toString(request));
 		Helper.enableAjax(response);
 
 		String sessionId = request.getParameter(Parameters.SESSION_ID);
 		if (sessionId == null)
+		{
+			sessionId = da.getLastSessionId();
+			Logger.traceINFO("No session specified. Selecting the last session id = " + sessionId);
+		}
+
+		if (sessionId == null || sessionId.isEmpty())
 		{
 			Helper.notifyMissingFieldError(response, Parameters.SESSION_ID);
 			return;

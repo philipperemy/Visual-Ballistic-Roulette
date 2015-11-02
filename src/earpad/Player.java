@@ -37,7 +37,7 @@ public class Player
 
 	public static void playSound_Numbers(String response)
 	{
-		List<Integer> numbers = Helper.unserialize(response);
+		List<Integer> numbers = Helper.unserializeOutcomeNumbers(response);
 		List<String> filenames = new ArrayList<>();
 		for (Integer num : numbers)
 		{

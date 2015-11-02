@@ -26,7 +26,7 @@ public class Helper
 	}
 
 	// [0, 4, 15, 19, 21, 26, 32]
-	public static List<Integer> unserialize(String input)
+	public static List<Integer> unserializeOutcomeNumbers(String input)
 	{
 		String str = input.substring(1, input.length() - 1);
 		List<Integer> list = new ArrayList<>();
@@ -37,11 +37,12 @@ public class Helper
 		return list;
 	}
 
-	public static <T> T pop(List<T> list)
+	public static <T> T peek(List<T> list)
 	{
 		return list.get(list.size() - 1);
 	}
 
+	@Deprecated
 	private static String queryResponseServlet(boolean isTest, String urlString) throws InterruptedException, IOException
 	{
 		String fullString = "";
@@ -73,6 +74,7 @@ public class Helper
 	}
 
 	// Not the best but okay for the purpose.
+	@Deprecated
 	public static String predictNextSessionId(String currentSessionId)
 	{
 		int cur = Integer.valueOf(currentSessionId);
@@ -104,6 +106,7 @@ public class Helper
 	 * Should find out if ball considered before is better or not but stay
 	 * coherent across the data set.
 	 */
+	@Deprecated
 	public static double getNextTimeBallIsInFrontOfRef(List<Double> ballLapTimes, double wheelLapTimeInFrontOfRef)
 	{
 		for (Double ballTimeInFrontOfRef : ballLapTimes)
