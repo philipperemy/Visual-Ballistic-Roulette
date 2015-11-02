@@ -8,7 +8,7 @@ import log.Logger;
  * Assuming the deceleration is constant. (1/Y) = AX + B. According to Roulette
  * computers.com, it is true.
  */
-public class AccelerationModel
+class AccelerationModel
 {
 	@Override
 	public String toString()
@@ -26,7 +26,7 @@ public class AccelerationModel
 		return Helper.inverseSpeed(slope * time + intercept);
 	}
 
-	public AccelerationModel(double slope, double intercept, Type type)
+	AccelerationModel(double slope, double intercept, Type type)
 	{
 		this.slope = slope;
 		this.intercept = intercept;

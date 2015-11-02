@@ -1,6 +1,6 @@
 package computations.predictor;
 
-public class ClockSpeed
+class ClockSpeed
 {
 	@Override
 	public String toString()
@@ -8,14 +8,10 @@ public class ClockSpeed
 		return "ClockSpeed [time=" + time + ", speed=" + speed + "]";
 	}
 
-	public double time;
-	public double speed;
+	double time;
+	double speed;
 
-	public ClockSpeed(double time, double speed)
-	{
-		this.time = time;
-		this.speed = speed;
-	}
+	
 
 	public ClockSpeed()
 	{

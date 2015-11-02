@@ -12,7 +12,7 @@ import log.Logger;
 
 public class Helper
 {
-	static long lastQueryTimestamp = System.currentTimeMillis();
+	private static long lastQueryTimestamp = System.currentTimeMillis();
 
 	public static List<Double> convertToSeconds(List<Double> listInMilliseconds)
 	{

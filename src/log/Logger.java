@@ -23,7 +23,7 @@ public class Logger
 		isDebug = debug;
 	}
 
-	public static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss_SSS");
+	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss_SSS");
 
 	private static String getCallingClass()
 	{

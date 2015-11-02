@@ -1,6 +1,6 @@
 package timer;
 
-public interface VibratorInterface
+interface VibratorInterface
 {
 	void vibrate();
 }

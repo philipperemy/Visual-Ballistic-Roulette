@@ -35,7 +35,7 @@ public class DataRecord
 	public Integer outcome = null; // outcome of the game.
 	public WheelWay way;
 
-	public static List<DataRecord> cacheSMR = new ArrayList<>();
+	private static List<DataRecord> cacheSMR = new ArrayList<>();
 
 	public void cacheIt()
 	{
@@ -43,13 +43,13 @@ public class DataRecord
 		cacheSMR.add(this);
 	}
 
-	public double mae(DataRecord smr)
+	private double mae(DataRecord smr)
 	{
 		return Math.abs(smr.ballSpeedInFrontOfMark - this.ballSpeedInFrontOfMark)
 				+ Math.abs(smr.wheelSpeedInFrontOfMark - this.wheelSpeedInFrontOfMark);
 	}
 
-	public static List<DataRecord> matchCache(DataRecord smr, int knnNumber)
+	private static List<DataRecord> matchCache(DataRecord smr, int knnNumber)
 	{
 		Map<Double, DataRecord> smrMap = new TreeMap<>();
 		for (DataRecord cacheSmr : cacheSMR)

@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import computations.Helper;
 import computations.wheel.Wheel;
 
-public class OutcomeStatistics
+class OutcomeStatistics
 {
 	@Override
 	public String toString()
@@ -17,11 +17,11 @@ public class OutcomeStatistics
 				+ (frequency != null ? "frequency=" + frequency + ", " : "") + "]";
 	}
 
-	public int meanNumber;
-	public double stdDeviation;
-	public Map<Integer, Integer> frequency;
+	int meanNumber;
+	private double stdDeviation;
+	private Map<Integer, Integer> frequency;
 
-	public static OutcomeStatistics create(List<Integer> outcomeNumbers)
+	static OutcomeStatistics create(List<Integer> outcomeNumbers)
 	{
 		Map<Integer, Integer> frequencyPerNumber = new HashMap<>(); // Number
 																	// <->

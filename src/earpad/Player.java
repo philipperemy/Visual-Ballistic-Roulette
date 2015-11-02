@@ -6,7 +6,7 @@ import java.util.List;
 import computations.Helper;
 import log.Logger;
 
-public class Player
+class Player
 {
 	private static final String SOUND_NAME_0_RECORDS_FILENAME = "record_0.wav";
 	private static final String SOUND_NAME_1_RECORDS_FILENAME = "record_1.wav";
@@ -14,7 +14,7 @@ public class Player
 	private static final String REPEAT_FILENAME = "repeat.wav";
 	private static final String TERMINATED_FILENAME = "terminated.wav";
 
-	public static void playSound_NumberOfRecordedWheelTimes(String ref)
+	static void playSound_NumberOfRecordedWheelTimes(String ref)
 	{
 		switch (ref)
 		{
@@ -34,7 +34,7 @@ public class Player
 		}
 	}
 
-	public static void playSound_Numbers(String response)
+	static void playSound_Numbers(String response)
 	{
 		List<Integer> numbers = Helper.unserializeOutcomeNumbers(response);
 		List<String> filenames = new ArrayList<>();

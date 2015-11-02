@@ -6,7 +6,7 @@ import computations.wheel.Wheel.WheelWay;
 public class Phase
 {
 	@Deprecated
-	public static int findNumberInFrontOfRefWhenBallIsLaunched(double timeOfLastPassageOfZeroInFrontOfRef, double timeWhenBallWasLaunched,
+	public static int findNumberInFrontOfRefWhenBallIsLaunched(double timeOfLastPassageOfZeroInFrontOfRef, double timeWhenBallWasLaunched, // NO_UCD (test only)
 			double lastWheelSpeed, WheelWay way)
 	{
 		double diffTime = timeWhenBallWasLaunched - timeOfLastPassageOfZeroInFrontOfRef;

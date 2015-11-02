@@ -77,15 +77,6 @@ public class Wheel
 		return NUMBERS[getIndex(newIdx)];
 	}
 
-	// Test it. Force the test by using Deprecated.
-	@Deprecated
-	public static int getNextNumberClockwise(int number)
-	{
-		int idx = findIndexOfNumber(number);
-		idx++;
-		return NUMBERS[getIndex(idx)];
-	}
-
 	public static int findIndexOfNumber(int number)
 	{
 		for (int i = 0; i < NUMBERS.length; i++)

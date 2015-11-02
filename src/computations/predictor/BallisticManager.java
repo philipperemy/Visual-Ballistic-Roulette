@@ -13,13 +13,13 @@ import log.Logger;
 public class BallisticManager
 {
 	// Could interpolate with ML stuffs.
-	public static double getTimeForOneBallLoop(double ballSpeed)
+	static double getTimeForOneBallLoop(double ballSpeed)
 	{
 		return Constants.BALL_CIRCUMFERENCE / ballSpeed;
 	}
 
 	// Could interpolate with ML stuffs.
-	public static double getTimeForOneWheelLoop(double wheelSpeed)
+	static double getTimeForOneWheelLoop(double wheelSpeed)
 	{
 		return Constants.WHEEL_CIRCUMFERENCE / wheelSpeed;
 	}
@@ -92,7 +92,7 @@ public class BallisticManager
 		return new AccelerationModel(regression.getSlope(), regression.getIntercept(), type);
 	}
 
-	public static AccelerationModel computeModel(List<Double> times, Type type)
+	static AccelerationModel computeModel(List<Double> times, Type type)
 	{
 		List<ClockSpeed> speeds = BallisticManager.computeInstantAverageSpeeds(times, type);
 

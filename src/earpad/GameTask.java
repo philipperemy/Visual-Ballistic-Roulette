@@ -7,14 +7,14 @@ import computations.Helper;
 import log.Logger;
 
 //For one game only.
-public class GameTask implements Runnable
+class GameTask implements Runnable
 {
 	private String sessionId;
 	private boolean isTest = Constants.IS_TEST_ENABLED;
 	private CallBack callback;
 	private long count = 0;
 
-	public void init(String sessionId, CallBack callback)
+	void init(String sessionId, CallBack callback)
 	{
 		this.sessionId = sessionId;
 		this.callback = callback;

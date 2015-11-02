@@ -38,12 +38,6 @@ public class Outcome implements Cloneable
 	public int number;
 	public int obstaclesHitCount;
 
-	public Outcome(int number, int obstaclesHitCount)
-	{
-		this.number = number;
-		this.obstaclesHitCount = obstaclesHitCount;
-	}
-
 	public Outcome()
 	{
 	}

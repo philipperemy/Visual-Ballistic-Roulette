@@ -1,6 +1,6 @@
 package timer;
 
-public interface ButtonInterface
+interface ButtonInterface
 {
 	void onButtonPressed();
 }

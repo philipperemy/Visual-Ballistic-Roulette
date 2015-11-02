@@ -1,6 +1,6 @@
 package timer;
 
-public enum Type
+enum Type
 {
 	BALL, WHEEL
 }

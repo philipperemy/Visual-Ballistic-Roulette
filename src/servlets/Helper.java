@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import log.Logger;
 
-public class Helper
+class Helper
 {
 
-	public static void notifyError(HttpServletResponse response, String msg)
+	private static void notifyError(HttpServletResponse response, String msg)
 	{
 		try
 		{
@@ -21,17 +21,17 @@ public class Helper
 		}
 	}
 
-	public static void notifyMissingFieldError(HttpServletResponse response, String missingField)
+	static void notifyMissingFieldError(HttpServletResponse response, String missingField)
 	{
 		notifyError(response, missingField + " missing");
 	}
 
-	public static void notifyInvalidFieldError(HttpServletResponse response, String invalidField)
+	static void notifyInvalidFieldError(HttpServletResponse response, String invalidField)
 	{
 		notifyError(response, invalidField + " invalid");
 	}
 
-	public static void notifyNotReadyYet(HttpServletResponse response, String numberOfRecordedWheelTimes)
+	static void notifyNotReadyYet(HttpServletResponse response, String numberOfRecordedWheelTimes)
 	{
 		try
 		{
@@ -42,7 +42,7 @@ public class Helper
 		}
 	}
 
-	public static void enableAjax(HttpServletResponse response)
+	static void enableAjax(HttpServletResponse response)
 	{
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
@@ -50,7 +50,7 @@ public class Helper
 		response.addHeader("Access-Control-Allow-Headers", "Content-Type, Accept");
 	}
 
-	public static String toString(HttpServletRequest request)
+	static String toString(HttpServletRequest request)
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append(request.getProtocol() + " ");

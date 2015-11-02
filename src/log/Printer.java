@@ -2,7 +2,7 @@ package log;
 
 import java.io.PrintStream;
 
-public class Printer
+class Printer
 {
 	private static final PrintStream OUT_CONSOLE = System.out;
 
@@ -10,7 +10,7 @@ public class Printer
 	{
 	}
 
-	public void println(String str)
+	void println(String str)
 	{
 		OUT_CONSOLE.println(str);
 	}
