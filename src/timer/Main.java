@@ -1,6 +1,7 @@
 package timer;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Main
 {
@@ -36,11 +37,32 @@ public class Main
 
 	public static void main(String[] args) throws IOException, InterruptedException
 	{
-		while (true)
+		run();
+	}
+
+	private static void run()
+	{
+		Scanner scanner = new Scanner(System.in);
+		String readString = scanner.nextLine();
+		while (readString != null)
 		{
-			buttonInterface.onButtonPressed();
-			Thread.sleep(10000);
+			System.out.println(readString);
+
+			if (readString.isEmpty())
+			{
+				System.out.println("Read Enter Key.");
+				buttonInterface.onButtonPressed();
+			}
+
+			if (scanner.hasNextLine())
+			{
+				readString = scanner.nextLine();
+			} else
+			{
+				readString = null;
+			}
 		}
+		scanner.close();
 	}
 
 }

@@ -79,9 +79,8 @@ public class Response extends HttpServlet
 		} catch (Exception e)
 		{ // Bad exception
 			Logger.traceERROR(e);
-			Helper.notifyNotReadyYet(response, "E"); // E means EXCEPTION! So
-														// stop everything for
-														// every client.
+			// E means EXCEPTION! So stop everything for every clients.
+			Helper.notifyNotReadyYet(response, Constants.ERRORLEVEL_PROCESS_EXCEPTION_TAG);
 		}
 	}
 

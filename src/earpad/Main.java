@@ -34,7 +34,7 @@ public class Main
 				Logger.traceINFO("[Callback] Response is : " + response);
 				switch (response)
 				{
-				case "E":
+				case Constants.ERRORLEVEL_PROCESS_EXCEPTION_TAG:
 					return false;
 				case "0":
 				case "1":

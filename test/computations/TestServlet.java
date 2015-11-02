@@ -19,6 +19,8 @@ public class TestServlet
 	 * Associated session is 1. Obstacles hit is 0. Outcome number is 15. Way is
 	 * ANTICLOCKWISE.
 	 */
+	
+	//KNN = 1, For testing only.
 	@Test
 	public void test() throws SessionNotReadyException
 	{

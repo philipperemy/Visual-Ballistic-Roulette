@@ -9,7 +9,6 @@ import log.Logger;
 //For one game only.
 public class GameTask implements Runnable
 {
-
 	private String sessionId;
 	private boolean isTest = Constants.IS_TEST_ENABLED;
 	private CallBack callback;
@@ -39,7 +38,7 @@ public class GameTask implements Runnable
 				String query = responses.get(0);
 				String response = responses.get(1);
 
-				if (response.equals("E"))
+				if (response.equals(Constants.ERRORLEVEL_PROCESS_EXCEPTION_TAG))
 				{
 					Exception e = new Exception("Received exception from the server. Will stop.");
 					callback.onError(e);

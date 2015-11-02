@@ -41,4 +41,6 @@ public class Constants
 
 	public static final String WHEEL_CLOCKWISE = "1";
 	public static final String WHEEL_ANTICLOCKWISE = "0";
+	
+	public static final String ERRORLEVEL_PROCESS_EXCEPTION_TAG = "E";
 }

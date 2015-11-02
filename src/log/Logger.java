@@ -35,7 +35,18 @@ public class Logger
 
 	private static String baseLogMessage(String key, String msg)
 	{
-		return sdf.format(new Date()) + " [" + key + "] [" + getCallingClass() + "] " + msg;
+		long threadId = Thread.currentThread().getId();
+		StringBuilder sb = new StringBuilder();
+		sb.append(sdf.format(new Date()));
+		sb.append(" ");
+		sb.append("[" + threadId + "]");
+		sb.append(" ");
+		sb.append("[" + key + "]");
+		sb.append(" ");
+		sb.append("[" + getCallingClass() + "]");
+		sb.append(" ");
+		sb.append(msg);
+		return sb.toString();
 	}
 
 	public static void traceINFO(Object obj)
