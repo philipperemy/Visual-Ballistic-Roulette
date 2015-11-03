@@ -156,7 +156,73 @@ public class Test_UivnKJokxP0 extends TestClass
 		if (addOutcome)
 		{
 			dbRef.insertOutcome(sessionId, "32");
-			// response.forceDatasetReInit();
+		}
+	}
+
+	private void fill_1_28_22_990(String sessionId, boolean addOutcome)
+	{
+		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
+
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 28, 25, 491));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 28, 25, 974));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 28, 26, 391));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 28, 26, 906));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 28, 27, 596));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 28, 28, 25));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 28, 28, 566));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 28, 29, 94));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 28, 29, 794));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 28, 30, 363));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 28, 30, 976));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 28, 31, 713));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 28, 32, 406));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 28, 33, 6));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 28, 33, 901));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 28, 34, 603));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 28, 35, 444));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 28, 36, 274));
+
+		dbRef.insertWheelLapTimes(sessionId, getTime(1, 28, 25, 778));
+		dbRef.insertWheelLapTimes(sessionId, getTime(1, 28, 30, 806));
+		dbRef.insertWheelLapTimes(sessionId, getTime(1, 28, 35, 886));
+
+		if (addOutcome)
+		{
+			dbRef.insertOutcome(sessionId, "4");
+		}
+	}
+
+	private void fill_1_29_03_426(String sessionId, boolean addOutcome)
+	{
+		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
+
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 29, 5, 865));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 29, 6, 391));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 29, 6, 827));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 29, 7, 729));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 29, 7, 856));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 29, 8, 390));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 29, 8, 932));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 29, 9, 500));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 29, 10, 115));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 29, 10, 729));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 29, 11, 338));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 29, 12, 11));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 29, 12, 723));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 29, 13, 352));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 29, 14, 127));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 29, 14, 944));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 29, 15, 787));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 29, 16, 542));
+		dbRef.insertBallLapTimes(sessionId, getTime(1, 29, 17, 621));
+
+		dbRef.insertWheelLapTimes(sessionId, getTime(1, 29, 6, 201));
+		dbRef.insertWheelLapTimes(sessionId, getTime(1, 29, 11, 708));
+		dbRef.insertWheelLapTimes(sessionId, getTime(1, 29, 17, 621));
+
+		if (addOutcome)
+		{
+			dbRef.insertOutcome(sessionId, "1");
 		}
 	}
 
@@ -265,7 +331,7 @@ public class Test_UivnKJokxP0 extends TestClass
 
 		// 13.
 	}
-	
+
 	@Test
 	public void test_5() throws SessionNotReadyException
 	{
@@ -308,6 +374,29 @@ public class Test_UivnKJokxP0 extends TestClass
 		// 13.
 	}
 
+	@Test
+	public void test_6() throws SessionNotReadyException
+	{
+		String sessionId = dbRef.getLastSessionId();
+		fill_1_23_601(sessionId, true); // 1
+		sessionId = dbRef.incrementAndGetSessionId();
+		fill_1_47_071(sessionId, true); // 2
+		sessionId = dbRef.incrementAndGetSessionId();
+		fill_2_07_462(sessionId, true); // 3
+		sessionId = dbRef.incrementAndGetSessionId();
+		fill_2_25_944(sessionId, true); // 4
+		sessionId = dbRef.incrementAndGetSessionId();
+		fill_7_54_507(sessionId, true); //5
+		sessionId = dbRef.incrementAndGetSessionId();
+		fill_18_27_336(sessionId, true); //6
+		sessionId = dbRef.incrementAndGetSessionId();
+		fill_1_28_22_990(sessionId, true); //7
+		sessionId = dbRef.incrementAndGetSessionId();
 
+		response.forceDatasetReInit();
+		fill_1_29_03_426(sessionId, false);
+
+		response.predictMostProbableNumber(sessionId);
+	}
 
 }

@@ -47,7 +47,6 @@ public class DatabaseAccessorStub implements DatabaseAccessorInterface
 	public void insertWheelLapTimes(String sessionId, String lapTime)
 	{
 		appendMap(_wheelLapTimes, sessionId, lapTime);
-
 	}
 
 	@Override
@@ -75,9 +74,13 @@ public class DatabaseAccessorStub implements DatabaseAccessorInterface
 	public List<String> getSessionIds()
 	{
 		List<String> ids = new ArrayList<>();
-		for (int i = 1; i <= _sessionId; i++)
+
+		if (_sessionId != 1)
 		{
-			ids.add(String.valueOf(i));
+			for (int i = 1; i <= _sessionId; i++)
+			{
+				ids.add(String.valueOf(i));
+			}
 		}
 		return ids;
 	}
