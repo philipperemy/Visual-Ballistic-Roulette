@@ -14,14 +14,20 @@ import java.net.URL;
  * VIBRATING THE PHONE TO GIVE FEEDBACK TO THE USER!!!!
  */
 
-class HttpInterface
+abstract class HttpInterface
 {
-	static String forgeRequest(long timestamp, Type type)
+
+	private HttpInterface()
 	{
-		return "http://localhost:8080/RouletteServer/Request?time=" + String.valueOf(timestamp) + "&type=" + type.toString().toLowerCase();
+
 	}
 
-	static void send(String urlString) throws IOException
+	static String forgeRequest(long timestamp, Type type)
+	{
+		return "http://localhost:8080/RouletteServer/Request?time=" + timestamp + "&type=" + type.toString().toLowerCase();
+	}
+
+	static void send(final String urlString) throws IOException
 	{
 		try
 		{

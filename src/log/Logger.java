@@ -5,9 +5,9 @@ import java.util.Date;
 
 public class Logger
 {
-	private static final String infoKey = "INFO";
-	private static final String errorKey = "ERROR";
-	private static final String debugKey = "DEBUG";
+	private static final String INFO_KEY = "INFO";
+	private static final String ERROR_KEY = "ERROR";
+	private static final String DEBUG_KEY = "DEBUG";
 
 	private static boolean isDebug = false;
 
@@ -51,25 +51,25 @@ public class Logger
 
 	public static void traceINFO(Object obj)
 	{
-		out.println(baseLogMessage(infoKey, obj.toString()));
+		out.println(baseLogMessage(INFO_KEY, obj.toString()));
 	}
 
 	public static void traceINFO(String msg)
 	{
-		out.println(baseLogMessage(infoKey, msg));
+		out.println(baseLogMessage(INFO_KEY, msg));
 	}
 
 	public static void traceDEBUG(String msg)
 	{
 		if (isDebugEnabled())
 		{
-			out.println(baseLogMessage(debugKey, msg));
+			out.println(baseLogMessage(DEBUG_KEY, msg));
 		}
 	}
 
 	public static void traceINFO_NoNewLine(String msg)
 	{
-		out.print(baseLogMessage(infoKey, msg));
+		out.print(baseLogMessage(INFO_KEY, msg));
 	}
 
 	public static void traceINFO_NoBaseLine(String msg)
@@ -79,7 +79,7 @@ public class Logger
 
 	public static void traceERROR(String msg)
 	{
-		out.println(baseLogMessage(errorKey, msg));
+		out.println(baseLogMessage(ERROR_KEY, msg));
 	}
 
 	public static void traceINFO(String... msgs)
@@ -96,14 +96,14 @@ public class Logger
 				sBuilder.append(msgs[i] + ", ");
 			}
 		}
-		out.println(baseLogMessage(infoKey, sBuilder.toString()));
+		out.println(baseLogMessage(INFO_KEY, sBuilder.toString()));
 	}
 
 	public static void traceERROR(Exception e)
 	{
 		if (e != null)
 		{
-			out.println(baseLogMessage(errorKey, e.getMessage()));
+			out.println(baseLogMessage(ERROR_KEY, e.getMessage()));
 			e.printStackTrace(System.out);
 		}
 	}

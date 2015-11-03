@@ -13,7 +13,7 @@ import computations.Constants;
 import computations.model.Outcome;
 import log.Logger;
 
-public class DatabaseAccessor implements DatabaseAccessorInterface
+public final class DatabaseAccessor implements DatabaseAccessorInterface
 {
 	private static final String WHEEL_LAP_TIMES_TABLE_NAME = "wheel_lap_times";
 	private static final String BALL_LAP_TIMES_TABLE_NAME = "ball_lap_times";

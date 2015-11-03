@@ -53,7 +53,7 @@ public class BallisticManager
 	/*
 	 * Each speed is the average of the measurements intervals
 	 */
-	public static List<ClockSpeed> computeInstantAverageSpeeds(List<Double> lapTimes, Type type)
+	private static List<ClockSpeed> computeInstantAverageSpeeds(List<Double> lapTimes, Type type)
 	{
 		List<ClockSpeed> speedMeasurements = new ArrayList<>(lapTimes.size() - 1);
 		for (int i = 1; i < lapTimes.size(); i++)

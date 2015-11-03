@@ -10,11 +10,11 @@ import computations.model.Outcome;
 
 public class DatabaseAccessorStub implements DatabaseAccessorInterface
 {
-	Map<String, List<Double>> _ballLapTimes = new HashMap<>();
-	Map<String, List<Double>> _wheelLapTimes = new HashMap<>();
-	Map<String, Integer> _outcomes = new HashMap<>();
-	Integer _sessionId = 1;
-	Map<String, Boolean> _clockwise = new HashMap<>();
+	private Map<String, List<Double>> _ballLapTimes = new HashMap<>();
+	private Map<String, List<Double>> _wheelLapTimes = new HashMap<>();
+	private Map<String, Integer> _outcomes = new HashMap<>();
+	private Integer _sessionId = 1;
+	private Map<String, Boolean> _clockwise = new HashMap<>();
 
 	private void appendMap(Map<String, List<Double>> map, String key, String value)
 	{
