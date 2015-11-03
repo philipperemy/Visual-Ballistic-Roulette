@@ -15,9 +15,9 @@ import log.Logger;
 public class DataRecord
 {
 	// Principle:
-	// BallSpeed known in front of mark
-	// Wheel speed known in front of mark
-	// Phase between both (wheel number in front of mark when ball passes in
+	// - BallSpeed known in front of mark
+	// - Wheel speed known in front of mark
+	// - Phase between both (wheel number in front of mark when ball passes in
 	// front of the mark)
 	// => possible to predict the outcome.
 
@@ -33,7 +33,7 @@ public class DataRecord
 	 */
 	public int phaseOfWheelWhenBallPassesInFrontOfMark;
 	public Integer outcome = null; // outcome of the game.
-	public WheelWay way;
+	public final WheelWay way = Constants.DEFAULT_WHEEL_WAY;
 
 	private static List<DataRecord> cacheSMR = new ArrayList<>();
 

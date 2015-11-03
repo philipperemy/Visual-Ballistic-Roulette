@@ -15,7 +15,6 @@ import computations.Constants;
 import computations.predictor.Predictor;
 import computations.session.SessionManager;
 import computations.wheel.Wheel;
-import computations.wheel.Wheel.WheelWay;
 import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;
 import log.Logger;
@@ -123,8 +122,7 @@ public class Response extends HttpServlet
 		List<Double> wheelLapTimesSeconds = computations.Helper.convertToSeconds(wheelLapTimes);
 		List<Double> ballLapTimesSeconds = computations.Helper.convertToSeconds(ballLapTimes);
 
-		WheelWay wheelWay = Wheel.convert(da.selectClockwise(sessionId));
-		int mostProbableNumber = pr.predict(ballLapTimesSeconds, wheelLapTimesSeconds, wheelWay, sessionId);
+		int mostProbableNumber = pr.predict(ballLapTimesSeconds, wheelLapTimesSeconds, sessionId);
 		return mostProbableNumber;
 	}
 

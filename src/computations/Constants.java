@@ -1,5 +1,7 @@
 package computations;
 
+import computations.wheel.Wheel.WheelWay;
+
 public class Constants
 {
 	/**
@@ -42,4 +44,6 @@ public class Constants
 	public static final String WHEEL_ANTICLOCKWISE = "0";
 
 	public static final String ERRORLEVEL_PROCESS_EXCEPTION_TAG = "E";
+
+	public static final WheelWay DEFAULT_WHEEL_WAY = WheelWay.ANTICLOCKWISE;
 }

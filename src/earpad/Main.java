@@ -12,7 +12,7 @@ public class Main
 	/**
 	 * to be updated if needed.
 	 */
-	
+
 	private DatabaseAccessorInterface da = DatabaseAccessor.getInstance();
 	private String firstSessionId = da.getLastSessionId();
 

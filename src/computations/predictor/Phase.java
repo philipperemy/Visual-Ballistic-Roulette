@@ -6,7 +6,7 @@ import computations.wheel.Wheel.WheelWay;
 public class Phase
 {
 	@Deprecated
-	public static int findNumberInFrontOfRefWhenBallIsLaunched(double timeOfLastPassageOfZeroInFrontOfRef, double timeWhenBallWasLaunched, // NO_UCD (test only)
+	public static int findNumberInFrontOfRefWhenBallIsLaunched(double timeOfLastPassageOfZeroInFrontOfRef, double timeWhenBallWasLaunched,
 			double lastWheelSpeed, WheelWay way)
 	{
 		double diffTime = timeWhenBallWasLaunched - timeOfLastPassageOfZeroInFrontOfRef;
@@ -33,7 +33,6 @@ public class Phase
 	public static int findPhaseNumberBetweenBallAndWheel(double timeOfBallInFrontOfMark, double timeOfWheelInFrontOfMark, double lastWheelSpeed,
 			WheelWay way)
 	{
-
 		double diffTime = Math.abs(timeOfBallInFrontOfMark - timeOfWheelInFrontOfMark);
 		double timeForOneWheelLoop = BallisticManager.getTimeForOneWheelLoop(lastWheelSpeed);
 		int numbersCount = Wheel.NUMBERS.length;

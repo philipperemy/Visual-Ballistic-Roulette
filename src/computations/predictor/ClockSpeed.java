@@ -11,8 +11,6 @@ class ClockSpeed
 	double time;
 	double speed;
 
-	
-
 	public ClockSpeed()
 	{
 	}
