@@ -8,6 +8,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
+import computations.GaussianNoiseGenerator;
 import database.DatabaseAccessorInterface;
 import database.DatabaseAccessorStub;
 import framework.games.Game;
@@ -33,6 +34,14 @@ public abstract class TestClass
 	public void beforeTest()
 	{
 		setUp();
+	}
+
+	static GaussianNoiseGenerator gng = new GaussianNoiseGenerator(0, 20);
+
+	public static String getNoisyTime(int hour, int min, int sec, int millis)
+	{
+		String time = getNoisyTime(hour, min, sec, millis);
+		return gng.addNoiseTimeMillisStr(time);
 	}
 
 	public static String getTime(int hour, int min, int sec, int millis)
