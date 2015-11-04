@@ -1,7 +1,9 @@
 package computations;
 
+import org.junit.Assert;
 import org.junit.Test;
 
+import framework.TestClass;
 import servlets.SessionNotReadyException;
 
 public class Test_UivnKJokxP0 extends TestClass
@@ -390,13 +392,13 @@ public class Test_UivnKJokxP0 extends TestClass
 		sessionId = dbRef.incrementAndGetSessionId();
 		fill_18_27_336(sessionId, true); //6
 		sessionId = dbRef.incrementAndGetSessionId();
-		fill_1_28_22_990(sessionId, true); //7
+		fill_1_29_03_426(sessionId, true); //7
 		sessionId = dbRef.incrementAndGetSessionId();
 
 		response.forceDatasetReInit();
-		fill_1_29_03_426(sessionId, false);
+		fill_1_28_22_990(sessionId, false); //8
 
-		response.predictMostProbableNumber(sessionId);
+		Assert.assertEquals(4, response.predictMostProbableNumber(sessionId));
 	}
 
 }

@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import computations.Helper;
 import computations.wheel.Wheel;
 
-class OutcomeStatistics
+public class OutcomeStatistics
 {
 	@Override
 	public String toString()
@@ -21,7 +21,7 @@ class OutcomeStatistics
 	private double stdDeviation;
 	private Map<Integer, Integer> frequency;
 
-	static OutcomeStatistics create(List<Integer> outcomeNumbers)
+	public static OutcomeStatistics create(List<Integer> outcomeNumbers)
 	{
 		Map<Integer, Integer> frequencyPerNumber = new HashMap<>(); // Number
 																	// <->

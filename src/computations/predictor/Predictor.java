@@ -102,8 +102,8 @@ public class Predictor
 			}
 
 			int phase = Phase.findPhaseNumberBetweenBallAndWheel(correspondingBallLapTime, lastWheelLapTimeInFrontOfRef, wheelSpeedInFrontOfMark,
-					Constants.DEFAULT_WHEEL_WAY);
-
+						Constants.DEFAULT_WHEEL_WAY);
+			
 			DataRecord smr = new DataRecord();
 			smr.ballSpeedInFrontOfMark = ballAccModel.estimateSpeed(correspondingBallLapTime);
 			smr.wheelSpeedInFrontOfMark = wheelSpeedInFrontOfMark;

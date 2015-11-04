@@ -19,15 +19,25 @@ public class TestServlet
 	 * Associated session is 1. Obstacles hit is 0. Outcome number is 15. Way is
 	 * ANTICLOCKWISE.
 	 */
-	
-	//KNN = 1, For testing only.
+
+	// KNN = 1, For testing only.
 	@Test
 	public void test() throws SessionNotReadyException
 	{
-		Response response = new Response();
-		String sessionId = "1";
-		Constants.NUMBER_OF_NEIGHBORS_KNN = 1;
-		Assert.assertEquals(15, response.predictMostProbableNumber(sessionId));
-		Assert.assertEquals("[0, 4, 15, 19, 21, 26, 32]", response.predictMostProbableRegion(sessionId).toString()); // sorted
+		int old_val_knn = Constants.NUMBER_OF_NEIGHBORS_KNN;
+		try
+		{
+			Response response = new Response();
+			String sessionId = "1";
+			Constants.NUMBER_OF_NEIGHBORS_KNN = 1;
+			Assert.assertEquals(15, response.predictMostProbableNumber(sessionId));
+			Assert.assertEquals("[0, 4, 15, 19, 21, 26, 32]", response.predictMostProbableRegion(sessionId).toString()); // sorted
+		} catch (Exception e)
+		{
+			throw new RuntimeException(e);
+		} finally
+		{
+			Constants.NUMBER_OF_NEIGHBORS_KNN = old_val_knn;
+		}
 	}
 }

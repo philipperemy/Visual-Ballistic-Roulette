@@ -2,6 +2,7 @@ package computations;
 
 import org.junit.Test;
 
+import framework.TestClass;
 import servlets.SessionNotReadyException;
 
 public class Test_Video2 extends TestClass

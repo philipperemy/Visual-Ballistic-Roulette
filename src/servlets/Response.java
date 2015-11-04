@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import computations.Constants;
+import computations.model.DataRecord;
 import computations.predictor.Predictor;
 import computations.session.SessionManager;
 import computations.wheel.Wheel;
@@ -51,6 +52,11 @@ public class Response extends HttpServlet
 	public void forceDatasetReInit()
 	{
 		pr.init(da);
+	}
+	
+	public void clearCache()
+	{
+		DataRecord.clearCache();
 	}
 
 	/**

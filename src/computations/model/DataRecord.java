@@ -37,6 +37,12 @@ public class DataRecord
 
 	private static List<DataRecord> cacheSMR = new ArrayList<>();
 
+	public static void clearCache()
+	{
+		Logger.traceINFO("[Cache] Clearing all cache.");
+		cacheSMR = new ArrayList<>();
+	}
+	
 	public void cacheIt()
 	{
 		Logger.traceINFO("[Cache] Record added : " + toString());
