@@ -28,7 +28,7 @@ public abstract class TestClass
 		response.da = dbRef;
 		response.clearCache();
 	}
-	
+
 	@Before
 	public void beforeTest()
 	{

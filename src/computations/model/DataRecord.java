@@ -42,7 +42,7 @@ public class DataRecord
 		Logger.traceINFO("[Cache] Clearing all cache.");
 		cacheSMR = new ArrayList<>();
 	}
-	
+
 	public void cacheIt()
 	{
 		Logger.traceINFO("[Cache] Record added : " + toString());

@@ -388,15 +388,15 @@ public class Test_UivnKJokxP0 extends TestClass
 		sessionId = dbRef.incrementAndGetSessionId();
 		fill_2_25_944(sessionId, true); // 4
 		sessionId = dbRef.incrementAndGetSessionId();
-		fill_7_54_507(sessionId, true); //5
+		fill_7_54_507(sessionId, true); // 5
 		sessionId = dbRef.incrementAndGetSessionId();
-		fill_18_27_336(sessionId, true); //6
+		fill_18_27_336(sessionId, true); // 6
 		sessionId = dbRef.incrementAndGetSessionId();
-		fill_1_29_03_426(sessionId, true); //7
+		fill_1_29_03_426(sessionId, true); // 7
 		sessionId = dbRef.incrementAndGetSessionId();
 
 		response.forceDatasetReInit();
-		fill_1_28_22_990(sessionId, false); //8
+		fill_1_28_22_990(sessionId, false); // 8
 
 		Assert.assertEquals(4, response.predictMostProbableNumber(sessionId));
 	}

@@ -17,7 +17,7 @@ public class Game4 extends Game
 				TestClass.getTime(0, 2, 32, 885), //
 				TestClass.getTime(0, 2, 34, 957), //
 				TestClass.getTime(0, 2, 37, 278) //
-			); //
+		); //
 	}
 
 	@Override

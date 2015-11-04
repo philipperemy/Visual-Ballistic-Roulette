@@ -9,23 +9,23 @@ import framework.games.Game;
 public class CrossValidationLeaveOneOut
 {
 	List<Game> games;
-	
+
 	public CrossValidationLeaveOneOut(List<Game> games)
 	{
 		this.games = games;
 	}
-	
+
 	public double runCrossValidation()
 	{
 		List<TestResult> trs = new ArrayList<>();
-		for(int i = 0; i < games.size(); i++)
+		for (int i = 0; i < games.size(); i++)
 		{
-			((DatabaseAccessorStub)TestClass.dbRef).reset();
+			((DatabaseAccessorStub) TestClass.dbRef).reset();
 			Game predict = games.get(i);
 			List<Game> trainingSet = new ArrayList<>();
-			for(int j = 0; j < games.size(); j++)
+			for (int j = 0; j < games.size(); j++)
 			{
-				if(j != i)
+				if (j != i)
 				{
 					trainingSet.add(games.get(j));
 				}
@@ -33,9 +33,10 @@ public class CrossValidationLeaveOneOut
 			TestResult res = TestClass.runTest(trainingSet, predict);
 			trs.add(res);
 		}
-		
+
 		double mean_error = 0.0;
-		for(TestResult tr : trs) {
+		for (TestResult tr : trs)
+		{
 			mean_error += tr.error();
 		}
 		mean_error /= trs.size();

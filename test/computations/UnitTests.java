@@ -51,16 +51,17 @@ public class UnitTests
 		Assert.assertEquals("12.245", Helper.printDigit(12.245));
 		Assert.assertEquals("12.246", Helper.printDigit(12.24598594));
 	}
-	
+
 	@Test
-	public void helper_test_6() 
+	public void helper_test_6()
 	{
 		Assert.assertEquals("+oo", Helper.printValueOrInfty(2_000_000_000.0));
 		Assert.assertEquals("12.245", Helper.printValueOrInfty(12.245));
 	}
-	
+
 	@Test
-	public void helper_test_7() {
+	public void helper_test_7()
+	{
 		List<Integer> list = Arrays.asList(1000, 2000, 3000);
 		List<Integer> list2 = Helper.unserializeOutcomeNumbers(list.toString());
 		Assert.assertEquals(list.toString(), list2.toString());

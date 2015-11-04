@@ -145,7 +145,7 @@ public class DatabaseAccessorStub implements DatabaseAccessorInterface
 		_wheelLapTimes = new HashMap<>();
 		_outcomes = new HashMap<>();
 		_sessionId = 1;
-		_clockwise = new HashMap<>();		
+		_clockwise = new HashMap<>();
 	}
 
 }

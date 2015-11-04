@@ -53,7 +53,7 @@ public class Response extends HttpServlet
 	{
 		pr.init(da);
 	}
-	
+
 	public void clearCache()
 	{
 		DataRecord.clearCache();

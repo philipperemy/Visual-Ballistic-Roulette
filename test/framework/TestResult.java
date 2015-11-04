@@ -6,17 +6,16 @@ public class TestResult
 {
 	Integer expected;
 	Integer actual;
-	
+
 	public int error()
 	{
-		if(expected != null && actual != null)
+		if (expected != null && actual != null)
 		{
 			return Wheel.distanceBetweenNumbers(expected, actual);
-		}
-		else
+		} else
 		{
 			throw new RuntimeException();
 		}
 	}
-	
+
 }

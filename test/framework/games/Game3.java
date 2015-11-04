@@ -19,7 +19,7 @@ public class Game3 extends Game
 				TestClass.getTime(0, 2, 15, 700), //
 				TestClass.getTime(0, 2, 17, 817), //
 				TestClass.getTime(0, 2, 20, 204) //
-			); //
+		); //
 	}
 
 	@Override
