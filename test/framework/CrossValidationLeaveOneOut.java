@@ -5,6 +5,7 @@ import java.util.List;
 
 import database.DatabaseAccessorStub;
 import framework.games.Game;
+import log.Logger;
 
 public class CrossValidationLeaveOneOut
 {
@@ -37,7 +38,9 @@ public class CrossValidationLeaveOneOut
 		double mean_error = 0.0;
 		for (TestResult tr : trs)
 		{
-			mean_error += tr.error();
+			int cur_error = tr.error();
+			Logger.traceINFO("Error : " + cur_error);
+			mean_error += cur_error;
 		}
 		mean_error /= trs.size();
 		return mean_error;

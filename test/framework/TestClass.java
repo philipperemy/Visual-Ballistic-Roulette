@@ -8,10 +8,11 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-import computations.GaussianNoiseGenerator;
 import database.DatabaseAccessorInterface;
 import database.DatabaseAccessorStub;
 import framework.games.Game;
+import framework.time.GetNoisyTime;
+import framework.time.GetTime;
 import servlets.Response;
 import servlets.SessionNotReadyException;
 
@@ -20,6 +21,7 @@ public abstract class TestClass
 	public static DatabaseAccessorInterface dbRef;
 	protected static Response response;
 	protected Map<Integer, Game> games = new HashMap<>();
+	public static GetTime timerGetter = new GetTime();
 
 	@BeforeClass
 	public static void setUp()
@@ -35,18 +37,15 @@ public abstract class TestClass
 	{
 		setUp();
 	}
-
-	static GaussianNoiseGenerator gng = new GaussianNoiseGenerator(0, 20);
-
-	public static String getNoisyTime(int hour, int min, int sec, int millis)
-	{
-		String time = getNoisyTime(hour, min, sec, millis);
-		return gng.addNoiseTimeMillisStr(time);
-	}
-
+	
 	public static String getTime(int hour, int min, int sec, int millis)
 	{
-		return String.valueOf((hour * 3600 + min * 60 + sec) * 1000 + millis);
+		return timerGetter.getTime(hour, min, sec, millis);
+	}
+	
+	public static void addNoise()
+	{
+		timerGetter = new GetNoisyTime();
 	}
 
 	public static TestResult runTest(List<Game> games, Game predict)

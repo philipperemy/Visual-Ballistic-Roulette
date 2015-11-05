@@ -14,7 +14,6 @@ public class Game2 extends Game
 				TestClass.getTime(0, 1, 24, 992), //
 				TestClass.getTime(0, 1, 26, 563), //
 				TestClass.getTime(0, 1, 28, 394), //
-				TestClass.getTime(0, 1, 28, 394), //
 				TestClass.getTime(0, 1, 30, 369), //
 				TestClass.getTime(0, 1, 32, 731) //
 		); //
