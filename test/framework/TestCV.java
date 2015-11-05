@@ -2,9 +2,11 @@ package framework;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.junit.Test;
 
+import database.DatabaseAccessorStub;
 import framework.games.Game;
 import framework.games.Game1;
 import framework.games.Game2;
@@ -18,7 +20,7 @@ import log.Logger;
 
 public class TestCV extends TestClass
 {
-	
+
 	private List<Game> genGames()
 	{
 		List<Game> games = new ArrayList<>();
@@ -32,7 +34,7 @@ public class TestCV extends TestClass
 		games.add(new Game8());
 		return games;
 	}
-	
+
 	@Test
 	public void test_cv()
 	{
@@ -41,48 +43,24 @@ public class TestCV extends TestClass
 		double error = cv.runCrossValidation();
 		Logger.traceINFO("error is : " + error);
 	}
-	
+
 	@Test
 	public void test_cv_mc()
 	{
 		double meanError = 0;
-		//List<Double> errors = new ArrayList<>();
-		for(int i = 0; i < 1000; i++)
+		// List<Double> errors = new ArrayList<>();
+		int MC_STEPS = 100;
+		for (int i = 0; i < MC_STEPS; i++)
 		{
 			setUp();
 			addNoise();
 			List<Game> games = genGames();
 			CrossValidationLeaveOneOut cv = new CrossValidationLeaveOneOut(games);
 			double error = cv.runCrossValidation();
-			//errors.add(error);
+			// errors.add(error);
 			meanError += error;
 		}
-		meanError /= 1000;
+		meanError /= MC_STEPS;
 		Logger.traceINFO("error is : " + meanError);
-	}
-	
-	@Test
-	@Deprecated
-	public void simulate_game()
-	{
-		double meanError = 0;
-		List<Integer> pnl = new ArrayList<>();
-		for(int i = 0; i < 100; i++)
-		{
-			setUp();
-			addNoise();
-			List<Game> games = genGames();
-			CrossValidationLeaveOneOut cv = new CrossValidationLeaveOneOut(games);
-			double error = cv.runCrossValidation();
-			meanError += error;
-			pnl.add(-9);
-			if(error <= 4) { // 36/37-1 or 35/37-36/37
-				//WIN
-				pnl.add(36);
-			}
-		}
-		meanError /= 100;
-		Logger.traceINFO("error is : " + meanError);
-		Logger.traceINFO("PNL : " + pnl.toString());
 	}
 }
