@@ -35,18 +35,18 @@ public class DataRecord
 	public Integer outcome = null; // outcome of the game.
 	public final WheelWay way = Constants.DEFAULT_WHEEL_WAY;
 
-	private static List<DataRecord> cacheSMR = new ArrayList<>();
+	private static List<DataRecord> cache = new ArrayList<>();
 
 	public static void clearCache()
 	{
 		Logger.traceINFO("[Cache] Clearing all cache.");
-		cacheSMR = new ArrayList<>();
+		cache = new ArrayList<>();
 	}
 
 	public void cacheIt()
 	{
 		Logger.traceINFO("[Cache] Record added : " + toString());
-		cacheSMR.add(this);
+		cache.add(this);
 	}
 
 	private double mae(DataRecord smr)
@@ -55,24 +55,24 @@ public class DataRecord
 				+ Math.abs(smr.wheelSpeedInFrontOfMark - this.wheelSpeedInFrontOfMark);
 	}
 
-	private static List<DataRecord> matchCache(DataRecord smr, int knnNumber)
+	private static List<DataRecord> matchCache(DataRecord predictRecord, int knnNumber)
 	{
-		Map<Double, DataRecord> smrMap = new TreeMap<>();
-		for (DataRecord cacheSmr : cacheSMR)
+		Map<Double, DataRecord> distRecordsMap = new TreeMap<>();
+		for (DataRecord cacheRecord : cache)
 		{
-			double dist = cacheSmr.mae(smr);
-			if (smr.way == cacheSmr.way)
+			double dist = cacheRecord.mae(predictRecord);
+			if (predictRecord.way == cacheRecord.way)
 			{
 				// For now discarding if the way is different.
-				smrMap.put(dist, cacheSmr);
+				distRecordsMap.put(dist, cacheRecord);
 			} else
 			{
-				Logger.traceINFO("Dist : DISCARDED (WAY) " + Helper.printDigit(dist) + ", " + cacheSmr);
+				Logger.traceINFO("Dist : DISCARDED (WHEEL WAY) " + Helper.printDigit(dist) + ", " + cacheRecord);
 			}
 		}
 
-		// print all them.
-		for (Entry<Double, DataRecord> entry : smrMap.entrySet())
+		// print them all.
+		for (Entry<Double, DataRecord> entry : distRecordsMap.entrySet())
 		{
 			double dist = entry.getKey();
 			DataRecord cacheSmr = entry.getValue();
@@ -81,12 +81,12 @@ public class DataRecord
 
 		int i = 0;
 		List<DataRecord> knnList = new ArrayList<>();
-		for (Entry<Double, DataRecord> orderedCache : smrMap.entrySet())
+		for (Entry<Double, DataRecord> orderedCacheRecord : distRecordsMap.entrySet())
 		{
 			if (i++ < knnNumber)
 			{
-				knnList.add(orderedCache.getValue());
-				Logger.traceINFO("Selected : {" + orderedCache + "}");
+				knnList.add(orderedCacheRecord.getValue());
+				Logger.traceINFO("Selected : {" + orderedCacheRecord + "}");
 			}
 		}
 		return knnList;
@@ -114,9 +114,9 @@ public class DataRecord
 	{
 		List<DataRecord> matchedRecordsList = matchCache(predict, Constants.NUMBER_OF_NEIGHBORS_KNN);
 		List<Integer> outcomeNumbersList = new ArrayList<>();
-		for (DataRecord matched : matchedRecordsList)
+		for (DataRecord matchedRecord : matchedRecordsList)
 		{
-			int predictedOutcome = Wheel.predictOutcomeWithShift(matched.phaseOfWheelWhenBallPassesInFrontOfMark, matched.outcome,
+			int predictedOutcome = Wheel.predictOutcomeWithShift(matchedRecord.phaseOfWheelWhenBallPassesInFrontOfMark, matchedRecord.outcome,
 					predict.phaseOfWheelWhenBallPassesInFrontOfMark);
 			outcomeNumbersList.add(predictedOutcome);
 		}

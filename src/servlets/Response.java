@@ -82,10 +82,12 @@ public class Response extends HttpServlet
 			List<Integer> region = predictMostProbableRegion(sessionId);
 			response.getWriter().append(region.toString());
 		} catch (SessionNotReadyException snre)
-		{ // Good exception
+		{
+			// Good exception
 			Helper.notifyNotReadyYet(response, snre.getNumberOfRecordedTimesOfWheel());
 		} catch (Exception e)
-		{ // Bad exception
+		{
+			// Bad exception
 			Logger.traceERROR(e);
 			// E means EXCEPTION! So stop everything for every clients.
 			Helper.notifyNotReadyYet(response, Constants.ERRORLEVEL_PROCESS_EXCEPTION_TAG);
