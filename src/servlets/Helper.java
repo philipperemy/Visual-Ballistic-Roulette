@@ -9,18 +9,6 @@ import log.Logger;
 
 class Helper
 {
-
-	private static void notifyError(HttpServletResponse response, String msg)
-	{
-		try
-		{
-			response.getWriter().append("ERROR: " + msg);
-		} catch (IOException e)
-		{
-			Logger.traceERROR(e);
-		}
-	}
-
 	static void notifyMissingFieldError(HttpServletResponse response, String missingField)
 	{
 		notifyError(response, missingField + " missing");
@@ -31,11 +19,22 @@ class Helper
 		notifyError(response, invalidField + " invalid");
 	}
 
+	static void notifyError(HttpServletResponse response, String msg)
+	{
+		try
+		{
+			response.getWriter().append("ERROR: " + msg);
+		} catch (IOException e)
+		{
+			Logger.traceERROR(e);
+		}
+	}
+
 	static void notifyNotReadyYet(HttpServletResponse response, String numberOfRecordedWheelTimes)
 	{
 		try
 		{
-			response.getWriter().append("SESSION_NOT_READY:" + numberOfRecordedWheelTimes);
+			response.getWriter().append("SESSION_NOT_READY: " + numberOfRecordedWheelTimes);
 		} catch (IOException e)
 		{
 			Logger.traceERROR(e);

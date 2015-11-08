@@ -35,7 +35,7 @@ public class TestCV extends TestClass
 		return games;
 	}
 
-	@Test
+	//@Test
 	public void test_cv()
 	{
 		List<Game> games = genGames();
@@ -44,7 +44,7 @@ public class TestCV extends TestClass
 		Logger.traceINFO("error is : " + error);
 	}
 
-	@Test
+	//@Test
 	public void test_cv_mc()
 	{
 		double meanError = 0;

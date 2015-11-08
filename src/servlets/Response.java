@@ -30,9 +30,9 @@ public class Response extends HttpServlet
 	private SessionManager sm;
 	private Predictor pr;
 
-	public Response(DatabaseAccessorInterface dai)
+	public Response(DatabaseAccessorInterface da)
 	{
-		init(dai);
+		init(da);
 	}
 
 	public Response()
@@ -59,9 +59,6 @@ public class Response extends HttpServlet
 		DataRecord.clearCache();
 	}
 
-	/**
-	 * To be implemented Basically, 4 measures of wheel loop.
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		Logger.traceINFO(Helper.toString(request));
@@ -71,7 +68,7 @@ public class Response extends HttpServlet
 		if (sessionId == null)
 		{
 			sessionId = da.getLastSessionId();
-			Logger.traceINFO("No session specified. Selecting the last session id = " + sessionId);
+			Logger.traceINFO("No session specified. Selecting the last known session id = " + sessionId);
 		}
 
 		if (sessionId == null || sessionId.isEmpty())
@@ -119,8 +116,8 @@ public class Response extends HttpServlet
 			throw new SessionNotReadyException(0);
 		}
 
-		int numberOfRecordedWheelTimes = wheelLapTimes.size();
-		if (wheelLapTimes.size() < Constants.MINIMUM_NUMBER_OF_WHEEL_TIMES_BEFORE_FORECASTING)
+		int numberOfRecordedWheelTimes = wheelLapTimes.size(); // At least 2
+		if (numberOfRecordedWheelTimes < Constants.MINIMUM_NUMBER_OF_WHEEL_TIMES_BEFORE_FORECASTING)
 		{
 			throw new SessionNotReadyException(numberOfRecordedWheelTimes);
 		}

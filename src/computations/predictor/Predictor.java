@@ -78,10 +78,10 @@ public class Predictor
 			return dataRecords;
 		}
 
+		// We need at least three ball measures. To build the model (for one
+		// acceleration)
 		if (ballLapTimes.size() < Constants.MINIMUM_NUMBER_OF_BALL_TIMES_BEFORE_FORECASTING)
 		{
-			// We need at least three ball measures. To build the model (for one
-			// acceleration)
 			return dataRecords;
 		}
 
@@ -105,11 +105,13 @@ public class Predictor
 					Constants.DEFAULT_WHEEL_WAY);
 
 			DataRecord smr = new DataRecord();
+			// Done because the speed is measured between t1 and t2 and reflects
+			// the average speed, 0.5*t1+0.5*t2. At t2, the speed is less than
+			// this average.
 			smr.ballSpeedInFrontOfMark = ballAccModel.estimateSpeed(correspondingBallLapTime);
 			smr.wheelSpeedInFrontOfMark = wheelSpeedInFrontOfMark;
 			smr.sessionId = sessionId;
 			smr.phaseOfWheelWhenBallPassesInFrontOfMark = phase;
-
 			dataRecords.add(smr);
 		}
 
@@ -132,19 +134,20 @@ public class Predictor
 	public int predict(List<Double> ballLapTimes, List<Double> wheelLapTimes, String sessionId) throws SessionNotReadyException
 	{
 		// Phase is filled. All lap times are used to build the model.
-		List<DataRecord> recordToPredicts = buildDataRecords(ballLapTimes, wheelLapTimes, sessionId);
+		List<DataRecord> predictRecords = buildDataRecords(ballLapTimes, wheelLapTimes, sessionId);
 
-		if (recordToPredicts.isEmpty())
+		if (predictRecords.isEmpty())
 		{
 			Logger.traceERROR("No records to predict.");
 			throw new SessionNotReadyException(wheelLapTimes.size());
 		}
 
 		// Take the last one.
-		DataRecord sdr = Helper.peek(recordToPredicts);
-		Logger.traceINFO("Record to predict : " + sdr);
+		// TODO: maybe we can improve it by taking all.
+		DataRecord predictRecord = Helper.peek(predictRecords);
+		Logger.traceINFO("Record to predict : " + predictRecord);
 
-		int mostProbableNumber = DataRecord.predictOutcome(sdr);
+		int mostProbableNumber = DataRecord.predictOutcome(predictRecord);
 		Logger.traceINFO("Most probable number : " + mostProbableNumber);
 		return mostProbableNumber;
 	}

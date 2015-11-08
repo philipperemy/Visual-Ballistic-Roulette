@@ -46,12 +46,12 @@ public class Request extends HttpServlet
 		long currentTimeMillis = System.currentTimeMillis();
 		String sessionId = sm.callManager(currentTimeMillis);
 
-		// Basically a clockwise is associated to a session. If we don't receive
-		// it for other, deduce it.
-		String clockwise = request.getParameter(Parameters.CLOCK_WISE);
+		// Basically a clockwise is associated to a session. If we don't
+		// receive, it for other, deduce it.
+		String clockwise = request.getParameter(Parameters.WHEEL_WAY);
 		if (clockwise != null)
 		{
-			processClockwise(sessionId, clockwise);
+			da.insertClockwise(sessionId, clockwise);
 		}
 
 		String time = request.getParameter(Parameters.TIME);
@@ -85,14 +85,8 @@ public class Request extends HttpServlet
 		}
 	}
 
-	private void processClockwise(String sessionId, String clockwise)
-	{
-		da.insertClockwise(sessionId, clockwise);
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		doGet(request, response);
 	}
-
 }
