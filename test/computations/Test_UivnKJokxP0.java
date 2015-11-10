@@ -398,7 +398,6 @@ public class Test_UivnKJokxP0 extends TestClass
 		response.forceDatasetReInit();
 		fill_1_28_22_990(sessionId, false); // 8
 
-		Assert.assertEquals(4, response.predictMostProbableNumber(sessionId));
+		Assert.assertEquals(15, response.predictMostProbableNumber(sessionId));
 	}
-
 }

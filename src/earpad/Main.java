@@ -25,9 +25,6 @@ public class Main
 	@Deprecated
 	public void run() throws InterruptedException
 	{
-		/**
-		 * TODO: change it. Absolutely.
-		 */
 		Main main = new Main();
 		main.firstSessionId = Constants.WHEEL_CLOCKWISE;
 		Logger.traceINFO("Starting the program with session id = " + main.firstSessionId);

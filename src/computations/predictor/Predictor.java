@@ -7,6 +7,7 @@ import computations.Constants;
 import computations.Helper;
 import computations.model.DataRecord;
 import computations.model.Outcome;
+import computations.model.OutcomeStatistics;
 import computations.wheel.Type;
 import database.DatabaseAccessorInterface;
 import log.Logger;
@@ -131,7 +132,7 @@ public class Predictor
 	{
 	}
 
-	public int predict(List<Double> ballLapTimes, List<Double> wheelLapTimes, String sessionId) throws SessionNotReadyException
+	public int predict_old(List<Double> ballLapTimes, List<Double> wheelLapTimes, String sessionId) throws SessionNotReadyException
 	{
 		// Phase is filled. All lap times are used to build the model.
 		List<DataRecord> predictRecords = buildDataRecords(ballLapTimes, wheelLapTimes, sessionId);
@@ -151,5 +152,67 @@ public class Predictor
 		Logger.traceINFO("Most probable number : " + mostProbableNumber);
 		return mostProbableNumber;
 	}
+
+	public int predict(List<Double> ballLapTimes, List<Double> wheelLapTimes, String sessionId) throws SessionNotReadyException
+	{
+		// Phase is filled. All lap times are used to build the model.
+		List<DataRecord> predictRecords = buildDataRecords(ballLapTimes, wheelLapTimes, sessionId);
+
+		if (predictRecords.isEmpty())
+		{
+			Logger.traceERROR("No records to predict.");
+			throw new SessionNotReadyException(wheelLapTimes.size());
+		}
+
+		List<Integer> mostProbableNumberList = new ArrayList<>();
+		for(int i = 0; i < predictRecords.size(); i++)
+		{
+			DataRecord predictRecord = predictRecords.get(i);
+			Logger.traceINFO("(" + i + ") Record to predict : " + predictRecord);
+			int mostProbableNumber = DataRecord.predictOutcome(predictRecord);
+			Logger.traceINFO("(" + i + ") Most probable number : " + mostProbableNumber);
+			mostProbableNumberList.add(mostProbableNumber);
+		}
+
+		int size = mostProbableNumberList.size();
+		int par = Constants.RECORDS_COUNT_FOR_PREDICTION;
+		if(size >= par) {
+			mostProbableNumberList = mostProbableNumberList.subList(size-par, size);
+		}
+		
+		OutcomeStatistics os = OutcomeStatistics.create(mostProbableNumberList);
+		int mostProbableFinalNumber = os.meanNumber;
+		Logger.traceINFO("(final) Most probable number : " + mostProbableFinalNumber);
+		return os.meanNumber;
+	}
+	
+	public int predict_3(List<Double> ballLapTimes, List<Double> wheelLapTimes, String sessionId) throws SessionNotReadyException
+	{
+		// Phase is filled. All lap times are used to build the model.
+		List<DataRecord> predictRecords = buildDataRecords(ballLapTimes, wheelLapTimes, sessionId);
+
+		if (predictRecords.isEmpty())
+		{
+			Logger.traceERROR("No records to predict.");
+			throw new SessionNotReadyException(wheelLapTimes.size());
+		}
+
+		List<Integer> mostProbableNumberList = new ArrayList<>();
+		int id = 1;
+		for (DataRecord predictRecord : predictRecords)
+		{
+			Logger.traceINFO("(" + id + ") Record to predict : " + predictRecord);
+			int mostProbableNumber = DataRecord.predictOutcome(predictRecord);
+			Logger.traceINFO("(" + id + ") Most probable number : " + mostProbableNumber);
+			mostProbableNumberList.add(mostProbableNumber);
+			id++;
+		}
+
+		OutcomeStatistics os = OutcomeStatistics.create(mostProbableNumberList);
+		int mostProbableFinalNumber = os.meanNumber;
+		Logger.traceINFO("(final) Most probable number : " + mostProbableFinalNumber);
+		return os.meanNumber;
+	}
+
 
 }

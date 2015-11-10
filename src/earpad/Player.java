@@ -61,7 +61,6 @@ class Player
 
 	private static void audioPlay(String soundNameRecordsFilename)
 	{
-		// TODO: implement it. Dependent on the software.
 		Logger.traceERROR("Play : " + soundNameRecordsFilename);
 	}
 

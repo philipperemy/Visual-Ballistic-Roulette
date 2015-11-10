@@ -255,7 +255,6 @@ public final class DatabaseAccessor implements DatabaseAccessorInterface
 		return null;
 	}
 
-	// TODO: to test
 	@Override
 	public void insertOutcome(String sessionId, String number)
 	{

@@ -17,7 +17,7 @@ public class OutcomeStatistics
 				+ (frequency != null ? "frequency=" + frequency + ", " : "") + "]";
 	}
 
-	int meanNumber;
+	public int meanNumber;
 	private double stdDeviation;
 	private Map<Integer, Integer> frequency;
 

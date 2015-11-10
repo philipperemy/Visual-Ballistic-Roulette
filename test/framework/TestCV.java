@@ -2,11 +2,9 @@ package framework;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.junit.Test;
 
-import database.DatabaseAccessorStub;
 import framework.games.Game;
 import framework.games.Game1;
 import framework.games.Game2;
@@ -44,7 +42,7 @@ public class TestCV extends TestClass
 		Logger.traceINFO("error is : " + error);
 	}
 
-	//@Test
+	@Test //1.46-1.60 error
 	public void test_cv_mc()
 	{
 		double meanError = 0;
