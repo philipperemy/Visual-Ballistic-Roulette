@@ -30,6 +30,7 @@ public abstract class TestClass
 		response = new Response(dbRef);
 		response.da = dbRef;
 		response.clearCache();
+		timerGetter = new GetTime();
 	}
 
 	@Before
