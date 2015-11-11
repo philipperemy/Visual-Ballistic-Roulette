@@ -13,6 +13,18 @@ public class Logger
 
 	private static final Printer out = new Printer();
 
+	public static void stopLogging()
+	{
+		out.println("stopLogging()");
+		Printer.canLog = false;
+	}
+
+	public static void enableLogging()
+	{
+		Printer.canLog = true;
+		out.println("enableLogging()");
+	}
+
 	private static boolean isDebugEnabled()
 	{
 		return isDebug;

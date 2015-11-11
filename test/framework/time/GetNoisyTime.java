@@ -4,6 +4,7 @@ import computations.GaussianNoiseGenerator;
 
 public class GetNoisyTime extends GetTime
 {
+	// mu, sigma
 	static GaussianNoiseGenerator gng = new GaussianNoiseGenerator(22, 45);
 
 	@Override

@@ -3,6 +3,7 @@ package framework;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import framework.games.Game;
@@ -33,7 +34,7 @@ public class TestCV extends TestClass
 		return games;
 	}
 
-	//@Test
+	// @Test
 	public void test_cv()
 	{
 		List<Game> games = genGames();
@@ -42,23 +43,34 @@ public class TestCV extends TestClass
 		Logger.traceINFO("error is : " + error);
 	}
 
-	@Test //1.46-1.60 error
+	@Test // 1.46-1.70 error. Lowest is when par = 1000. We take all what have.
 	public void test_cv_mc()
 	{
-		double meanError = 0;
-		// List<Double> errors = new ArrayList<>();
-		int MC_STEPS = 100;
-		for (int i = 0; i < MC_STEPS; i++)
+		try
 		{
-			setUp();
-			addNoise();
-			List<Game> games = genGames();
-			CrossValidationLeaveOneOut cv = new CrossValidationLeaveOneOut(games);
-			double error = cv.runCrossValidation();
-			// errors.add(error);
-			meanError += error;
+			double meanError = 0;
+			Logger.traceINFO("Cross validation running...");
+			Logger.stopLogging();
+			int MC_STEPS = 100;
+			for (int i = 0; i < MC_STEPS; i++)
+			{
+				setUp();
+				addNoise();
+				List<Game> games = genGames();
+				CrossValidationLeaveOneOut cv = new CrossValidationLeaveOneOut(games);
+				double error = cv.runCrossValidation();
+				meanError += error;
+			}
+			meanError /= MC_STEPS;
+			Logger.enableLogging();
+			Logger.traceINFO("error is : " + meanError);
+			Assert.assertTrue(meanError < 2);
+		} catch (Exception e)
+		{
+			throw new RuntimeException(e);
+		} finally
+		{
+			Logger.enableLogging();
 		}
-		meanError /= MC_STEPS;
-		Logger.traceINFO("error is : " + meanError);
 	}
 }
