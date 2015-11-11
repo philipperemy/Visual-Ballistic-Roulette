@@ -46,6 +46,6 @@ public class Constants
 	public static final String ERRORLEVEL_PROCESS_EXCEPTION_TAG = "-1";
 
 	public static final WheelWay DEFAULT_WHEEL_WAY = WheelWay.ANTICLOCKWISE;
-	
+
 	public static final int RECORDS_COUNT_FOR_PREDICTION = 5;
 }

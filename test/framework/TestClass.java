@@ -37,12 +37,12 @@ public abstract class TestClass
 	{
 		setUp();
 	}
-	
+
 	public static String getTime(int hour, int min, int sec, int millis)
 	{
 		return timerGetter.getTime(hour, min, sec, millis);
 	}
-	
+
 	public static void addNoise()
 	{
 		timerGetter = new GetNoisyTime();

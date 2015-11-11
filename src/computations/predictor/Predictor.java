@@ -165,7 +165,7 @@ public class Predictor
 		}
 
 		List<Integer> mostProbableNumberList = new ArrayList<>();
-		for(int i = 0; i < predictRecords.size(); i++)
+		for (int i = 0; i < predictRecords.size(); i++)
 		{
 			DataRecord predictRecord = predictRecords.get(i);
 			Logger.traceINFO("(" + i + ") Record to predict : " + predictRecord);
@@ -176,16 +176,17 @@ public class Predictor
 
 		int size = mostProbableNumberList.size();
 		int par = Constants.RECORDS_COUNT_FOR_PREDICTION;
-		if(size >= par) {
-			mostProbableNumberList = mostProbableNumberList.subList(size-par, size);
+		if (size >= par)
+		{
+			mostProbableNumberList = mostProbableNumberList.subList(size - par, size);
 		}
-		
+
 		OutcomeStatistics os = OutcomeStatistics.create(mostProbableNumberList);
 		int mostProbableFinalNumber = os.meanNumber;
 		Logger.traceINFO("(final) Most probable number : " + mostProbableFinalNumber);
 		return os.meanNumber;
 	}
-	
+
 	public int predict_3(List<Double> ballLapTimes, List<Double> wheelLapTimes, String sessionId) throws SessionNotReadyException
 	{
 		// Phase is filled. All lap times are used to build the model.
@@ -213,6 +214,5 @@ public class Predictor
 		Logger.traceINFO("(final) Most probable number : " + mostProbableFinalNumber);
 		return os.meanNumber;
 	}
-
 
 }

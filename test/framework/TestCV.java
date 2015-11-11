@@ -51,9 +51,10 @@ public class TestCV extends TestClass
 			double meanError = 0;
 			Logger.traceINFO("Cross validation running...");
 			Logger.stopLogging();
-			int MC_STEPS = 100;
+			int MC_STEPS = 1000;
 			for (int i = 0; i < MC_STEPS; i++)
 			{
+				System.out.println(i);
 				setUp();
 				addNoise();
 				List<Game> games = genGames();

@@ -19,7 +19,7 @@ public class GaussianNoiseGenerator
 		Logger.traceDEBUG("Adding noise: before [" + time + "], after [" + noise + "]");
 		return noise;
 	}
-	
+
 	public String addNoiseTimeMillisStr(String timeStr)
 	{
 		long time = Long.valueOf(timeStr);
