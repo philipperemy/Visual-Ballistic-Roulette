@@ -1,18 +1,12 @@
 package computations;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import log.Logger;
-
 public class Helper
 {
-	private static long lastQueryTimestamp = System.currentTimeMillis();
+	public static final double VERY_HIGH_NUMBER = 1_000_000_000;
 
 	public static List<Double> convertToSeconds(List<Double> listInMilliseconds)
 	{
@@ -22,6 +16,11 @@ public class Helper
 			listInSeconds.add(itemMsec * 0.001);
 		}
 		return listInSeconds;
+	}
+
+	public static String getSessionNotReadyErrorMessage(String numberOfRecordedWheelTimes)
+	{
+		return Constants.ERRORLEVEL_SESSION_NOT_READY_STRING + "," + numberOfRecordedWheelTimes;
 	}
 
 	// [0, 4, 15, 19, 21, 26, 32]
@@ -41,50 +40,9 @@ public class Helper
 		return list.get(list.size() - 1);
 	}
 
-	@Deprecated
-	private static String queryResponseServlet(boolean isTest, String urlString) throws InterruptedException, IOException
-	{
-		String fullString = "";
-		Logger.traceINFO("QUERY : " + urlString);
-		if (System.currentTimeMillis() - lastQueryTimestamp < Constants.POLLING_INTERVAL_MS)
-		{
-			Thread.sleep(Constants.POLLING_INTERVAL_MS);
-		}
-		lastQueryTimestamp = System.currentTimeMillis();
-		URL url = new URL(urlString);
-		BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-		String line;
-		while ((line = reader.readLine()) != null)
-		{
-			fullString += line;
-		}
-		reader.close();
-		return fullString;
-	}
-
-	// Return: query and response.
-	public static List<String> queryResponseServlet(String sessionId, boolean isTest) throws Exception
-	{
-		List<String> queryAndResponseList = new ArrayList<>();
-		String query = isTest ? Constants.LOCALHOST_SERVER_RESPONSE_QUERY_URL + sessionId : Constants.SERVER_RESPONSE_QUERY_URL + sessionId;
-		queryAndResponseList.add(query);
-		queryAndResponseList.add(queryResponseServlet(isTest, query));
-		return queryAndResponseList;
-	}
-
-	// Not the best but okay for the purpose.
-	@Deprecated
-	public static String predictNextSessionId(String currentSessionId)
-	{
-		int cur = Integer.valueOf(currentSessionId);
-		String nextSessionId = String.valueOf(++cur);
-		Logger.traceINFO("Predicting next session id : " + currentSessionId + " -> " + nextSessionId);
-		return nextSessionId;
-	}
-
 	public static String printValueOrInfty(Double value)
 	{
-		if (value > Constants.VERY_HIGH_NUMBER)
+		if (value > VERY_HIGH_NUMBER)
 		{
 			return "+oo";
 		}

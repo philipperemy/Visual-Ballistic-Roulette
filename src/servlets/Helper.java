@@ -34,7 +34,7 @@ class Helper
 	{
 		try
 		{
-			response.getWriter().append("SESSION_NOT_READY: " + numberOfRecordedWheelTimes);
+			response.getWriter().append(computations.Helper.getSessionNotReadyErrorMessage(numberOfRecordedWheelTimes));
 		} catch (IOException e)
 		{
 			Logger.traceERROR(e);
