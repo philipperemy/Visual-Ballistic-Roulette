@@ -26,9 +26,6 @@ public class Constants
 	public static final int MINIMUM_NUMBER_OF_BALL_TIMES_BEFORE_FORECASTING = 3;
 	public static final int RECORDS_COUNT_FOR_PREDICTION = 5;
 
-	public static final String WHEEL_CLOCKWISE = "1";
-	public static final String WHEEL_ANTICLOCKWISE = "0";
-
 	public static final String ERRORLEVEL_PROCESS_EXCEPTION_TAG = "-1";
 	public static final String ERRORLEVEL_SESSION_NOT_READY_STRING = "SESSION_NOT_READY_WHEEL_COUNT_ACTUAL";
 

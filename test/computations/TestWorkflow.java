@@ -25,7 +25,6 @@ public class TestWorkflow extends TestClass
 
 	public void game_3(String sessionId, boolean train)
 	{
-		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 0, 53, 994));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 0, 54, 929));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 0, 56, 29));
@@ -52,7 +51,6 @@ public class TestWorkflow extends TestClass
 
 	public void game_2(String sessionId, boolean train)
 	{
-		dbRef.insertClockwise(sessionId, Constants.WHEEL_CLOCKWISE);
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 0, 28, 170));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 0, 28, 713));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 0, 29, 304));
@@ -84,7 +82,6 @@ public class TestWorkflow extends TestClass
 
 	public void game_1(String sessionId, boolean train)
 	{
-		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 0, 2, 871));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 0, 3, 582));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 0, 4, 420));

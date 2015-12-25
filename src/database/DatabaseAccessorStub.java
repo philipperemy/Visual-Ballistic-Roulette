@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import computations.Constants;
 import computations.model.Outcome;
 
 public class DatabaseAccessorStub implements DatabaseAccessorInterface
@@ -14,7 +13,6 @@ public class DatabaseAccessorStub implements DatabaseAccessorInterface
 	private Map<String, List<Double>> _wheelLapTimes = new HashMap<>();
 	private Map<String, Integer> _outcomes = new HashMap<>();
 	private Integer _sessionId = 1;
-	private Map<String, Boolean> _clockwise = new HashMap<>();
 
 	private void appendMap(Map<String, List<Double>> map, String key, String value)
 	{
@@ -104,36 +102,6 @@ public class DatabaseAccessorStub implements DatabaseAccessorInterface
 	}
 
 	@Override
-	public void insertClockwiseFromPrevious(String sessionId)
-	{
-		Boolean val = _clockwise.get(getLastClockwise());
-		_clockwise.put(sessionId, !val);
-	}
-
-	@Override
-	public void insertClockwise(String sessionId, String clockwise)
-	{
-		_clockwise.put(sessionId, clockwise.equals(Constants.WHEEL_CLOCKWISE));
-	}
-
-	@Override
-	public String selectClockwise(String sessionId)
-	{
-		Boolean clockwise = _clockwise.get(sessionId);
-		if (clockwise == null)
-		{
-			return null;
-		}
-		return clockwise ? Constants.WHEEL_CLOCKWISE : Constants.WHEEL_ANTICLOCKWISE;
-	}
-
-	@Override
-	public String getLastClockwise()
-	{
-		return selectClockwise(String.valueOf(_sessionId));
-	}
-
-	@Override
 	public void insertOutcome(String sessionId, String number)
 	{
 		_outcomes.put(sessionId, Integer.parseInt(number));
@@ -145,7 +113,6 @@ public class DatabaseAccessorStub implements DatabaseAccessorInterface
 		_wheelLapTimes = new HashMap<>();
 		_outcomes = new HashMap<>();
 		_sessionId = 1;
-		_clockwise = new HashMap<>();
 	}
 
 }

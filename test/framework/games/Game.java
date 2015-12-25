@@ -3,7 +3,6 @@ package framework.games;
 import java.util.ArrayList;
 import java.util.List;
 
-import computations.Constants;
 import framework.TestClass;
 
 public abstract class Game
@@ -27,8 +26,6 @@ public abstract class Game
 
 	public void run(String sessionId)
 	{
-		TestClass.dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
-
 		for (String time : _ballLaptimes)
 		{
 			TestClass.dbRef.insertBallLapTimes(sessionId, time);

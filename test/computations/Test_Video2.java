@@ -9,7 +9,6 @@ public class Test_Video2 extends TestClass
 {
 	private void fill_1_23_601(String sessionId, boolean addOutcome)
 	{
-		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 1, 23, 601));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 1, 24, 992));
@@ -31,7 +30,6 @@ public class Test_Video2 extends TestClass
 
 	private void fill_1_47_071(String sessionId, boolean addOutcome)
 	{
-		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 1, 47, 071));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 1, 48, 276));
@@ -54,7 +52,6 @@ public class Test_Video2 extends TestClass
 	// OTHER BALL!
 	private void fill_2_07_462(String sessionId, boolean addOutcome)
 	{
-		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 2, 7, 462));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 2, 8, 807));
@@ -78,7 +75,6 @@ public class Test_Video2 extends TestClass
 
 	private void fill_2_25_944(String sessionId, boolean addOutcome)
 	{
-		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 2, 26, 020));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 2, 27, 508));
@@ -102,7 +98,6 @@ public class Test_Video2 extends TestClass
 	private void fill_7_54_507(String sessionId, boolean addOutcome)
 	{
 
-		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 7, 54, 525));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 7, 55, 138));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 7, 55, 883));
@@ -132,7 +127,6 @@ public class Test_Video2 extends TestClass
 
 	private void fill_18_27_336(String sessionId, boolean addOutcome)
 	{
-		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 18, 32, 015));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 18, 32, 764));
@@ -198,7 +192,6 @@ public class Test_Video2 extends TestClass
 
 		sessionId = dbRef.incrementAndGetSessionId();
 
-		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 7, 54, 525));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 7, 55, 138));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 7, 55, 883));
@@ -240,7 +233,6 @@ public class Test_Video2 extends TestClass
 
 		sessionId = dbRef.incrementAndGetSessionId();
 
-		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 7, 54, 525));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 7, 55, 138));
 		// dbRef.insertBallLapTimes(sessionId, getTime(0, 7, 55, 883));
@@ -282,7 +274,6 @@ public class Test_Video2 extends TestClass
 
 		sessionId = dbRef.incrementAndGetSessionId();
 
-		dbRef.insertClockwise(sessionId, Constants.WHEEL_ANTICLOCKWISE);
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 7, 54, 525));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 7, 55, 138));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 7, 55, 883));

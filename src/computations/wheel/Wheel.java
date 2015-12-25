@@ -1,7 +1,5 @@
 package computations.wheel;
 
-import computations.Constants;
-
 public class Wheel
 {
 	public static final int[] NUMBERS = { 0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22,
@@ -11,19 +9,6 @@ public class Wheel
 	{
 		CLOCKWISE, ANTICLOCKWISE
 	};
-
-	public static WheelWay convert(String clockwise)
-	{
-		switch (clockwise)
-		{
-		case Constants.WHEEL_CLOCKWISE:
-			return WheelWay.CLOCKWISE;
-		case Constants.WHEEL_ANTICLOCKWISE:
-			return WheelWay.ANTICLOCKWISE;
-		default:
-			throw new RuntimeException("Invalid clockwise : " + clockwise);
-		}
-	}
 
 	public static int getIndex(int index)
 	{

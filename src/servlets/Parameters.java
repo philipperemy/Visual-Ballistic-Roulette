@@ -9,8 +9,6 @@ class Parameters
 	// Response
 	static final String SESSION_ID = "sessionid";
 
-	static final String WHEEL_WAY = "clockwise";
-
 	static final String TYPE_WHEEL = "wheel";
 	static final String TYPE_BALL = "ball";
 }

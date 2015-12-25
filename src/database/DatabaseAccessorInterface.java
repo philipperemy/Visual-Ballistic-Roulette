@@ -22,13 +22,5 @@ public interface DatabaseAccessorInterface
 
 	public List<Double> selectWheelLapTimes(String sessionId);
 
-	public void insertClockwiseFromPrevious(String sessionId);
-
-	public void insertClockwise(String sessionId, String clockwise);
-
 	public void insertOutcome(String sessionId, String number);
-
-	public String selectClockwise(String sessionId);
-
-	public String getLastClockwise();
 }

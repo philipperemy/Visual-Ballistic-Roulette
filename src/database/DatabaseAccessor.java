@@ -9,7 +9,6 @@ import java.util.List;
 
 import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
 
-import computations.Constants;
 import computations.model.Outcome;
 import log.Logger;
 
@@ -177,23 +176,6 @@ public final class DatabaseAccessor implements DatabaseAccessorInterface
 		return list;
 	}
 
-	private String select(String SQLquery, String field)
-	{
-		try
-		{
-			ResultSet resultSet = connect.createStatement().executeQuery(SQLquery);
-			while (resultSet.next())
-			{
-				return resultSet.getString(field);
-			}
-
-		} catch (SQLException e)
-		{
-			Logger.traceERROR(e);
-		}
-		return null;
-	}
-
 	public void close()
 	{
 		try
@@ -206,54 +188,6 @@ public final class DatabaseAccessor implements DatabaseAccessorInterface
 		{
 			Logger.traceERROR(e);
 		}
-	}
-
-	//TODO: ultra buggy!
-	public void insertClockwiseFromPrevious(String sessionId)
-	{
-		// Compute new one
-		String clockwise = getLastClockwise().equals(Constants.WHEEL_ANTICLOCKWISE) ? Constants.WHEEL_CLOCKWISE : Constants.WHEEL_ANTICLOCKWISE;
-		insertClockwise(sessionId, clockwise);
-	}
-
-	// Should check if exist and update accordingly. The user should be able to
-	// overwrite the default values.
-	public void insertClockwise(String sessionId, String clockwise)
-	{
-		String query = "INSERT INTO `roulette_db`.`clockwise` (`ID`, `CLOCKWISE`, `SESSION_ID`) VALUES (NULL, '" + clockwise + "', '" + sessionId
-				+ "');";
-		try
-		{
-			connect.createStatement().execute(query);
-		} catch (SQLException e)
-		{
-			Logger.traceERROR(e);
-		}
-	}
-
-	public String selectClockwise(String sessionId)
-	{
-		String query = "SELECT * FROM `clockwise` WHERE SESSION_ID = " + sessionId;
-		return select(query, "CLOCKWISE");
-	}
-
-	public String getLastClockwise()
-	{
-		// too dangerous to choose the last session.
-		String query = "SELECT * FROM `clockwise` WHERE ID = (SELECT MAX(ID) FROM `clockwise`)";
-		try
-		{
-			ResultSet resultSet = connect.createStatement().executeQuery(query);
-			while (resultSet.next())
-			{
-				return resultSet.getString("CLOCKWISE");
-			}
-
-		} catch (SQLException e)
-		{
-			Logger.traceERROR(e);
-		}
-		return null;
 	}
 
 	@Override
