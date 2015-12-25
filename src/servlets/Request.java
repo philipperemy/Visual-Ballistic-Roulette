@@ -43,32 +43,22 @@ public class Request extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		Logger.traceINFO(Helper.toString(request));
-		long currentTimeMillis = System.currentTimeMillis();
-		String sessionId = sm.callManager(currentTimeMillis);
-
-		// Basically a clockwise is associated to a session. If we don't
-		// receive, it for other, deduce it.
-		String clockwise = request.getParameter(Parameters.WHEEL_WAY);
-		if (clockwise != null)
-		{
-			da.insertClockwise(sessionId, clockwise);
-		}
 
 		String time = request.getParameter(Parameters.TIME);
-		String type = request.getParameter(Parameters.TYPE);
-
 		if (time == null)
 		{
 			Helper.notifyMissingFieldError(response, Parameters.TIME);
 			return;
 		}
 
+		String type = request.getParameter(Parameters.TYPE);
 		if (type == null)
 		{
 			Helper.notifyMissingFieldError(response, Parameters.TYPE);
 			return;
 		}
 
+		String sessionId = sm.callManager(System.currentTimeMillis());
 		switch (type)
 		{
 		case Parameters.TYPE_BALL:

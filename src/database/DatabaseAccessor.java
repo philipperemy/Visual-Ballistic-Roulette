@@ -208,6 +208,7 @@ public final class DatabaseAccessor implements DatabaseAccessorInterface
 		}
 	}
 
+	//TODO: ultra buggy!
 	public void insertClockwiseFromPrevious(String sessionId)
 	{
 		// Compute new one

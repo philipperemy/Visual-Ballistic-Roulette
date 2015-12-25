@@ -3,7 +3,7 @@ package servlets;
 class Parameters
 {
 	// Request
-	static final String TIME = "time";
+	static final String TIME = "ts";
 	static final String TYPE = "type";
 
 	// Response
