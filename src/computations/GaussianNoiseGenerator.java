@@ -2,7 +2,7 @@ package computations;
 
 import org.apache.commons.math3.distribution.NormalDistribution;
 
-import log.Logger;
+import logger.Logger;
 
 public class GaussianNoiseGenerator
 {

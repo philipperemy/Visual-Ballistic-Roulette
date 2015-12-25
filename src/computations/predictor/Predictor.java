@@ -10,7 +10,7 @@ import computations.model.Outcome;
 import computations.model.OutcomeStatistics;
 import computations.wheel.Type;
 import database.DatabaseAccessorInterface;
-import log.Logger;
+import logger.Logger;
 import servlets.SessionNotReadyException;
 
 public class Predictor

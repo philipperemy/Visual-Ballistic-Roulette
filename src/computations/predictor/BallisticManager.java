@@ -8,7 +8,7 @@ import org.apache.commons.math3.stat.regression.SimpleRegression;
 import computations.Constants;
 import computations.Helper;
 import computations.wheel.Type;
-import log.Logger;
+import logger.Logger;
 
 public class BallisticManager
 {

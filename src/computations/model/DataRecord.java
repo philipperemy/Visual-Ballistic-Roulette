@@ -10,7 +10,7 @@ import computations.Constants;
 import computations.Helper;
 import computations.wheel.Wheel;
 import computations.wheel.Wheel.WheelWay;
-import log.Logger;
+import logger.Logger;
 
 public class DataRecord
 {

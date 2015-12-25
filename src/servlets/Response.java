@@ -18,7 +18,7 @@ import computations.session.SessionManager;
 import computations.wheel.Wheel;
 import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;
-import log.Logger;
+import logger.Logger;
 
 //http://localhost:8080/RouletteServer/Response
 @WebServlet("/Response")
@@ -77,9 +77,19 @@ public class Response extends HttpServlet
 			return;
 		}
 
+		// Insert outcome workflow.
+		String outcome = request.getParameter(Parameters.OUTCOME);
+		if (outcome != null && !outcome.isEmpty())
+		{
+			da.insertOutcome(sessionId, outcome);
+			Logger.traceINFO("New outcome inserted. Session id = " + sessionId + ", outcome = " + outcome);
+			return;
+		}
+
+		// Predict outcome workflow.
 		try
 		{
-			List<Integer> region = predictMostProbableRegion(sessionId);
+			List<Integer> region = predictMostProbableNumber_OnlyOne(sessionId);
 			response.getWriter().append(region.toString());
 		} catch (SessionNotReadyException snre)
 		{
@@ -106,6 +116,14 @@ public class Response extends HttpServlet
 		Collections.sort(regionNumbersList); // Sort it. The table is sorted.
 		// http://www.casinogamespro.com/media/other/european_roulette_table_layout.png
 		return regionNumbersList;
+	}
+
+	public List<Integer> predictMostProbableNumber_OnlyOne(String sessionId) throws SessionNotReadyException
+	{
+		int mostProbableNumber = predictMostProbableNumber(sessionId);
+		List<Integer> list = new ArrayList<>();
+		list.add(mostProbableNumber);
+		return list;
 	}
 
 	public int predictMostProbableNumber(String sessionId) throws SessionNotReadyException

@@ -2,7 +2,7 @@ package computations.session;
 
 import computations.Constants;
 import database.DatabaseAccessorInterface;
-import log.Logger;
+import logger.Logger;
 
 /**
  * A session corresponds to a game played or measured

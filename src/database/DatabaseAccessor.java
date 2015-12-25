@@ -10,7 +10,7 @@ import java.util.List;
 import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
 
 import computations.model.Outcome;
-import log.Logger;
+import logger.Logger;
 
 public final class DatabaseAccessor implements DatabaseAccessorInterface
 {

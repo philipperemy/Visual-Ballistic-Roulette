@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import computations.session.SessionManager;
 import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;
-import log.Logger;
+import logger.Logger;
 
 //http://localhost:8080/RouletteServer/Request?time=121212&type=wheel
 @WebServlet("/Request")

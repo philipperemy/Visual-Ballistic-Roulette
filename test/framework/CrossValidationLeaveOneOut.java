@@ -5,7 +5,7 @@ import java.util.List;
 
 import database.DatabaseAccessorStub;
 import framework.games.Game;
-import log.Logger;
+import logger.Logger;
 
 public class CrossValidationLeaveOneOut
 {

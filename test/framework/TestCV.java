@@ -15,7 +15,7 @@ import framework.games.Game5;
 import framework.games.Game6;
 import framework.games.Game7;
 import framework.games.Game8;
-import log.Logger;
+import logger.Logger;
 
 public class TestCV extends TestClass
 {

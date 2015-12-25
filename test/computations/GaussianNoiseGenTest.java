@@ -2,7 +2,7 @@ package computations;
 
 import org.junit.Test;
 
-import log.Logger;
+import logger.Logger;
 
 public class GaussianNoiseGenTest
 {
