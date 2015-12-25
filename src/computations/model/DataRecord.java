@@ -33,7 +33,7 @@ public class DataRecord
 	 */
 	public int phaseOfWheelWhenBallPassesInFrontOfMark;
 	public Integer outcome = null; // outcome of the game.
-	public final WheelWay way = Constants.DEFAULT_WHEEL_WAY;
+	private final WheelWay way = Constants.DEFAULT_WHEEL_WAY;
 
 	private static List<DataRecord> cache = new ArrayList<>();
 

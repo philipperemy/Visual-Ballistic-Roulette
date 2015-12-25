@@ -13,7 +13,7 @@ public class GaussianNoiseGenerator
 		nd = new NormalDistribution(mu, sigma);
 	}
 
-	public long addNoiseTimeMillis(long time)
+	long addNoiseTimeMillis(long time)
 	{
 		long noise = time + (long) nd.sample();
 		Logger.traceDEBUG("Adding noise: before [" + time + "], after [" + noise + "]");
@@ -25,10 +25,5 @@ public class GaussianNoiseGenerator
 		long time = Long.valueOf(timeStr);
 		long noise = addNoiseTimeMillis(time);
 		return String.valueOf(noise);
-	}
-
-	public double get()
-	{
-		return nd.sample();
 	}
 }

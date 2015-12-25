@@ -118,7 +118,7 @@ public class Response extends HttpServlet
 		return regionNumbersList;
 	}
 
-	public List<Integer> predictMostProbableNumber_OnlyOne(String sessionId) throws SessionNotReadyException
+	private List<Integer> predictMostProbableNumber_OnlyOne(String sessionId) throws SessionNotReadyException
 	{
 		int mostProbableNumber = predictMostProbableNumber(sessionId);
 		List<Integer> list = new ArrayList<>();

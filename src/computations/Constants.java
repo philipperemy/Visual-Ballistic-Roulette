@@ -8,10 +8,9 @@ public class Constants
 	 * TODO: To be measured
 	 */
 	// METERS
-	public static final double WHEEL_DIAMETER = 0.80;
-	public static final double CASE_DIAMETER = 1.20;
-
-	public static final double PI = Math.PI;
+	private static final double WHEEL_DIAMETER = 0.80;
+	private static final double CASE_DIAMETER = 1.20;
+	private static final double PI = Math.PI;
 
 	public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * PI;
 	public static final double BALL_CIRCUMFERENCE = CASE_DIAMETER * PI;
@@ -27,7 +26,7 @@ public class Constants
 	public static final int RECORDS_COUNT_FOR_PREDICTION = 5;
 
 	public static final String ERRORLEVEL_PROCESS_EXCEPTION_TAG = "-1";
-	public static final String ERRORLEVEL_SESSION_NOT_READY_STRING = "SESSION_NOT_READY_WHEEL_COUNT_ACTUAL";
+	static final String ERRORLEVEL_SESSION_NOT_READY_STRING = "SESSION_NOT_READY_WHEEL_COUNT_ACTUAL";
 
 	public static final WheelWay DEFAULT_WHEEL_WAY = WheelWay.ANTICLOCKWISE;
 
