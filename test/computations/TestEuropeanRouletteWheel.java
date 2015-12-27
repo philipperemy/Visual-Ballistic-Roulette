@@ -5,22 +5,22 @@ import org.junit.Test;
 import framework.TestClass;
 import servlets.SessionNotReadyException;
 
-public class TestWorkflow extends TestClass
+public class TestEuropeanRouletteWheel extends TestClass
 {
 
-	// From video.
+	// From video. European Roulette Wheel.mp4
 	@Test
 	public void test_1() throws SessionNotReadyException
 	{
 		String sessionId = dbRef.getLastSessionId();
 		game_1(sessionId, true);
-		sessionId = dbRef.incrementAndGetSessionId();
-		game_2(sessionId, true);
+		//sessionId = dbRef.incrementAndGetSessionId();
+		//game_2(sessionId, true);
 		response.forceDatasetReInit();
 
 		sessionId = dbRef.incrementAndGetSessionId();
 		game_3(sessionId, false);
-		response.predictMostProbableNumber(sessionId);
+		System.out.println(response.predictMostProbableNumber(sessionId));
 	}
 
 	public void game_3(String sessionId, boolean train)

@@ -101,7 +101,6 @@ public class Logger
 		{
 			if (i == msgs.length - 1)
 			{
-
 				sBuilder.append(msgs[i]);
 			} else
 			{

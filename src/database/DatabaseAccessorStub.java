@@ -64,7 +64,6 @@ public class DatabaseAccessorStub implements DatabaseAccessorInterface
 			return null;
 		}
 		outcome.number = num;
-		outcome.obstaclesHitCount = 0;
 		return outcome;
 	}
 
@@ -72,13 +71,9 @@ public class DatabaseAccessorStub implements DatabaseAccessorInterface
 	public List<String> getSessionIds()
 	{
 		List<String> ids = new ArrayList<>();
-
-		if (_sessionId != 1)
+		for (int i = 1; i <= _sessionId; i++)
 		{
-			for (int i = 1; i <= _sessionId; i++)
-			{
-				ids.add(String.valueOf(i));
-			}
+			ids.add(String.valueOf(i));
 		}
 		return ids;
 	}

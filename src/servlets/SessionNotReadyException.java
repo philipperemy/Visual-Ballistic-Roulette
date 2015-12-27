@@ -2,7 +2,6 @@ package servlets;
 
 public class SessionNotReadyException extends Exception
 {
-
 	private static final long serialVersionUID = 5655911156126439803L;
 
 	private int numberOfRecordedWheelTimes = 0;
@@ -16,5 +15,4 @@ public class SessionNotReadyException extends Exception
 	{
 		return String.valueOf(numberOfRecordedWheelTimes);
 	}
-
 }

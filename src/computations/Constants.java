@@ -30,4 +30,6 @@ public class Constants
 
 	public static final WheelWay DEFAULT_WHEEL_WAY = WheelWay.ANTICLOCKWISE;
 
+	public static final String DATABASE_NAME = "roulette_db";
+
 }

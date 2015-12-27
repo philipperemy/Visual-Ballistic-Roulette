@@ -11,7 +11,6 @@ public class Test_UivnKJokxP0 extends TestClass
 
 	private void fill_1_23_601(String sessionId, boolean addOutcome)
 	{
-
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 1, 23, 601));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 1, 24, 992));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 1, 26, 563));
@@ -47,7 +46,6 @@ public class Test_UivnKJokxP0 extends TestClass
 		if (addOutcome)
 		{
 			dbRef.insertOutcome(sessionId, "28");
-			// response.forceDatasetReInit();
 		}
 	}
 
@@ -71,7 +69,6 @@ public class Test_UivnKJokxP0 extends TestClass
 		if (addOutcome)
 		{
 			dbRef.insertOutcome(sessionId, "13");
-			// response.forceDatasetReInit();
 		}
 	}
 
@@ -93,7 +90,6 @@ public class Test_UivnKJokxP0 extends TestClass
 		if (addOutcome)
 		{
 			dbRef.insertOutcome(sessionId, "35");
-			// response.forceDatasetReInit();
 		}
 	}
 
@@ -123,7 +119,6 @@ public class Test_UivnKJokxP0 extends TestClass
 		if (addOutcome)
 		{
 			dbRef.insertOutcome(sessionId, "34");
-			// response.forceDatasetReInit();
 		}
 	}
 

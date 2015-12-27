@@ -9,7 +9,6 @@ public class Test_Video2 extends TestClass
 {
 	private void fill_1_23_601(String sessionId, boolean addOutcome)
 	{
-
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 1, 23, 601));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 1, 24, 992));
 		dbRef.insertBallLapTimes(sessionId, getTime(0, 1, 26, 563));

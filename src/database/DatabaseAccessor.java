@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
 
+import computations.Constants;
 import computations.model.Outcome;
 import logger.Logger;
 
@@ -16,6 +17,8 @@ public final class DatabaseAccessor implements DatabaseAccessorInterface
 {
 	private static final String WHEEL_LAP_TIMES_TABLE_NAME = "wheel_lap_times";
 	private static final String BALL_LAP_TIMES_TABLE_NAME = "ball_lap_times";
+	private static final String DATABASE_NAME = Constants.DATABASE_NAME;
+
 	private static volatile DatabaseAccessor instance;
 
 	public static DatabaseAccessor getInstance()
@@ -38,9 +41,8 @@ public final class DatabaseAccessor implements DatabaseAccessorInterface
 	{
 		try
 		{
-
 			Class.forName("com.mysql.jdbc.Driver");
-			connect = DriverManager.getConnection("jdbc:mysql://localhost/roulette_db?" + "user=root&password=");
+			connect = DriverManager.getConnection("jdbc:mysql://localhost/" + DATABASE_NAME + "?" + "user=root&password=");
 
 		} catch (CommunicationsException ce)
 		{
@@ -66,8 +68,8 @@ public final class DatabaseAccessor implements DatabaseAccessorInterface
 
 	private void insert(String tableName, String sessionId, String lapTime)
 	{
-		String query = "INSERT INTO `roulette_db`.`" + tableName + "` (`ID`, `SESSION_ID`, `TIME`) VALUES (NULL, '" + sessionId + "', '" + lapTime
-				+ "');";
+		String query = "INSERT INTO `" + tableName + "` (`ID`, `SESSION_ID`, `TIME`) VALUES (NULL, '" + sessionId + "', '"
+				+ lapTime + "');";
 		try
 		{
 			connect.createStatement().execute(query);
@@ -79,7 +81,7 @@ public final class DatabaseAccessor implements DatabaseAccessorInterface
 
 	public String incrementAndGetSessionId()
 	{
-		String query = "INSERT INTO `roulette_db`.`session` (`ID`) VALUES (NULL);";
+		String query = "INSERT INTO `session` (`ID`) VALUES (NULL);";
 		try
 		{
 			connect.createStatement().execute(query);
@@ -100,7 +102,6 @@ public final class DatabaseAccessor implements DatabaseAccessorInterface
 			if (resultSet.next())
 			{
 				outcome.number = Integer.parseInt(resultSet.getString("NUMBER"));
-				outcome.obstaclesHitCount = Integer.parseInt(resultSet.getString("OBSTACLES"));
 				return outcome;
 			}
 		} catch (SQLException e)
@@ -193,8 +194,7 @@ public final class DatabaseAccessor implements DatabaseAccessorInterface
 	@Override
 	public void insertOutcome(String sessionId, String number)
 	{
-		String query = "INSERT INTO `roulette_db`.`outcomes` (`ID`, `SESSION_ID`, `NUMBER`, `OBSTACLES`) VALUES (NULL, '" + sessionId + "', '"
-				+ number + "', '0');";
+		String query = "INSERT INTO `outcomes` (`ID`, `SESSION_ID`, `NUMBER`) VALUES (NULL, '" + sessionId + "', '" + number + "');";
 		try
 		{
 			connect.createStatement().execute(query);
