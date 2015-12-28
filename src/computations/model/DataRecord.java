@@ -8,7 +8,7 @@ import java.util.TreeMap;
 
 import computations.Constants;
 import computations.Helper;
-import computations.wheel.Wheel;
+import computations.model.solver.OutcomeSolver;
 import computations.wheel.Wheel.WheelWay;
 import logger.Logger;
 
@@ -37,6 +37,8 @@ public class DataRecord
 
 	private static List<DataRecord> cache = new ArrayList<>();
 
+	private static OutcomeSolver solver = Constants.DATARECORD_SOLVER;
+
 	public static void clearCache()
 	{
 		Logger.traceINFO("[Cache] Clearing all cache.");
@@ -55,7 +57,7 @@ public class DataRecord
 				+ Math.abs(smr.wheelSpeedInFrontOfMark - this.wheelSpeedInFrontOfMark);
 	}
 
-	private static List<DataRecord> matchCache(DataRecord predictRecord, int knnNumber)
+	public static List<DataRecord> matchCache(DataRecord predictRecord, int knnNumber)
 	{
 		Map<Double, DataRecord> distRecordsMap = new TreeMap<>();
 		for (DataRecord cacheRecord : cache)
@@ -92,113 +94,17 @@ public class DataRecord
 		return knnList;
 	}
 
-	// Simple Scheme
-	public static int predictOutcome_old(DataRecord predict)
-	{
-		List<DataRecord> matchedRecordsList = matchCache(predict, Constants.NUMBER_OF_NEIGHBORS_KNN);
-		List<Integer> outcomeNumbersList = new ArrayList<>();
-		for (DataRecord matched : matchedRecordsList)
-		{
-			int predictedOutcome = Wheel.predictOutcomeWithShift(matched.phaseOfWheelWhenBallPassesInFrontOfMark, matched.outcome,
-					predict.phaseOfWheelWhenBallPassesInFrontOfMark);
-			outcomeNumbersList.add(predictedOutcome);
-		}
-
-		OutcomeStatistics stat = OutcomeStatistics.create(outcomeNumbersList);
-		Logger.traceINFO("Statistics : " + stat);
-		return stat.meanNumber;
-	}
-
-	// Complex Weighting Aggregation Scheme
-	public static int predictOutcome(DataRecord predict)
-	{
-		List<DataRecord> matchedRecordsList = matchCache(predict, Constants.NUMBER_OF_NEIGHBORS_KNN);
-		List<Integer> outcomeNumbersList = new ArrayList<>();
-		for (DataRecord matchedRecord : matchedRecordsList)
-		{
-			int predictedOutcome = Wheel.predictOutcomeWithShift(matchedRecord.phaseOfWheelWhenBallPassesInFrontOfMark, matchedRecord.outcome,
-					predict.phaseOfWheelWhenBallPassesInFrontOfMark);
-			outcomeNumbersList.add(predictedOutcome);
-		}
-
-		// Do that in order to have a stable KNN. What is the behavior of my
-		// result if I change some parameters to the model?
-		List<Integer> outcomeMeanNumbersList = new ArrayList<>();
-		for (int knnNumber = 1; knnNumber <= Constants.NUMBER_OF_NEIGHBORS_KNN; knnNumber++)
-		{
-			OutcomeStatistics stat = OutcomeStatistics.create(outcomeNumbersList.subList(0, knnNumber));
-			Logger.traceINFO("Statistics : " + stat);
-			outcomeMeanNumbersList.add(stat.meanNumber);
-		}
-
-		// Give more credit to the KNN(2), KNN(3)... as they appear more.
-		OutcomeStatistics outcomeStatistics = OutcomeStatistics.create(outcomeMeanNumbersList);
-		return outcomeStatistics.meanNumber;
-	}
-
-	// Simple Weighting Scheme
-	public static int predictOutcome_new(DataRecord predict)
-	{
-		List<DataRecord> matchedRecordsList = matchCache(predict, Constants.NUMBER_OF_NEIGHBORS_KNN);
-		List<Integer> outcomeNumbersList = new ArrayList<>();
-
-		// Weight the outcome.
-		for (int i = 0; i < matchedRecordsList.size(); i++)
-		{
-			DataRecord matched = matchedRecordsList.get(i);
-			int predictedOutcome = Wheel.predictOutcomeWithShift(matched.phaseOfWheelWhenBallPassesInFrontOfMark, matched.outcome,
-					predict.phaseOfWheelWhenBallPassesInFrontOfMark);
-
-			for (int j = 0; j < matchedRecordsList.size() - i; j++)
-			{
-				outcomeNumbersList.add(predictedOutcome);
-			}
-		}
-
-		OutcomeStatistics stat = OutcomeStatistics.create(outcomeNumbersList);
-		Logger.traceINFO("Statistics : " + stat);
-		return stat.meanNumber;
-	}
-
-	@Override
-	public int hashCode()
-	{
-		final int prime = 31;
-		int result = 1;
-		long temp;
-		temp = Double.doubleToLongBits(ballSpeedInFrontOfMark);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + phaseOfWheelWhenBallPassesInFrontOfMark;
-		temp = Double.doubleToLongBits(wheelSpeedInFrontOfMark);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj)
-	{
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		DataRecord other = (DataRecord) obj;
-		if (Double.doubleToLongBits(ballSpeedInFrontOfMark) != Double.doubleToLongBits(other.ballSpeedInFrontOfMark))
-			return false;
-		if (phaseOfWheelWhenBallPassesInFrontOfMark != other.phaseOfWheelWhenBallPassesInFrontOfMark)
-			return false;
-		if (Double.doubleToLongBits(wheelSpeedInFrontOfMark) != Double.doubleToLongBits(other.wheelSpeedInFrontOfMark))
-			return false;
-		return true;
-	}
-
 	@Override
 	public String toString()
 	{
 		return "DataRecord [BS=" + Helper.printDigit(ballSpeedInFrontOfMark) + ", WS=" + Helper.printDigit(wheelSpeedInFrontOfMark) + ", "
 				+ (sessionId != null ? "SessionId=" + sessionId + ", " : "") + "Phase=" + phaseOfWheelWhenBallPassesInFrontOfMark + ", Outcome="
 				+ outcome + ", " + (way != null ? "Way=" + way : "") + "]";
+	}
+
+	public static int predictOutcome(DataRecord predictRecord)
+	{
+		return solver.predictOutcome(predictRecord);
 	}
 
 }

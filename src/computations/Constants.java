@@ -1,5 +1,9 @@
 package computations;
 
+import computations.model.solver.ComplexWeightingSchemeSolver;
+import computations.model.solver.OutcomeSolver;
+import computations.predictor.solver.FixedMostRecentMeasuresSolver;
+import computations.predictor.solver.PredictorSolver;
 import computations.wheel.Wheel.WheelWay;
 
 public class Constants
@@ -31,5 +35,8 @@ public class Constants
 	public static final WheelWay DEFAULT_WHEEL_WAY = WheelWay.ANTICLOCKWISE;
 
 	public static final String DATABASE_NAME = "roulette_db";
+
+	public static final PredictorSolver PREDICTOR_SOLVER = new FixedMostRecentMeasuresSolver();
+	public static final OutcomeSolver DATARECORD_SOLVER = new ComplexWeightingSchemeSolver();
 
 }
