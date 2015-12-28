@@ -1,4 +1,4 @@
-package computations;
+package responsetime;
 
 public class Profile
 {

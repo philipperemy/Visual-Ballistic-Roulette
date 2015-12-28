@@ -3,6 +3,7 @@ package framework;
 import java.util.ArrayList;
 import java.util.List;
 
+import computations.model.DataRecord;
 import database.DatabaseAccessorStub;
 import framework.games.Game;
 import logger.Logger;
@@ -22,6 +23,7 @@ public class CrossValidationLeaveOneOut
 		for (int i = 0; i < games.size(); i++)
 		{
 			((DatabaseAccessorStub) TestClass.dbRef).reset();
+			DataRecord.clearCache();
 			Game predict = games.get(i);
 			List<Game> trainingSet = new ArrayList<>();
 			for (int j = 0; j < games.size(); j++)

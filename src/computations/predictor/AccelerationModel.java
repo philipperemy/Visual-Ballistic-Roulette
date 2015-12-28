@@ -34,8 +34,4 @@ class AccelerationModel
 		Logger.traceDEBUG(toString());
 	}
 
-	public AccelerationModel()
-	{
-	}
-
 }

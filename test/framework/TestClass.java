@@ -11,6 +11,14 @@ import org.junit.BeforeClass;
 import database.DatabaseAccessorInterface;
 import database.DatabaseAccessorStub;
 import framework.games.Game;
+import framework.games.Game1;
+import framework.games.Game2;
+import framework.games.Game3;
+import framework.games.Game4;
+import framework.games.Game5;
+import framework.games.Game6;
+import framework.games.Game7;
+import framework.games.Game8;
 import framework.time.GetNoisyTime;
 import framework.time.GetTime;
 import servlets.Response;
@@ -87,6 +95,20 @@ public abstract class TestClass
 			list.add(str);
 		}
 		return list;
+	}
+
+	protected List<Game> genGames()
+	{
+		List<Game> games = new ArrayList<>();
+		games.add(new Game1());
+		games.add(new Game2());
+		games.add(new Game3());
+		games.add(new Game4());
+		games.add(new Game5());
+		games.add(new Game6());
+		games.add(new Game7());
+		games.add(new Game8());
+		return games;
 	}
 
 }
