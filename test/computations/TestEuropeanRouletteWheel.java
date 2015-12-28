@@ -14,8 +14,8 @@ public class TestEuropeanRouletteWheel extends TestClass
 	{
 		String sessionId = dbRef.getLastSessionId();
 		game_1(sessionId, true);
-		//sessionId = dbRef.incrementAndGetSessionId();
-		//game_2(sessionId, true);
+		// sessionId = dbRef.incrementAndGetSessionId();
+		// game_2(sessionId, true);
 		response.forceDatasetReInit();
 
 		sessionId = dbRef.incrementAndGetSessionId();

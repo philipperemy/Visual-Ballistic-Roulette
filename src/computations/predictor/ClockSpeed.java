@@ -8,7 +8,7 @@ class ClockSpeed
 	public ClockSpeed()
 	{
 	}
-	
+
 	@Override
 	public String toString()
 	{

@@ -68,8 +68,7 @@ public final class DatabaseAccessor implements DatabaseAccessorInterface
 
 	private void insert(String tableName, String sessionId, String lapTime)
 	{
-		String query = "INSERT INTO `" + tableName + "` (`ID`, `SESSION_ID`, `TIME`) VALUES (NULL, '" + sessionId + "', '"
-				+ lapTime + "');";
+		String query = "INSERT INTO `" + tableName + "` (`ID`, `SESSION_ID`, `TIME`) VALUES (NULL, '" + sessionId + "', '" + lapTime + "');";
 		try
 		{
 			connect.createStatement().execute(query);
