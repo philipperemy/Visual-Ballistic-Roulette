@@ -1,4 +1,4 @@
-package computations.predictor;
+package computations.predictor.ml;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +13,13 @@ import logger.Logger;
 public class BallisticManager
 {
 	// Could interpolate with ML stuffs.
-	static double getTimeForOneBallLoop(double ballSpeed)
+	public static double getTimeForOneBallLoop(double ballSpeed)
 	{
 		return Constants.BALL_CIRCUMFERENCE / ballSpeed;
 	}
 
 	// Could interpolate with ML stuffs.
-	static double getTimeForOneWheelLoop(double wheelSpeed)
+	public static double getTimeForOneWheelLoop(double wheelSpeed)
 	{
 		return Constants.WHEEL_CIRCUMFERENCE / wheelSpeed;
 	}

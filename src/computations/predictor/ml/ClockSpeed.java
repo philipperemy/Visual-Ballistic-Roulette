@@ -1,4 +1,4 @@
-package computations.predictor;
+package computations.predictor.ml;
 
 class ClockSpeed
 {

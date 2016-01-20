@@ -1,4 +1,4 @@
-package computations.predictor;
+package computations.predictor.ml;
 
 import computations.wheel.Type;
 

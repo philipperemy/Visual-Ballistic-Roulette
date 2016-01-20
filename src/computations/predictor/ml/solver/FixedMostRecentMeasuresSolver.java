@@ -1,17 +1,18 @@
-package computations.predictor.solver;
+package computations.predictor.ml.solver;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import computations.Constants;
 import computations.model.DataRecord;
 import computations.model.OutcomeStatistics;
-import computations.predictor.Predictor;
+import computations.predictor.ml.PredictorML;
 import logger.Logger;
 import servlets.SessionNotReadyException;
 
-public class AllKnownMeasuresSolver implements PredictorSolver
+public class FixedMostRecentMeasuresSolver implements PredictorSolver
 {
-	public int predict(Predictor predictor, List<Double> ballLapTimes, List<Double> wheelLapTimes, String sessionId) throws SessionNotReadyException
+	public int predict(PredictorML predictor, List<Double> ballLapTimes, List<Double> wheelLapTimes, String sessionId) throws SessionNotReadyException
 	{
 		// Phase is filled. All lap times are used to build the model.
 		List<DataRecord> predictRecords = predictor.buildDataRecords(ballLapTimes, wheelLapTimes, sessionId);
@@ -23,14 +24,20 @@ public class AllKnownMeasuresSolver implements PredictorSolver
 		}
 
 		List<Integer> mostProbableNumberList = new ArrayList<>();
-		int id = 1;
-		for (DataRecord predictRecord : predictRecords)
+		for (int i = 0; i < predictRecords.size(); i++)
 		{
-			Logger.traceINFO("(" + id + ") Record to predict : " + predictRecord);
+			DataRecord predictRecord = predictRecords.get(i);
+			Logger.traceINFO("(" + i + ") Record to predict : " + predictRecord);
 			int mostProbableNumber = DataRecord.predictOutcome(predictRecord);
-			Logger.traceINFO("(" + id + ") Most probable number : " + mostProbableNumber);
+			Logger.traceINFO("(" + i + ") Most probable number : " + mostProbableNumber);
 			mostProbableNumberList.add(mostProbableNumber);
-			id++;
+		}
+
+		int size = mostProbableNumberList.size();
+		int par = Constants.RECORDS_COUNT_FOR_PREDICTION;
+		if (size >= par)
+		{
+			mostProbableNumberList = mostProbableNumberList.subList(size - par, size);
 		}
 
 		OutcomeStatistics os = OutcomeStatistics.create(mostProbableNumberList);

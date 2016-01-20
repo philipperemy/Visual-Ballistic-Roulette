@@ -2,8 +2,8 @@ package computations;
 
 import computations.model.solver.ComplexWeightingSchemeSolver;
 import computations.model.solver.OutcomeSolver;
-import computations.predictor.solver.FixedMostRecentMeasuresSolver;
-import computations.predictor.solver.PredictorSolver;
+import computations.predictor.ml.solver.FixedMostRecentMeasuresSolver;
+import computations.predictor.ml.solver.PredictorSolver;
 import computations.wheel.Wheel.WheelWay;
 
 public class Constants
