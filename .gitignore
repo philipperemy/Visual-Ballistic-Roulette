@@ -1,7 +1,5 @@
 *.class
 *.wav
-build/classes/computations/Constants.class
-*.class
-build/classes/computations/ml/KNN.class
-Roulette Computer.mp4
+*.mp4
 *.mp3
+*.DS_Store
