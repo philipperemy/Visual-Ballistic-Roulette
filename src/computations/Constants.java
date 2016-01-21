@@ -12,8 +12,8 @@ public class Constants
 	 * TODO: To be measured
 	 */
 	// METERS
-	private static final double WHEEL_DIAMETER = 0.80;
-	private static final double CASE_DIAMETER = 1.20;
+	private static final double WHEEL_DIAMETER = 0.60;
+	private static final double CASE_DIAMETER = 0.80;
 	private static final double PI = Math.PI;
 
 	public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * PI;
@@ -39,4 +39,6 @@ public class Constants
 	public static PredictorSolver PREDICTOR_SOLVER = new FixedMostRecentMeasuresSolver();
 	public static OutcomeSolver DATARECORD_SOLVER = new ComplexWeightingSchemeSolver();
 
+	public static double CUTOFF_SPEED = 1.10; // m/s
+	public static int DEFAULT_SHIFT_PHASE = 18; // Check +/- 9
 }
