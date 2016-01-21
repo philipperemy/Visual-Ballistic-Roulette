@@ -1,5 +1,6 @@
 *.class
 *.wav
 *.mp4
+.settings
 *.mp3
 *.DS_Store
