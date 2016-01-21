@@ -3,6 +3,7 @@ package physics;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import computations.Helper;
@@ -33,7 +34,7 @@ public class PredictorPhysicsTest {
 		ballCumsumTimes = Helper.convertToSeconds(ballCumsumTimes);
 		wheelCumsumTimes = Helper.convertToSeconds(wheelCumsumTimes);
 
-		py.mostProbableNumber(ballCumsumTimes, wheelCumsumTimes);
+		Assert.assertEquals(15, py.mostProbableNumber(ballCumsumTimes, wheelCumsumTimes).intValue());
 	}
 
 }

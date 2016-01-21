@@ -5,12 +5,12 @@ import java.util.List;
 
 import computations.Constants;
 import computations.Helper;
-import computations.model.DataRecord;
-import computations.model.Outcome;
 import computations.predictor.Phase;
+import computations.predictor.ml.model.DataRecord;
 import computations.predictor.ml.solver.PredictorSolver;
 import computations.wheel.Type;
 import database.DatabaseAccessorInterface;
+import database.Outcome;
 import logger.Logger;
 import servlets.SessionNotReadyException;
 

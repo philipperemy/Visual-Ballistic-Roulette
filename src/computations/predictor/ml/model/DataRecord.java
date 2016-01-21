@@ -1,4 +1,4 @@
-package computations.model;
+package computations.predictor.ml.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.TreeMap;
 
 import computations.Constants;
 import computations.Helper;
-import computations.model.solver.OutcomeSolver;
+import computations.predictor.ml.model.solver.OutcomeSolver;
 import computations.wheel.Wheel.WheelWay;
 import logger.Logger;
 

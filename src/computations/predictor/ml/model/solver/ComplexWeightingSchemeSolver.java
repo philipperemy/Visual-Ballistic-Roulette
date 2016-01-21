@@ -1,11 +1,11 @@
-package computations.model.solver;
+package computations.predictor.ml.model.solver;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import computations.Constants;
-import computations.model.DataRecord;
-import computations.model.OutcomeStatistics;
+import computations.predictor.OutcomeStatistics;
+import computations.predictor.ml.model.DataRecord;
 import computations.wheel.Wheel;
 import logger.Logger;
 

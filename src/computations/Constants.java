@@ -1,7 +1,7 @@
 package computations;
 
-import computations.model.solver.ComplexWeightingSchemeSolver;
-import computations.model.solver.OutcomeSolver;
+import computations.predictor.ml.model.solver.ComplexWeightingSchemeSolver;
+import computations.predictor.ml.model.solver.OutcomeSolver;
 import computations.predictor.ml.solver.FixedMostRecentMeasuresSolver;
 import computations.predictor.ml.solver.PredictorSolver;
 import computations.wheel.Wheel.WheelWay;

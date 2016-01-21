@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import computations.Constants;
-import computations.model.DataRecord;
 import computations.predictor.PredictorInterface;
+import computations.predictor.ml.model.DataRecord;
 import computations.session.SessionManager;
 import computations.wheel.Wheel;
 import database.DatabaseAccessor;

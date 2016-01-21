@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import computations.Constants;
-import computations.model.DataRecord;
-import computations.model.OutcomeStatistics;
+import computations.predictor.OutcomeStatistics;
 import computations.predictor.ml.PredictorML;
+import computations.predictor.ml.model.DataRecord;
 import logger.Logger;
 import servlets.SessionNotReadyException;
 

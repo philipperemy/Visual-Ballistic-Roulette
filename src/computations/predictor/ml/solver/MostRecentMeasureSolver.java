@@ -3,8 +3,8 @@ package computations.predictor.ml.solver;
 import java.util.List;
 
 import computations.Helper;
-import computations.model.DataRecord;
 import computations.predictor.ml.PredictorML;
+import computations.predictor.ml.model.DataRecord;
 import logger.Logger;
 import servlets.SessionNotReadyException;
 
