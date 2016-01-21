@@ -137,7 +137,8 @@ public class Response extends HttpServlet
 		}
 
 		int numberOfRecordedWheelTimes = wheelLapTimes.size(); // At least 2
-		if (numberOfRecordedWheelTimes < Constants.MINIMUM_NUMBER_OF_WHEEL_TIMES_BEFORE_FORECASTING)
+		if (numberOfRecordedWheelTimes < Constants.MINIMUM_NUMBER_OF_WHEEL_TIMES_BEFORE_FORECASTING 
+				|| ballLapTimes.size() < Constants.MINIMUM_NUMBER_OF_BALL_TIMES_BEFORE_FORECASTING)
 		{
 			throw new SessionNotReadyException(numberOfRecordedWheelTimes);
 		}

@@ -124,5 +124,18 @@ public class Helper
 		double lastTimeRev = Helper.peek(wheelDiffTimes);
 		return Constants.WHEEL_CIRCUMFERENCE / lastTimeRev;
 	}
+	
+	public static List<Double> cumsum(List<Double> in)
+	{
+		double total = 0.0;
+		List<Double> out = new ArrayList<>();
+		out.add(0.0);
+		for (Double val : in)
+		{
+			total += val;
+			out.add(total);
+		}
+		return out;	
+	}
 
 }

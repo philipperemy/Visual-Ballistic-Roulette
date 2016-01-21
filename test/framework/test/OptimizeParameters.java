@@ -43,6 +43,37 @@ public class OptimizeParameters extends TestClass
 			Logger.enableLogging();
 		}
 	}
+	
+	@Test
+	public void test2()
+	{
+		Logger.stopLogging();
+		double best_error = Double.MAX_VALUE;
+		for (int phase = 13; phase < 30; phase++)
+		{
+			for (double cutoffSpeed = 1.00; cutoffSpeed < 2.50; cutoffSpeed += 0.01)
+			{
+				try
+				{
+					Constants.CUTOFF_SPEED = cutoffSpeed;
+					Constants.DEFAULT_SHIFT_PHASE = phase;
+					double actual_error = run_error();
+					if (actual_error < best_error)
+					{
+						best_error = actual_error;
+					}
+					System.out.println("actual= " + actual_error + ", best= " + best_error + ", cutoff=" + cutoffSpeed + ", phase=" + phase);
+				} catch (Exception e)
+				{
+				}
+			}
+		}
+
+		Logger.enableLogging();
+
+		// Constants.CUTOFF_SPEED = 1.55;
+		// System.out.println("error = " + run_error());
+	}
 
 	public double run_error()
 	{
