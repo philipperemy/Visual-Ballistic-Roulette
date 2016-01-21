@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import computations.Constants;
-import computations.model.DataRecord;
-import computations.predictor.Predictor;
+import computations.predictor.PredictorInterface;
+import computations.predictor.ml.model.DataRecord;
 import computations.session.SessionManager;
 import computations.wheel.Wheel;
 import database.DatabaseAccessor;
@@ -28,7 +28,7 @@ public class Response extends HttpServlet
 
 	public DatabaseAccessorInterface da;
 	private SessionManager sm;
-	private Predictor pr;
+	private PredictorInterface pr;
 
 	public Response(DatabaseAccessorInterface da)
 	{
@@ -44,14 +44,14 @@ public class Response extends HttpServlet
 	{
 		this.da = da;
 		this.sm = SessionManager.getInstance();
-		this.pr = Predictor.getInstance();
+		this.pr = PredictorInterface.getInstance();
 		this.sm.init(da);
-		this.pr.init(da);
+		this.pr.machineLearning().init(da);
 	}
 
 	public void forceDatasetReInit()
 	{
-		pr.init(da);
+		pr.machineLearning().init(da);
 	}
 
 	public void clearCache()
@@ -137,7 +137,8 @@ public class Response extends HttpServlet
 		}
 
 		int numberOfRecordedWheelTimes = wheelLapTimes.size(); // At least 2
-		if (numberOfRecordedWheelTimes < Constants.MINIMUM_NUMBER_OF_WHEEL_TIMES_BEFORE_FORECASTING)
+		if (numberOfRecordedWheelTimes < Constants.MINIMUM_NUMBER_OF_WHEEL_TIMES_BEFORE_FORECASTING 
+				|| ballLapTimes.size() < Constants.MINIMUM_NUMBER_OF_BALL_TIMES_BEFORE_FORECASTING)
 		{
 			throw new SessionNotReadyException(numberOfRecordedWheelTimes);
 		}
@@ -145,7 +146,7 @@ public class Response extends HttpServlet
 		List<Double> wheelLapTimesSeconds = computations.Helper.convertToSeconds(wheelLapTimes);
 		List<Double> ballLapTimesSeconds = computations.Helper.convertToSeconds(ballLapTimes);
 
-		int mostProbableNumber = pr.predict(ballLapTimesSeconds, wheelLapTimesSeconds, sessionId);
+		int mostProbableNumber = pr.machineLearning().predict(ballLapTimesSeconds, wheelLapTimesSeconds, sessionId);
 		return mostProbableNumber;
 	}
 

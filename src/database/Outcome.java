@@ -1,4 +1,4 @@
-package computations.model;
+package database;
 
 public class Outcome
 {

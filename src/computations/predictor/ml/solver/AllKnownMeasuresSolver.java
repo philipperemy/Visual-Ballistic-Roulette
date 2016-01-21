@@ -1,17 +1,17 @@
-package computations.predictor.solver;
+package computations.predictor.ml.solver;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import computations.model.DataRecord;
-import computations.model.OutcomeStatistics;
-import computations.predictor.Predictor;
+import computations.predictor.OutcomeStatistics;
+import computations.predictor.ml.PredictorML;
+import computations.predictor.ml.model.DataRecord;
 import logger.Logger;
 import servlets.SessionNotReadyException;
 
 public class AllKnownMeasuresSolver implements PredictorSolver
 {
-	public int predict(Predictor predictor, List<Double> ballLapTimes, List<Double> wheelLapTimes, String sessionId) throws SessionNotReadyException
+	public int predict(PredictorML predictor, List<Double> ballLapTimes, List<Double> wheelLapTimes, String sessionId) throws SessionNotReadyException
 	{
 		// Phase is filled. All lap times are used to build the model.
 		List<DataRecord> predictRecords = predictor.buildDataRecords(ballLapTimes, wheelLapTimes, sessionId);

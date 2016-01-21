@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import computations.model.Outcome;
-
 public class DatabaseAccessorStub implements DatabaseAccessorInterface
 {
 	private Map<String, List<Double>> _ballLapTimes = new HashMap<>();

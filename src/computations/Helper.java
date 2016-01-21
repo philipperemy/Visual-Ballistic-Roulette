@@ -4,6 +4,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO: merge it with the BallisticManager
+//Or maybe split the java functions with the business functions.
 public class Helper
 {
 	public static final double VERY_HIGH_NUMBER = 1_000_000_000;
@@ -38,6 +40,11 @@ public class Helper
 	public static <T> T peek(List<T> list)
 	{
 		return list.get(list.size() - 1);
+	}
+	
+	public static <T> T head(List<T> list)
+	{
+		return list.get(0);
 	}
 
 	public static String printValueOrInfty(Double value)
@@ -87,6 +94,48 @@ public class Helper
 			}
 		}
 		return res;
+	}
+	
+	//Here we put all the calculus
+	public static List<Double> computeDiff(List<Double> lapTimes)
+	{
+		List<Double> diffs = new ArrayList<>(lapTimes.size() - 1);
+		for (int i = 1; i < lapTimes.size(); i++)
+		{
+			double t1 = lapTimes.get(i - 1);
+			double t2 = lapTimes.get(i);
+			diffs.add(t2 - t1);
+		}
+		return diffs;
+	}
+	
+	
+	public static List<Double> normalize(List<Double> cumsumTimes, double origin)
+	{
+		List<Double> ret = new ArrayList<>();
+		for(Double val : cumsumTimes) {
+			ret.add(val - origin);
+		}
+		return ret;
+	}
+	
+	
+	public double getLastSpeedWheel(List<Double> wheelDiffTimes) {
+		double lastTimeRev = Helper.peek(wheelDiffTimes);
+		return Constants.WHEEL_CIRCUMFERENCE / lastTimeRev;
+	}
+	
+	public static List<Double> cumsum(List<Double> in)
+	{
+		double total = 0.0;
+		List<Double> out = new ArrayList<>();
+		out.add(0.0);
+		for (Double val : in)
+		{
+			total += val;
+			out.add(total);
+		}
+		return out;	
 	}
 
 }

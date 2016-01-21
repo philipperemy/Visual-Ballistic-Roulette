@@ -1,34 +1,35 @@
-package computations.predictor;
+package computations.predictor.ml;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import computations.Constants;
 import computations.Helper;
-import computations.model.DataRecord;
-import computations.model.Outcome;
-import computations.predictor.solver.PredictorSolver;
+import computations.predictor.Phase;
+import computations.predictor.ml.model.DataRecord;
+import computations.predictor.ml.solver.PredictorSolver;
 import computations.wheel.Type;
 import database.DatabaseAccessorInterface;
+import database.Outcome;
 import logger.Logger;
 import servlets.SessionNotReadyException;
 
-public class Predictor
+public class PredictorML
 {
-	private static volatile Predictor instance = null;
+	private static volatile PredictorML instance = null;
 	private DatabaseAccessorInterface da;
 	private PredictorSolver solver = Constants.PREDICTOR_SOLVER;
 
-	public static Predictor getInstance()
+	public static PredictorML getInstance()
 	{
 		if (instance == null)
 		{
-			instance = new Predictor();
+			instance = new PredictorML();
 		}
 		return instance;
 	}
 
-	private Predictor()
+	private PredictorML()
 	{
 	}
 

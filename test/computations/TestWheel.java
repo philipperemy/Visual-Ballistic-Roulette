@@ -3,8 +3,8 @@ package computations;
 import org.junit.Assert;
 import org.junit.Test;
 
-import computations.predictor.BallisticManager;
 import computations.predictor.Phase;
+import computations.predictor.ml.BallisticManager;
 import computations.wheel.Wheel;
 import computations.wheel.Wheel.WheelWay;
 

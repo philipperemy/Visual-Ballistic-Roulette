@@ -3,7 +3,7 @@ package framework;
 import java.util.ArrayList;
 import java.util.List;
 
-import computations.model.DataRecord;
+import computations.predictor.ml.model.DataRecord;
 import database.DatabaseAccessorStub;
 import framework.games.Game;
 import logger.Logger;

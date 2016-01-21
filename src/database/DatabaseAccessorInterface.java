@@ -2,8 +2,6 @@ package database;
 
 import java.util.List;
 
-import computations.model.Outcome;
-
 public interface DatabaseAccessorInterface
 {
 	public void insertBallLapTimes(String sessionId, String lapTime);

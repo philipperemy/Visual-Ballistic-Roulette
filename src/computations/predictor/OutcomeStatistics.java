@@ -1,4 +1,4 @@
-package computations.model;
+package computations.predictor;
 
 import java.util.HashMap;
 import java.util.List;
