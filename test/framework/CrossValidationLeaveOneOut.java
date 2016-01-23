@@ -7,6 +7,7 @@ import computations.predictor.ml.model.DataRecord;
 import database.DatabaseAccessorStub;
 import framework.games.Game;
 import logger.Logger;
+import utils.TestResult;
 
 public class CrossValidationLeaveOneOut
 {

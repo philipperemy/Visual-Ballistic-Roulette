@@ -3,14 +3,13 @@ package computations;
 import org.junit.Test;
 
 import framework.TestClass;
-import servlets.SessionNotReadyException;
 
 public class TestEuropeanRouletteWheel extends TestClass
 {
 
 	// From video. European Roulette Wheel.mp4
 	@Test
-	public void test_1() throws SessionNotReadyException
+	public void test_1() throws Exception
 	{
 		String sessionId = dbRef.getLastSessionId();
 		game_1(sessionId, true);

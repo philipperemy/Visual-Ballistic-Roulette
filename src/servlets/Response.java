@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import computations.Constants;
 import computations.predictor.PredictorInterface;
 import computations.predictor.ml.model.DataRecord;
+import computations.predictor.physics.PositiveValueExpectedException;
 import computations.session.SessionManager;
 import computations.wheel.Wheel;
 import database.DatabaseAccessor;
@@ -104,7 +105,7 @@ public class Response extends HttpServlet
 		}
 	}
 
-	public List<Integer> predictMostProbableRegion(String sessionId) throws SessionNotReadyException
+	public List<Integer> predictMostProbableRegion(String sessionId) throws Exception
 	{
 		int mostProbableNumber = predictMostProbableNumber(sessionId);
 		int[] numbers = Wheel.getNearbyNumbers(mostProbableNumber, Constants.REGION_HALF_SIZE);
@@ -118,7 +119,7 @@ public class Response extends HttpServlet
 		return regionNumbersList;
 	}
 
-	private List<Integer> predictMostProbableNumber_OnlyOne(String sessionId) throws SessionNotReadyException
+	private List<Integer> predictMostProbableNumber_OnlyOne(String sessionId) throws Exception
 	{
 		int mostProbableNumber = predictMostProbableNumber(sessionId);
 		List<Integer> list = new ArrayList<>();
@@ -126,7 +127,7 @@ public class Response extends HttpServlet
 		return list;
 	}
 
-	public int predictMostProbableNumber(String sessionId) throws SessionNotReadyException
+	public int predictMostProbableNumber(String sessionId) throws SessionNotReadyException, PositiveValueExpectedException
 	{
 		List<Double> wheelLapTimes = da.selectWheelLapTimes(sessionId);
 		List<Double> ballLapTimes = da.selectBallLapTimes(sessionId);
@@ -146,9 +147,9 @@ public class Response extends HttpServlet
 		List<Double> wheelLapTimesSeconds = computations.Helper.convertToSeconds(wheelLapTimes);
 		List<Double> ballLapTimesSeconds = computations.Helper.convertToSeconds(ballLapTimes);
 
-		int mostProbableNumberML = pr.machineLearning().predict(ballLapTimesSeconds, wheelLapTimesSeconds, sessionId);
-		//int mostProbableNumberPH = pr.physics().pr
-		return mostProbableNumberML;
+		//int mostProbableNumberML = pr.machineLearning().predict(ballLapTimesSeconds, wheelLapTimesSeconds, sessionId);
+		int mostProbableNumberPH = pr.physics().predict(ballLapTimesSeconds, wheelLapTimesSeconds);
+		return mostProbableNumberPH;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

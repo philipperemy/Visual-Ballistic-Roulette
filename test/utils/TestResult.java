@@ -1,11 +1,12 @@
-package framework;
+package utils;
+
 
 import computations.wheel.Wheel;
 
 public class TestResult
 {
-	Integer expected;
-	Integer actual;
+	public Integer expected;
+	public Integer actual;
 
 	public int error()
 	{

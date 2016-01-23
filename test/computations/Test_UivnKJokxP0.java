@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import framework.TestClass;
-import servlets.SessionNotReadyException;
 
 public class Test_UivnKJokxP0 extends TestClass
 {
@@ -216,7 +215,7 @@ public class Test_UivnKJokxP0 extends TestClass
 	}
 
 	@Test
-	public void test_2() throws SessionNotReadyException
+	public void test_2() throws Exception
 	{
 		String sessionId = dbRef.getLastSessionId();
 		fill_1_23_601(sessionId, true); // 1
@@ -238,7 +237,7 @@ public class Test_UivnKJokxP0 extends TestClass
 	}
 
 	@Test
-	public void test_3() throws SessionNotReadyException
+	public void test_3() throws Exception
 	{
 		String sessionId = dbRef.getLastSessionId();
 		fill_1_23_601(sessionId, true); // 1
@@ -278,8 +277,8 @@ public class Test_UivnKJokxP0 extends TestClass
 		// 13.
 	}
 
-	@Test(expected = SessionNotReadyException.class)
-	public void test_4() throws SessionNotReadyException
+	@Test(expected = Exception.class)
+	public void test_4() throws Exception
 	{
 		String sessionId = dbRef.getLastSessionId();
 		fill_1_23_601(sessionId, true); // 1
@@ -320,7 +319,7 @@ public class Test_UivnKJokxP0 extends TestClass
 	}
 
 	@Test
-	public void test_5() throws SessionNotReadyException
+	public void test_5() throws Exception
 	{
 		String sessionId = dbRef.getLastSessionId();
 		fill_1_23_601(sessionId, true); // 1
@@ -361,7 +360,7 @@ public class Test_UivnKJokxP0 extends TestClass
 	}
 
 	//@Test
-	public void test_6() throws SessionNotReadyException
+	public void test_6() throws Exception
 	{
 		String sessionId = dbRef.getLastSessionId();
 		fill_1_23_601(sessionId, true); // 1

@@ -23,6 +23,7 @@ import framework.time.GetNoisyTime;
 import framework.time.GetTime;
 import servlets.Response;
 import servlets.SessionNotReadyException;
+import utils.TestResult;
 
 public abstract class TestClass
 {
@@ -76,9 +77,9 @@ public abstract class TestClass
 		try
 		{
 			actualOutcome = response.predictMostProbableNumber(sessionId);
-		} catch (SessionNotReadyException snre)
+		} catch (Exception e)
 		{
-			throw new RuntimeException(snre);
+			throw new RuntimeException(e);
 		}
 
 		TestResult testResult = new TestResult();
