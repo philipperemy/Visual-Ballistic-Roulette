@@ -21,7 +21,7 @@ public class PredictorPhysics {
 		return instance;
 	}
 	
-	public Integer mostProbableNumber(List<Double> ballCumsumTimes, List<Double> wheelCumsumTimes)
+	public int predict(List<Double> ballCumsumTimes, List<Double> wheelCumsumTimes) throws PositiveValueExpectedException
 	{
 		double cutOffSpeed = Constants.CUTOFF_SPEED;
 		

@@ -44,7 +44,7 @@ public class OptimizeParameters extends TestClass
 		}
 	}
 	
-	@Test
+	//@Test
 	public void test2()
 	{
 		Logger.stopLogging();

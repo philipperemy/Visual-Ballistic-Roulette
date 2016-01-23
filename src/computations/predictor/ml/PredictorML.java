@@ -96,7 +96,7 @@ public class PredictorML
 
 		// We need at least three ball measures. To build the model (for one
 		// acceleration)
-		if (ballLapTimes.size() < Constants.MINIMUM_NUMBER_OF_BALL_TIMES_BEFORE_FORECASTING)
+		if (ballLapTimes.size() < Constants.MIN_NUMBER_OF_BALL_TIMES_BEFORE_PREDICTION)
 		{
 			return dataRecords;
 		}

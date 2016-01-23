@@ -1,6 +1,6 @@
 package computations.predictor.physics;
 
-public class PositiveValueExpectedException extends RuntimeException
+public class PositiveValueExpectedException extends Exception
 {
 	private static final long serialVersionUID = 1L;
 	

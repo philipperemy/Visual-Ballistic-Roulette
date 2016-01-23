@@ -20,7 +20,7 @@ public class HelperPhysics {
 
 	//OKAY. To be tested.
 	//speed_function_shifted_b = @(x) 2*ball_track_circumference/sqrt(8*a*x+(2*b+a)^2);
-	public static double estimateSpeed(double x, double circumference, LapTimeRegressionModel lrv)
+	public static double estimateSpeed(double x, double circumference, LapTimeRegressionModel lrv) throws PositiveValueExpectedException
 	{
 		double a = lrv.slope;
 		double b = lrv.intercept;
@@ -32,7 +32,7 @@ public class HelperPhysics {
 		return speed;
 	}
 
-	public static double estimateDistance(double t1, double t2, double circumference, LapTimeRegressionModel lrv)
+	public static double estimateDistance(double t1, double t2, double circumference, LapTimeRegressionModel lrv) throws PositiveValueExpectedException
 	{
 		double a = lrv.slope;
 		double b = lrv.intercept;
@@ -47,12 +47,12 @@ public class HelperPhysics {
 	//To be tested
 	//Inverse function for speed and not shifted_speed!
 	//inv_speed_function = @(x) (4*ball_track_circumference^2-x^2*(2*b+a)^2)/(8*a*x^2)+b;
-	public static double estimateTimeForSpeed(double x, double circumference, LapTimeRegressionModel lrv)
+	public static double estimateTimeForSpeed(double x, double circumference, LapTimeRegressionModel lrv) throws PositiveValueExpectedException
 	{
 		return estimateTimeForSpeedShiftB(x, circumference, lrv, true);
 	}
 	
-	private static double estimateTimeForSpeedShiftB(double x, double circumference, LapTimeRegressionModel lrv, boolean shiftB) {
+	private static double estimateTimeForSpeedShiftB(double x, double circumference, LapTimeRegressionModel lrv, boolean shiftB) throws PositiveValueExpectedException {
 		double a = lrv.slope;
 		double b = lrv.intercept;
 		double time = (4 * Math.pow(circumference, 2) - Math.pow(x * (2 * b + a), 2))/(8 * a * Math.pow(x,2)) + b;

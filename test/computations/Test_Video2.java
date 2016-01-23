@@ -124,6 +124,7 @@ public class Test_Video2 extends TestClass
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void fill_18_27_336(String sessionId, boolean addOutcome)
 	{
 

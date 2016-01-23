@@ -6,6 +6,7 @@ import org.junit.Test;
 import computations.Constants;
 import computations.predictor.physics.HelperPhysics;
 import computations.predictor.physics.LapTimeRegressionModel;
+import computations.predictor.physics.PositiveValueExpectedException;
 
 public class HelperPhysicsTest {
 	
@@ -26,7 +27,7 @@ public class HelperPhysicsTest {
 	}
 
 	@Test
-	public void testEstimateSpeed() {
+	public void testEstimateSpeed() throws PositiveValueExpectedException {
 		double a_b = 0.1362;
 		double b_b = 0.5962;
 		LapTimeRegressionModel lrv = new LapTimeRegressionModel(a_b, b_b);
@@ -34,7 +35,7 @@ public class HelperPhysicsTest {
 	}
 
 	@Test
-	public void testEstimateDistance() {
+	public void testEstimateDistance() throws PositiveValueExpectedException {
 		double a_b = 0.0266;
 		double b_b = 3.554;
 		LapTimeRegressionModel lrv = new LapTimeRegressionModel(a_b, b_b);
@@ -42,7 +43,7 @@ public class HelperPhysicsTest {
 	}
 
 	@Test
-	public void testEstimateTimeForSpeed() {
+	public void testEstimateTimeForSpeed() throws PositiveValueExpectedException {
 		double a_b = 0.1362;
 		double b_b = 0.5962;
 		LapTimeRegressionModel lrv = new LapTimeRegressionModel(a_b, b_b);

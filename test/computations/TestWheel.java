@@ -37,8 +37,8 @@ public class TestWheel
 	public void testHelperSpeed()
 	{
 		// In meter/second
-		Assert.assertEquals(3.76, BallisticManager.getBallSpeed(0, 1), 0.01);
-		Assert.assertEquals(2.51, BallisticManager.getWheelSpeed(0, 1), 0.01);
+		Assert.assertEquals(Constants.BALL_CIRCUMFERENCE, BallisticManager.getBallSpeed(0, 1), 0.01);
+		Assert.assertEquals(Constants.WHEEL_CIRCUMFERENCE, BallisticManager.getWheelSpeed(0, 1), 0.01);
 	}
 
 	@Test
@@ -135,6 +135,7 @@ public class TestWheel
 	 * 0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5,
 	 * 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26 };
 	 */
+	@SuppressWarnings("deprecation")
 	@Test
 	public void unitTests()
 	{

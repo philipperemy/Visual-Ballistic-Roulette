@@ -137,8 +137,8 @@ public class Response extends HttpServlet
 		}
 
 		int numberOfRecordedWheelTimes = wheelLapTimes.size(); // At least 2
-		if (numberOfRecordedWheelTimes < Constants.MINIMUM_NUMBER_OF_WHEEL_TIMES_BEFORE_FORECASTING 
-				|| ballLapTimes.size() < Constants.MINIMUM_NUMBER_OF_BALL_TIMES_BEFORE_FORECASTING)
+		if (numberOfRecordedWheelTimes < Constants.MIN_NUMBER_OF_WHEEL_TIMES_BEFORE_PREDICTION 
+				|| ballLapTimes.size() < Constants.MIN_NUMBER_OF_BALL_TIMES_BEFORE_PREDICTION)
 		{
 			throw new SessionNotReadyException(numberOfRecordedWheelTimes);
 		}
@@ -146,8 +146,9 @@ public class Response extends HttpServlet
 		List<Double> wheelLapTimesSeconds = computations.Helper.convertToSeconds(wheelLapTimes);
 		List<Double> ballLapTimesSeconds = computations.Helper.convertToSeconds(ballLapTimes);
 
-		int mostProbableNumber = pr.machineLearning().predict(ballLapTimesSeconds, wheelLapTimesSeconds, sessionId);
-		return mostProbableNumber;
+		int mostProbableNumberML = pr.machineLearning().predict(ballLapTimesSeconds, wheelLapTimesSeconds, sessionId);
+		//int mostProbableNumberPH = pr.physics().pr
+		return mostProbableNumberML;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

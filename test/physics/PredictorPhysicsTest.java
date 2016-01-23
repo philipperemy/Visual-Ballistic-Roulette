@@ -8,12 +8,13 @@ import org.junit.Test;
 
 import computations.Helper;
 import computations.predictor.PredictorInterface;
+import computations.predictor.physics.PositiveValueExpectedException;
 import computations.predictor.physics.PredictorPhysics;
 
 public class PredictorPhysicsTest {
 
 	@Test
-	public void test() {
+	public void test() throws PositiveValueExpectedException {
 		PredictorPhysics py = PredictorInterface.getInstance().physics();
 
 		List<Double> ballCumsumTimes = new ArrayList<>();
@@ -34,7 +35,7 @@ public class PredictorPhysicsTest {
 		ballCumsumTimes = Helper.convertToSeconds(ballCumsumTimes);
 		wheelCumsumTimes = Helper.convertToSeconds(wheelCumsumTimes);
 
-		Assert.assertEquals(15, py.mostProbableNumber(ballCumsumTimes, wheelCumsumTimes).intValue());
+		Assert.assertEquals(15, py.predict(ballCumsumTimes, wheelCumsumTimes));
 	}
 
 }
