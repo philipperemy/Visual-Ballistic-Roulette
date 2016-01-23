@@ -9,7 +9,6 @@ import org.junit.BeforeClass;
 import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;
 import servlets.Response;
-import servlets.SessionNotReadyException;
 import utils.TestResult;
 
 public abstract class TestClass

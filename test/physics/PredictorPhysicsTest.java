@@ -11,10 +11,12 @@ import computations.predictor.PredictorInterface;
 import computations.predictor.physics.PositiveValueExpectedException;
 import computations.predictor.physics.PredictorPhysics;
 
-public class PredictorPhysicsTest {
+public class PredictorPhysicsTest
+{
 
 	@Test
-	public void test() throws PositiveValueExpectedException {
+	public void test() throws PositiveValueExpectedException
+	{
 		PredictorPhysics py = PredictorInterface.getInstance().physics();
 
 		List<Double> ballCumsumTimes = new ArrayList<>();

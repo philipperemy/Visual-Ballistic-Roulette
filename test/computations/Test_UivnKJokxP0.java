@@ -359,7 +359,7 @@ public class Test_UivnKJokxP0 extends TestClass
 		// 13.
 	}
 
-	//@Test
+	// @Test
 	public void test_6() throws Exception
 	{
 		String sessionId = dbRef.getLastSessionId();

@@ -21,7 +21,8 @@ public class TestCV extends TestClass
 		Logger.traceINFO("error is : " + error);
 	}
 
-	//@Test // 1.46-1.70 error. Lowest is when par = 1000. We take all what have.
+	// @Test // 1.46-1.70 error. Lowest is when par = 1000. We take all what
+	// have.
 	public void test_cv_mc()
 	{
 		try

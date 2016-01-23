@@ -1,6 +1,5 @@
 package utils;
 
-
 import computations.wheel.Wheel;
 
 public class TestResult

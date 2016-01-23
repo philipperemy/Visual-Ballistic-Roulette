@@ -8,7 +8,8 @@ import computations.predictor.Phase;
 import computations.wheel.Wheel;
 import logger.Logger;
 
-public class PredictorPhysics {
+public class PredictorPhysics
+{
 
 	private static volatile PredictorPhysics instance = null;
 
@@ -20,14 +21,14 @@ public class PredictorPhysics {
 		}
 		return instance;
 	}
-	
+
 	public int predict(List<Double> ballCumsumTimes, List<Double> wheelCumsumTimes) throws PositiveValueExpectedException
 	{
 		double cutOffSpeed = Constants.CUTOFF_SPEED;
-		
+
 		double originTimeBall = Helper.head(ballCumsumTimes);
 		ballCumsumTimes = Helper.normalize(ballCumsumTimes, originTimeBall);
-		
+
 		double originTimeWheel = Helper.head(wheelCumsumTimes);
 		wheelCumsumTimes = Helper.normalize(wheelCumsumTimes, originTimeWheel);
 
@@ -42,14 +43,15 @@ public class PredictorPhysics {
 		Logger.traceINFO("Reference time of prediction = " + lastTimeBallPassesInFrontOfRef + " s");
 
 		double lastWheelLapTimeInFrontOfRef = Helper.getLastTimeWheelIsInFrontOfRef(wheelCumsumTimes, lastTimeBallPassesInFrontOfRef);
-		
+
 		LapTimeRegressionModel wheelSpeedModel = LapTimeRegressionModel.performLinearRegressionTimes(wheelCumsumTimes);
 		double wheelSpeedInFrontOfMark = HelperPhysics.estimateSpeed(lastWheelLapTimeInFrontOfRef, Constants.WHEEL_CIRCUMFERENCE, wheelSpeedModel); // approximation
 
 		int initialPhase = Phase.findPhaseNumberBetweenBallAndWheel(lastTimeBallPassesInFrontOfRef, lastWheelLapTimeInFrontOfRef,
 				wheelSpeedInFrontOfMark, Constants.DEFAULT_WHEEL_WAY);
 
-		double remainingDistance = HelperPhysics.estimateDistance(lastTimeBallPassesInFrontOfRef, lastTimeBallPassesInFrontOfRef + timeAtCutoffBall, Constants.WHEEL_CIRCUMFERENCE, wheelSpeedModel);
+		double remainingDistance = HelperPhysics.estimateDistance(lastTimeBallPassesInFrontOfRef, lastTimeBallPassesInFrontOfRef + timeAtCutoffBall,
+				Constants.WHEEL_CIRCUMFERENCE, wheelSpeedModel);
 		Logger.traceINFO("Remaining distance computed = " + Helper.printDigit(remainingDistance) + " m");
 
 		double angleAtCutOffTime = HelperPhysics.estimatePhaseAngleDegrees(remainingDistance, Constants.WHEEL_CIRCUMFERENCE);
@@ -60,10 +62,10 @@ public class PredictorPhysics {
 		int finalPredictedShift = shiftPhaseBetweenInitialTimeAndCutOff + Constants.DEFAULT_SHIFT_PHASE;
 		Logger.traceINFO("Number of pockets (computed from angle) = " + shiftPhaseBetweenInitialTimeAndCutOff);
 		Logger.traceINFO("DEFAULT_SHIFT_PHASE = " + Constants.DEFAULT_SHIFT_PHASE);
-		
+
 		int predictedNumber = Wheel.getNumberWithPhase(initialPhase, finalPredictedShift, Constants.DEFAULT_WHEEL_WAY);
-		Logger.traceINFO("Initial phase was = " + initialPhase + ", Total shift = " + finalPredictedShift + ", Predicted number is = " + predictedNumber);
+		Logger.traceINFO(
+				"Initial phase was = " + initialPhase + ", Total shift = " + finalPredictedShift + ", Predicted number is = " + predictedNumber);
 		return predictedNumber;
 	}
 }
-

@@ -27,7 +27,7 @@ public class LapTimeRegressionModel
 	{
 		return "LapTimeRegressionModel [slope=" + Helper.printDigit(slope) + ", intercept=" + Helper.printDigit(intercept) + "]";
 	}
-	
+
 	public static LapTimeRegressionModel performLinearRegressionTimes(List<Double> diffs)
 	{
 		int n = diffs.size();

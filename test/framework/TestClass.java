@@ -22,7 +22,6 @@ import framework.games.Game8;
 import framework.time.GetNoisyTime;
 import framework.time.GetTime;
 import servlets.Response;
-import servlets.SessionNotReadyException;
 import utils.TestResult;
 
 public abstract class TestClass

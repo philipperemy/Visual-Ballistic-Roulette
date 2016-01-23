@@ -7,5 +7,6 @@ import servlets.SessionNotReadyException;
 
 public interface PredictorSolver
 {
-	public int predict(PredictorML predictor, List<Double> ballLapTimes, List<Double> wheelLapTimes, String sessionId) throws SessionNotReadyException;
+	public int predict(PredictorML predictor, List<Double> ballLapTimes, List<Double> wheelLapTimes, String sessionId)
+			throws SessionNotReadyException;
 }

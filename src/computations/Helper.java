@@ -41,7 +41,7 @@ public class Helper
 	{
 		return list.get(list.size() - 1);
 	}
-	
+
 	public static <T> T head(List<T> list)
 	{
 		return list.get(0);
@@ -95,8 +95,8 @@ public class Helper
 		}
 		return res;
 	}
-	
-	//Here we put all the calculus
+
+	// Here we put all the calculus
 	public static List<Double> computeDiff(List<Double> lapTimes)
 	{
 		List<Double> diffs = new ArrayList<>(lapTimes.size() - 1);
@@ -108,23 +108,23 @@ public class Helper
 		}
 		return diffs;
 	}
-	
-	
+
 	public static List<Double> normalize(List<Double> cumsumTimes, double origin)
 	{
 		List<Double> ret = new ArrayList<>();
-		for(Double val : cumsumTimes) {
+		for (Double val : cumsumTimes)
+		{
 			ret.add(val - origin);
 		}
 		return ret;
 	}
-	
-	
-	public double getLastSpeedWheel(List<Double> wheelDiffTimes) {
+
+	public double getLastSpeedWheel(List<Double> wheelDiffTimes)
+	{
 		double lastTimeRev = Helper.peek(wheelDiffTimes);
 		return Constants.WHEEL_CIRCUMFERENCE / lastTimeRev;
 	}
-	
+
 	public static List<Double> cumsum(List<Double> in)
 	{
 		double total = 0.0;
@@ -135,7 +135,7 @@ public class Helper
 			total += val;
 			out.add(total);
 		}
-		return out;	
+		return out;
 	}
 
 }

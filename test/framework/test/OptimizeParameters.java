@@ -43,8 +43,8 @@ public class OptimizeParameters extends TestClass
 			Logger.enableLogging();
 		}
 	}
-	
-	//@Test
+
+	// @Test
 	public void test2()
 	{
 		Logger.stopLogging();

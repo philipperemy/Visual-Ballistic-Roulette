@@ -3,13 +3,14 @@ package computations.predictor;
 import computations.predictor.ml.PredictorML;
 import computations.predictor.physics.PredictorPhysics;
 
-public class PredictorInterface {
+public class PredictorInterface
+{
 
 	private volatile PredictorML predictorMachineLearning = PredictorML.getInstance();
 	private volatile PredictorPhysics predictorPhysics = PredictorPhysics.getInstance();
-	
+
 	private static volatile PredictorInterface instance = PredictorInterface.getInstance();
-	
+
 	public static PredictorInterface getInstance()
 	{
 		if (instance == null)
@@ -18,12 +19,14 @@ public class PredictorInterface {
 		}
 		return instance;
 	}
-	
-	public PredictorML machineLearning() {
+
+	public PredictorML machineLearning()
+	{
 		return predictorMachineLearning;
 	}
-	
-	public PredictorPhysics physics() {
+
+	public PredictorPhysics physics()
+	{
 		return predictorPhysics;
 	}
 }

@@ -20,13 +20,13 @@ public class Constants
 
 	public static final long THRESHOLD_BEFORE_NEW_SESSION_IN_MS = 30 * 1000;
 
-	//Machine Learning
+	// Machine Learning
 	public static int NUMBER_OF_NEIGHBORS_KNN = 4;
 	public static int RECORDS_COUNT_FOR_PREDICTION = 5;
 	public static PredictorSolver PREDICTOR_SOLVER = new FixedMostRecentMeasuresSolver();
 	public static OutcomeSolver DATARECORD_SOLVER = new ComplexWeightingSchemeSolver();
 
-	//Physics
+	// Physics
 	public static double CUTOFF_SPEED = 1.10; // m/s
 	public static int DEFAULT_SHIFT_PHASE = 18; // Check +/- 9
 

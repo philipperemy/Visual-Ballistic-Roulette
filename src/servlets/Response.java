@@ -138,7 +138,7 @@ public class Response extends HttpServlet
 		}
 
 		int numberOfRecordedWheelTimes = wheelLapTimes.size(); // At least 2
-		if (numberOfRecordedWheelTimes < Constants.MIN_NUMBER_OF_WHEEL_TIMES_BEFORE_PREDICTION 
+		if (numberOfRecordedWheelTimes < Constants.MIN_NUMBER_OF_WHEEL_TIMES_BEFORE_PREDICTION
 				|| ballLapTimes.size() < Constants.MIN_NUMBER_OF_BALL_TIMES_BEFORE_PREDICTION)
 		{
 			throw new SessionNotReadyException(numberOfRecordedWheelTimes);
@@ -147,7 +147,9 @@ public class Response extends HttpServlet
 		List<Double> wheelLapTimesSeconds = computations.Helper.convertToSeconds(wheelLapTimes);
 		List<Double> ballLapTimesSeconds = computations.Helper.convertToSeconds(ballLapTimes);
 
-		//int mostProbableNumberML = pr.machineLearning().predict(ballLapTimesSeconds, wheelLapTimesSeconds, sessionId);
+		// int mostProbableNumberML =
+		// pr.machineLearning().predict(ballLapTimesSeconds,
+		// wheelLapTimesSeconds, sessionId);
 		int mostProbableNumberPH = pr.physics().predict(ballLapTimesSeconds, wheelLapTimesSeconds);
 		return mostProbableNumberPH;
 	}
