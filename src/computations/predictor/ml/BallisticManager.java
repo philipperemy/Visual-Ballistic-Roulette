@@ -15,13 +15,13 @@ public class BallisticManager
 	// Could interpolate with ML stuffs.
 	public static double getTimeForOneBallLoop(double ballSpeed)
 	{
-		return Constants.BALL_CIRCUMFERENCE / ballSpeed;
+		return Constants.get_BALL_CIRCUMFERENCE() / ballSpeed;
 	}
 
 	// Could interpolate with ML stuffs.
 	public static double getTimeForOneWheelLoop(double wheelSpeed)
 	{
-		return Constants.WHEEL_CIRCUMFERENCE / wheelSpeed;
+		return Constants.get_WHEEL_CIRCUMFERENCE() / wheelSpeed;
 	}
 
 	// m/s. T1 and T2
@@ -41,13 +41,13 @@ public class BallisticManager
 
 	public static double getBallSpeed(double t1, double t2)
 	{
-		return Constants.BALL_CIRCUMFERENCE / (t2 - t1);
+		return Constants.get_BALL_CIRCUMFERENCE() / (t2 - t1);
 	}
 
 	// m/s
 	public static double getWheelSpeed(double t1, double t2)
 	{
-		return Constants.WHEEL_CIRCUMFERENCE / (t2 - t1);
+		return Constants.get_WHEEL_CIRCUMFERENCE() / (t2 - t1);
 	}
 
 	/*

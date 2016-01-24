@@ -35,7 +35,7 @@ public class HelperPhysicsTest
 		double a_b = 0.1362;
 		double b_b = 0.5962;
 		LapTimeRegressionModel lrv = new LapTimeRegressionModel(a_b, b_b);
-		Assert.assertEquals(0.4775, HelperPhysics.estimateSpeed(100, Constants.BALL_CIRCUMFERENCE, lrv), EPSILON);
+		Assert.assertEquals(0.4775, HelperPhysics.estimateSpeed(100, Constants.get_BALL_CIRCUMFERENCE(), lrv), EPSILON);
 	}
 
 	@Test
@@ -44,7 +44,7 @@ public class HelperPhysicsTest
 		double a_b = 0.0266;
 		double b_b = 3.554;
 		LapTimeRegressionModel lrv = new LapTimeRegressionModel(a_b, b_b);
-		Assert.assertEquals(1.3238, HelperPhysics.estimateDistance(15.554, 18.128, Constants.WHEEL_CIRCUMFERENCE, lrv), EPSILON);
+		Assert.assertEquals(1.3238, HelperPhysics.estimateDistance(15.554, 18.128, Constants.get_WHEEL_CIRCUMFERENCE(), lrv), EPSILON);
 	}
 
 	@Test
@@ -55,9 +55,9 @@ public class HelperPhysicsTest
 		LapTimeRegressionModel lrv = new LapTimeRegressionModel(a_b, b_b);
 
 		double time = 12.5;
-		double speed = HelperPhysics.estimateSpeed(time, Constants.BALL_CIRCUMFERENCE, lrv);
+		double speed = HelperPhysics.estimateSpeed(time, Constants.get_BALL_CIRCUMFERENCE(), lrv);
 
-		Assert.assertEquals(time, HelperPhysics.estimateTimeForSpeed(speed, Constants.BALL_CIRCUMFERENCE, lrv), EPSILON);
+		Assert.assertEquals(time, HelperPhysics.estimateTimeForSpeed(speed, Constants.get_BALL_CIRCUMFERENCE(), lrv), EPSILON);
 	}
 
 }

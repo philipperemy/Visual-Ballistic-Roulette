@@ -6,6 +6,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
+import computations.predictor.physics.PredictorPhysics;
 import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;
 import servlets.Response;
@@ -31,14 +32,15 @@ public abstract class TestClass
 	{
 		setUp();
 	}
+	
+	static PredictorPhysics py = PredictorPhysics.getInstance();
 
 	public static TestResult runTest(Game predict)
 	{
 		Integer actualOutcome = null;
 		try
 		{
-			String sessionId = predict.get_sessionId();
-			actualOutcome = response.predictMostProbableNumber(sessionId);
+			actualOutcome = py.predict(predict.get_ballLaptimes(), predict.get_wheelLaptimes());
 		} catch (Exception e)
 		{
 			throw new RuntimeException(e);

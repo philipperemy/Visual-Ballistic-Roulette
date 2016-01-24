@@ -12,11 +12,11 @@ public class Wheel
 
 	public static int getIndex(int index)
 	{
-		if (index < 0)
+		while (index < 0)
 		{
 			index += NUMBERS.length;
 		}
-		if (index >= NUMBERS.length)
+		while (index >= NUMBERS.length)
 		{
 			index -= NUMBERS.length;
 		}

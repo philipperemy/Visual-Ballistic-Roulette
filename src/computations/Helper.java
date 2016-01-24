@@ -122,7 +122,7 @@ public class Helper
 	public double getLastSpeedWheel(List<Double> wheelDiffTimes)
 	{
 		double lastTimeRev = Helper.peek(wheelDiffTimes);
-		return Constants.WHEEL_CIRCUMFERENCE / lastTimeRev;
+		return Constants.get_WHEEL_CIRCUMFERENCE() / lastTimeRev;
 	}
 
 	public static List<Double> cumsum(List<Double> in)

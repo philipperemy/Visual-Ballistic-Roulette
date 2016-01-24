@@ -16,8 +16,8 @@ public class Game
 	public Game(String sessionId, DatabaseAccessorInterface dbRef)
 	{
 		_sessionId = sessionId;
-		_ballLaptimes = dbRef.selectBallLapTimes(_sessionId);
-		_wheelLaptimes = dbRef.selectWheelLapTimes(_sessionId);
+		_ballLaptimes = computations.Helper.convertToSeconds(dbRef.selectBallLapTimes(_sessionId));
+		_wheelLaptimes = computations.Helper.convertToSeconds(dbRef.selectWheelLapTimes(_sessionId));
 		Outcome out = dbRef.getOutcome(_sessionId);
 		if (out != null)
 		{

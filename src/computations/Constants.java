@@ -12,11 +12,18 @@ public class Constants
 	 * TODO: To be measured
 	 */
 	// METERS
-	private static final double WHEEL_DIAMETER = 0.60;
-	private static final double CASE_DIAMETER = 0.80;
+	public static double WHEEL_DIAMETER = 0.547;//= 0.60;
+	public static double CASE_DIAMETER = 0.687;//= 0.80;
 
-	public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
-	public static final double BALL_CIRCUMFERENCE = CASE_DIAMETER * Math.PI;
+	public static double get_WHEEL_CIRCUMFERENCE()
+	{
+		return WHEEL_DIAMETER * Math.PI;
+	}
+
+	public static double get_BALL_CIRCUMFERENCE()
+	{
+		return CASE_DIAMETER * Math.PI;
+	}
 
 	public static final long THRESHOLD_BEFORE_NEW_SESSION_IN_MS = 30 * 1000;
 

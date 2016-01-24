@@ -37,8 +37,8 @@ public class TestWheel
 	public void testHelperSpeed()
 	{
 		// In meter/second
-		Assert.assertEquals(Constants.BALL_CIRCUMFERENCE, BallisticManager.getBallSpeed(0, 1), 0.01);
-		Assert.assertEquals(Constants.WHEEL_CIRCUMFERENCE, BallisticManager.getWheelSpeed(0, 1), 0.01);
+		Assert.assertEquals(Constants.get_BALL_CIRCUMFERENCE(), BallisticManager.getBallSpeed(0, 1), 0.01);
+		Assert.assertEquals(Constants.get_WHEEL_CIRCUMFERENCE(), BallisticManager.getWheelSpeed(0, 1), 0.01);
 	}
 
 	@Test
