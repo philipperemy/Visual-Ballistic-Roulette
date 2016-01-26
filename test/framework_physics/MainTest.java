@@ -23,10 +23,10 @@ public class MainTest extends TestClass
 	{
 		double best_error = Double.MAX_VALUE;
 		Logger.setDebug(false); // No DEBUG.
-		for (int phase = 1; phase < 75; phase++) // 30
+		for (int phase = 1; phase < 100; phase++) // 30
 		{
 			Constants.DEFAULT_SHIFT_PHASE = phase;
-			for (double speed = 1.0; speed < 2.0; speed += 0.001) // 100
+			for (double speed = 1.0; speed < 3.0; speed += 0.001) // 100
 			{
 				Constants.CUTOFF_SPEED = speed;
 				double error = 0.0;

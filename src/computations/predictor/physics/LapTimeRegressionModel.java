@@ -47,4 +47,12 @@ public class LapTimeRegressionModel
 
 		return new LapTimeRegressionModel(regression.getSlope(), regression.getIntercept());
 	}
+
+	// Random
+	public static LapTimeRegressionModel performRANSAC(List<Double> diffs)
+	{
+		// List<Double> res = RANSAC.perform(diffs, 2, 100, 1, 0.2);
+		List<Double> res = RANSAC.perform(diffs, 2, 100, 1, 0.2);
+		return new LapTimeRegressionModel(res.get(0), res.get(1));
+	}
 }

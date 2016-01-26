@@ -26,6 +26,12 @@ public class PredictorPhysics
 	{
 		double cutOffSpeed = Constants.CUTOFF_SPEED;
 
+		/**
+		 * Parameter that should be optimized. How many
+		 */
+		ballCumsumTimes = ballCumsumTimes.subList(0, ballCumsumTimes.size() - 4);
+		wheelCumsumTimes = wheelCumsumTimes.subList(0, wheelCumsumTimes.size());
+
 		double originTimeBall = Helper.head(ballCumsumTimes);
 		ballCumsumTimes = Helper.normalize(ballCumsumTimes, originTimeBall);
 
@@ -34,8 +40,10 @@ public class PredictorPhysics
 
 		List<Double> ballDiffTimes = Helper.computeDiff(ballCumsumTimes);
 		List<Double> wheelDiffTimes = Helper.computeDiff(wheelCumsumTimes);
-		
-		LapTimeRegressionModel ballSpeedModel = LapTimeRegressionModel.performLinearRegressionTimes(ballDiffTimes);
+
+		// LapTimeRegressionModel ballSpeedModel =
+		// LapTimeRegressionModel.performLinearRegressionTimes(ballDiffTimes);
+		LapTimeRegressionModel ballSpeedModel = LapTimeRegressionModel.performRANSAC(ballDiffTimes);
 		Logger.traceDEBUG("Ball Speed Model = " + ballSpeedModel);
 
 		double timeAtCutoffBall = HelperPhysics.estimateTimeForSpeed(cutOffSpeed, Constants.get_BALL_CIRCUMFERENCE(), ballSpeedModel);
@@ -46,11 +54,18 @@ public class PredictorPhysics
 
 		double lastWheelLapTimeInFrontOfRef = Helper.getLastTimeWheelIsInFrontOfRef(wheelCumsumTimes, lastTimeBallPassesInFrontOfRef);
 
-		LapTimeRegressionModel wheelSpeedModel = LapTimeRegressionModel.performLinearRegressionTimes(wheelDiffTimes);
+		// LapTimeRegressionModel wheelSpeedModel =
+		// LapTimeRegressionModel.performLinearRegressionTimes(wheelDiffTimes);
+		LapTimeRegressionModel wheelSpeedModel = LapTimeRegressionModel.performRANSAC(wheelDiffTimes);
 		Logger.traceDEBUG("Wheel Speed Model = " + ballSpeedModel);
-		
-		double wheelSpeedInFrontOfMark = HelperPhysics.estimateSpeed(lastWheelLapTimeInFrontOfRef, Constants.get_WHEEL_CIRCUMFERENCE(), wheelSpeedModel); // approximation
 
+		double wheelSpeedInFrontOfMark = HelperPhysics.estimateSpeed(lastWheelLapTimeInFrontOfRef, Constants.get_WHEEL_CIRCUMFERENCE(),
+				wheelSpeedModel); // approximation
+
+		/**
+		 * Comparing this value with the true value can be used to optimize the
+		 * algorithm.
+		 */
 		int initialPhase = Phase.findPhaseNumberBetweenBallAndWheel(lastTimeBallPassesInFrontOfRef, lastWheelLapTimeInFrontOfRef,
 				wheelSpeedInFrontOfMark, Constants.DEFAULT_WHEEL_WAY);
 
@@ -64,9 +79,11 @@ public class PredictorPhysics
 		int shiftPhaseBetweenInitialTimeAndCutOff = HelperPhysics.estimateShiftWithAngle(angleAtCutOffTime);
 
 		/**
-		 * Make phase being different regarding to the speed of the wheel.
+		 * Shift depends on the speed of the wheel. High speed means more travel
+		 * on average.
 		 */
-		double lastKnownSpeedWheel = HelperPhysics.estimateSpeed(lastTimeBallPassesInFrontOfRef + timeAtCutoffBall, Constants.get_WHEEL_CIRCUMFERENCE(), wheelSpeedModel); // approximation
+		double lastKnownSpeedWheel = HelperPhysics.estimateSpeed(lastTimeBallPassesInFrontOfRef + timeAtCutoffBall,
+				Constants.get_WHEEL_CIRCUMFERENCE(), wheelSpeedModel); // approximation
 		int adjustedInitialPhase = (int) (Constants.DEFAULT_SHIFT_PHASE * lastKnownSpeedWheel);
 		int finalPredictedShift = shiftPhaseBetweenInitialTimeAndCutOff + adjustedInitialPhase;
 		Logger.traceDEBUG("Number of pockets (computed from angle) = " + shiftPhaseBetweenInitialTimeAndCutOff);
