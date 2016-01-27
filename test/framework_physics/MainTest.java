@@ -1,9 +1,13 @@
 package framework_physics;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
 import computations.Constants;
 import computations.Helper;
+import framework_physics.cv.KFoldCrossValidation;
 import logger.Logger;
 
 public class MainTest extends TestClass
@@ -18,11 +22,33 @@ public class MainTest extends TestClass
 	static Game game12 = new Game("12", dbRef);
 	static Game game13 = new Game("13", dbRef);
 
+	/*
+	 * best phase =4; best speed = 1.197 ; valid error = 2, total validations =
+	 * 1 best phase =2; best speed = 1.152 ; valid error = 2.5, total
+	 * validations = 2 2.25
+	 */
+	@Test
+	public void testPhysics4()
+	{
+		List<Game> games = new ArrayList<>();
+		games.add(game1);
+		games.add(game2);
+		games.add(game3);
+		games.add(game4);
+		games.add(game5);
+		games.add(game8);
+		games.add(game9);
+		games.add(game12);
+		games.add(game13);
+		KFoldCrossValidation kfcv = new KFoldCrossValidation(games, 2);
+		System.out.println(kfcv.getError());
+	}
+
 	@Test
 	public void testPhysics3()
 	{
-		Constants.DEFAULT_SHIFT_PHASE = 5;
-		Constants.CUTOFF_SPEED = 1.5;
+		Constants.DEFAULT_SHIFT_PHASE = 4;
+		Constants.CUTOFF_SPEED = 1.0;
 
 		double error = 0.0;
 
