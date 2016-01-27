@@ -1,0 +1,2 @@
+root@localhost: wjdR#/SG?7ag
+mysql -u root -p[password]

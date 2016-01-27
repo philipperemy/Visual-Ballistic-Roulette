@@ -27,7 +27,7 @@ public class PredictorPhysics
 		double cutOffSpeed = Constants.CUTOFF_SPEED;
 
 		/**
-		 * Parameter that should be optimized. How many
+		 * Parameter that should be optimized. How many should we take.
 		 */
 		ballCumsumTimes = ballCumsumTimes.subList(0, ballCumsumTimes.size() - 4);
 		wheelCumsumTimes = wheelCumsumTimes.subList(0, wheelCumsumTimes.size());
@@ -50,6 +50,11 @@ public class PredictorPhysics
 		Logger.traceDEBUG("Cutoff time = " + Helper.printDigit(timeAtCutoffBall) + " s, relative to t_BALL(0) for speed = " + cutOffSpeed + " m/s");
 
 		double lastTimeBallPassesInFrontOfRef = Helper.peek(ballCumsumTimes);
+		if (timeAtCutoffBall < lastTimeBallPassesInFrontOfRef + Constants.TIME_LEFT_FOR_PLACING_BETS_SECONDS)
+		{
+			throw new PositiveValueExpectedException();
+		}
+
 		Logger.traceDEBUG("Reference time of prediction = " + lastTimeBallPassesInFrontOfRef + " s");
 
 		double lastWheelLapTimeInFrontOfRef = Helper.getLastTimeWheelIsInFrontOfRef(wheelCumsumTimes, lastTimeBallPassesInFrontOfRef);

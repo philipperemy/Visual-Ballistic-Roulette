@@ -6,10 +6,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import org.junit.Test;
-
-import computations.Helper;
-
 public class RANSAC
 {
 	static Random random = new Random();
@@ -91,6 +87,7 @@ public class RANSAC
 			}
 
 			List<Integer> inlierIdx = findLessThan(distance, threshDist);
+
 			int inlierNum = inlierIdx.size();
 
 			double parameter1 = 0;
@@ -110,47 +107,5 @@ public class RANSAC
 		res.add(bestParameter1);
 		res.add(bestParameter2);
 		return res;
-	}
-
-	@Test
-	public void test_ransac()
-	{
-		// 5 8 11 14 17 20 23 26
-		List<Double> data = new ArrayList<>();
-		data.add(5.0);
-		data.add(8.0);
-		data.add(11.0);
-		data.add(22.0);
-		data.add(17.0);
-		data.add(20.0);
-		data.add(23.0);
-		data.add(500.0);
-
-		System.out.println(RANSAC.perform(data, 2, 100, 1, 0.2));
-	}
-
-	@Test
-	public void test_ransac_2()
-	{
-		// 2858 3591 4421 5456 6625 7950 9355 10887 12539 14336 16302 18387
-		List<Double> data = new ArrayList<>();
-		data.add(2858.0);
-		data.add(3591.0);
-		data.add(4421.0);
-		data.add(5456.0);
-		data.add(6625.0);
-		data.add(7950.0);
-		data.add(9355.0);
-		data.add(10887.0);
-		data.add(12539.0);
-		data.add(14336.0);
-		data.add(16302.0);
-		data.add(18387.0);
-
-		List<Double> diffs = Helper.computeDiff(data);
-		diffs = Helper.convertToSeconds(diffs);
-
-		System.out.println(RANSAC.perform(diffs, 2, 100, 1, 0.2));
-
 	}
 }

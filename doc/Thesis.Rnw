@@ -1,0 +1,362 @@
+%\documentclass[11pt,twocolumn]{report}
+\documentclass[11pt]{report}
+
+\usepackage[T1]{fontenc} % Handles accents etc better in the invisible details of the pdf output.
+\usepackage[latin1]{inputenc} % May or may not be needed. Says that your *.tex file is a text file with ASCII latin1 encoding. You could use e.g. utf8 instead for easier accents etc.
+\usepackage[UKenglish]{babel} % Let LaTeX know what language the text is in so it can select the correct hyphenation pattern etc
+
+\usepackage{mathtools}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+%%% American Mathematical Society packages
+\usepackage{amsfonts,amssymb,amsmath,amsthm}
+\usepackage{amsbsy}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{stmaryrd}
+\usepackage{changepage}
+\usepackage{setspace}
+
+\definecolor{dkgreen}{rgb}{0,0.5,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{mygreen}{RGB}{28,172,0}
+\definecolor{mylilas}{RGB}{170,55,241}
+
+
+\lstset{
+  frame=tblr,           
+  language=R,
+  otherkeywords={!,!=,~,$,\&,\%/\%,\%\%,<<-,_,/,*},
+  deletekeywords={c, D, data, mean, cbind, hat, class, length, log, sum,
+  col},
+  aboveskip=5mm,
+  belowskip=5mm,
+  showstringspaces=false,
+  columns=flexible,
+  keepspaces=true,
+  basicstyle={\small\ttfamily},
+  backgroundcolor=\color{white}, 
+  numbers=none,                      
+  numberstyle=\tiny\color{gray},   
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,              
+  breakatwhitespace=true,
+  tabsize=3,
+}
+
+\lstset{language=Matlab,%
+    %basicstyle=\color{red},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
+
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\newtheorem{theorem}{Theorem}%[chapter]
+\newtheorem{proposition}[theorem]{Proposition}%[chapter]
+\newtheorem{definition}[theorem]{Definition}%[chapter]
+\newtheorem{lemma}[theorem]{Lemma}%[chapter]
+\newtheorem{corollary}[theorem]{Corollary}%[chapter]
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}%[chapter]
+\newtheorem{example}[theorem]{Example}%[chapter]
+
+\newcommand{\specialcell}[2][c]{%
+\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+\DeclareMathOperator{\bigo}{O}
+\DeclareMathOperator{\littleo}{o}
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\trace}{trace}
+\DeclareMathOperator{\sign}{sgn}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\vecrm}{vec}
+
+\newcommand\Tau{\mathcal{T}}
+\newcommand{\matr}[1]{\mathbf{#1}}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+
+
+
+\chapter{Introduction}
+
+
+
+\section{Definition}
+Roulette is a casino game named after the French word meaning little wheel. In the game, players may choose to place bets on either a single number or a range of numbers, the colors red or black, or whether the number is odd or even. To determine the winning number and color, a croupier spins a wheel in one direction, then spins a ball in the opposite direction around a tilted circular track running around the circumference of the wheel. The ball eventually loses momentum and falls onto the wheel and into one of 37 (in French/European roulette) or 38 (in American roulette) colored and numbered pockets on the wheel. Throughout this paper, we will only consider the European Roulette Wheel instead of the American version, because the presence of only one zero slightly increases the odds of winning. 
+
+\section{House edge}
+As you might expect, every player will eventually lose money on the game. This advantage the casino has is called the house edge. It is defined as the amount the player loses relative for any bet made, on average. From a mathematical point of view, it corresponds to the expected value per unit (euro, dollar) invested.
+
+Since this roulette has 37 pockets with equal odds of hitting\footnote{This assumption may be inaccurate in practice as the wheel might be slightly tilted.}, this is a final model of field probability $(\Omega, 2^\Omega, \mathbb{P})$, where $\Omega = \{0, \ldots, 36\}, \mathbb{P}(A) = \frac{|A|}{37}$ for all $A \in 2^\Omega$.
+
+Call the bet $S$ a triple $(A, r, \xi)$, where $A$ is the set of chosen numbers, $r \in \mathbb{R}_+$ is the size of the bet, and $\xi: \Omega \to \mathbb{R}$ determines the return of the bet. The rules of European roulette have 10 types of bets. First we can examine the 'Straight Up' bet. In this case, $S = (\{\omega_{0}\}, r, \xi)$, for some $\omega_{0} \in \Omega$, and $\xi$ is determined by
+\begin{align}
+\xi(\omega) =
+  \begin{cases}
+    -r, &\omega \ne \omega_0\\
+    35 \cdot r, &\omega = \omega_0
+  \end{cases}
+\end{align}
+
+The bet's expected net return, or profitability, is equal to
+\begin{align}
+M[\xi] =
+  \frac{1}{37} \sum_{\omega \in \Omega} \xi(\omega) =
+  \frac{1}{37} \left(\xi(\omega^\prime) +
+  \sum_{\omega \ne \omega^\prime} \xi(\omega)\right) =
+  \frac{1}{37} \left(35 \cdot r - 36 \cdot r \right) = -\frac{r}{37}
+  \approx -0.027r.
+\end{align}
+  
+Without details, for a bet, black (or red), the rule is determined as
+\begin{align}
+\xi(\omega) =
+  \begin{cases}
+    -r, &\omega \text{ is red} \\
+    -r, &\omega = 0 \\
+    r, &\omega \text{ is black}
+  \end{cases}
+\end{align}
+and the profitability $M[\xi] = \frac{1}{37}(18 \cdot r - 18 \cdot r - r) = -\frac{r}{37}$. For similar reasons it is simple to see that the profitability is also equal for all remaining types of bets. $-\frac{r}{37}$. In reality this means that, the more bets a player makes, the more he is going to lose independent of the strategies (combinations of bet types or size of bets) that he employs
+\begin{align}
+\sum_{n = 1}^{\infty}M[\xi_n] = -\frac{1}{37}\sum_{n = 1}^{\infty}r_n \to -\infty
+\end{align}
+
+Here, the profit margin for the roulette owner is equal to approximately 2.7\%.
+
+\begin{theorem}
+A game with a negative expectation cannot be profitable for the player no matter what his strategy is. 
+\end{theorem}
+
+Strategies such as martingales are only an illusion that the gambler can win. The only benefit of using martingale is to structure the game into an asymmetric game where the player wins small amounts of money most of the time. However, when a loss occurs, it is too massive and leads to the gambler's ruin. Einstein understood it well before others and stated the following
+\begin{quote}
+"No one can possibly win at roulette unless he steals money from the table while the croupier isn't looking."
+--Albert Einstein
+\end{quote}
+
+If we don't consider the strategy when the gambler tries to find and play tilted wheels where some numbers appear more often than other, Einstein was right. Recently, new systems arise. They are called roulette computers and use complex mathematical models and statistical analysis to beat the roulette. And it works.
+\chapter{Physics}
+
+\section{Context and Definitions}
+
+In this paper, we focus on a simple, yet powerful mathematical framework, used by almost every roulette computer.
+\subsection{Notation}
+
+\begin{itemize}
+\item Ball track: where the ball rolls
+\item Rotor: the spinning part of the wheel where the numbers are
+\item Pockets: where the ball comes to rest
+\item Clocking: simply another word for "take timings of". ie if you "clock" the rotor or ball, you are simply clicking buttons to take timings of revolutions.
+\end{itemize}
+
+\subsection{What happens during a spin}
+
+When the ball is released, it gradually slows down, loses momentum and falls from the ball track. Sometimes the ball hits a metal deflector (diamond) and falls without much bounce. Sometimes it bounces everywhere. Sometimes there is still a fair bit of ball bounce. And while you can never predict exactly where the ball will fall, you don't need to. All you need is to predict roughly where the ball will fall with enough accuracy to overcome the casino's slight edge against you (house edge). For some wheels, this is very easily done. For other wheels, it is much more difficult.
+
+\subsection{Consistent ball timings}
+
+You may think that when the ball is released, the timings of each revolution is random. The reality is especially the last few ball revolutions of the ball occur with much the same ball timings. The right chart shows the revolution timings for the last few revolutions of the ball on three different spins. You can see they are all very similar. The very bottom row shows the sum of all timings from these last seven ball revolutions. The greatest deviation in timings is no less than 300ms (0.3 seconds).
+
+This means that if we knew when the ball timing (speed) was about 1350ms per revolution (about 1.3s per revolution), then we'd know the ball has about 12,500ms (12.5s) before it likely hits the dominant diamond and falls. Again of course this wont happen every time. It only needs to happen enough of the time.
+
+Do you need to know the precise ball speed to know when there are 7 ball revolutions remaining? NO, you can virtually guess when there are roughly 7 revolutions remaining. Do you need to know exactly how many milliseconds are remaining? NO, because the ball revolution timings for the last few revolutions are much the same. This means finding which number will be under the diamond when the ball hits it is very easy to determine. This is a critical to understand.
+
+\subsection{Ball scatter}
+
+Ball scatter is basically ball bounce. Sometimes the ball will miss all diamonds. Sometimes it hits a different diamond to usual. But a lot of the time, the ball will hit the dominant diamond, then bounce roughly 9 pockets along before coming to rest. There is a lot more to it in reality, but from a simplistic perspective, this is scatter.
+
+If you check your local casino's wheels and compare where the ball first touches the rotor to its final restring place, you will see the ball bounce is usually still quite predictable over 15-30 or so spins. How we apply this knowledge is explained later.
+
+\subsection{Visual Ballistics}
+
+So far we know that on many wheels, the ball will mostly fall in the same region (dominant diamond), then mostly bounce 9 or so pockets. On many wheels we can actually skip the step where we consider how far the ball bounces after it hits the dominant diamond. This is because there is a more direct approach as explained below
+
+If you had a method to determine when the ball is about 1300ms (1.3s) per revolution, at that precise moment, you could look at the number under the reference diamond and write it down. Then wait for the ball to fall and come to rest. This will leave you with a first and second number like "A,B". For example say you got 0,21. This will tell you that the ball landed 5 pockets clockwise of your initial "reference" number. See the left image for reference.
+
+This tells us that starting from our REFERENCE NUMBER (A), the ball has about 12.5 seconds left before it hits the dominant diamond and bounces about 9 pockets, and ends up about +5 pockets from the reference number. Where the ball comes to rest is the WINNING NUMBER (B).
+
+You may need to read this a few times, but the concept is very simple. Also see the video below which explains the concept too.
+
+\section{Model}
+
+\subsection{Modeling the angular speed}
+
+Denote $\mathcal{C}_{ball} = 2 \pi r_{ball}$ the circumference of the ball track, where $r_{ball}$ is its radius. On modern wheels, $\mathcal{C}_{ball} \simeq 0.7 \pi$ meters. As seen before, the ball lap times are consistent. Let us consider the case where the first revolution is done in 1 second, the second in 2 seconds, the third in 3 seconds and so forth. Denote $t(k)$ the time index (cumulative sum of the lap times until the revolution $k$). $t(1) = 1, t(2) = 1 + 2, t(3) = 1 + 2 + 3,...$. For each revolution $k$, the ball travels $D$ meters in the time interval $[t(k), t(k+1)] = \left[ \frac{k(k+1)}{2}, \frac{(k+1)(k+2)}{2}\right]$.
+\begin{align}
+\forall k \in \mathbb{N}, \int_{t(k)}^{t(k+1)} v(t) \text{ }dt &= \mathcal{C}_{ball} \\
+\text{For }k \in \mathbb{N}, \int_{t(0)}^{t(k)} v(t) \text{ }dt &= k\mathcal{C}_{ball}
+\end{align}
+
+Let the time be $T = \frac{k(k+1)}{2}$. We focus on expressing $k$, the number of revolutions, as a function of $T$. From the definition of $T$, we have
+\begin{align}
+k^2 + k - 2T &= 0 \\
+\Delta &= 1 + 8T \text{ (discrimant of second degree polynomial)}\\
+k &= \frac{1}{2} \left(-1 + \sqrt{1+8T} \right) \text{, } T \geq 0 \\
+\int_0^T v(t) \text{ }dt &= \mathcal{C}_{ball} \left( \frac{1}{2} \left(\sqrt{1+8T} - 1\right) \right) = - \frac{\mathcal{C}_{ball}}{2} + \frac{\mathcal{C}_{ball}}{2} \sqrt{1+8T}
+\end{align}
+
+By definition,
+\begin{align}
+v(T) = \frac{d}{dt} \int_0^T v(t) \text{ }dt = \frac{\mathcal{C}_{ball}}{2} \times 8 \times \frac{1}{2\sqrt{1+8T}} = \frac{2\mathcal{C}_{ball}}{\sqrt{1+8T}}
+\end{align}
+
+In general, the problem is more complex. The $k^{th}$ revolution is usually not completed in $k$ seconds, but in $b+ka+\epsilon$, where $a$ is the slope, $b$ the intercept and $\epsilon$ the residual error. Let us discard $\epsilon$ for now.
+\begin{align}
+\sum_{n=0}^k n &= \frac{k(k+1)}{2} \text{, when } a=1, b=0 \\
+\sum_{n=0}^k (an+b) &= b(k+1) + a\sum_{n=0}^k n \\
+                  &= b(k+1) +  a\frac{k(k+1)}{2} 
+\end{align}
+
+Again denote the time $T = (k+1) \left[ b + \frac{ak}{2} \right]$
+From a similar way as before, $ak^2+k(a+2b)+(2b-2T)=0, \Delta = (a+2b)^2-4a(2b-2T)$. Because $T \geq 0$,
+\begin{align}
+k = \frac{-(a+2b)+\sqrt{(a+2b)^2-4a(2b-2T)}}{2a}
+\end{align}
+We check that for $k \geq 0$, $b \leq T$. The minimum of $T$ is reached when $k=0$ with $T(0) = b$.
+
+When $a=1,b=0$, we find again $k = \frac{\sqrt{1+8T}-1}{2}$.
+\begin{align}
+\int_{t(0)}^{t(k)} v(t) \text{ }dt = \int_b^T v(t) \text{ }dt = k\mathcal{C}_{ball}
+\end{align}
+
+As it's not very intuitive to start integrating from $b$, we proceed to a variable substitution $t = t - b$.
+\begin{align}
+\int_{t(0)}^{t(k)} v(t) \text{ }dt = \int_0^{T-b} v(t+b) \text{ }dt = \int_0^{T-b} v_s(t) \text{ }dt
+\end{align}
+
+The updated version of $v(T)$ is now
+\begin{align}
+v(T) &= \frac{2 \mathcal{C}_{ball}}{\sqrt{8a(T-b)+(2b+a)^2}} \label{speed_model_eq} \\
+v_s(T) = v(T+b) &= \frac{2 \mathcal{C}_{ball}}{\sqrt{8aT+(2b+a)^2}} \label{speed_model_eq_shift_b}
+\end{align}
+
+\subsection{Finding the corresponding time for a specific speed}
+
+Denote the specific speed $\nu \in \mathbb{R}^+$. $v(t_\nu) = \nu$ is equivalent to $t_\nu = v^{-1}(\nu)$, where $v^{-1}$ is the inverse function of the speed.
+\begin{align}
+v^{-1}(\nu) &= \frac{4D^2-\nu^2(2b+a)^2}{8a\nu^2}+b \label{inverse_speed} \\
+v_s^{-1}(\nu) = v^{-1}(\nu+b) &= \frac{4D^2-\nu^2(2b+a)^2}{8a\nu^2} 
+\end{align}
+
+\subsection{Distance traveled for a specific period of time}
+\label{Distance traveled for a specific period of time}
+The idea is to be able to compute how many meters the wheel has traveled in a specific period of time. Recall that $d = v \times t$. So for two given times $t_1$ and $t_2$, the exact distance traveled is $d(t_1, t_2) = \int_{t_1}^{t_2} v(t) \text{ } dt = F(t_2) - F(t_1)$, where $F$ is the primitive of the speed. Previously, we found this primitive closed form, respectively equal to
+\begin{align}
+F(T) = \frac{\mathcal{C}_{ball}}{2} \left( \sqrt{1+8T} - 1 \right)
+\end{align}
+
+for $a=1, b=0$. Its closed form for any couple $(a,b)$ is 
+\begin{align}
+F(T,a,b) = \frac{\mathcal{C}_{ball}}{2a} \left( \sqrt{(a+2b)^2-4a(2b-2T)} -(a+2b) \right)
+\end{align}
+The constant factor is not important as we are interested only in the differences of $F$.
+
+\subsection{Angle of the wheel after a specific time}
+In this section, we are interested to turn the traveled distance into an angle. The purpose is to estimate the number of the wheel that will be in front of the mark at a specific time. Let the initial and measured number $n_1 \in \Omega = \{0, \ldots, 36\}$ be aligned with a mark at time $t_{n_1}$. We are interested to know the number $n_2$ in front of the mark at time $t_{n_2}$. First, we estimate the distance the ball will travel between $t_{n_1}$ and $t_{n_2}$ with the work done in section \ref{Distance traveled for a specific period of time}. Then, we derive the angle $\alpha(n_1, n_2)$ where $n_2$ is the outcome number we want to predict.
+\begin{align}
+d(t_{n_1}, t_{n_2}) &= \int_{t_{n_1} + b}^{t_{n_2}} v(t) \text{ }dt\\
+  &= \int_{t_{n_1}}^{t_{n_2} - b} v_s(t) \text{ }dt \text{, where }v_s\text{ is the }b\text{-shifted speed.}
+\end{align}
+
+Then, the angle is given by
+\begin{align}
+\alpha(n_1, n_2) = \frac{d(t_{n_1}, t_{n_2})}{\mathcal{C}_{wheel}} \text{ } [360] 
+\end{align}
+where $\mathcal{C}_{wheel}$ is the circumference of the wheel rotor. Finally, if $n_1$ is the number 0, $n_2$ is the number at the index $\frac{37}{360} \alpha(n_1, n_2)$.
+
+\subsection{Predicting where the ball will land}
+
+We now know precisely how to computer the number in front of the mark for any time, we can estimate the exact number when the ball will leave the ball track and come into the rotor $n_{ini}$. As the structure of the wheel remains constant over time, the frictions are comparably the same between each game. It entails that the speed at which the ball leaves its trajectory can be assumed to be constant. \\
+
+Once we know the number in front of the mark when the ball leaves its trajectory $n_{ini}$, we have two ways to determine the number that is the most probable to come up. We can either record the distance where the ball bounces before stopping in a pocket called $n_{end}$. This is easily done by drawing an histogram of this variable for a couple of games, and taking the mean or the mode. The other solution is to iterate over all the possible distances (from 0 to 37) and select the one that minimizes the mean average error $\delta = |n_{end}-n_{ini}|$. Based on empirical results, the average distance traveled by the ball between the time it leaves the track and when it stops is 18 pockets. This result can be improved by incorporating the speed of the wheel.
+
+\subsection{Modeling the errors on the measurements}
+
+In practice, the measures are not ideal but noisy. One of the solutions to deal with this noise is to use a linear regression model and assume that it follows a non-centered Gaussian process $\mathcal{N}(\mu_\epsilon, \sigma_\epsilon^2)$. On several trials, we measured that $\mu_\epsilon = 20$ and $\sigma_\epsilon = 50$ in milliseconds.
+
+Denote $\Delta T$ the error on the measurement, $\Delta v$ the resulting error on the speed, $T$ is the time, and $v$ the speed at the measurement time.
+\begin{align}
+d ( \ln f ) &= \frac{df}{f}  \\
+\text{With } v(t) &= f(t)  \\
+\frac{dv}{v} &= \frac{df}{f}  \\
+\Delta v &= v \times \frac{\Delta f}{f} 
+\end{align}
+\begin{align}
+v(T) &= \frac{4 \pi r}{(1+8T)^{1/2}}  \\
+\ln v &= \ln (4 \pi r) - \frac{1}{2} \ln(1+8T)  \\
+d \ln v &= - \frac{1}{2} d \ln(1+8T)  \\
+\frac{dv}{v} &= -\frac{1}{2} \frac{8dT}{1+8T}  \\
+\frac{dv}{v} &= - \frac{4dT}{1+8T}  \\
+\frac{\Delta v}{v} &= \frac{4 \Delta T}{1+8T} 
+\end{align}
+
+
+\chapter{Application to the Roulette wheel}
+First of all, we take one of the diamonds as a mark. This choice will remain constant throughout the study. The team is composed of exactly three people:
+\begin{itemize}
+\item \texttt{Player1} is responsible for recording the speed of the wheel rotor. He holds a phone and presses a button each time the green 0 of the wheel passes in front of a specific mark. 
+\item \texttt{Player2} is responsible of the ball's speed. Like \texttt{Player1}, the player holds a timer.
+\item \texttt{Player3} is the gambler, the one that puts the bets on the table.
+\end{itemize}
+We consider that the wheel rotor is turning anti clockwise and the ball going clockwise. After those considerations, lets consider the mathematical framework to predict the number that will come out. \\
+
+Denote the recorded times for the ball as $(t_{b_i})_{i \in \mathbb{N}}$ and the recorded times for the wheel as $(t_{w_j})_{j \in \mathbb{N}}$. Those times have the same origin, which is Jan 1, 1970. The lap time $\Delta t_i$ is defined as the difference operator by
+\begin{align}
+\Delta t_i = t_i - t_{i-1}
+\end{align}
+From before, we know that the lap times of the wheel and the balls are linear with the number of revolutions.
+\begin{align}
+\Delta t_i \simeq a i + b
+\end{align}
+where $i$ is the id of the revolution. The constants $a$ and $b$ are computed to minimize the residuals sum of squares, as defined in the simple linear regression. Each model (ball and wheel) has its own constants. Let's define them as $(a_b, b_b)$ and $(a_w, b_w)$ respectively. \\
+
+The speed model is defined in Equation \ref{speed_model_eq} and \ref{speed_model_eq_shift_b}. Figure \ref{speeds_model_fig} shows the speed of the ball for the old method (blue curve) and the one based on this framework (orange). Without much surprise, the curve is smoother and more accurate. \\
+
+For instance, the distance run for the first revolution is
+\begin{align}
+\mathcal{C}_{ball} = \int_{b_b}^{\Delta_{t_1}+b_b} v(t) \text{ }dt = \int_{0}^{\Delta_{t_1}} v_s(t) \text{ }dt
+\end{align}
+We define the cutoff speed $v_c$ to be the speed at which the ball starts to lose momentum and deviate from its initial trajectory. Equation \ref{inverse_speed} provides the closed form of the cutoff time $t_c$. Once the cutoff time is known, we consider a specific time as a reference to measure how much time is left. The latest time is the most relevant because the error is likely to accumulate over time. Therefore, this specific time is set to the last known value of $t_{b}$ : $t_r^b = (t_{b_i})_{i = \max(i_1,i_2,...,i_n)}$. As the initial recorded times are different, $t_{b_0} \neq t_{w_0}$, $t_r^b$ is only valid in the context of the ball. We define this difference as $\delta_0 = t_{w_0} - t_{b_0}$. The reference time for the wheel is then $t_r^w = t_r^b + \delta_0$. \\
+
+From this point, the remaining time is defined as $\Delta t_r = t_c-t_r^b \geq 0$. The remaining distance the wheel has to travel is
+\begin{align}
+d_r = \int_{t_r^w}^{t_r^w+\Delta t_r} v_{wheel}(t) \text{ }dt
+\end{align}
+Finally the angle is
+\begin{align}
+\alpha_r = \left( \frac{d_r}{\mathcal{C}_{wheel}} - \floor*{\frac{d_r}{\mathcal{C}_{wheel}}} \right) \text{mod}\ 360
+\end{align}
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width = 1\textwidth]{speeds_model}
+\caption{Speed of the ball at each revolution. Blue line represents the old method and Orange the new one implemented with the formulas.}
+\label{speeds_model_fig}
+\end{figure}
+
+
+\end{document}

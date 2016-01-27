@@ -1,5 +1,7 @@
 package computations;
 
+import java.util.Random;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -153,5 +155,20 @@ public class TestWheel
 		Assert.assertEquals(2, Wheel.getMirrorNumber(7));
 		// getMirrorNumber
 		// distanceBetweenNumbers
+	}
+
+	@Test
+	public void distanceTwoNumbers()
+	{
+		Random r = new Random();
+		double dist = 0;
+		int N = 1000000;
+		for (int i = 0; i < N; i++)
+		{
+			dist += Wheel.distanceBetweenNumbers(r.nextInt(37), r.nextInt(37));
+		}
+		dist /= N;
+		Assert.assertTrue(dist > 9.2 && dist < 9.3);
+
 	}
 }

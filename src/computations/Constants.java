@@ -12,8 +12,8 @@ public class Constants
 	 * TODO: To be measured
 	 */
 	// METERS
-	public static double WHEEL_DIAMETER = 0.547;//= 0.60;
-	public static double CASE_DIAMETER = 0.687;//= 0.80;
+	public static double WHEEL_DIAMETER = 0.547;// = 0.60;
+	public static double CASE_DIAMETER = 0.687;// = 0.80;
 
 	public static double get_WHEEL_CIRCUMFERENCE()
 	{
@@ -48,5 +48,7 @@ public class Constants
 	public static final WheelWay DEFAULT_WHEEL_WAY = WheelWay.ANTICLOCKWISE;
 
 	public static final String DATABASE_NAME = "roulette_db";
+
+	public static final double TIME_LEFT_FOR_PLACING_BETS_SECONDS = 7;
 
 }

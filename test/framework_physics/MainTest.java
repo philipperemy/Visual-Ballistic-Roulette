@@ -19,6 +19,29 @@ public class MainTest extends TestClass
 	static Game game13 = new Game("13", dbRef);
 
 	@Test
+	public void testPhysics3()
+	{
+		Constants.DEFAULT_SHIFT_PHASE = 5;
+		Constants.CUTOFF_SPEED = 1.5;
+
+		double error = 0.0;
+
+		error += runTest(game1).error();
+		error += runTest(game2).error();
+		error += runTest(game3).error();
+		error += runTest(game4).error();
+		error += runTest(game5).error();
+		error += runTest(game8).error();
+		error += runTest(game9).error();
+		error += runTest(game12).error();
+		error += runTest(game13).error();
+
+		error /= 9;
+
+		System.out.println(error /= 9);
+	}
+
+	@Test
 	public void testPhysics2()
 	{
 		double best_error = Double.MAX_VALUE;
