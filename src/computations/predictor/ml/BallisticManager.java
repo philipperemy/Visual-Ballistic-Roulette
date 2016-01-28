@@ -5,51 +5,12 @@ import java.util.List;
 
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
-import computations.Constants;
 import computations.Helper;
 import computations.wheel.Type;
 import logger.Logger;
 
 public class BallisticManager
 {
-	// Could interpolate with ML stuffs.
-	public static double getTimeForOneBallLoop(double ballSpeed)
-	{
-		return Constants.get_BALL_CIRCUMFERENCE() / ballSpeed;
-	}
-
-	// Could interpolate with ML stuffs.
-	public static double getTimeForOneWheelLoop(double wheelSpeed)
-	{
-		return Constants.get_WHEEL_CIRCUMFERENCE() / wheelSpeed;
-	}
-
-	// m/s. T1 and T2
-
-	private static double getSpeed(double t1, double t2, Type type)
-	{
-		switch (type)
-		{
-		case BALL:
-			return getBallSpeed(t1, t2);
-		case WHEEL:
-			return getWheelSpeed(t1, t2);
-		default:
-			throw new RuntimeException();
-		}
-	}
-
-	public static double getBallSpeed(double t1, double t2)
-	{
-		return Constants.get_BALL_CIRCUMFERENCE() / (t2 - t1);
-	}
-
-	// m/s
-	public static double getWheelSpeed(double t1, double t2)
-	{
-		return Constants.get_WHEEL_CIRCUMFERENCE() / (t2 - t1);
-	}
-
 	/*
 	 * Each speed is the average of the measurements intervals
 	 */
@@ -61,7 +22,7 @@ public class BallisticManager
 			double t1 = lapTimes.get(i - 1);
 			double t2 = lapTimes.get(i);
 			ClockSpeed speedMeasurement = new ClockSpeed();
-			speedMeasurement.speed = getSpeed(t1, t2, type);
+			speedMeasurement.speed = Helper.getSpeed(t1, t2, type);
 			speedMeasurement.time = 0.5 * t1 + 0.5 * t2;
 			speedMeasurements.add(speedMeasurement);
 		}

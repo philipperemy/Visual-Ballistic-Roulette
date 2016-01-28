@@ -13,7 +13,7 @@ import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;
 import logger.Logger;
 
-//http://localhost:8080/RouletteServer/Request?time=121212&type=wheel
+//http://localhost:8080/RouletteServer/Request?ts=121212&type=wheel
 @WebServlet("/Request")
 public class Request extends HttpServlet
 {
@@ -39,7 +39,7 @@ public class Request extends HttpServlet
 		this.sm.init(da);
 	}
 
-	// http://localhost:8080/RouletteServer/Request?time=121212&type=wheel
+	// http://localhost:8080/RouletteServer/Request?ts=121212&type=wheel
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		Logger.traceINFO(Helper.toString(request));

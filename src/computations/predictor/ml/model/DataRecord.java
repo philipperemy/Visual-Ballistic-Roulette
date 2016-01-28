@@ -11,6 +11,8 @@ import computations.Helper;
 import computations.predictor.ml.model.solver.OutcomeSolver;
 import computations.wheel.Wheel.WheelWay;
 import logger.Logger;
+import servlets.CriticalException;
+import servlets.SessionNotReadyException;
 
 public class DataRecord
 {
@@ -24,6 +26,9 @@ public class DataRecord
 	public double ballSpeedInFrontOfMark;
 	public double wheelSpeedInFrontOfMark;
 
+	/*
+	 * Only for Logging purposes.
+	 */
 	public String sessionId;
 
 	/**
@@ -53,6 +58,19 @@ public class DataRecord
 
 	private double mae(DataRecord smr)
 	{
+		return 0.5 * Math.abs(smr.ballSpeedInFrontOfMark - this.ballSpeedInFrontOfMark) / this.ballSpeedInFrontOfMark
+				+ 0.5 * Math.abs(smr.wheelSpeedInFrontOfMark - this.wheelSpeedInFrontOfMark) / this.wheelSpeedInFrontOfMark;
+	}
+
+	// do not use this comparison. Because ball speed is usually much
+	// higher.
+	// Use percentage comparison.
+	// [100 1] with [101 2]
+	// ((101-100)/100+(2-1)/1)/2
+	// Result is 0.5050 and not 2.
+	@SuppressWarnings("unused")
+	private double mae_old(DataRecord smr)
+	{
 		return Math.abs(smr.ballSpeedInFrontOfMark - this.ballSpeedInFrontOfMark)
 				+ Math.abs(smr.wheelSpeedInFrontOfMark - this.wheelSpeedInFrontOfMark);
 	}
@@ -69,7 +87,8 @@ public class DataRecord
 				distRecordsMap.put(dist, cacheRecord);
 			} else
 			{
-				Logger.traceINFO("Dist : DISCARDED (WHEEL WAY) " + Helper.printDigit(dist) + ", " + cacheRecord);
+				Logger.traceERROR("Dist : DISCARDED (WHEEL WAY) " + Helper.printDigit(dist) + ", " + cacheRecord);
+				throw new CriticalException("Clockwise revolution way of the wheel is not implemented.");
 			}
 		}
 
@@ -78,7 +97,7 @@ public class DataRecord
 		{
 			double dist = entry.getKey();
 			DataRecord cacheSmr = entry.getValue();
-			Logger.traceINFO("Dist : " + Helper.printDigit(dist) + ", " + cacheSmr);
+			Logger.traceDEBUG("Dist : " + Helper.printDigit(dist) + ", " + cacheSmr);
 		}
 
 		int i = 0;
@@ -88,7 +107,7 @@ public class DataRecord
 			if (i++ < knnNumber)
 			{
 				knnList.add(orderedCacheRecord.getValue());
-				Logger.traceINFO("Selected : {" + orderedCacheRecord + "}");
+				Logger.traceDEBUG("Selected : {" + orderedCacheRecord + "}");
 			}
 		}
 		return knnList;
@@ -102,7 +121,7 @@ public class DataRecord
 				+ outcome + ", " + (way != null ? "Way=" + way : "") + "]";
 	}
 
-	public static int predictOutcome(DataRecord predictRecord)
+	public static int predictOutcome(DataRecord predictRecord) throws SessionNotReadyException
 	{
 		return solver.predictOutcome(predictRecord);
 	}

@@ -4,8 +4,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO: merge it with the BallisticManager
-//Or maybe split the java functions with the business functions.
+import computations.wheel.Type;
+import servlets.CriticalException;
+
 public class Helper
 {
 	public static final double VERY_HIGH_NUMBER = 1_000_000_000;
@@ -123,6 +124,45 @@ public class Helper
 	{
 		double lastTimeRev = Helper.peek(wheelDiffTimes);
 		return Constants.get_WHEEL_CIRCUMFERENCE() / lastTimeRev;
+	}
+
+	// m/s
+	public static double getWheelSpeed(double t1, double t2)
+	{
+		return Constants.get_WHEEL_CIRCUMFERENCE() / (t2 - t1);
+	}
+
+	// m/s
+	public static double getBallSpeed(double t1, double t2)
+	{
+		return Constants.get_BALL_CIRCUMFERENCE() / (t2 - t1);
+	}
+
+	// m/s. T1 and T2
+	public static double getSpeed(double t1, double t2, Type type)
+	{
+		switch (type)
+		{
+		case BALL:
+			return Helper.getBallSpeed(t1, t2);
+		case WHEEL:
+			return Helper.getWheelSpeed(t1, t2);
+		default:
+			throw new CriticalException("Unknown type.");
+		}
+	}
+
+	// TODO: move all that to helpers.
+	// Could interpolate with ML stuffs.
+	public static double getTimeForOneBallLoop(double ballSpeed)
+	{
+		return Constants.get_BALL_CIRCUMFERENCE() / ballSpeed;
+	}
+
+	// Could interpolate with ML stuffs.
+	public static double getTimeForOneWheelLoop(double wheelSpeed)
+	{
+		return Constants.get_WHEEL_CIRCUMFERENCE() / wheelSpeed;
 	}
 
 	public static List<Double> cumsum(List<Double> in)

@@ -6,7 +6,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import computations.predictor.Phase;
-import computations.predictor.ml.BallisticManager;
 import computations.wheel.Wheel;
 import computations.wheel.Wheel.WheelWay;
 
@@ -39,8 +38,8 @@ public class TestWheel
 	public void testHelperSpeed()
 	{
 		// In meter/second
-		Assert.assertEquals(Constants.get_BALL_CIRCUMFERENCE(), BallisticManager.getBallSpeed(0, 1), 0.01);
-		Assert.assertEquals(Constants.get_WHEEL_CIRCUMFERENCE(), BallisticManager.getWheelSpeed(0, 1), 0.01);
+		Assert.assertEquals(Constants.get_BALL_CIRCUMFERENCE(), Helper.getBallSpeed(0, 1), 0.01);
+		Assert.assertEquals(Constants.get_WHEEL_CIRCUMFERENCE(), Helper.getWheelSpeed(0, 1), 0.01);
 	}
 
 	@Test
@@ -49,7 +48,7 @@ public class TestWheel
 		// Let assume we are at 5000.
 		double timeOfBallInFrontOfMark = 5456 * 0.001;
 		double timeOfWheelInFrontOfMark = 6168 * 0.001;
-		double lastWheelSpeed = BallisticManager.getWheelSpeed(2600 * 0.001, 6168 * 0.001);
+		double lastWheelSpeed = Helper.getWheelSpeed(2600 * 0.001, 6168 * 0.001);
 
 		// We want to find the number of the wheel where the ball passes in
 		// front of the mark.
@@ -75,7 +74,7 @@ public class TestWheel
 		// Let assume we are at 35000.
 		double timeOfBallInFrontOfMark = 35326 * 0.001;
 		double timeOfWheelInFrontOfMark = 35749 * 0.001;
-		double lastWheelSpeed = BallisticManager.getWheelSpeed(31866 * 0.001, 35749 * 0.001);
+		double lastWheelSpeed = Helper.getWheelSpeed(31866 * 0.001, 35749 * 0.001);
 
 		int phaseNumber = Phase.findPhaseNumberBetweenBallAndWheel(timeOfBallInFrontOfMark, timeOfWheelInFrontOfMark, lastWheelSpeed,
 				WheelWay.CLOCKWISE);
@@ -88,7 +87,7 @@ public class TestWheel
 		// Let assume we are at 57000.
 		double timeOfBallInFrontOfMark = 61564 * 0.001;
 		double timeOfWheelInFrontOfMark = 60882 * 0.001;
-		double lastWheelSpeed = BallisticManager.getWheelSpeed(57196 * 0.001, 60882 * 0.001);
+		double lastWheelSpeed = Helper.getWheelSpeed(57196 * 0.001, 60882 * 0.001);
 
 		int phaseNumber = Phase.findPhaseNumberBetweenBallAndWheel(timeOfBallInFrontOfMark, timeOfWheelInFrontOfMark, lastWheelSpeed,
 				WheelWay.ANTICLOCKWISE);
@@ -102,7 +101,7 @@ public class TestWheel
 		// Let assume we are at 57000.
 		double timeOfBallInFrontOfMark = 58547 * 0.001;
 		double timeOfWheelInFrontOfMark = 60882 * 0.001;
-		double lastWheelSpeed = BallisticManager.getWheelSpeed(57196 * 0.001, 60882 * 0.001);
+		double lastWheelSpeed = Helper.getWheelSpeed(57196 * 0.001, 60882 * 0.001);
 
 		int phaseNumber = Phase.findPhaseNumberBetweenBallAndWheel(timeOfBallInFrontOfMark, timeOfWheelInFrontOfMark, lastWheelSpeed,
 				WheelWay.ANTICLOCKWISE);
@@ -113,7 +112,7 @@ public class TestWheel
 	@SuppressWarnings("deprecation")
 	public void testHelperStrategy()
 	{
-		double lastKnownSpeed = BallisticManager.getBallSpeed(0, 1);
+		double lastKnownSpeed = Helper.getBallSpeed(0, 1);
 
 		// Wheel turns at 1 tour/second. So if difference between measures is 1,
 		// the wheel should be on 0.

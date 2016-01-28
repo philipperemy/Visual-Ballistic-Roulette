@@ -3,7 +3,6 @@ package framework.test;
 import java.util.List;
 
 import org.junit.Assert;
-import org.junit.Test;
 
 import framework.CrossValidationLeaveOneOut;
 import framework.TestClass;
@@ -12,7 +11,7 @@ import logger.Logger;
 
 public class TestCV extends TestClass
 {
-	@Test
+
 	public void test_cv()
 	{
 		List<Game> games = genGames();

@@ -13,6 +13,8 @@ public class Logger
 
 	private static final Printer out = new Printer();
 
+	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss_SSS");
+
 	public static void stopLogging()
 	{
 		out.println("stopLogging()");
@@ -34,8 +36,6 @@ public class Logger
 	{
 		isDebug = debug;
 	}
-
-	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss_SSS");
 
 	private static String getCallingClass()
 	{

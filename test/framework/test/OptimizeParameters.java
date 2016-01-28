@@ -2,8 +2,6 @@ package framework.test;
 
 import java.util.List;
 
-import org.junit.Test;
-
 import computations.Constants;
 import framework.CrossValidationLeaveOneOut;
 import framework.TestClass;
@@ -13,7 +11,6 @@ import logger.Logger;
 public class OptimizeParameters extends TestClass
 {
 
-	@Test
 	public void test()
 	{
 		try

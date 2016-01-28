@@ -49,6 +49,11 @@ public class HelperPhysics
 		return dist;
 	}
 
+	public static double estimateDistanceConstantSpeed(double t1, double t2, double speed)
+	{
+		return speed * (t2 - t1);
+	}
+
 	// To be tested
 	// Inverse function for speed and not shifted_speed!
 	// inv_speed_function = @(x)

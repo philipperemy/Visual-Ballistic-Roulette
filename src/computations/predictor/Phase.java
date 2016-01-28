@@ -1,8 +1,9 @@
 package computations.predictor;
 
-import computations.predictor.ml.BallisticManager;
+import computations.Helper;
 import computations.wheel.Wheel;
 import computations.wheel.Wheel.WheelWay;
+import servlets.CriticalException;
 
 public class Phase
 {
@@ -11,7 +12,7 @@ public class Phase
 			double lastWheelSpeed, WheelWay way)
 	{
 		double diffTime = timeWhenBallWasLaunched - timeOfLastPassageOfZeroInFrontOfRef;
-		double timeForOneWheelLoop = BallisticManager.getTimeForOneBallLoop(lastWheelSpeed);
+		double timeForOneWheelLoop = Helper.getTimeForOneBallLoop(lastWheelSpeed);
 		int numbersCount = Wheel.NUMBERS.length;
 		int idxPhase = (int) (diffTime / timeForOneWheelLoop * numbersCount);
 		int idxZero = Wheel.findIndexOfNumber(0); // Should be always 0
@@ -24,7 +25,7 @@ public class Phase
 			idx = idxZero + idxPhase;
 		} else
 		{
-			throw new RuntimeException();
+			throw new CriticalException("Unknown type.");
 		}
 		return Wheel.NUMBERS[Wheel.getIndex(idx)];
 	}
@@ -35,7 +36,7 @@ public class Phase
 			WheelWay way)
 	{
 		double diffTime = Math.abs(timeOfBallInFrontOfMark - timeOfWheelInFrontOfMark);
-		double timeForOneWheelLoop = BallisticManager.getTimeForOneWheelLoop(lastWheelSpeed);
+		double timeForOneWheelLoop = Helper.getTimeForOneWheelLoop(lastWheelSpeed);
 		int numbersCount = Wheel.NUMBERS.length;
 		int idxPhase = (int) (diffTime / timeForOneWheelLoop * numbersCount);
 		int idxZero = Wheel.findIndexOfNumber(0); // Should be always 0
@@ -55,7 +56,7 @@ public class Phase
 				idx = idxZero + idxPhase;
 			} else
 			{
-				throw new RuntimeException();
+				throw new CriticalException("Unknown type.");
 			}
 
 		} else
@@ -72,7 +73,7 @@ public class Phase
 				idx = idxZero - idxPhase;
 			} else
 			{
-				throw new RuntimeException();
+				throw new CriticalException("Unknown type.");
 			}
 		}
 		return Wheel.NUMBERS[Wheel.getIndex(idx)];

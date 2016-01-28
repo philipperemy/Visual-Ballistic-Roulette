@@ -13,14 +13,7 @@ public class AllKnownMeasuresSolver implements PredictorSolver
 {
 	public int predict(PredictorML predictor, List<Double> ballLapTimes, List<Double> wheelLapTimes, String sessionId) throws SessionNotReadyException
 	{
-		// Phase is filled. All lap times are used to build the model.
-		List<DataRecord> predictRecords = predictor.buildDataRecords(ballLapTimes, wheelLapTimes, sessionId);
-
-		if (predictRecords.isEmpty())
-		{
-			Logger.traceERROR("No records to predict.");
-			throw new SessionNotReadyException(wheelLapTimes.size());
-		}
+		List<DataRecord> predictRecords = getPredictedRecords(predictor, ballLapTimes, wheelLapTimes, sessionId);
 
 		List<Integer> mostProbableNumberList = new ArrayList<>();
 		int id = 1;

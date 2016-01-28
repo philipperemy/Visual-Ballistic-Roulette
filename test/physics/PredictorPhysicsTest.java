@@ -4,18 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
-import org.junit.Test;
 
 import computations.Helper;
 import computations.predictor.PredictorInterface;
 import computations.predictor.physics.PositiveValueExpectedException;
 import computations.predictor.physics.PredictorPhysics;
+import servlets.SessionNotReadyException;
 
 public class PredictorPhysicsTest
 {
 
-	@Test
-	public void test() throws PositiveValueExpectedException
+	public void test() throws PositiveValueExpectedException, SessionNotReadyException
 	{
 		PredictorPhysics py = PredictorInterface.getInstance().physics();
 

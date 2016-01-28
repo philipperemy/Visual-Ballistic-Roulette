@@ -12,17 +12,8 @@ public class MostRecentMeasureSolver implements PredictorSolver
 {
 	public int predict(PredictorML predictor, List<Double> ballLapTimes, List<Double> wheelLapTimes, String sessionId) throws SessionNotReadyException
 	{
-		// Phase is filled. All lap times are used to build the model.
-		List<DataRecord> predictRecords = predictor.buildDataRecords(ballLapTimes, wheelLapTimes, sessionId);
+		List<DataRecord> predictRecords = getPredictedRecords(predictor, ballLapTimes, wheelLapTimes, sessionId);
 
-		if (predictRecords.isEmpty())
-		{
-			Logger.traceERROR("No records to predict.");
-			throw new SessionNotReadyException(wheelLapTimes.size());
-		}
-
-		// Take the last one.
-		// TODO: maybe we can improve it by taking all.
 		DataRecord predictRecord = Helper.peek(predictRecords);
 		Logger.traceINFO("Record to predict : " + predictRecord);
 

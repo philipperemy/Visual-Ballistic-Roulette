@@ -8,11 +8,12 @@ import computations.predictor.OutcomeStatistics;
 import computations.predictor.ml.model.DataRecord;
 import computations.wheel.Wheel;
 import logger.Logger;
+import servlets.SessionNotReadyException;
 
 public class ComplexWeightingSchemeSolver implements OutcomeSolver
 {
 	// Complex Weighting Aggregation Scheme
-	public int predictOutcome(DataRecord predict)
+	public int predictOutcome(DataRecord predict) throws SessionNotReadyException
 	{
 		List<DataRecord> matchedRecordsList = DataRecord.matchCache(predict, Constants.NUMBER_OF_NEIGHBORS_KNN);
 		List<Integer> outcomeNumbersList = new ArrayList<>();

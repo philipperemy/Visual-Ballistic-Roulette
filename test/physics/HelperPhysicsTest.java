@@ -13,6 +13,12 @@ public class HelperPhysicsTest
 
 	private static final double EPSILON = 0.001;
 
+	static
+	{
+		Constants.WHEEL_DIAMETER = 0.60;
+		Constants.CASE_DIAMETER = 0.80;
+	}
+
 	@Test
 	public void testEstimatePhaseAngleDegrees()
 	{

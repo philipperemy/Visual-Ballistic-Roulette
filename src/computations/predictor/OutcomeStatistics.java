@@ -7,6 +7,8 @@ import java.util.Map.Entry;
 
 import computations.Helper;
 import computations.wheel.Wheel;
+import logger.Logger;
+import servlets.SessionNotReadyException;
 
 public class OutcomeStatistics
 {
@@ -18,17 +20,16 @@ public class OutcomeStatistics
 	}
 
 	public int meanNumber;
-	private double stdDeviation;
+	public double stdDeviation;
 	private Map<Integer, Integer> frequency;
 
-	public static OutcomeStatistics create(List<Integer> outcomeNumbers)
+	public static OutcomeStatistics create(List<Integer> outcomeNumbers) throws SessionNotReadyException
 	{
 		Map<Integer, Integer> frequencyPerNumber = new HashMap<>(); // Number
 																	// <->
 																	// Frequency
 		for (Integer number : outcomeNumbers)
 		{
-
 			Integer freq = frequencyPerNumber.get(number);
 			if (freq == null || freq.intValue() == 0)
 			{
@@ -77,13 +78,14 @@ public class OutcomeStatistics
 
 		if (mostProbableNumber == null)
 		{
-			throw new RuntimeException();
+			throw new SessionNotReadyException();
 		}
 
 		OutcomeStatistics outcomeStatistics = new OutcomeStatistics();
 		outcomeStatistics.meanNumber = meanNumber;
 		outcomeStatistics.stdDeviation = Math.sqrt(var);
 		outcomeStatistics.frequency = frequencyPerNumber;
+		Logger.traceINFO("Statistics : " + outcomeStatistics);
 		return outcomeStatistics;
 	}
 

@@ -7,12 +7,12 @@ import computations.Constants;
 import computations.predictor.OutcomeStatistics;
 import computations.predictor.ml.model.DataRecord;
 import computations.wheel.Wheel;
-import logger.Logger;
+import servlets.SessionNotReadyException;
 
 public class SimpleSchemeSolver implements OutcomeSolver
 {
 	// Simple Scheme
-	public int predictOutcome(DataRecord predict)
+	public int predictOutcome(DataRecord predict) throws SessionNotReadyException
 	{
 		List<DataRecord> matchedRecordsList = DataRecord.matchCache(predict, Constants.NUMBER_OF_NEIGHBORS_KNN);
 		List<Integer> outcomeNumbersList = new ArrayList<>();
@@ -24,7 +24,6 @@ public class SimpleSchemeSolver implements OutcomeSolver
 		}
 
 		OutcomeStatistics stat = OutcomeStatistics.create(outcomeNumbersList);
-		Logger.traceINFO("Statistics : " + stat);
 		return stat.meanNumber;
 	}
 }

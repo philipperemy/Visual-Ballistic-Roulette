@@ -74,7 +74,7 @@ public class Response extends HttpServlet
 
 		if (sessionId == null || sessionId.isEmpty())
 		{
-			Helper.notifyMissingFieldError(response, Parameters.SESSION_ID);
+			Helper.notifyError(response, "Problem occurred: sessionId should not be empty.");
 			return;
 		}
 
@@ -95,8 +95,13 @@ public class Response extends HttpServlet
 		} catch (SessionNotReadyException snre)
 		{
 			// Good exception
-			Helper.notifyNotReadyYet(response, snre.getNumberOfRecordedTimesOfWheel());
-		} catch (Exception e)
+			Helper.notifyNotReadyYet(response, "Session not ready.");
+
+		} catch (PositiveValueExpectedException e)
+		{
+			// Good exception
+			Helper.notifyNotReadyYet(response, "Arithmetic exception has occurred. Skip the game.");
+		} catch (CriticalException e)
 		{
 			// Bad exception
 			Logger.traceERROR(e);
@@ -105,12 +110,12 @@ public class Response extends HttpServlet
 		}
 	}
 
-	public List<Integer> predictMostProbableRegion(String sessionId) throws Exception
+	public List<Integer> predictMostProbableRegion(String sessionId) throws SessionNotReadyException, PositiveValueExpectedException
 	{
 		int mostProbableNumber = predictMostProbableNumber(sessionId);
-		int[] numbers = Wheel.getNearbyNumbers(mostProbableNumber, Constants.REGION_HALF_SIZE);
+		int[] nearbyNumbers = Wheel.getNearbyNumbers(mostProbableNumber, Constants.REGION_HALF_SIZE);
 		List<Integer> regionNumbersList = new ArrayList<>();
-		for (int number : numbers)
+		for (int number : nearbyNumbers)
 		{
 			regionNumbersList.add(number);
 		}
@@ -119,7 +124,7 @@ public class Response extends HttpServlet
 		return regionNumbersList;
 	}
 
-	private List<Integer> predictMostProbableNumber_OnlyOne(String sessionId) throws Exception
+	private List<Integer> predictMostProbableNumber_OnlyOne(String sessionId) throws SessionNotReadyException, PositiveValueExpectedException
 	{
 		int mostProbableNumber = predictMostProbableNumber(sessionId);
 		List<Integer> list = new ArrayList<>();
@@ -129,28 +134,23 @@ public class Response extends HttpServlet
 
 	public int predictMostProbableNumber(String sessionId) throws SessionNotReadyException, PositiveValueExpectedException
 	{
-		List<Double> wheelLapTimes = da.selectWheelLapTimes(sessionId);
-		List<Double> ballLapTimes = da.selectBallLapTimes(sessionId);
+		List<Double> wheelCumsumTimes = da.selectWheelLapTimes(sessionId);
+		List<Double> ballCumsumTimes = da.selectBallLapTimes(sessionId);
 
-		if (wheelLapTimes.isEmpty() || ballLapTimes.isEmpty())
-		{
-			throw new SessionNotReadyException(0);
-		}
-
-		int numberOfRecordedWheelTimes = wheelLapTimes.size(); // At least 2
+		int numberOfRecordedWheelTimes = wheelCumsumTimes.size(); // At least 2
 		if (numberOfRecordedWheelTimes < Constants.MIN_NUMBER_OF_WHEEL_TIMES_BEFORE_PREDICTION
-				|| ballLapTimes.size() < Constants.MIN_NUMBER_OF_BALL_TIMES_BEFORE_PREDICTION)
+				|| ballCumsumTimes.size() < Constants.MIN_NUMBER_OF_BALL_TIMES_BEFORE_PREDICTION)
 		{
-			throw new SessionNotReadyException(numberOfRecordedWheelTimes);
+			throw new SessionNotReadyException();
 		}
 
-		List<Double> wheelLapTimesSeconds = computations.Helper.convertToSeconds(wheelLapTimes);
-		List<Double> ballLapTimesSeconds = computations.Helper.convertToSeconds(ballLapTimes);
+		List<Double> wheelCumsumTimesSeconds = computations.Helper.convertToSeconds(wheelCumsumTimes);
+		List<Double> ballCumsumTimesSeconds = computations.Helper.convertToSeconds(ballCumsumTimes);
 
 		// int mostProbableNumberML =
 		// pr.machineLearning().predict(ballLapTimesSeconds,
 		// wheelLapTimesSeconds, sessionId);
-		int mostProbableNumberPH = pr.physics().predict(ballLapTimesSeconds, wheelLapTimesSeconds);
+		int mostProbableNumberPH = pr.physics().predict(ballCumsumTimesSeconds, wheelCumsumTimesSeconds);
 		return mostProbableNumberPH;
 	}
 

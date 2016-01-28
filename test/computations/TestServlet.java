@@ -1,7 +1,6 @@
 package computations;
 
 import org.junit.Assert;
-import org.junit.Test;
 
 import servlets.Response;
 import servlets.SessionNotReadyException;
@@ -21,7 +20,6 @@ public class TestServlet
 	 */
 
 	// KNN = 1, For testing only.
-	@Test
 	public void test() throws SessionNotReadyException
 	{
 		int old_val_knn = Constants.NUMBER_OF_NEIGHBORS_KNN;

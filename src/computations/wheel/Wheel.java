@@ -1,5 +1,7 @@
 package computations.wheel;
 
+import servlets.CriticalException;
+
 public class Wheel
 {
 	public static final int[] NUMBERS = { 0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22,
@@ -56,7 +58,7 @@ public class Wheel
 			break;
 
 		default:
-			throw new RuntimeException();
+			throw new CriticalException("Unknown type.");
 		}
 
 		return NUMBERS[getIndex(newIdx)];
@@ -71,7 +73,7 @@ public class Wheel
 				return i;
 			}
 		}
-		throw new RuntimeException();
+		throw new CriticalException("Unknown number.");
 	}
 
 	public static int predictOutcomeWithShift(int phase1, int outcome1, int phase2)

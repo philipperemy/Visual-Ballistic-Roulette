@@ -4,15 +4,12 @@ public class SessionNotReadyException extends Exception
 {
 	private static final long serialVersionUID = 5655911156126439803L;
 
-	private int numberOfRecordedWheelTimes = 0;
-
-	public SessionNotReadyException(int numberOfRecordedWheelTimes)
+	public SessionNotReadyException()
 	{
-		this.numberOfRecordedWheelTimes = numberOfRecordedWheelTimes;
 	}
 
-	public String getNumberOfRecordedTimesOfWheel()
+	public SessionNotReadyException(String msg)
 	{
-		return String.valueOf(numberOfRecordedWheelTimes);
+		super(msg);
 	}
 }

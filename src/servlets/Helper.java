@@ -57,5 +57,4 @@ class Helper
 		sb.append(" From HOST : " + request.getRemoteHost() + ":" + request.getRemotePort());
 		return sb.toString();
 	}
-
 }

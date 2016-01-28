@@ -45,10 +45,11 @@ public class Constants
 	public static final String ERRORLEVEL_PROCESS_EXCEPTION_TAG = "-1";
 	static final String ERRORLEVEL_SESSION_NOT_READY_STRING = "SESSION_NOT_READY_WHEEL_COUNT_ACTUAL";
 
+	// There is only one way. Never change this.
 	public static final WheelWay DEFAULT_WHEEL_WAY = WheelWay.ANTICLOCKWISE;
 
 	public static final String DATABASE_NAME = "roulette_db";
 
-	public static final double TIME_LEFT_FOR_PLACING_BETS_SECONDS = 7;
+	public static final double TIME_LEFT_FOR_PLACING_BETS_SECONDS = 5;
 
 }
