@@ -73,7 +73,7 @@ public class PredictorPhysics
 		int wheelDiffTimesSize = wheelDiffTimes.size();
 		if (wheelDiffTimesSize == 1)
 		{
-			double constantWheelSpeed = Helper.getWheelSpeed(wheelDiffTimes.get(0), 0); // trick
+			double constantWheelSpeed = Helper.getWheelSpeed(0, wheelDiffTimes.get(0)); // trick
 			remainingDistance = HelperPhysics.estimateDistanceConstantSpeed(lastTimeBallPassesInFrontOfRef,
 					lastTimeBallPassesInFrontOfRef + timeAtCutoffBall, constantWheelSpeed);
 			wheelSpeedInFrontOfMark = constantWheelSpeed;
