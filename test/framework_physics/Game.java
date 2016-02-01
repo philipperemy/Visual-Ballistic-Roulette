@@ -34,9 +34,10 @@ public class Game
 		return _sessionId;
 	}
 
+	// cut it.
 	public List<Double> get_ballLaptimes()
 	{
-		return _ballLaptimes;
+		return _ballLaptimes.subList(0, _ballLaptimes.size() - 5);
 	}
 
 	public List<Double> get_wheelLaptimes()
@@ -47,6 +48,12 @@ public class Game
 	public Integer get_outcome()
 	{
 		return _outcome;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Game [_sessionId=" + _sessionId + "]";
 	}
 
 }

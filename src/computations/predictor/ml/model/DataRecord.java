@@ -52,7 +52,7 @@ public class DataRecord
 
 	public void cacheIt()
 	{
-		Logger.traceINFO("[Cache] Record added : " + toString());
+		Logger.traceDEBUG("[Cache] Record added : " + toString());
 		cache.add(this);
 	}
 

@@ -6,7 +6,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-import computations.predictor.physics.PredictorPhysics;
+import computations.predictor.statistical.PredictorStatisticalAnalysis;
 import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;
 import servlets.Response;
@@ -32,8 +32,9 @@ public abstract class TestClass
 	{
 		setUp();
 	}
-	
-	static PredictorPhysics py = PredictorPhysics.getInstance();
+
+	// static PredictorPhysics py = PredictorPhysics.getInstance();
+	static PredictorStatisticalAnalysis py = new PredictorStatisticalAnalysis();
 
 	public static TestResult runTest(Game predict)
 	{
@@ -49,6 +50,12 @@ public abstract class TestClass
 		TestResult testResult = new TestResult();
 		testResult.expected = predict.get_outcome();
 		testResult.actual = actualOutcome;
+
+		if (testResult.expected == null)
+		{
+			throw new NullPointerException();
+		}
+
 		return testResult;
 	}
 }

@@ -14,7 +14,7 @@ public class BallisticManager
 	/*
 	 * Each speed is the average of the measurements intervals
 	 */
-	private static List<ClockSpeed> computeInstantAverageSpeeds(List<Double> lapTimes, Type type)
+	public static List<ClockSpeed> computeInstantAverageSpeeds(List<Double> lapTimes, Type type)
 	{
 		List<ClockSpeed> speedMeasurements = new ArrayList<>(lapTimes.size() - 1);
 		for (int i = 1; i < lapTimes.size(); i++)
@@ -60,7 +60,7 @@ public class BallisticManager
 		// Last known speed in the model.
 		if (speeds.size() == 1)
 		{
-			Logger.traceINFO("Only one speed detected for type: " + type);
+			Logger.traceDEBUG("Only one speed detected for type: " + type);
 			return new AccelerationModelOneSpeed(type, speeds.get(0).speed);
 		}
 

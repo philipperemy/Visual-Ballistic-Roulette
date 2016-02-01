@@ -1,9 +1,9 @@
 package computations.predictor.ml;
 
-class ClockSpeed
+public class ClockSpeed
 {
-	double time;
-	double speed;
+	public double time;
+	public double speed;
 
 	@Override
 	public String toString()

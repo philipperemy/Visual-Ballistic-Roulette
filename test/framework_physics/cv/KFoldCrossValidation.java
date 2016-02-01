@@ -26,7 +26,7 @@ public class KFoldCrossValidation
 
 	public double getError()
 	{
-		List<List<Game>> gameFolds = split(games, K);
+		List<List<Game>> gameFolds = split(games, (int) Math.floor(games.size() / K));
 		double error = 0.0;
 		for (int foldId = 0; foldId < K; foldId++)
 		{
@@ -59,21 +59,31 @@ public class KFoldCrossValidation
 				try
 				{
 					double trainingError = 0.0;
+					int traininSampleSize = 0;
 					for (Game trainingGame : trainingSet)
 					{
-						trainingError += TestClass.runTest(trainingGame).error();
-					}
-					trainingError /= trainingSet.size();
+						try
+						{
+							trainingError += TestClass.runTest(trainingGame).error();
+							traininSampleSize++;
+						} catch (Exception e)
+						{
 
-					if (trainingError < bestTrainingError)
+						}
+					}
+					trainingError /= traininSampleSize;
+
+					if (trainingError < bestTrainingError && traininSampleSize >= trainingSet.size() * 0.7)
 					{
 						bestTrainingError = trainingError;
 						bestPhase = phase;
 						bestSpeed = speed;
+						System.out.println(
+								"count=" + traininSampleSize + ", training error = " + trainingError + ", phase =" + phase + ", speed = " + speed);
 					}
 				} catch (Exception e)
 				{
-					// System.out.println("E");
+					System.out.println("E");
 				}
 			}
 		}
@@ -84,19 +94,19 @@ public class KFoldCrossValidation
 		// Evaluation on the validation set
 
 		double validationError = 0.0;
-		int totalOfValidations = validationSet.size();
+		int totalOfValidations = 0;
 		for (Game validationGame : validationSet)
 		{
 			try
 			{
 				validationError += TestClass.runTest(validationGame).error();
+				totalOfValidations++;
 			} catch (Exception e)
 			{
-				totalOfValidations--;
 			}
 		}
 		validationError /= totalOfValidations;
-		System.out.println("; valid error = " + Helper.printDigit(validationError) + ", total validations = " + totalOfValidations);
+		System.out.println("valid error = " + Helper.printDigit(validationError) + ", total validations = " + totalOfValidations);
 		return validationError;
 	}
 
