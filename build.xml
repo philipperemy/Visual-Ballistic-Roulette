@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="Visual-Ballistic-Roulette">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../../../../../Applications/Eclipse.app/Contents/Eclipse/"/>
+    <property name="junit.output.dir" value="junit"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
+    <path id="Web App Libraries.libraryclasspath">
+        <pathelement location="WebContent/WEB-INF/lib/commons-math3-3.5-javadoc.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/commons-math3-3.5.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/mysql-connector-java-5.1.25-bin.jar"/>
+    </path>
+    <path id="EAR Libraries.libraryclasspath"/>
+    <path id="JUnit 4.libraryclasspath">
+        <pathelement location="${ECLIPSE_HOME}plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+    </path>
+    <path id="Apache Tomcat v8.0 [Roulette Server].libraryclasspath">
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/annotations-api.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/catalina-ant.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/catalina-ha.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/catalina-storeconfig.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/catalina-tribes.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/catalina.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/ecj-4.4.2.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/el-api.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/jasper-el.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/jasper.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/jsp-api.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/servlet-api.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/tomcat-api.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/tomcat-coyote.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/tomcat-dbcp.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/tomcat-i18n-es.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/tomcat-i18n-fr.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/tomcat-i18n-ja.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/tomcat-jdbc.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/tomcat-jni.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/tomcat-util-scan.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/tomcat-util.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/tomcat-websocket.jar"/>
+        <pathelement location="../../../../../../usr/local/Cellar/tomcat/8.0.28/libexec/lib/websocket-api.jar"/>
+    </path>
+    <path id="Visual-Ballistic-Roulette.classpath">
+        <pathelement location="build/classes"/>
+        <path refid="Web App Libraries.libraryclasspath"/>
+        <path refid="EAR Libraries.libraryclasspath"/>
+        <pathelement location="lib_eclipse/mysql-connector-java-5.1.25-bin.jar"/>
+        <path refid="JUnit 4.libraryclasspath"/>
+        <pathelement location="WebContent/WEB-INF/lib/commons-math3-3.5-javadoc.jar"/>
+        <path refid="Apache Tomcat v8.0 [Roulette Server].libraryclasspath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="build/classes"/>
+        <copy includeemptydirs="false" todir="build/classes">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="build/classes">
+            <fileset dir="test">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="build/classes"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="build/classes" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <src path="test"/>
+            <classpath refid="Visual-Ballistic-Roulette.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="ParameterEstimations">
+        <java classname="computations.ParameterEstimations" failonerror="true" fork="yes">
+            <classpath refid="Visual-Ballistic-Roulette.classpath"/>
+        </java>
+    </target>
+    <target name="test">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="computations.GaussianNoiseGenTest" todir="${junit.output.dir}"/>
+            <test name="computations.OutcomeStatisticsTest" todir="${junit.output.dir}"/>
+            <test name="computations.TestEuropeanRouletteWheel" todir="${junit.output.dir}"/>
+            <test name="computations.TestHelper" todir="${junit.output.dir}"/>
+            <test name="computations.TestWheel" todir="${junit.output.dir}"/>
+            <test name="computations.Test_UivnKJokxP0" todir="${junit.output.dir}"/>
+            <test name="computations.Test_Video2" todir="${junit.output.dir}"/>
+            <test name="computations.UnitTests" todir="${junit.output.dir}"/>
+            <test name="framework_physics.MainTest" todir="${junit.output.dir}"/>
+            <test name="framework_physics.Ransac" todir="${junit.output.dir}"/>
+            <test name="framework_physics.UnibetTest" todir="${junit.output.dir}"/>
+            <test name="physics.HelperPhysicsTest" todir="${junit.output.dir}"/>
+            <test name="responsetime.HumanResponseTime" todir="${junit.output.dir}"/>
+            <classpath refid="Visual-Ballistic-Roulette.classpath"/>
+        </junit>
+    </target>
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
+    </target>
+</project>
