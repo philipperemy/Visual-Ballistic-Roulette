@@ -8,16 +8,16 @@ import database.Outcome;
 
 public class Game
 {
-	private List<Double> _ballLaptimes = new ArrayList<>();
-	private List<Double> _wheelLaptimes = new ArrayList<>();
-	private Integer _outcome = null;
-	private String _sessionId = null;
+	private List<Double>	_ballLaptimes	= new ArrayList<>();
+	private List<Double>	_wheelLaptimes	= new ArrayList<>();
+	private Integer			_outcome		= null;
+	private String			_sessionId		= null;
 
 	public Game(String sessionId, DatabaseAccessorInterface dbRef)
 	{
 		_sessionId = sessionId;
-		_ballLaptimes = computations.Helper.convertToSeconds(dbRef.selectBallLapTimes(_sessionId));
-		_wheelLaptimes = computations.Helper.convertToSeconds(dbRef.selectWheelLapTimes(_sessionId));
+		_ballLaptimes = computations.utils.Helper.convertToSeconds(dbRef.selectBallLapTimes(_sessionId));
+		_wheelLaptimes = computations.utils.Helper.convertToSeconds(dbRef.selectWheelLapTimes(_sessionId));
 		Outcome out = dbRef.getOutcome(_sessionId);
 		if (out != null)
 		{

@@ -7,9 +7,9 @@ import framework.TestClass;
 
 public abstract class Game
 {
-	public List<String> _ballLaptimes = new ArrayList<>();
-	public List<String> _wheelLaptimes = new ArrayList<>();
-	public Integer _outcome = null;
+	public List<String>	_ballLaptimes	= new ArrayList<>();
+	public List<String>	_wheelLaptimes	= new ArrayList<>();
+	public Integer		_outcome		= null;
 
 	public Game()
 	{

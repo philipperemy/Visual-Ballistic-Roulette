@@ -4,8 +4,8 @@ import computations.wheel.Wheel;
 
 public class TestResult
 {
-	public Integer expected;
-	public Integer actual;
+	public Integer	expected;
+	public Integer	actual;
 
 	public int error()
 	{

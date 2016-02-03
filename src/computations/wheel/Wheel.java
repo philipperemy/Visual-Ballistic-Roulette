@@ -1,6 +1,6 @@
 package computations.wheel;
 
-import servlets.CriticalException;
+import exceptions.CriticalException;
 
 public class Wheel
 {
@@ -49,16 +49,16 @@ public class Wheel
 		switch (way)
 		{
 
-		case CLOCKWISE:
-			newIdx = idxReferenceNumber - phaseCount;
-			break;
+			case CLOCKWISE:
+				newIdx = idxReferenceNumber - phaseCount;
+				break;
 
-		case ANTICLOCKWISE:
-			newIdx = idxReferenceNumber + phaseCount;
-			break;
+			case ANTICLOCKWISE:
+				newIdx = idxReferenceNumber + phaseCount;
+				break;
 
-		default:
-			throw new CriticalException("Unknown type.");
+			default:
+				throw new CriticalException("Unknown type.");
 		}
 
 		return NUMBERS[getIndex(newIdx)];

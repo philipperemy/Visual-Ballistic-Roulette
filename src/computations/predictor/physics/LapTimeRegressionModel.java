@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
-import computations.Helper;
+import computations.predictor.physics.ransac.RANSAC;
+import computations.utils.Helper;
 
 public class LapTimeRegressionModel
 {
-	public double slope;
-	public double intercept;
+	public double	slope;
+	public double	intercept;
 
 	public LapTimeRegressionModel(double slope, double intercept)
 	{

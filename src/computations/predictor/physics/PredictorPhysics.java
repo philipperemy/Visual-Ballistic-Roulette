@@ -3,12 +3,13 @@ package computations.predictor.physics;
 import java.util.List;
 
 import computations.Constants;
-import computations.Helper;
 import computations.predictor.Phase;
+import computations.utils.Helper;
 import computations.wheel.Wheel;
+import exceptions.CriticalException;
+import exceptions.PositiveValueExpectedException;
+import exceptions.SessionNotReadyException;
 import logger.Logger;
-import servlets.CriticalException;
-import servlets.SessionNotReadyException;
 
 public class PredictorPhysics
 {
@@ -74,7 +75,7 @@ public class PredictorPhysics
 		if (wheelDiffTimesSize == 1)
 		{
 			double constantWheelSpeed = Helper.getWheelSpeed(0, wheelDiffTimes.get(0)); // trick
-			remainingDistance = HelperPhysics.estimateDistanceConstantSpeed(lastTimeBallPassesInFrontOfRef,
+			remainingDistance = Helper.estimateDistanceConstantSpeed(lastTimeBallPassesInFrontOfRef,
 					lastTimeBallPassesInFrontOfRef + timeAtCutoffBall, constantWheelSpeed);
 			wheelSpeedInFrontOfMark = constantWheelSpeed;
 			lastKnownSpeedWheel = constantWheelSpeed;

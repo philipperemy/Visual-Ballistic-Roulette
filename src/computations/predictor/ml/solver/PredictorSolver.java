@@ -4,7 +4,7 @@ import java.util.List;
 
 import computations.predictor.ml.PredictorML;
 import computations.predictor.ml.model.DataRecord;
-import servlets.SessionNotReadyException;
+import exceptions.SessionNotReadyException;
 
 public interface PredictorSolver
 {

@@ -21,20 +21,14 @@ class Helper
 
 	static void notifyError(HttpServletResponse response, String msg)
 	{
-		try
-		{
-			response.getWriter().append("ERROR: " + msg);
-		} catch (IOException e)
-		{
-			Logger.traceERROR(e);
-		}
+		notifyClient(response, "ERROR: " + msg);
 	}
 
-	static void notifyNotReadyYet(HttpServletResponse response, String numberOfRecordedWheelTimes)
+	static void notifyClient(HttpServletResponse response, String msg)
 	{
 		try
 		{
-			response.getWriter().append(computations.Helper.getSessionNotReadyErrorMessage(numberOfRecordedWheelTimes));
+			response.getWriter().append(msg);
 		} catch (IOException e)
 		{
 			Logger.traceERROR(e);

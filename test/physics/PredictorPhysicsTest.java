@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.junit.Assert;
 
-import computations.Helper;
 import computations.predictor.PredictorInterface;
-import computations.predictor.physics.PositiveValueExpectedException;
 import computations.predictor.physics.PredictorPhysics;
-import servlets.SessionNotReadyException;
+import computations.utils.Helper;
+import exceptions.PositiveValueExpectedException;
+import exceptions.SessionNotReadyException;
 
 public class PredictorPhysicsTest
 {

@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import computations.predictor.OutcomeStatistics;
-import servlets.SessionNotReadyException;
+import exceptions.SessionNotReadyException;
 
 public class OutcomeStatisticsTest
 {

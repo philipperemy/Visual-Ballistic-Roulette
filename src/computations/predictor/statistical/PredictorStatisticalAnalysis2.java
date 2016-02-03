@@ -3,14 +3,14 @@ package computations.predictor.statistical;
 import java.util.List;
 
 import computations.Constants;
-import computations.Helper;
 import computations.predictor.Phase;
 import computations.predictor.physics.HelperPhysics;
 import computations.predictor.statistical.stats2.ConstantAccelerationModel;
 import computations.predictor.statistical.stats2.RegressionManager;
+import computations.utils.Helper;
 import computations.wheel.Wheel;
+import exceptions.SessionNotReadyException;
 import logger.Logger;
-import servlets.SessionNotReadyException;
 
 public class PredictorStatisticalAnalysis2
 {
@@ -39,7 +39,7 @@ public class PredictorStatisticalAnalysis2
 		double remainingTime = ballModel.estimateTime(ballDiffTimes.size(), cutoffSpeed);
 
 		double lastTimeBallPassesInFrontOfRef = Helper.peek(ballCumsumTimes);
-		double remainingDistance = HelperPhysics.estimateDistanceConstantSpeed(lastTimeBallPassesInFrontOfRef,
+		double remainingDistance = Helper.estimateDistanceConstantSpeed(lastTimeBallPassesInFrontOfRef,
 				lastTimeBallPassesInFrontOfRef + remainingTime, constantWheelSpeed);
 		double wheelSpeedInFrontOfMark = constantWheelSpeed;
 		double lastKnownSpeedWheel = constantWheelSpeed;

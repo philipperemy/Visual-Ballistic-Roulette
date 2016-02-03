@@ -7,8 +7,8 @@ import computations.Constants;
 import computations.predictor.OutcomeStatistics;
 import computations.predictor.ml.PredictorML;
 import computations.predictor.ml.model.DataRecord;
+import exceptions.SessionNotReadyException;
 import logger.Logger;
-import servlets.SessionNotReadyException;
 
 public class FixedMostRecentMeasuresSolver implements PredictorSolver
 {

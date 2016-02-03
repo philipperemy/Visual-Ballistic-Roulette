@@ -1,4 +1,4 @@
-package servlets;
+package exceptions;
 
 public class SessionNotReadyException extends Exception
 {

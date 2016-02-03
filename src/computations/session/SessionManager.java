@@ -9,9 +9,9 @@ import logger.Logger;
  */
 public class SessionManager
 {
-	private static volatile SessionManager instance = null;
-	private DatabaseAccessorInterface da;
-	private long timestampOfLastQuery = 0;
+	private static volatile SessionManager	instance				= null;
+	private DatabaseAccessorInterface		da;
+	private long							timestampOfLastQuery	= 0;
 
 	public void init(DatabaseAccessorInterface da)
 	{

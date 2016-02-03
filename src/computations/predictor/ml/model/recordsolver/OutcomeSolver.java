@@ -1,7 +1,7 @@
-package computations.predictor.ml.model.solver;
+package computations.predictor.ml.model.recordsolver;
 
 import computations.predictor.ml.model.DataRecord;
-import servlets.SessionNotReadyException;
+import exceptions.SessionNotReadyException;
 
 public interface OutcomeSolver
 {

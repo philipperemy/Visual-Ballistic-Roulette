@@ -1,4 +1,4 @@
-package computations.predictor.physics;
+package computations.predictor.physics.ransac;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;

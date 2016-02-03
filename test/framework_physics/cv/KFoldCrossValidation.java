@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import computations.Constants;
-import computations.Helper;
+import computations.utils.Helper;
 import framework_physics.Game;
 import framework_physics.TestClass;
 
 public class KFoldCrossValidation
 {
-	private List<Game> games;
-	private int K = 3; // number of times you fold.
+	private List<Game>	games;
+	private int			K	= 3;	// number of times you fold.
 
 	public KFoldCrossValidation(List<Game> games, int K)
 	{

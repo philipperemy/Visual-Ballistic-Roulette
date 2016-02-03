@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
 import computations.Constants;
-import computations.Helper;
+import computations.utils.Helper;
 
 public class RegressionManager
 {

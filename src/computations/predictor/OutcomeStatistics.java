@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import computations.Helper;
+import computations.utils.Helper;
 import computations.wheel.Wheel;
+import exceptions.SessionNotReadyException;
 import logger.Logger;
-import servlets.SessionNotReadyException;
 
 public class OutcomeStatistics
 {
@@ -19,9 +19,9 @@ public class OutcomeStatistics
 				+ (frequency != null ? "frequency=" + frequency + ", " : "") + "]";
 	}
 
-	public int meanNumber;
-	public double stdDeviation;
-	private Map<Integer, Integer> frequency;
+	public int						meanNumber;
+	public double					stdDeviation;
+	private Map<Integer, Integer>	frequency;
 
 	public static OutcomeStatistics create(List<Integer> outcomeNumbers) throws SessionNotReadyException
 	{

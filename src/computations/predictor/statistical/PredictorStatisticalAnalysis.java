@@ -3,15 +3,15 @@ package computations.predictor.statistical;
 import java.util.List;
 
 import computations.Constants;
-import computations.Helper;
 import computations.predictor.Phase;
 import computations.predictor.physics.HelperPhysics;
-import computations.predictor.statistical.stats.InitializationRequiredException;
 import computations.predictor.statistical.stats.StatisticalLapTimesModel;
+import computations.utils.Helper;
 import computations.wheel.Wheel;
+import exceptions.CriticalException;
+import exceptions.InitializationRequiredException;
+import exceptions.SessionNotReadyException;
 import logger.Logger;
-import servlets.CriticalException;
-import servlets.SessionNotReadyException;
 
 public class PredictorStatisticalAnalysis
 {
@@ -54,7 +54,7 @@ public class PredictorStatisticalAnalysis
 		}
 
 		double lastTimeBallPassesInFrontOfRef = Helper.peek(ballCumsumTimes);
-		double remainingDistance = HelperPhysics.estimateDistanceConstantSpeed(lastTimeBallPassesInFrontOfRef,
+		double remainingDistance = Helper.estimateDistanceConstantSpeed(lastTimeBallPassesInFrontOfRef,
 				lastTimeBallPassesInFrontOfRef + remainingTime, constantWheelSpeed);
 		double wheelSpeedInFrontOfMark = constantWheelSpeed;
 		double lastKnownSpeedWheel = constantWheelSpeed;

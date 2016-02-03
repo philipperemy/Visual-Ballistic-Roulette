@@ -1,10 +1,11 @@
-package computations;
+package computations.utils;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import servlets.CriticalException;
+import computations.Constants;
+import exceptions.CriticalException;
 
 public class Helper
 {
@@ -18,11 +19,6 @@ public class Helper
 			listInSeconds.add(itemMsec * 0.001);
 		}
 		return listInSeconds;
-	}
-
-	public static String getSessionNotReadyErrorMessage(String numberOfRecordedWheelTimes)
-	{
-		return Constants.ERRORLEVEL_SESSION_NOT_READY_STRING + "," + numberOfRecordedWheelTimes;
 	}
 
 	// [0, 4, 15, 19, 21, 26, 32]
@@ -125,6 +121,11 @@ public class Helper
 		return Constants.get_WHEEL_CIRCUMFERENCE() / lastTimeRev;
 	}
 
+	public static double estimateDistanceConstantSpeed(double t1, double t2, double speed)
+	{
+		return speed * (t2 - t1);
+	}
+
 	// m/s
 	public static double getWheelSpeed(double t1, double t2)
 	{
@@ -142,12 +143,12 @@ public class Helper
 	{
 		switch (type)
 		{
-		case BALL:
-			return Helper.getBallSpeed(t1, t2);
-		case WHEEL:
-			return Helper.getWheelSpeed(t1, t2);
-		default:
-			throw new CriticalException("Unknown type.");
+			case BALL:
+				return Helper.getBallSpeed(t1, t2);
+			case WHEEL:
+				return Helper.getWheelSpeed(t1, t2);
+			default:
+				throw new CriticalException("Unknown type.");
 		}
 	}
 
@@ -177,4 +178,12 @@ public class Helper
 		return out;
 	}
 
+	/**
+	 * Sometimes we can miss a loop, especially on the ball. But usually we can
+	 * have a decrease in the diff times due to errors on the measurements.
+	 */
+	public boolean measuresAreValid(List<Double> diffTimes)
+	{
+		return false;
+	}
 }

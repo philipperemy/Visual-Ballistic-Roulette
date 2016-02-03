@@ -6,21 +6,21 @@ import java.util.List;
 import org.junit.Test;
 
 import computations.Constants;
-import computations.Helper;
+import computations.utils.Helper;
 import framework_physics.cv.KFoldCrossValidation;
 import logger.Logger;
 
 public class MainTest extends TestClass
 {
-	static Game game1 = new Game("1", dbRef);
-	static Game game2 = new Game("2", dbRef);
-	static Game game3 = new Game("3", dbRef);
-	static Game game4 = new Game("4", dbRef);
-	static Game game5 = new Game("5", dbRef);
-	static Game game8 = new Game("8", dbRef);
-	static Game game9 = new Game("9", dbRef);
-	static Game game12 = new Game("12", dbRef);
-	static Game game13 = new Game("13", dbRef);
+	static Game	game1	= new Game("1", dbRef);
+	static Game	game2	= new Game("2", dbRef);
+	static Game	game3	= new Game("3", dbRef);
+	static Game	game4	= new Game("4", dbRef);
+	static Game	game5	= new Game("5", dbRef);
+	static Game	game8	= new Game("8", dbRef);
+	static Game	game9	= new Game("9", dbRef);
+	static Game	game12	= new Game("12", dbRef);
+	static Game	game13	= new Game("13", dbRef);
 
 	/*
 	 * best phase =4; best speed = 1.197 ; valid error = 2, total validations =

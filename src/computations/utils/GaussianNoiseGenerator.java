@@ -1,4 +1,4 @@
-package computations;
+package computations.utils;
 
 import org.apache.commons.math3.distribution.NormalDistribution;
 
@@ -13,7 +13,7 @@ public class GaussianNoiseGenerator
 		nd = new NormalDistribution(mu, sigma);
 	}
 
-	long addNoiseTimeMillis(long time)
+	public long addNoiseTimeMillis(long time)
 	{
 		long noise = time + (long) nd.sample();
 		Logger.traceDEBUG("Adding noise: before [" + time + "], after [" + noise + "]");

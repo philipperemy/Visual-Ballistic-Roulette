@@ -1,8 +1,7 @@
 package computations.predictor.physics;
 
-import java.util.List;
-
 import computations.wheel.Wheel;
+import exceptions.PositiveValueExpectedException;
 
 public class HelperPhysics
 {
@@ -49,11 +48,6 @@ public class HelperPhysics
 		return dist;
 	}
 
-	public static double estimateDistanceConstantSpeed(double t1, double t2, double speed)
-	{
-		return speed * (t2 - t1);
-	}
-
 	// To be tested
 	// Inverse function for speed and not shifted_speed!
 	// inv_speed_function = @(x)
@@ -88,15 +82,6 @@ public class HelperPhysics
 	private static double primitiveSpeed(double x, double circumference, double a, double b)
 	{
 		return circumference * 0.5 / a * (Math.sqrt(Math.pow(a + 2 * b, 2) - 4 * a * (2 * b - 2 * x)) - (a + 2 * b));
-	}
-
-	/**
-	 * Sometimes we can miss a loop, especially on the ball. But usually we can
-	 * have a decrease in the diff times due to errors on the measurements.
-	 */
-	public boolean measuresAreValid(List<Double> diffTimes)
-	{
-		return false;
 	}
 
 }

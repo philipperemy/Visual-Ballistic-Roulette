@@ -2,8 +2,8 @@ package computations;
 
 import org.junit.Assert;
 
+import exceptions.SessionNotReadyException;
 import servlets.Response;
-import servlets.SessionNotReadyException;
 
 public class TestServlet
 {
@@ -29,7 +29,6 @@ public class TestServlet
 			String sessionId = "1";
 			Constants.NUMBER_OF_NEIGHBORS_KNN = 1;
 			Assert.assertEquals(15, response.predictMostProbableNumber(sessionId));
-			Assert.assertEquals("[0, 4, 15, 19, 21, 26, 32]", response.predictMostProbableRegion(sessionId).toString()); // sorted
 		} catch (Exception e)
 		{
 			throw new RuntimeException(e);

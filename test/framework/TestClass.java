@@ -26,10 +26,10 @@ import utils.TestResult;
 
 public abstract class TestClass
 {
-	public static DatabaseAccessorInterface dbRef;
-	protected static Response response;
-	protected Map<Integer, Game> games = new HashMap<>();
-	public static GetTime timerGetter = new GetTime();
+	public static DatabaseAccessorInterface	dbRef;
+	protected static Response				response;
+	protected Map<Integer, Game>			games		= new HashMap<>();
+	public static GetTime					timerGetter	= new GetTime();
 
 	@BeforeClass
 	public static void setUp()

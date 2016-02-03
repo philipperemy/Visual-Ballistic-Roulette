@@ -2,11 +2,11 @@ package computations.predictor.ml.solver;
 
 import java.util.List;
 
-import computations.Helper;
 import computations.predictor.ml.PredictorML;
 import computations.predictor.ml.model.DataRecord;
+import computations.utils.Helper;
+import exceptions.SessionNotReadyException;
 import logger.Logger;
-import servlets.SessionNotReadyException;
 
 public class MostRecentMeasureSolver implements PredictorSolver
 {

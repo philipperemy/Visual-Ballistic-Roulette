@@ -6,7 +6,7 @@ import org.junit.Test;
 import computations.Constants;
 import computations.predictor.physics.HelperPhysics;
 import computations.predictor.physics.LapTimeRegressionModel;
-import computations.predictor.physics.PositiveValueExpectedException;
+import exceptions.PositiveValueExpectedException;
 
 public class HelperPhysicsTest
 {

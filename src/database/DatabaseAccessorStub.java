@@ -7,10 +7,10 @@ import java.util.Map;
 
 public class DatabaseAccessorStub implements DatabaseAccessorInterface
 {
-	private Map<String, List<Double>> _ballLapTimes = new HashMap<>();
-	private Map<String, List<Double>> _wheelLapTimes = new HashMap<>();
-	private Map<String, Integer> _outcomes = new HashMap<>();
-	private Integer _sessionId = 1;
+	private Map<String, List<Double>>	_ballLapTimes	= new HashMap<>();
+	private Map<String, List<Double>>	_wheelLapTimes	= new HashMap<>();
+	private Map<String, Integer>		_outcomes		= new HashMap<>();
+	private Integer						_sessionId		= 1;
 
 	private void appendMap(Map<String, List<Double>> map, String key, String value)
 	{

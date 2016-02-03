@@ -6,6 +6,8 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import computations.utils.Helper;
+
 public class UnitTests
 {
 	@Test

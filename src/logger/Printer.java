@@ -4,15 +4,11 @@ import java.io.PrintStream;
 
 class Printer
 {
-	private static final PrintStream OUT_CONSOLE = System.out;
+	private static final PrintStream	OUT_CONSOLE	= System.out;
 
-	static boolean canLog = true;
+	static boolean						canLog		= true;
 
-	public Printer()
-	{
-	}
-
-	void println(String str)
+	public void println(String str)
 	{
 		if (canLog)
 		{
@@ -27,5 +23,4 @@ class Printer
 			OUT_CONSOLE.print(str);
 		}
 	}
-
 }

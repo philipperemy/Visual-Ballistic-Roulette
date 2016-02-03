@@ -7,18 +7,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
-
 import computations.Constants;
+import exceptions.CriticalException;
 import logger.Logger;
 
 public final class DatabaseAccessor implements DatabaseAccessorInterface
 {
-	private static final String WHEEL_LAP_TIMES_TABLE_NAME = "wheel_lap_times";
-	private static final String BALL_LAP_TIMES_TABLE_NAME = "ball_lap_times";
-	private static final String DATABASE_NAME = Constants.DATABASE_NAME;
+	private static final String					WHEEL_LAP_TIMES_TABLE_NAME	= "wheel_lap_times";
+	private static final String					BALL_LAP_TIMES_TABLE_NAME	= "ball_lap_times";
+	private static final String					DATABASE_NAME				= Constants.DATABASE_NAME;
 
-	private static volatile DatabaseAccessor instance;
+	private static volatile DatabaseAccessor	instance;
 
 	public static DatabaseAccessor getInstance()
 	{
@@ -43,13 +42,10 @@ public final class DatabaseAccessor implements DatabaseAccessorInterface
 			Class.forName("com.mysql.jdbc.Driver");
 			connect = DriverManager.getConnection("jdbc:mysql://localhost/" + DATABASE_NAME + "?" + "user=root&password=");
 
-		} catch (CommunicationsException ce)
-		{
-			Logger.traceERROR(ce);
-			System.exit(0);
 		} catch (Exception e)
 		{
 			Logger.traceERROR(e);
+			throw new CriticalException("Cannot connected to the database.");
 		}
 	}
 
@@ -201,5 +197,4 @@ public final class DatabaseAccessor implements DatabaseAccessorInterface
 			Logger.traceERROR(e);
 		}
 	}
-
 }

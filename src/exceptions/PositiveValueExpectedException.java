@@ -1,4 +1,4 @@
-package computations.predictor.physics;
+package exceptions;
 
 public class PositiveValueExpectedException extends Exception
 {

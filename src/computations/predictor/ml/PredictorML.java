@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import computations.Constants;
-import computations.Helper;
 import computations.predictor.Phase;
 import computations.predictor.ml.model.DataRecord;
 import computations.predictor.ml.solver.PredictorSolver;
+import computations.utils.Helper;
 import database.DatabaseAccessorInterface;
 import database.Outcome;
+import exceptions.SessionNotReadyException;
 import logger.Logger;
-import servlets.SessionNotReadyException;
 
 public class PredictorML
 {
-	private static volatile PredictorML instance = null;
-	private DatabaseAccessorInterface da;
-	private PredictorSolver solver = Constants.PREDICTOR_SOLVER;
+	private static volatile PredictorML	instance	= null;
+	private DatabaseAccessorInterface	da;
+	private PredictorSolver				solver		= Constants.PREDICTOR_SOLVER;
 
 	public static PredictorML getInstance()
 	{
@@ -47,8 +47,8 @@ public class PredictorML
 			List<Double> ballLapTimes = da.selectBallLapTimes(sessionId);
 			List<Double> wheelLapTimes = da.selectWheelLapTimes(sessionId);
 
-			List<Double> wheelLapTimesSeconds = computations.Helper.convertToSeconds(wheelLapTimes);
-			List<Double> ballLapTimesSeconds = computations.Helper.convertToSeconds(ballLapTimes);
+			List<Double> wheelLapTimesSeconds = computations.utils.Helper.convertToSeconds(wheelLapTimes);
+			List<Double> ballLapTimesSeconds = computations.utils.Helper.convertToSeconds(ballLapTimes);
 
 			if (wheelLapTimes.isEmpty())
 			{

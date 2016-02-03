@@ -1,4 +1,4 @@
-package computations.predictor.ml.model.solver;
+package computations.predictor.ml.model.recordsolver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,8 @@ import computations.Constants;
 import computations.predictor.OutcomeStatistics;
 import computations.predictor.ml.model.DataRecord;
 import computations.wheel.Wheel;
+import exceptions.SessionNotReadyException;
 import logger.Logger;
-import servlets.SessionNotReadyException;
 
 public class ComplexWeightingSchemeSolver implements OutcomeSolver
 {

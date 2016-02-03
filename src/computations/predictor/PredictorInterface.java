@@ -5,10 +5,10 @@ import computations.predictor.physics.PredictorPhysics;
 
 public class PredictorInterface
 {
-	private volatile PredictorML predictorMachineLearning = PredictorML.getInstance();
-	private volatile PredictorPhysics predictorPhysics = PredictorPhysics.getInstance();
+	private volatile PredictorML				predictorMachineLearning	= PredictorML.getInstance();
+	private volatile PredictorPhysics			predictorPhysics			= PredictorPhysics.getInstance();
 
-	private static volatile PredictorInterface instance = PredictorInterface.getInstance();
+	private static volatile PredictorInterface	instance					= PredictorInterface.getInstance();
 
 	public static PredictorInterface getInstance()
 	{

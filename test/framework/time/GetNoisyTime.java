@@ -1,6 +1,6 @@
 package framework.time;
 
-import computations.GaussianNoiseGenerator;
+import computations.utils.GaussianNoiseGenerator;
 
 public class GetNoisyTime extends GetTime
 {

@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.Test;
 
 import computations.Constants;
-import computations.Helper;
+import computations.utils.Helper;
 import framework_physics.cv.KFoldCrossValidation;
 import logger.Logger;
 

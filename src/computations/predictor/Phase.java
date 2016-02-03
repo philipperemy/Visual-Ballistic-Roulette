@@ -1,9 +1,9 @@
 package computations.predictor;
 
-import computations.Helper;
+import computations.utils.Helper;
 import computations.wheel.Wheel;
 import computations.wheel.Wheel.WheelWay;
-import servlets.CriticalException;
+import exceptions.CriticalException;
 
 public class Phase
 {

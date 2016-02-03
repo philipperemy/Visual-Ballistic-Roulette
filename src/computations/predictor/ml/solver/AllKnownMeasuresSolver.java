@@ -6,8 +6,8 @@ import java.util.List;
 import computations.predictor.OutcomeStatistics;
 import computations.predictor.ml.PredictorML;
 import computations.predictor.ml.model.DataRecord;
+import exceptions.SessionNotReadyException;
 import logger.Logger;
-import servlets.SessionNotReadyException;
 
 public class AllKnownMeasuresSolver implements PredictorSolver
 {

@@ -1,4 +1,4 @@
-package computations.predictor.statistical.stats;
+package exceptions;
 
 public class InitializationRequiredException extends RuntimeException
 {

@@ -7,12 +7,12 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import computations.Constants;
-import computations.Helper;
-import computations.predictor.ml.model.solver.OutcomeSolver;
+import computations.predictor.ml.model.recordsolver.OutcomeSolver;
+import computations.utils.Helper;
 import computations.wheel.Wheel.WheelWay;
+import exceptions.CriticalException;
+import exceptions.SessionNotReadyException;
 import logger.Logger;
-import servlets.CriticalException;
-import servlets.SessionNotReadyException;
 
 public class DataRecord
 {
@@ -23,26 +23,29 @@ public class DataRecord
 	// front of the mark)
 	// => possible to predict the outcome.
 
-	public double ballSpeedInFrontOfMark;
-	public double wheelSpeedInFrontOfMark;
+	public double					ballSpeedInFrontOfMark;
+	public double					wheelSpeedInFrontOfMark;
 
 	/*
 	 * Only for Logging purposes.
 	 */
-	public String sessionId;
+	public String					sessionId;
 
 	/**
 	 * Phases of the ball when the zero of the ball is in front of a landmark.
 	 * After it's just looking at the phase between each phase and what we have
 	 * to shift the outcome.
 	 */
-	public int phaseOfWheelWhenBallPassesInFrontOfMark;
-	public Integer outcome = null; // outcome of the game.
-	private final WheelWay way = Constants.DEFAULT_WHEEL_WAY;
+	public int						phaseOfWheelWhenBallPassesInFrontOfMark;
+	public Integer					outcome	= null;							// outcome
+																			// of
+																			// the
+																			// game.
+	private final WheelWay			way		= Constants.DEFAULT_WHEEL_WAY;
 
-	private static List<DataRecord> cache = new ArrayList<>();
+	private static List<DataRecord>	cache	= new ArrayList<>();
 
-	private static OutcomeSolver solver = Constants.DATARECORD_SOLVER;
+	private static OutcomeSolver	solver	= Constants.DATARECORD_SOLVER;
 
 	public static void clearCache()
 	{
