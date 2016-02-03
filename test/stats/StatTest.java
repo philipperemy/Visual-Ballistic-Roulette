@@ -63,7 +63,7 @@ public class StatTest
 
 	}
 
-	@Test
+	// @Test
 	public void real_test() throws SessionNotReadyException
 	{
 		PredictorStatisticalAnalysis predictor = new PredictorStatisticalAnalysis();
@@ -72,7 +72,7 @@ public class StatTest
 		list.add(b1);
 		list.add(c1_2);
 		// list.add(c2_2);
-		predictor.init(list);
+		// predictor.init(list);
 
 		List<Double> wheelCumsumTimes = Arrays.asList(1.0, 4.0);
 

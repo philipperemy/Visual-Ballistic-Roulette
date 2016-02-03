@@ -5,40 +5,31 @@ import java.util.List;
 
 import computations.Constants;
 import computations.predictor.Phase;
+import computations.predictor.Predictor;
 import computations.predictor.ml.model.DataRecord;
 import computations.predictor.ml.solver.PredictorSolver;
 import computations.utils.Helper;
 import database.DatabaseAccessorInterface;
 import database.Outcome;
-import exceptions.SessionNotReadyException;
 import logger.Logger;
 
-public class PredictorML
+public class PredictorMachineLearning implements Predictor
 {
-	private static volatile PredictorML	instance	= null;
 	private DatabaseAccessorInterface	da;
-	private PredictorSolver				solver		= Constants.PREDICTOR_SOLVER;
-
-	public static PredictorML getInstance()
-	{
-		if (instance == null)
-		{
-			instance = new PredictorML();
-		}
-		return instance;
-	}
-
-	private PredictorML()
-	{
-	}
+	private PredictorSolver				solver	= Constants.PREDICTOR_SOLVER;
 
 	public void init(DatabaseAccessorInterface da)
 	{
 		this.da = da;
-		preLoadDataSet();
+		load();
 	}
 
-	private void preLoadDataSet()
+	public int predict(List<Double> ballLapTimes, List<Double> wheelLapTimes)
+	{
+		return solver.predict(this, ballLapTimes, wheelLapTimes);
+	}
+
+	public void load()
 	{
 		List<String> sessionIds = da.getSessionIds();
 		for (String sessionId : sessionIds)
@@ -64,7 +55,7 @@ public class PredictorML
 
 			try
 			{
-				List<DataRecord> records = buildDataRecords(ballLapTimesSeconds, wheelLapTimesSeconds, sessionId);
+				List<DataRecord> records = buildDataRecords(ballLapTimesSeconds, wheelLapTimesSeconds);
 				for (DataRecord record : records)
 				{
 					Outcome outcome = da.getOutcome(sessionId);
@@ -85,7 +76,7 @@ public class PredictorML
 		}
 	}
 
-	public List<DataRecord> buildDataRecords(List<Double> ballLapTimes, List<Double> wheelLapTimes, String sessionId)
+	public List<DataRecord> buildDataRecords(List<Double> ballLapTimes, List<Double> wheelLapTimes)
 	{
 		List<DataRecord> dataRecords = new ArrayList<>();
 		if (ballLapTimes.isEmpty() || wheelLapTimes.isEmpty())
@@ -125,16 +116,11 @@ public class PredictorML
 			// this average.
 			smr.ballSpeedInFrontOfMark = ballAccModel.estimateSpeed(correspondingBallLapTime);
 			smr.wheelSpeedInFrontOfMark = wheelSpeedInFrontOfMark;
-			smr.sessionId = sessionId;
+			smr.sessionId = null;
 			smr.phaseOfWheelWhenBallPassesInFrontOfMark = phase;
 			dataRecords.add(smr);
 		}
 
 		return dataRecords;
-	}
-
-	public int predict(List<Double> ballLapTimes, List<Double> wheelLapTimes, String sessionId) throws SessionNotReadyException
-	{
-		return solver.predict(this, ballLapTimes, wheelLapTimes, sessionId);
 	}
 }

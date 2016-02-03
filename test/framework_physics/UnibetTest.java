@@ -13,7 +13,7 @@ import logger.Logger;
 public class UnibetTest extends TestClass
 {
 
-	@Test
+	// @Test
 	public void testPhysics4()
 	{
 		Logger.setDebug(false);
@@ -34,7 +34,9 @@ public class UnibetTest extends TestClass
 
 			}
 		}
-		py.init(list);
+
+		// should add diff times.
+		// py.init(list);
 
 		KFoldCrossValidation kfcv = new KFoldCrossValidation(games, 2);
 		System.out.println(kfcv.getError());

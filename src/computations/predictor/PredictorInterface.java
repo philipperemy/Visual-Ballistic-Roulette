@@ -1,12 +1,12 @@
 package computations.predictor;
 
-import computations.predictor.ml.PredictorML;
+import computations.predictor.ml.PredictorMachineLearning;
 import computations.predictor.physics.PredictorPhysics;
 
 public class PredictorInterface
 {
-	private volatile PredictorML				predictorMachineLearning	= PredictorML.getInstance();
-	private volatile PredictorPhysics			predictorPhysics			= PredictorPhysics.getInstance();
+	private volatile Predictor					predictorMachineLearning	= new PredictorMachineLearning();
+	private volatile Predictor					predictorPhysics			= new PredictorPhysics();
 
 	private static volatile PredictorInterface	instance					= PredictorInterface.getInstance();
 
@@ -19,12 +19,12 @@ public class PredictorInterface
 		return instance;
 	}
 
-	public PredictorML machineLearning()
+	public Predictor machineLearning()
 	{
 		return predictorMachineLearning;
 	}
 
-	public PredictorPhysics physics()
+	public Predictor physics()
 	{
 		return predictorPhysics;
 	}

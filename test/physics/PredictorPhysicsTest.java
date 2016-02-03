@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.junit.Assert;
 
+import computations.predictor.Predictor;
 import computations.predictor.PredictorInterface;
-import computations.predictor.physics.PredictorPhysics;
 import computations.utils.Helper;
 import exceptions.PositiveValueExpectedException;
 import exceptions.SessionNotReadyException;
@@ -16,7 +16,7 @@ public class PredictorPhysicsTest
 
 	public void test() throws PositiveValueExpectedException, SessionNotReadyException
 	{
-		PredictorPhysics py = PredictorInterface.getInstance().physics();
+		Predictor py = PredictorInterface.getInstance().physics();
 
 		List<Double> ballCumsumTimes = new ArrayList<>();
 		ballCumsumTimes.add(2871.0);

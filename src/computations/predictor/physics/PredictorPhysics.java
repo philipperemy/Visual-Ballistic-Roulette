@@ -4,35 +4,18 @@ import java.util.List;
 
 import computations.Constants;
 import computations.predictor.Phase;
+import computations.predictor.Predictor;
 import computations.utils.Helper;
 import computations.wheel.Wheel;
+import database.DatabaseAccessorInterface;
 import exceptions.CriticalException;
 import exceptions.PositiveValueExpectedException;
-import exceptions.SessionNotReadyException;
 import logger.Logger;
 
-public class PredictorPhysics
+public class PredictorPhysics implements Predictor
 {
-
-	private static volatile PredictorPhysics instance = null;
-
-	public static PredictorPhysics getInstance()
+	public int predict(List<Double> ballCumsumTimes, List<Double> wheelCumsumTimes)
 	{
-		if (instance == null)
-		{
-			instance = new PredictorPhysics();
-		}
-		return instance;
-	}
-
-	public int predict(List<Double> ballCumsumTimes, List<Double> wheelCumsumTimes) throws PositiveValueExpectedException, SessionNotReadyException
-	{
-		if (wheelCumsumTimes.size() < Constants.MIN_NUMBER_OF_WHEEL_TIMES_BEFORE_PREDICTION
-				|| ballCumsumTimes.size() < Constants.MIN_NUMBER_OF_BALL_TIMES_BEFORE_PREDICTION)
-		{
-			throw new SessionNotReadyException();
-		}
-
 		double cutOffSpeed = Constants.CUTOFF_SPEED;
 
 		/**
@@ -123,6 +106,16 @@ public class PredictorPhysics
 		Logger.traceDEBUG(
 				"Initial phase was = " + initialPhase + ", Total shift = " + finalPredictedShift + ", Predicted number is = " + predictedNumber);
 		return predictedNumber;
+	}
+
+	@Override
+	public void init(DatabaseAccessorInterface da)
+	{
+	}
+
+	@Override
+	public void load()
+	{
 	}
 
 }

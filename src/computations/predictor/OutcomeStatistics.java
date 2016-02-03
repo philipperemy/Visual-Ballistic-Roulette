@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 
 import computations.utils.Helper;
 import computations.wheel.Wheel;
-import exceptions.SessionNotReadyException;
+import exceptions.CriticalException;
 import logger.Logger;
 
 public class OutcomeStatistics
@@ -23,7 +23,7 @@ public class OutcomeStatistics
 	public double					stdDeviation;
 	private Map<Integer, Integer>	frequency;
 
-	public static OutcomeStatistics create(List<Integer> outcomeNumbers) throws SessionNotReadyException
+	public static OutcomeStatistics create(List<Integer> outcomeNumbers)
 	{
 		Map<Integer, Integer> frequencyPerNumber = new HashMap<>(); // Number
 																	// <->
@@ -77,7 +77,7 @@ public class OutcomeStatistics
 
 		if (mostProbableNumber == null)
 		{
-			throw new SessionNotReadyException();
+			throw new CriticalException("Most probable number should not be null");
 		}
 
 		OutcomeStatistics outcomeStatistics = new OutcomeStatistics();

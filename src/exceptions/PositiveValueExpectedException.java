@@ -1,11 +1,11 @@
 package exceptions;
 
-public class PositiveValueExpectedException extends Exception
+public class PositiveValueExpectedException extends RuntimeException
 {
 	private static final long serialVersionUID = 1L;
 
 	public PositiveValueExpectedException()
 	{
-		super("positive value expected.");
+		super("Positive value expected.");
 	}
 }

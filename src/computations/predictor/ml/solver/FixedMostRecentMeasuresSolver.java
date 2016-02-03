@@ -5,16 +5,15 @@ import java.util.List;
 
 import computations.Constants;
 import computations.predictor.OutcomeStatistics;
-import computations.predictor.ml.PredictorML;
+import computations.predictor.ml.PredictorMachineLearning;
 import computations.predictor.ml.model.DataRecord;
-import exceptions.SessionNotReadyException;
 import logger.Logger;
 
 public class FixedMostRecentMeasuresSolver implements PredictorSolver
 {
-	public int predict(PredictorML predictor, List<Double> ballLapTimes, List<Double> wheelLapTimes, String sessionId) throws SessionNotReadyException
+	public int predict(PredictorMachineLearning predictor, List<Double> ballLapTimes, List<Double> wheelLapTimes)
 	{
-		List<DataRecord> predictRecords = getPredictedRecords(predictor, ballLapTimes, wheelLapTimes, sessionId);
+		List<DataRecord> predictRecords = getPredictedRecords(predictor, ballLapTimes, wheelLapTimes);
 
 		List<Integer> mostProbableNumberList = new ArrayList<>();
 		for (int i = 0; i < predictRecords.size(); i++)

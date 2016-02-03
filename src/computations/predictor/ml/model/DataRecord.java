@@ -11,7 +11,6 @@ import computations.predictor.ml.model.recordsolver.OutcomeSolver;
 import computations.utils.Helper;
 import computations.wheel.Wheel.WheelWay;
 import exceptions.CriticalException;
-import exceptions.SessionNotReadyException;
 import logger.Logger;
 
 public class DataRecord
@@ -124,7 +123,7 @@ public class DataRecord
 				+ outcome + ", " + (way != null ? "Way=" + way : "") + "]";
 	}
 
-	public static int predictOutcome(DataRecord predictRecord) throws SessionNotReadyException
+	public static int predictOutcome(DataRecord predictRecord)
 	{
 		return solver.predictOutcome(predictRecord);
 	}

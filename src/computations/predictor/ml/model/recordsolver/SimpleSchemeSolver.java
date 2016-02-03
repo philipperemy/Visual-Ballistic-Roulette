@@ -7,12 +7,11 @@ import computations.Constants;
 import computations.predictor.OutcomeStatistics;
 import computations.predictor.ml.model.DataRecord;
 import computations.wheel.Wheel;
-import exceptions.SessionNotReadyException;
 
 public class SimpleSchemeSolver implements OutcomeSolver
 {
 	// Simple Scheme
-	public int predictOutcome(DataRecord predict) throws SessionNotReadyException
+	public int predictOutcome(DataRecord predict)
 	{
 		List<DataRecord> matchedRecordsList = DataRecord.matchCache(predict, Constants.NUMBER_OF_NEIGHBORS_KNN);
 		List<Integer> outcomeNumbersList = new ArrayList<>();

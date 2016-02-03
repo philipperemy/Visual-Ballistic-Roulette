@@ -44,7 +44,7 @@ public class MainTest extends TestClass
 		System.out.println(kfcv.getError());
 	}
 
-	@Test
+	// @Test
 	public void testPhysics3()
 	{
 		Constants.DEFAULT_SHIFT_PHASE = 4;
@@ -67,7 +67,7 @@ public class MainTest extends TestClass
 		System.out.println(error /= 9);
 	}
 
-	@Test
+	// @Test
 	public void testPhysics2()
 	{
 		double best_error = Double.MAX_VALUE;

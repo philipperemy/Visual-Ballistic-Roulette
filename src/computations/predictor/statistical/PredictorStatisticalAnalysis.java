@@ -4,35 +4,45 @@ import java.util.List;
 
 import computations.Constants;
 import computations.predictor.Phase;
+import computations.predictor.Predictor;
 import computations.predictor.physics.HelperPhysics;
 import computations.predictor.statistical.stats.StatisticalLapTimesModel;
 import computations.utils.Helper;
 import computations.wheel.Wheel;
+import database.DatabaseAccessorInterface;
 import exceptions.CriticalException;
 import exceptions.InitializationRequiredException;
-import exceptions.SessionNotReadyException;
 import logger.Logger;
 
-public class PredictorStatisticalAnalysis
+public class PredictorStatisticalAnalysis implements Predictor
 {
 	private StatisticalLapTimesModel manager = new StatisticalLapTimesModel();
 
-	public void init(List<List<Double>> trainingDataset)
+	@Override
+	public void init(DatabaseAccessorInterface da)
 	{
-		for (List<Double> trainingLapTimes : trainingDataset)
+		List<String> sessionIds = da.getSessionIds();
+		for (String sessionId : sessionIds)
 		{
-			manager.enrichModel(trainingLapTimes);
+			List<Double> ballCumsumTimes = computations.utils.Helper.convertToSeconds(da.selectBallLapTimes(sessionId));
+
+			if (ballCumsumTimes.isEmpty())
+			{
+				Logger.traceERROR("Ball lap times are empty for session id = " + sessionId + ". Ignoring this game.");
+				continue;
+			}
+			List<Double> ballDiffTimesSeconds = computations.utils.Helper.computeDiff(ballCumsumTimes);
+			manager.enrichModel(ballDiffTimesSeconds);
 		}
 	}
 
-	public int predict(List<Double> ballCumsumTimes, List<Double> wheelCumsumTimes) throws SessionNotReadyException
+	@Override
+	public void load()
 	{
-		if (wheelCumsumTimes.size() < Constants.MIN_NUMBER_OF_WHEEL_TIMES_BEFORE_PREDICTION
-				|| ballCumsumTimes.size() < Constants.MIN_NUMBER_OF_BALL_TIMES_BEFORE_PREDICTION)
-		{
-			throw new SessionNotReadyException();
-		}
+	}
 
+	public int predict(List<Double> ballCumsumTimes, List<Double> wheelCumsumTimes)
+	{
 		double originTimeBall = Helper.head(ballCumsumTimes);
 		ballCumsumTimes = Helper.normalize(ballCumsumTimes, originTimeBall);
 
@@ -87,4 +97,5 @@ public class PredictorStatisticalAnalysis
 				"Initial phase was = " + initialPhase + ", Total shift = " + finalPredictedShift + ", Predicted number is = " + predictedNumber);
 		return predictedNumber;
 	}
+
 }
