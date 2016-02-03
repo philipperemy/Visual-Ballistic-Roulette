@@ -9,6 +9,12 @@ public class TestEuropeanRouletteWheel extends TestClass
 
 	// From video. European Roulette Wheel.mp4
 	@Test
+	public void empty()
+	{
+
+	}
+
+	// @Test
 	public void test_1() throws Exception
 	{
 		String sessionId = dbRef.getLastSessionId();

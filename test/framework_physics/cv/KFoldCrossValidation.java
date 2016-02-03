@@ -53,38 +53,34 @@ public class KFoldCrossValidation
 		for (int phase = 1; phase < 60; phase++) // 30
 		{
 			Constants.DEFAULT_SHIFT_PHASE = phase;
-			for (double speed = 1.15; speed < 2.0; speed += 0.001) // 100
+			// for (double speed = 1.15; speed < 2.0; speed += 0.001) // 100
+			// {
+			// Constants.CUTOFF_SPEED = speed;
+			try
 			{
-				Constants.CUTOFF_SPEED = speed;
-				try
+				double trainingError = 0.0;
+				int traininSampleSize = 0;
+				for (Game trainingGame : trainingSet)
 				{
-					double trainingError = 0.0;
-					int traininSampleSize = 0;
-					for (Game trainingGame : trainingSet)
+					try
 					{
-						try
-						{
-							trainingError += TestClass.runTest(trainingGame).error();
-							traininSampleSize++;
-						} catch (Exception e)
-						{
-
-						}
-					}
-					trainingError /= traininSampleSize;
-
-					if (trainingError < bestTrainingError && traininSampleSize >= trainingSet.size() * 0.7)
+						trainingError += TestClass.runTest(trainingGame).error();
+						traininSampleSize++;
+					} catch (Exception e)
 					{
-						bestTrainingError = trainingError;
-						bestPhase = phase;
-						bestSpeed = speed;
-						System.out.println(
-								"count=" + traininSampleSize + ", training error = " + trainingError + ", phase =" + phase + ", speed = " + speed);
+
 					}
-				} catch (Exception e)
-				{
-					System.out.println("E");
 				}
+				trainingError /= traininSampleSize;
+				if (trainingError < bestTrainingError && traininSampleSize >= trainingSet.size() * 0.7)
+				{
+					bestTrainingError = trainingError;
+					bestPhase = phase;
+					System.out.println("count=" + traininSampleSize + ", training error = " + trainingError + ", phase = " + phase);
+				}
+			} catch (Exception e)
+			{
+				System.out.println("E");
 			}
 		}
 
@@ -96,6 +92,7 @@ public class KFoldCrossValidation
 		double validationError = 0.0;
 		int totalOfValidations = 0;
 		for (Game validationGame : validationSet)
+
 		{
 			try
 			{
@@ -108,6 +105,7 @@ public class KFoldCrossValidation
 		validationError /= totalOfValidations;
 		System.out.println("valid error = " + Helper.printDigit(validationError) + ", total validations = " + totalOfValidations);
 		return validationError;
+
 	}
 
 	static <T> List<List<T>> split(List<T> list, final int L)

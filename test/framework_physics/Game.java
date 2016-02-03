@@ -37,7 +37,7 @@ public class Game
 	// cut it.
 	public List<Double> get_ballLaptimes()
 	{
-		return _ballLaptimes.subList(0, _ballLaptimes.size() - 5);
+		return _ballLaptimes.subList(0, _ballLaptimes.size() - 4);
 	}
 
 	public List<Double> get_wheelLaptimes()
