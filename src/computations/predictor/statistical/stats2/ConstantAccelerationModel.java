@@ -1,7 +1,7 @@
 package computations.predictor.statistical.stats2;
 
+import computations.Constants;
 import computations.Helper;
-import computations.wheel.Type;
 import logger.Logger;
 
 /**
@@ -18,7 +18,7 @@ public class ConstantAccelerationModel
 
 	double slope;
 	double intercept;
-	Type type;
+	Constants.Type type;
 
 	public double estimateSpeed(double revolutionCount)
 	{
@@ -42,7 +42,7 @@ public class ConstantAccelerationModel
 		return remainingTime;
 	}
 
-	ConstantAccelerationModel(double slope, double intercept, Type type)
+	ConstantAccelerationModel(double slope, double intercept, Constants.Type type)
 	{
 		this.slope = slope;
 		this.intercept = intercept;

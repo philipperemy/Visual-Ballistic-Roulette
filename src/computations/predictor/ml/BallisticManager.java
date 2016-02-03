@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
+import computations.Constants;
 import computations.Helper;
-import computations.wheel.Type;
 import logger.Logger;
 
 public class BallisticManager
@@ -14,7 +14,7 @@ public class BallisticManager
 	/*
 	 * Each speed is the average of the measurements intervals
 	 */
-	public static List<ClockSpeed> computeInstantAverageSpeeds(List<Double> lapTimes, Type type)
+	public static List<ClockSpeed> computeInstantAverageSpeeds(List<Double> lapTimes, Constants.Type type)
 	{
 		List<ClockSpeed> speedMeasurements = new ArrayList<>(lapTimes.size() - 1);
 		for (int i = 1; i < lapTimes.size(); i++)
@@ -33,7 +33,7 @@ public class BallisticManager
 	/*
 	 * Speed is inverted to have a linear problem.
 	 */
-	private static AccelerationModel performLinearRegression(List<ClockSpeed> speedMeasurements, Type type)
+	private static AccelerationModel performLinearRegression(List<ClockSpeed> speedMeasurements, Constants.Type type)
 	{
 		int n = speedMeasurements.size();
 		double[] x = new double[n];
@@ -53,7 +53,7 @@ public class BallisticManager
 		return new AccelerationModel(regression.getSlope(), regression.getIntercept(), type);
 	}
 
-	static AccelerationModel computeModel(List<Double> times, Type type)
+	static AccelerationModel computeModel(List<Double> times, Constants.Type type)
 	{
 		List<ClockSpeed> speeds = BallisticManager.computeInstantAverageSpeeds(times, type);
 

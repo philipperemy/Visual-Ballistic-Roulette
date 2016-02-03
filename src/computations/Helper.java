@@ -4,7 +4,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import computations.wheel.Type;
 import servlets.CriticalException;
 
 public class Helper
@@ -139,7 +138,7 @@ public class Helper
 	}
 
 	// m/s. T1 and T2
-	public static double getSpeed(double t1, double t2, Type type)
+	public static double getSpeed(double t1, double t2, Constants.Type type)
 	{
 		switch (type)
 		{

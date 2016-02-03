@@ -8,7 +8,6 @@ import computations.Helper;
 import computations.predictor.Phase;
 import computations.predictor.ml.model.DataRecord;
 import computations.predictor.ml.solver.PredictorSolver;
-import computations.wheel.Type;
 import database.DatabaseAccessorInterface;
 import database.Outcome;
 import logger.Logger;
@@ -101,8 +100,8 @@ public class PredictorML
 			return dataRecords;
 		}
 
-		AccelerationModel ballAccModel = BallisticManager.computeModel(ballLapTimes, Type.BALL);
-		AccelerationModel wheelAccModel = BallisticManager.computeModel(wheelLapTimes, Type.WHEEL);
+		AccelerationModel ballAccModel = BallisticManager.computeModel(ballLapTimes, Constants.Type.BALL);
+		AccelerationModel wheelAccModel = BallisticManager.computeModel(wheelLapTimes, Constants.Type.WHEEL);
 
 		for (int i = 0; i < ballLapTimes.size(); i++)
 		{

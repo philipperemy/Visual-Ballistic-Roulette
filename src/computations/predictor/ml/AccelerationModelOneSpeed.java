@@ -1,6 +1,6 @@
 package computations.predictor.ml;
 
-import computations.wheel.Type;
+import computations.Constants;
 
 //We cannot constructor an acceleration speed model with just one speed.
 //So we create an object to emulate this model, which returns the last wheel speed.
@@ -21,7 +21,7 @@ class AccelerationModelOneSpeed extends AccelerationModel
 		return lastSpeed;
 	}
 
-	AccelerationModelOneSpeed(Type type, double lastSpeed)
+	AccelerationModelOneSpeed(Constants.Type type, double lastSpeed)
 	{
 		super(0, 0, type);
 		this.lastSpeed = lastSpeed;

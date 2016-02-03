@@ -45,7 +45,6 @@ public class OutcomeStatistics
 		double minRss = Double.MAX_VALUE;
 		for (int idxMean = 0; idxMean < Wheel.NUMBERS.length; idxMean++)
 		{
-
 			double rss = 0;
 			for (Integer outcomeNumber : outcomeNumbers)
 			{

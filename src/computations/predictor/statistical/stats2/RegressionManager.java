@@ -5,12 +5,12 @@ import java.util.List;
 
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
+import computations.Constants;
 import computations.Helper;
-import computations.wheel.Type;
 
 public class RegressionManager
 {
-	private static ConstantAccelerationModel performLinearRegression(List<Double> speeds, Type type)
+	private static ConstantAccelerationModel performLinearRegression(List<Double> speeds, Constants.Type type)
 	{
 		int n = speeds.size();
 		double[] x = new double[n];
@@ -33,7 +33,7 @@ public class RegressionManager
 	}
 
 	// Only for the BALL now.
-	public static ConstantAccelerationModel computeModel(List<Double> times, Type type)
+	public static ConstantAccelerationModel computeModel(List<Double> times, Constants.Type type)
 	{
 		List<Double> speeds = new ArrayList<>();
 		for (Double ţime : times)

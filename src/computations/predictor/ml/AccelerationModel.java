@@ -1,7 +1,7 @@
 package computations.predictor.ml;
 
+import computations.Constants;
 import computations.Helper;
-import computations.wheel.Type;
 import logger.Logger;
 
 /**
@@ -18,7 +18,7 @@ class AccelerationModel
 
 	double slope;
 	double intercept;
-	Type type;
+	Constants.Type type;
 
 	// The model fitted is f(x) = 1/y, f linear.
 	public double estimateSpeed(double time)
@@ -26,7 +26,7 @@ class AccelerationModel
 		return Helper.inverseSpeed(slope * time + intercept);
 	}
 
-	AccelerationModel(double slope, double intercept, Type type)
+	AccelerationModel(double slope, double intercept, Constants.Type type)
 	{
 		this.slope = slope;
 		this.intercept = intercept;

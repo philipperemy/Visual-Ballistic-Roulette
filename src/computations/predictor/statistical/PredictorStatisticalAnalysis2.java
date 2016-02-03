@@ -8,7 +8,6 @@ import computations.predictor.Phase;
 import computations.predictor.physics.HelperPhysics;
 import computations.predictor.statistical.stats2.ConstantAccelerationModel;
 import computations.predictor.statistical.stats2.RegressionManager;
-import computations.wheel.Type;
 import computations.wheel.Wheel;
 import logger.Logger;
 import servlets.SessionNotReadyException;
@@ -34,7 +33,7 @@ public class PredictorStatisticalAnalysis2
 
 		double constantWheelSpeed = Helper.getWheelSpeed(0, Helper.peek(wheelDiffTimes)); // trick
 
-		ConstantAccelerationModel ballModel = RegressionManager.computeModel(ballDiffTimes, Type.BALL);
+		ConstantAccelerationModel ballModel = RegressionManager.computeModel(ballDiffTimes, Constants.Type.BALL);
 
 		double cutoffSpeed = Constants.CUTOFF_SPEED;
 		double remainingTime = ballModel.estimateTime(ballDiffTimes.size(), cutoffSpeed);
