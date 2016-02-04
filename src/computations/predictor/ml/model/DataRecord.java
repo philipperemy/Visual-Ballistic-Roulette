@@ -25,10 +25,8 @@ public class DataRecord
 	public double					ballSpeedInFrontOfMark;
 	public double					wheelSpeedInFrontOfMark;
 
-	/*
-	 * Only for Logging purposes.
-	 */
-	public String					sessionId;
+	// Only for Logging purposes.
+	public String					sessionId	= null;
 
 	/**
 	 * Phases of the ball when the zero of the ball is in front of a landmark.
@@ -36,15 +34,15 @@ public class DataRecord
 	 * to shift the outcome.
 	 */
 	public int						phaseOfWheelWhenBallPassesInFrontOfMark;
-	public Integer					outcome	= null;							// outcome
-																			// of
-																			// the
-																			// game.
-	private final WheelWay			way		= Constants.DEFAULT_WHEEL_WAY;
 
-	private static List<DataRecord>	cache	= new ArrayList<>();
+	// Outcome of the game
+	public Integer					outcome		= null;
 
-	private static OutcomeSolver	solver	= Constants.DATARECORD_SOLVER;
+	private final WheelWay			way			= Constants.DEFAULT_WHEEL_WAY;
+
+	private static List<DataRecord>	cache		= new ArrayList<>();
+
+	private static OutcomeSolver	solver		= Constants.DATARECORD_SOLVER;
 
 	public static void clearCache()
 	{

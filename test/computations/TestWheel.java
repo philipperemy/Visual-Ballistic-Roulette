@@ -109,30 +109,6 @@ public class TestWheel
 		Assert.assertEquals(11, phaseNumber); // 11 is correct
 	}
 
-	@Test
-	@SuppressWarnings("deprecation")
-	public void testHelperStrategy()
-	{
-		double lastKnownSpeed = Helper.getBallSpeed(0, 1);
-
-		// Wheel turns at 1 tour/second. So if difference between measures is 1,
-		// the wheel should be on 0.
-		Assert.assertEquals(0, Phase.findNumberInFrontOfRefWhenBallIsLaunched(0, 1, lastKnownSpeed, WheelWay.CLOCKWISE));
-		Assert.assertEquals(0, Phase.findNumberInFrontOfRefWhenBallIsLaunched(0, 1, lastKnownSpeed, WheelWay.ANTICLOCKWISE));
-
-		// Half a turn. 5 or 10. Anti clockwise
-		Assert.assertEquals(10, Phase.findNumberInFrontOfRefWhenBallIsLaunched(0, 0.5, lastKnownSpeed, WheelWay.ANTICLOCKWISE));
-
-		// A quarter of turn. 22 or 9. Clockwise
-		Assert.assertEquals(22, Phase.findNumberInFrontOfRefWhenBallIsLaunched(0, 0.25, lastKnownSpeed, WheelWay.CLOCKWISE));
-
-		// A quarter of turn. 34 or 6. Clockwise
-		Assert.assertEquals(6, Phase.findNumberInFrontOfRefWhenBallIsLaunched(0, 0.75, lastKnownSpeed, WheelWay.CLOCKWISE));
-
-		// A quarter of turn. Anti Clockwise
-		Assert.assertEquals(34, Phase.findNumberInFrontOfRefWhenBallIsLaunched(0, 0.25, lastKnownSpeed, WheelWay.ANTICLOCKWISE));
-	}
-
 	/*
 	 * 0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5,
 	 * 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26 };

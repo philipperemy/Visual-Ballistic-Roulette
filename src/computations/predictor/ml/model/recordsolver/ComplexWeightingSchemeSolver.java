@@ -29,7 +29,7 @@ public class ComplexWeightingSchemeSolver implements OutcomeSolver
 		for (int knnNumber = 1; knnNumber <= Constants.NUMBER_OF_NEIGHBORS_KNN; knnNumber++)
 		{
 			OutcomeStatistics stat = OutcomeStatistics.create(outcomeNumbersList.subList(0, knnNumber));
-			Logger.traceINFO("Statistics : " + stat);
+			Logger.traceDEBUG("Statistics : " + stat);
 			outcomeMeanNumbersList.add(stat.meanNumber);
 		}
 

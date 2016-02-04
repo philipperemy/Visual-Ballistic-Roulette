@@ -9,7 +9,7 @@ import computations.wheel.Wheel.WheelWay;
 public class Constants
 {
 	/**
-	 * TODO: To be measured
+	 * TODO: To be measured. All is in m/s.
 	 */
 	// METERS
 	public static double	WHEEL_DIAMETER	= 0.547;// = 0.60;
@@ -34,7 +34,7 @@ public class Constants
 	public static OutcomeSolver		DATARECORD_SOLVER							= new ComplexWeightingSchemeSolver();
 
 	// Physics
-	public static double			CUTOFF_SPEED								= 1.10;									// m/s
+	public static double			CUTOFF_SPEED								= 1.10;
 	public static int				DEFAULT_SHIFT_PHASE							= 18;
 
 	public static final int			MIN_NUMBER_OF_WHEEL_TIMES_BEFORE_PREDICTION	= 2;
@@ -49,6 +49,7 @@ public class Constants
 
 	public enum Type
 	{
-		BALL, WHEEL
+		BALL, //
+		WHEEL
 	}
 }

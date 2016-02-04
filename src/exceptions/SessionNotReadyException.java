@@ -2,7 +2,7 @@ package exceptions;
 
 public class SessionNotReadyException extends Exception
 {
-	private static final long serialVersionUID = 5655911156126439803L;
+	private static final long serialVersionUID = 1L;
 
 	public SessionNotReadyException()
 	{

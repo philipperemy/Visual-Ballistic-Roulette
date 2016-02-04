@@ -13,7 +13,7 @@ public class StatisticalLapTimesModel
 {
 	private static final int		FIRST_BACKWARD_IDENTIFIER	= 100;
 
-	// should begin at 100 and decreases.
+	// should begin at FIRST_BACKWARD_IDENTIFIER and decreases.
 	// We know when the games ends
 	// because it is always the same
 	// speed that the ball falls in the
@@ -83,16 +83,8 @@ public class StatisticalLapTimesModel
 		return remTime;
 	}
 
-	/**
-	 * buggy
-	 */
 	public int identifyLastContainerId(List<Double> avgs, List<Double> lapTimes)
 	{
-		/**
-		 * to be removed
-		 */
-		lapTimes = lapTimes.subList(lapTimes.size() - 2, lapTimes.size());
-
 		Logger.traceDEBUG("matcher=" + lapTimes.toString());
 		Logger.traceDEBUG("avgs=" + avgs.toString());
 		Integer result = null;

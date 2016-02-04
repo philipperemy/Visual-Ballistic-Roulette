@@ -62,23 +62,6 @@ public class Helper
 		return (double) 1.0 / speed;
 	}
 
-	/**
-	 * Should find out if ball considered before is better or not but stay
-	 * coherent across the data set.
-	 */
-	@Deprecated
-	public static double getNextTimeBallIsInFrontOfRef(List<Double> ballLapTimes, double wheelLapTimeInFrontOfRef)
-	{
-		for (Double ballTimeInFrontOfRef : ballLapTimes)
-		{
-			if (ballTimeInFrontOfRef > wheelLapTimeInFrontOfRef)
-			{
-				return ballTimeInFrontOfRef;
-			}
-		}
-		throw new RuntimeException("getNextTimeBallIsInFrontOfRef()");
-	}
-
 	public static Double getLastTimeWheelIsInFrontOfRef(List<Double> wheelLapTimes, double ballLapTimeInFrontOfRef)
 	{
 		Double res = null;
@@ -92,7 +75,6 @@ public class Helper
 		return res;
 	}
 
-	// Here we put all the calculus
 	public static List<Double> computeDiff(List<Double> lapTimes)
 	{
 		List<Double> diffs = new ArrayList<>(lapTimes.size() - 1);
@@ -138,6 +120,17 @@ public class Helper
 		return Constants.get_BALL_CIRCUMFERENCE() / (t2 - t1);
 	}
 
+	public static double getTimeForOneBallLoop(double ballSpeed)
+	{
+		return Constants.get_BALL_CIRCUMFERENCE() / ballSpeed;
+	}
+
+	// Could interpolate with ML stuffs.
+	public static double getTimeForOneWheelLoop(double wheelSpeed)
+	{
+		return Constants.get_WHEEL_CIRCUMFERENCE() / wheelSpeed;
+	}
+
 	// m/s. T1 and T2
 	public static double getSpeed(double t1, double t2, Constants.Type type)
 	{
@@ -150,19 +143,6 @@ public class Helper
 			default:
 				throw new CriticalException("Unknown type.");
 		}
-	}
-
-	// TODO: move all that to helpers.
-	// Could interpolate with ML stuffs.
-	public static double getTimeForOneBallLoop(double ballSpeed)
-	{
-		return Constants.get_BALL_CIRCUMFERENCE() / ballSpeed;
-	}
-
-	// Could interpolate with ML stuffs.
-	public static double getTimeForOneWheelLoop(double wheelSpeed)
-	{
-		return Constants.get_WHEEL_CIRCUMFERENCE() / wheelSpeed;
 	}
 
 	public static List<Double> cumsum(List<Double> in)
@@ -179,8 +159,9 @@ public class Helper
 	}
 
 	/**
-	 * Sometimes we can miss a loop, especially on the ball. But usually we can
-	 * have a decrease in the diff times due to errors on the measurements.
+	 * TODO: implement it as a filter. Sometimes we can miss a loop, especially
+	 * on the ball. But usually we can have a decrease in the diff times due to
+	 * errors on the measurements.
 	 */
 	public boolean measuresAreValid(List<Double> diffTimes)
 	{

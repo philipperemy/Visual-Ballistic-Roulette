@@ -19,9 +19,9 @@ public class FixedMostRecentMeasuresSolver implements PredictorSolver
 		for (int i = 0; i < predictRecords.size(); i++)
 		{
 			DataRecord predictRecord = predictRecords.get(i);
-			Logger.traceINFO("(" + i + ") Record to predict : " + predictRecord);
+			Logger.traceDEBUG("(" + i + ") Record to predict : " + predictRecord);
 			int mostProbableNumber = DataRecord.predictOutcome(predictRecord);
-			Logger.traceINFO("(" + i + ") Most probable number : " + mostProbableNumber);
+			Logger.traceDEBUG("(" + i + ") Most probable number : " + mostProbableNumber);
 			mostProbableNumberList.add(mostProbableNumber);
 		}
 
@@ -34,7 +34,7 @@ public class FixedMostRecentMeasuresSolver implements PredictorSolver
 
 		OutcomeStatistics os = OutcomeStatistics.create(mostProbableNumberList);
 		int mostProbableFinalNumber = os.meanNumber;
-		Logger.traceINFO("(final) Most probable number : " + mostProbableFinalNumber);
+		Logger.traceDEBUG("(final) Most probable number : " + mostProbableFinalNumber);
 		return os.meanNumber;
 	}
 }

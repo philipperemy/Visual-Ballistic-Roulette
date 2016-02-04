@@ -25,7 +25,7 @@ public class ConstantAccelerationModel
 		return slope * revolutionCount + intercept;
 	}
 
-	// Used with the cutoff speed.
+	// Use with the cutoff speed.
 	public double estimateTime(int currentRevolution, double speed)
 	{
 		double revolutionCountLeft = (speed - intercept) / slope;

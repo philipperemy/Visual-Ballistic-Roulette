@@ -18,16 +18,16 @@ public class AllKnownMeasuresSolver implements PredictorSolver
 		int id = 1;
 		for (DataRecord predictRecord : predictRecords)
 		{
-			Logger.traceINFO("(" + id + ") Record to predict : " + predictRecord);
+			Logger.traceDEBUG("(" + id + ") Record to predict : " + predictRecord);
 			int mostProbableNumber = DataRecord.predictOutcome(predictRecord);
-			Logger.traceINFO("(" + id + ") Most probable number : " + mostProbableNumber);
+			Logger.traceDEBUG("(" + id + ") Most probable number : " + mostProbableNumber);
 			mostProbableNumberList.add(mostProbableNumber);
 			id++;
 		}
 
 		OutcomeStatistics os = OutcomeStatistics.create(mostProbableNumberList);
 		int mostProbableFinalNumber = os.meanNumber;
-		Logger.traceINFO("(final) Most probable number : " + mostProbableFinalNumber);
+		Logger.traceDEBUG("(final) Most probable number : " + mostProbableFinalNumber);
 		return os.meanNumber;
 	}
 }

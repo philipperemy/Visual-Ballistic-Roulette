@@ -14,10 +14,10 @@ public class MostRecentMeasureSolver implements PredictorSolver
 		List<DataRecord> predictRecords = getPredictedRecords(predictor, ballLapTimes, wheelLapTimes);
 
 		DataRecord predictRecord = Helper.peek(predictRecords);
-		Logger.traceINFO("Record to predict : " + predictRecord);
+		Logger.traceDEBUG("Record to predict : " + predictRecord);
 
 		int mostProbableNumber = DataRecord.predictOutcome(predictRecord);
-		Logger.traceINFO("Most probable number : " + mostProbableNumber);
+		Logger.traceDEBUG("Most probable number : " + mostProbableNumber);
 		return mostProbableNumber;
 	}
 }

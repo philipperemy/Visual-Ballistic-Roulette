@@ -16,12 +16,6 @@ public class PredictorStatisticalAnalysis2
 {
 	public int predict(List<Double> ballCumsumTimes, List<Double> wheelCumsumTimes) throws SessionNotReadyException
 	{
-		if (wheelCumsumTimes.size() < Constants.MIN_NUMBER_OF_WHEEL_TIMES_BEFORE_PREDICTION
-				|| ballCumsumTimes.size() < Constants.MIN_NUMBER_OF_BALL_TIMES_BEFORE_PREDICTION)
-		{
-			throw new SessionNotReadyException();
-		}
-
 		double originTimeBall = Helper.head(ballCumsumTimes);
 		ballCumsumTimes = Helper.normalize(ballCumsumTimes, originTimeBall);
 
