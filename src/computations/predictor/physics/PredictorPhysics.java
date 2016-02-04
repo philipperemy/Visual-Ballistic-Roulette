@@ -114,7 +114,7 @@ public class PredictorPhysics implements Predictor
 	}
 
 	@Override
-	public void load()
+	public void init(DatabaseAccessorInterface da, List<String> sessionIds)
 	{
 	}
 

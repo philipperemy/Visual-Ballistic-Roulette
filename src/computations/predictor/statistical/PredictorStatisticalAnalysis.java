@@ -21,24 +21,7 @@ public class PredictorStatisticalAnalysis implements Predictor
 	@Override
 	public void init(DatabaseAccessorInterface da)
 	{
-		List<String> sessionIds = da.getSessionIds();
-		for (String sessionId : sessionIds)
-		{
-			List<Double> ballCumsumTimes = computations.utils.Helper.convertToSeconds(da.selectBallLapTimes(sessionId));
-
-			if (ballCumsumTimes.isEmpty())
-			{
-				Logger.traceERROR("Ball lap times are empty for session id = " + sessionId + ". Ignoring this game.");
-				continue;
-			}
-			List<Double> ballDiffTimesSeconds = computations.utils.Helper.computeDiff(ballCumsumTimes);
-			manager.enrichModel(ballDiffTimesSeconds);
-		}
-	}
-
-	@Override
-	public void load()
-	{
+		init(da, da.getSessionIds());
 	}
 
 	public int predict(List<Double> ballCumsumTimes, List<Double> wheelCumsumTimes)
@@ -96,6 +79,23 @@ public class PredictorStatisticalAnalysis implements Predictor
 		Logger.traceDEBUG(
 				"Initial phase was = " + initialPhase + ", Total shift = " + finalPredictedShift + ", Predicted number is = " + predictedNumber);
 		return predictedNumber;
+	}
+
+	@Override
+	public void init(DatabaseAccessorInterface da, List<String> sessionIds)
+	{
+		for (String sessionId : sessionIds)
+		{
+			List<Double> ballCumsumTimes = computations.utils.Helper.convertToSeconds(da.selectBallLapTimes(sessionId));
+
+			if (ballCumsumTimes.isEmpty())
+			{
+				Logger.traceERROR("Ball lap times are empty for session id = " + sessionId + ". Ignoring this game.");
+				continue;
+			}
+			List<Double> ballDiffTimesSeconds = computations.utils.Helper.computeDiff(ballCumsumTimes);
+			manager.enrichModel(ballDiffTimesSeconds);
+		}
 	}
 
 }

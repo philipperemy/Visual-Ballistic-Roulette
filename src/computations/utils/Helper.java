@@ -97,12 +97,6 @@ public class Helper
 		return ret;
 	}
 
-	public double getLastSpeedWheel(List<Double> wheelDiffTimes)
-	{
-		double lastTimeRev = Helper.peek(wheelDiffTimes);
-		return Constants.get_WHEEL_CIRCUMFERENCE() / lastTimeRev;
-	}
-
 	public static double estimateDistanceConstantSpeed(double t1, double t2, double speed)
 	{
 		return speed * (t2 - t1);
@@ -166,5 +160,16 @@ public class Helper
 	public boolean measuresAreValid(List<Double> diffTimes)
 	{
 		return false;
+	}
+
+	public static <T> List<List<T>> split(List<T> list, final int L)
+	{
+		List<List<T>> parts = new ArrayList<List<T>>();
+		final int N = list.size();
+		for (int i = 0; i < N; i += L)
+		{
+			parts.add(new ArrayList<T>(list.subList(i, Math.min(N, i + L))));
+		}
+		return parts;
 	}
 }

@@ -1,10 +1,10 @@
-package computations;
+package experiments;
 
 import org.junit.Test;
 
 import framework.TestClass;
 
-public class TestEuropeanRouletteWheel extends TestClass
+public class TestEuropeanRouletteWheelVideo extends TestClass
 {
 
 	// From video. European Roulette Wheel.mp4

@@ -18,10 +18,17 @@ public class PredictorMachineLearning implements Predictor
 	private DatabaseAccessorInterface	da;
 	private PredictorSolver				solver	= Constants.PREDICTOR_SOLVER;
 
+	@Override
 	public void init(DatabaseAccessorInterface da)
 	{
+		init(da, da.getSessionIds());
+	}
+
+	@Override
+	public void init(DatabaseAccessorInterface da, List<String> sessionIds)
+	{
 		this.da = da;
-		load();
+		load(sessionIds);
 	}
 
 	public int predict(List<Double> ballLapTimes, List<Double> wheelLapTimes)
@@ -29,14 +36,19 @@ public class PredictorMachineLearning implements Predictor
 		return solver.predict(this, ballLapTimes, wheelLapTimes);
 	}
 
-	public void load()
+	public void load(List<String> sessionIds)
 	{
-		List<String> sessionIds = da.getSessionIds();
 		for (String sessionId : sessionIds)
 		{
 			// SessionID = GameID
 			List<Double> ballLapTimes = da.selectBallLapTimes(sessionId);
 			List<Double> wheelLapTimes = da.selectWheelLapTimes(sessionId);
+
+			// TODO:remove it please!!
+			if (ballLapTimes.size() > 5)
+			{
+				ballLapTimes = ballLapTimes.subList(0, ballLapTimes.size() - 5);
+			}
 
 			List<Double> wheelLapTimesSeconds = computations.utils.Helper.convertToSeconds(wheelLapTimes);
 			List<Double> ballLapTimesSeconds = computations.utils.Helper.convertToSeconds(ballLapTimes);
@@ -72,7 +84,6 @@ public class PredictorMachineLearning implements Predictor
 			{
 				Logger.traceERROR(e);
 			}
-
 		}
 	}
 
@@ -123,4 +134,5 @@ public class PredictorMachineLearning implements Predictor
 
 		return dataRecords;
 	}
+
 }

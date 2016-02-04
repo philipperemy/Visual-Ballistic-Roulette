@@ -84,7 +84,7 @@ public class OutcomeStatistics
 		outcomeStatistics.meanNumber = meanNumber;
 		outcomeStatistics.stdDeviation = Math.sqrt(var);
 		outcomeStatistics.frequency = frequencyPerNumber;
-		Logger.traceINFO("Statistics : " + outcomeStatistics);
+		Logger.traceDEBUG("Statistics : " + outcomeStatistics);
 		return outcomeStatistics;
 	}
 

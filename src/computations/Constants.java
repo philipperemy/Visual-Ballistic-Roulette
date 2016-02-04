@@ -12,8 +12,8 @@ public class Constants
 	 * TODO: To be measured. All is in m/s.
 	 */
 	// METERS
-	public static double	WHEEL_DIAMETER	= 0.547;// = 0.60;
-	public static double	CASE_DIAMETER	= 0.687;// = 0.80;
+	public static double	WHEEL_DIAMETER	= 0.60;	// 0.547;// = 0.60;
+	public static double	CASE_DIAMETER	= 1.20;	// 0.687;// = 0.80;
 
 	public static double get_WHEEL_CIRCUMFERENCE()
 	{
@@ -28,7 +28,7 @@ public class Constants
 	public static final long		THRESHOLD_BEFORE_NEW_SESSION_IN_MS			= 30 * 1000;
 
 	// Machine Learning
-	public static int				NUMBER_OF_NEIGHBORS_KNN						= 4;
+	public static int				NUMBER_OF_NEIGHBORS_KNN						= 5;
 	public static int				RECORDS_COUNT_FOR_PREDICTION				= 5;
 	public static PredictorSolver	PREDICTOR_SOLVER							= new FixedMostRecentMeasuresSolver();
 	public static OutcomeSolver		DATARECORD_SOLVER							= new ComplexWeightingSchemeSolver();

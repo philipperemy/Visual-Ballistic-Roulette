@@ -17,5 +17,4 @@ public class TestResult
 			throw new RuntimeException();
 		}
 	}
-
 }

@@ -12,7 +12,6 @@ import computations.wheel.Wheel.WheelWay;
 
 public class TestWheel
 {
-
 	@Test
 	public void testWheel()
 	{

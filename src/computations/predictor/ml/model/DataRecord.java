@@ -46,7 +46,7 @@ public class DataRecord
 
 	public static void clearCache()
 	{
-		Logger.traceINFO("[Cache] Clearing all cache.");
+		Logger.traceDEBUG("[Cache] Clearing all cache.");
 		cache = new ArrayList<>();
 	}
 
