@@ -26,7 +26,6 @@ public class Game
 		{
 			System.out.println("Outcome is null for sessionId = " + sessionId);
 		}
-
 	}
 
 	public String get_sessionId()
@@ -37,8 +36,9 @@ public class Game
 	// cut it.
 	public List<Double> get_ballLaptimes()
 	{
-		// return _ballLaptimes.subList(0, _ballLaptimes.size() - 4);
-		return _ballLaptimes;
+		// TOOD:know it.
+		return _ballLaptimes.subList(0, _ballLaptimes.size() - 5);
+		// return _ballLaptimes;
 	}
 
 	public List<Double> get_wheelLaptimes()

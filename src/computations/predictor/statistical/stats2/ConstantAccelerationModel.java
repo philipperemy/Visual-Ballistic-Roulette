@@ -2,6 +2,7 @@ package computations.predictor.statistical.stats2;
 
 import computations.Constants;
 import computations.utils.Helper;
+import exceptions.PositiveValueExpectedException;
 import logger.Logger;
 
 /**
@@ -26,18 +27,24 @@ public class ConstantAccelerationModel
 	}
 
 	// Use with the cutoff speed.
-	public double estimateTime(int currentRevolution, double speed)
+	public double estimateTime(int currentRevolution, double cutoffSpeed)
 	{
-		double revolutionCountLeft = (speed - intercept) / slope;
+		double revolutionCountLeft = (cutoffSpeed - intercept) / slope - currentRevolution;
+		if (revolutionCountLeft < 0)
+		{
+			throw new PositiveValueExpectedException();
+		}
+
 		int revolutionCountInteger = (int) Math.floor(revolutionCountLeft);
 		double remainingTime = 0.0;
-		for (int i = currentRevolution + 1; i <= revolutionCountInteger; i++)
+		for (int i = 1; i <= revolutionCountInteger; i++)
 		{
-			remainingTime += Helper.getTimeForOneBallLoop(estimateSpeed(revolutionCountInteger));
+			remainingTime += Helper.getTimeForOneBallLoop(estimateSpeed(currentRevolution + i));
 		}
 		double revolutionFloatLeft = revolutionCountLeft - revolutionCountInteger;
 
-		double avgSpeedLastRev = 0.5 * estimateSpeed(revolutionCountInteger) + 0.5 * estimateSpeed(revolutionCountInteger + 1);
+		double avgSpeedLastRev = 0.5 * estimateSpeed(currentRevolution + revolutionCountInteger)
+				+ 0.5 * estimateSpeed(currentRevolution + revolutionCountInteger + 1);
 		remainingTime += revolutionFloatLeft * Helper.getTimeForOneBallLoop(avgSpeedLastRev);
 		return remainingTime;
 	}

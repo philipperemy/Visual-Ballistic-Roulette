@@ -12,8 +12,8 @@ public class Constants
 	 * TODO: To be measured. All is in m/s.
 	 */
 	// METERS
-	public static double	WHEEL_DIAMETER	= 0.60;	// 0.547;// = 0.60;
-	public static double	CASE_DIAMETER	= 1.20;	// 0.687;// = 0.80;
+	public static double	WHEEL_DIAMETER	= 0.547;// = 0.60;
+	public static double	CASE_DIAMETER	= 0.687;// = 0.80;
 
 	public static double get_WHEEL_CIRCUMFERENCE()
 	{
@@ -34,8 +34,8 @@ public class Constants
 	public static OutcomeSolver		DATARECORD_SOLVER							= new ComplexWeightingSchemeSolver();
 
 	// Physics
-	public static double			CUTOFF_SPEED								= 1.10;
-	public static int				DEFAULT_SHIFT_PHASE							= 18;
+	public static double			CUTOFF_SPEED								= 0.75;
+	public static int				DEFAULT_SHIFT_PHASE							= 77;
 
 	public static final int			MIN_NUMBER_OF_WHEEL_TIMES_BEFORE_PREDICTION	= 2;
 	public static final int			MIN_NUMBER_OF_BALL_TIMES_BEFORE_PREDICTION	= 3;

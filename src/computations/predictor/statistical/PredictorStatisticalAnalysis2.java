@@ -4,23 +4,25 @@ import java.util.List;
 
 import computations.Constants;
 import computations.predictor.Phase;
+import computations.predictor.Predictor;
 import computations.predictor.physics.HelperPhysics;
 import computations.predictor.statistical.stats2.ConstantAccelerationModel;
 import computations.predictor.statistical.stats2.RegressionManager;
 import computations.utils.Helper;
 import computations.wheel.Wheel;
-import exceptions.SessionNotReadyException;
+import database.DatabaseAccessorInterface;
 import logger.Logger;
 
-public class PredictorStatisticalAnalysis2
+public class PredictorStatisticalAnalysis2 implements Predictor
 {
-	public int predict(List<Double> ballCumsumTimes, List<Double> wheelCumsumTimes) throws SessionNotReadyException
+	public int predict(List<Double> ballCumsumTimes, List<Double> wheelCumsumTimes)
 	{
-		double originTimeBall = Helper.head(ballCumsumTimes);
-		ballCumsumTimes = Helper.normalize(ballCumsumTimes, originTimeBall);
+		// double originTimeBall = Helper.head(ballCumsumTimes);
+		// ballCumsumTimes = Helper.normalize(ballCumsumTimes, originTimeBall);
 
-		double originTimeWheel = Helper.head(wheelCumsumTimes);
-		wheelCumsumTimes = Helper.normalize(wheelCumsumTimes, originTimeWheel);
+		// double originTimeWheel = Helper.head(wheelCumsumTimes);
+		// wheelCumsumTimes = Helper.normalize(wheelCumsumTimes,
+		// originTimeWheel);
 
 		List<Double> ballDiffTimes = Helper.computeDiff(ballCumsumTimes);
 		List<Double> wheelDiffTimes = Helper.computeDiff(wheelCumsumTimes);
@@ -65,5 +67,15 @@ public class PredictorStatisticalAnalysis2
 		Logger.traceDEBUG(
 				"Initial phase was = " + initialPhase + ", Total shift = " + finalPredictedShift + ", Predicted number is = " + predictedNumber);
 		return predictedNumber;
+	}
+
+	@Override
+	public void init(DatabaseAccessorInterface da)
+	{
+	}
+
+	@Override
+	public void init(DatabaseAccessorInterface da, List<String> sessionIds)
+	{
 	}
 }
