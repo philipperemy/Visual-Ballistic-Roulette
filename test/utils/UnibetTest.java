@@ -10,6 +10,7 @@ import computations.predictor.PredictorInterface;
 import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;
 import logger.Logger;
+import utils.KFoldCrossValidationTest.FilterSessionIds;
 
 public class UnibetTest
 {
@@ -24,11 +25,11 @@ public class UnibetTest
 			games.add(new Game(String.valueOf(i), dbRef));
 		}
 		PredictorInterface predictorInterface = new PredictorInterface();
-		Predictor predictor = predictorInterface.statisticalAnalysis();
+		Predictor predictor = predictorInterface.statisticalAnalysis2();
 		KFoldCrossValidationTest kfcv = new KFoldCrossValidationTest(games, predictor, dbRef, 2);
 		System.out.println(kfcv.getError());
 
-		// System.out.println(kfcv.evaluate(games, new FilterSessionIds()));
+		System.out.println(kfcv.evaluate(games, new FilterSessionIds()));
 	}
 
 }

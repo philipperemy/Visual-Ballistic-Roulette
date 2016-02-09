@@ -125,7 +125,9 @@ public class KFoldCrossValidationTest extends TestClass
 			{
 				try
 				{
-					trainingError += runTest(trainingGame, fsii.getAllSessionIdsButOne(trainingSet, trainingGame)).error();
+					double curError = runTest(trainingGame, fsii.getAllSessionIdsButOne(trainingSet, trainingGame)).error();
+					System.out.println(curError);
+					trainingError += curError;
 					trainingSampleSize++;
 					if (trainingSampleSize < trainingSet.size() * 0.7 || trainingError > 100)
 					{
