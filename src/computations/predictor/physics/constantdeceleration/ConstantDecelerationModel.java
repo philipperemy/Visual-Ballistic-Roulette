@@ -1,8 +1,9 @@
 package computations.predictor.physics.constantdeceleration;
 
+import org.apache.commons.math3.stat.regression.SimpleRegression;
+
 import computations.Constants;
 import computations.utils.Helper;
-import utils.exception.PositiveValueExpectedException;
 import utils.logger.Logger;
 
 /**
@@ -14,7 +15,7 @@ public class ConstantDecelerationModel
 	@Override
 	public String toString()
 	{
-		return "AccelerationModel" + type + " [slope=" + Helper.printDigit(slope) + ", intercept=" + Helper.printDigit(intercept) + "]";
+		return "AccelerationModel [slope=" + Helper.printDigit(slope) + ", intercept=" + Helper.printDigit(intercept) + "]";
 	}
 
 	double			slope;
@@ -26,34 +27,10 @@ public class ConstantDecelerationModel
 		return slope * revolutionCount + intercept;
 	}
 
-	// Use with the cutoff speed.
-	public double estimateTime(int currentRevolution, double cutoffSpeed)
+	ConstantDecelerationModel(SimpleRegression simpleRegression)
 	{
-		double revolutionCountLeft = (cutoffSpeed - intercept) / slope - currentRevolution;
-		if (revolutionCountLeft < 0)
-		{
-			throw new PositiveValueExpectedException();
-		}
-
-		int revolutionCountInteger = (int) Math.floor(revolutionCountLeft);
-		double remainingTime = 0.0;
-		for (int i = 1; i <= revolutionCountInteger; i++)
-		{
-			remainingTime += Helper.getTimeForOneBallLoop(estimateSpeed(currentRevolution + i));
-		}
-		double revolutionFloatLeft = revolutionCountLeft - revolutionCountInteger;
-
-		double avgSpeedLastRev = 0.5 * estimateSpeed(currentRevolution + revolutionCountInteger)
-				+ 0.5 * estimateSpeed(currentRevolution + revolutionCountInteger + 1);
-		remainingTime += revolutionFloatLeft * Helper.getTimeForOneBallLoop(avgSpeedLastRev);
-		return remainingTime;
-	}
-
-	ConstantDecelerationModel(double slope, double intercept, Constants.Type type)
-	{
-		this.slope = slope;
-		this.intercept = intercept;
-		this.type = type;
+		this.slope = simpleRegression.getSlope();
+		this.intercept = simpleRegression.getIntercept();
 		Logger.traceDEBUG(toString());
 	}
 

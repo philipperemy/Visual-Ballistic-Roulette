@@ -33,9 +33,8 @@ public class PredictorPhysicsLinearLaptimes implements Predictor
 		List<Double> ballDiffTimes = Helper.computeDiff(ballCumsumTimes);
 		List<Double> wheelDiffTimes = Helper.computeDiff(wheelCumsumTimes);
 
-		// LapTimeRegressionModel ballSpeedModel =
-		// LapTimeRegressionModel.performLinearRegressionTimes(ballDiffTimes);
-		LapTimeRegressionModel ballSpeedModel = LapTimeRegressionModel.performLinearRegressionTimes(ballDiffTimes);
+		List<Double> rangeBall = Helper.range(1, ballDiffTimes.size());
+		LapTimeRegressionModel ballSpeedModel = new LapTimeRegressionModel(Helper.performRegression(rangeBall, ballDiffTimes));
 		Logger.traceDEBUG("Ball Speed Model = " + ballSpeedModel);
 
 		double timeAtCutoffBall = HelperPhysics.estimateTimeForSpeed(cutOffSpeed, Constants.get_BALL_CIRCUMFERENCE(), ballSpeedModel);
@@ -65,7 +64,10 @@ public class PredictorPhysicsLinearLaptimes implements Predictor
 
 		} else if (wheelDiffTimesSize > 1)
 		{
-			LapTimeRegressionModel wheelSpeedModel = LapTimeRegressionModel.performLinearRegressionTimes(wheelDiffTimes);
+			List<Double> rangeWheel = Helper.range(1, wheelDiffTimes.size());
+			// ConstantDecelerationModel(regression.getSlope(),
+			// regression.getIntercept(), type);
+			LapTimeRegressionModel wheelSpeedModel = new LapTimeRegressionModel(Helper.performRegression(rangeWheel, wheelDiffTimes));
 			Logger.traceDEBUG("Wheel Speed Model = " + ballSpeedModel);
 
 			remainingDistance = HelperPhysics.estimateDistance(lastTimeBallPassesInFrontOfRef, lastTimeBallPassesInFrontOfRef + timeAtCutoffBall,

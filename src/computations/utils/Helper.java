@@ -4,7 +4,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.math3.stat.regression.SimpleRegression;
+
 import computations.Constants;
+import computations.predictor.physics.linearlaptimes.LapTimeRegressionModel;
 import utils.exception.CriticalException;
 
 public class Helper
@@ -108,6 +111,11 @@ public class Helper
 		return Constants.get_WHEEL_CIRCUMFERENCE() / (t2 - t1);
 	}
 
+	public static double getBallSpeed(double deltaT)
+	{
+		return getBallSpeed(0, deltaT);
+	}
+
 	// m/s
 	public static double getBallSpeed(double t1, double t2)
 	{
@@ -171,5 +179,33 @@ public class Helper
 			parts.add(new ArrayList<T>(list.subList(i, Math.min(N, i + L))));
 		}
 		return parts;
+	}
+
+	public static SimpleRegression performRegression(List<Double> _x, List<Double> _y)
+	{
+		int n = _x.size();
+		SimpleRegression regression = new SimpleRegression();
+		for (int i = 0; i < n; i++)
+		{
+			regression.addData(_x.get(i), _y.get(i));
+		}
+		return regression;
+	}
+
+	public static List<Double> range(int beg, int end)
+	{
+		List<Double> range = new ArrayList<>();
+		for (int i = beg; i <= end; i++)
+		{
+			range.add((double) i);
+		}
+		return range;
+	}
+
+	// Random - hyper parameters introduced.
+	public static LapTimeRegressionModel performRANSAC(List<Double> diffs)
+	{
+		List<Double> res = RANSAC.perform(diffs, 2, 100, 1, 0.2);
+		return new LapTimeRegressionModel(res.get(0), res.get(1));
 	}
 }

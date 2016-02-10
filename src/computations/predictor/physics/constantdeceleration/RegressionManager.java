@@ -3,44 +3,41 @@ package computations.predictor.physics.constantdeceleration;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.math3.stat.regression.SimpleRegression;
-
-import computations.Constants;
 import computations.utils.Helper;
+import utils.exception.PositiveValueExpectedException;
 
 public class RegressionManager
 {
-	// TODO: wrap that in a generic function. Input should be x[] and y[]
-	private static ConstantDecelerationModel performLinearRegression(List<Double> speeds, Constants.Type type)
+	// Use with the cutoff speed.
+	public static double estimateTime(ConstantDecelerationModel constantDecelerationModel, int currentRevolution, double cutoffSpeed)
 	{
-		int n = speeds.size();
-		double[] x = new double[n];
-		double[] y = new double[n];
-		for (int i = 0; i < n; i++)
+		double revolutionCountLeft = (cutoffSpeed - constantDecelerationModel.intercept) / constantDecelerationModel.slope - currentRevolution;
+		if (revolutionCountLeft < 0)
 		{
-			x[i] = (i + 1);
-			y[i] = speeds.get(i); // big difference is that
-									// here we dont inverse the
-									// speed.
+			throw new PositiveValueExpectedException();
 		}
 
-		SimpleRegression regression = new SimpleRegression();
-		for (int i = 0; i < n; i++)
+		int revolutionCountInteger = (int) Math.floor(revolutionCountLeft);
+		double remainingTime = 0.0;
+		for (int i = 1; i <= revolutionCountInteger; i++)
 		{
-			regression.addData(x[i], y[i]);
+			remainingTime += Helper.getTimeForOneBallLoop(constantDecelerationModel.estimateSpeed(currentRevolution + i));
 		}
+		double revolutionFloatLeft = revolutionCountLeft - revolutionCountInteger;
 
-		return new ConstantDecelerationModel(regression.getSlope(), regression.getIntercept(), type);
+		double avgSpeedLastRev = 0.5 * constantDecelerationModel.estimateSpeed(currentRevolution + revolutionCountInteger)
+				+ 0.5 * constantDecelerationModel.estimateSpeed(currentRevolution + revolutionCountInteger + 1);
+		remainingTime += revolutionFloatLeft * Helper.getTimeForOneBallLoop(avgSpeedLastRev);
+		return remainingTime;
 	}
 
-	// Only for the BALL now.
-	public static ConstantDecelerationModel computeModel(List<Double> times, Constants.Type type)
+	public static ConstantDecelerationModel computeModel(List<Double> diffTimes)
 	{
 		List<Double> speeds = new ArrayList<>();
-		for (Double ţime : times)
+		for (Double diffTime : diffTimes)
 		{
-			speeds.add(Helper.getBallSpeed(0, ţime));
+			speeds.add(Helper.getBallSpeed(diffTime));
 		}
-		return performLinearRegression(speeds, type);
+		return new ConstantDecelerationModel(Helper.performRegression(Helper.range(1, speeds.size()), speeds));
 	}
 }
