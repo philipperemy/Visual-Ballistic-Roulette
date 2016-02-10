@@ -8,6 +8,7 @@ import logger.Logger;
  * Assuming the deceleration is constant. (1/Y) = AX + B. According to Roulette
  * computers.com, it is true.
  */
+// TODO: integrate the physics model.
 class AccelerationModel
 {
 	@Override

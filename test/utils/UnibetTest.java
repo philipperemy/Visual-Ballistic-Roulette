@@ -25,11 +25,10 @@ public class UnibetTest
 			games.add(new Game(String.valueOf(i), dbRef));
 		}
 		PredictorInterface predictorInterface = new PredictorInterface();
-		Predictor predictor = predictorInterface.statisticalAnalysis2();
+		Predictor predictor = predictorInterface.machineLearning();
 		KFoldCrossValidationTest kfcv = new KFoldCrossValidationTest(games, predictor, dbRef, 2);
 		System.out.println(kfcv.getError());
 
 		System.out.println(kfcv.evaluate(games, new FilterSessionIds()));
 	}
-
 }

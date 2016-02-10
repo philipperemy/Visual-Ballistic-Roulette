@@ -9,6 +9,7 @@ public class Phase
 {
 	// We want to find the number of the wheel where the ball passes in front of
 	// the mark.
+	// TODO: use last diff
 	public static int findPhaseNumberBetweenBallAndWheel(double timeOfBallInFrontOfMark, double timeOfWheelInFrontOfMark, double lastWheelSpeed,
 			WheelWay way)
 	{

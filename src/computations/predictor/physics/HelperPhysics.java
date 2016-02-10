@@ -5,8 +5,6 @@ import exceptions.PositiveValueExpectedException;
 
 public class HelperPhysics
 {
-
-	// To be tested.
 	public static double estimatePhaseAngleDegrees(double remainingDistance, double circumference)
 	{
 		double revolutions_left = remainingDistance / circumference;
@@ -20,7 +18,6 @@ public class HelperPhysics
 		return (int) Math.round(Wheel.NUMBERS.length * angleAtCutOffTime / 360);
 	}
 
-	// OKAY. To be tested.
 	// speed_function_shifted_b = @(x)
 	// 2*ball_track_circumference/sqrt(8*a*x+(2*b+a)^2);
 	public static double estimateSpeed(double x, double circumference, LapTimeRegressionModel lrv) throws PositiveValueExpectedException
@@ -48,7 +45,6 @@ public class HelperPhysics
 		return dist;
 	}
 
-	// To be tested
 	// Inverse function for speed and not shifted_speed!
 	// inv_speed_function = @(x)
 	// (4*ball_track_circumference^2-x^2*(2*b+a)^2)/(8*a*x^2)+b;
@@ -76,7 +72,6 @@ public class HelperPhysics
 		return time;
 	}
 
-	// To be tested
 	// @(x)
 	// ball_track_circumference*0.5/a*(sqrt((a+2*b)^2-4*a*(2*b-2*x))-(a+2*b));
 	private static double primitiveSpeed(double x, double circumference, double a, double b)

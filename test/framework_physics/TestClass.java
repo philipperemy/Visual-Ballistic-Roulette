@@ -6,25 +6,22 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
+import computations.predictor.ml.model.DataRecord;
 import computations.predictor.statistical.PredictorStatisticalAnalysis;
 import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;
-import servlets.Response;
 import utils.TestResult;
 
 public abstract class TestClass
 {
 	public static DatabaseAccessorInterface	dbRef;
-	protected static Response				response;
 	protected Map<Integer, Game>			games	= new HashMap<>();
 
 	@BeforeClass
 	public static void setUp()
 	{
 		dbRef = DatabaseAccessor.getInstance();
-		response = new Response(dbRef);
-		response.da = dbRef;
-		response.clearCache();
+		DataRecord.clearCache();
 	}
 
 	@Before

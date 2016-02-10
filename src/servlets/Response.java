@@ -121,11 +121,11 @@ public class Response extends HttpServlet
 
 		// use a predictor big interface here.
 
-		// int mostProbableNumberML =
-		// pr.machineLearning().predict(ballLapTimesSeconds,
-		// wheelLapTimesSeconds, sessionId);
-		int mostProbableNumberPH = pr.physics().predict(ballCumsumTimesSeconds, wheelCumsumTimesSeconds);
-		return mostProbableNumberPH;
+		int mostProbableNumberML = pr.machineLearning().predict(ballCumsumTimesSeconds, wheelCumsumTimesSeconds);
+		// int mostProbableNumberPH =
+		// pr.physics().predict(ballCumsumTimesSeconds,
+		// wheelCumsumTimesSeconds);
+		return mostProbableNumberML;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

@@ -71,7 +71,6 @@ public class UnibetTest extends TestClass
 					}
 
 					error /= errorCount;
-
 					if (error < best_error)
 					{
 						best_error = error;

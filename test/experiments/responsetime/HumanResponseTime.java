@@ -1,4 +1,4 @@
-package responsetime;
+package experiments.responsetime;
 
 import java.util.HashMap;
 import java.util.Map;

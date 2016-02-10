@@ -40,26 +40,16 @@ public class PredictorMachineLearning implements Predictor
 	{
 		for (String sessionId : sessionIds)
 		{
-			// SessionID = GameID
-			List<Double> ballLapTimes = da.selectBallLapTimes(sessionId);
-			List<Double> wheelLapTimes = da.selectWheelLapTimes(sessionId);
+			List<Double> ballCumsumTimes = computations.utils.Helper.convertToSeconds(da.selectBallLapTimes(sessionId));
+			List<Double> wheelCumsumTimes = computations.utils.Helper.convertToSeconds(da.selectWheelLapTimes(sessionId));
 
-			// TODO:remove it please!!
-			if (ballLapTimes.size() > 5)
-			{
-				ballLapTimes = ballLapTimes.subList(0, ballLapTimes.size() - 5);
-			}
-
-			List<Double> wheelLapTimesSeconds = computations.utils.Helper.convertToSeconds(wheelLapTimes);
-			List<Double> ballLapTimesSeconds = computations.utils.Helper.convertToSeconds(ballLapTimes);
-
-			if (wheelLapTimes.isEmpty())
+			if (wheelCumsumTimes.isEmpty())
 			{
 				Logger.traceERROR("Wheel lap times are empty for session id = " + sessionId + ". Ignoring this game.");
 				continue;
 			}
 
-			if (ballLapTimes.isEmpty())
+			if (ballCumsumTimes.isEmpty())
 			{
 				Logger.traceERROR("Ball lap times are empty for session id = " + sessionId + ". Ignoring this game.");
 				continue;
@@ -67,7 +57,7 @@ public class PredictorMachineLearning implements Predictor
 
 			try
 			{
-				List<DataRecord> records = buildDataRecords(ballLapTimesSeconds, wheelLapTimesSeconds);
+				List<DataRecord> records = buildDataRecords(ballCumsumTimes, wheelCumsumTimes);
 				for (DataRecord record : records)
 				{
 					Outcome outcome = da.getOutcome(sessionId);
@@ -134,5 +124,4 @@ public class PredictorMachineLearning implements Predictor
 
 		return dataRecords;
 	}
-
 }

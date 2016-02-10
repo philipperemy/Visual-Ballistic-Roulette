@@ -5,22 +5,19 @@ import java.util.List;
 import java.util.Map;
 
 import computations.predictor.Predictor;
+import computations.predictor.ml.model.DataRecord;
 import database.DatabaseAccessorInterface;
-import servlets.Response;
 
 public abstract class TestClass
 {
 	public DatabaseAccessorInterface	dbRef;
-	protected Response					response;
 	protected Map<Integer, Game>		games	= new HashMap<>();
 	protected Predictor					predictor;
 
 	public TestClass(Predictor predictor, DatabaseAccessorInterface dbRef)
 	{
 		this.dbRef = dbRef;
-		response = new Response(dbRef);
-		response.da = dbRef;
-		response.clearCache();
+		DataRecord.clearCache();
 		this.predictor = predictor;
 	}
 
@@ -29,7 +26,7 @@ public abstract class TestClass
 		Integer actualOutcome = null;
 		try
 		{
-			response.clearCache();
+			DataRecord.clearCache();
 			predictor.init(dbRef, sessionIdsToPutInDatabase);
 			actualOutcome = predictor.predict(predict.get_ballLaptimes(), predict.get_wheelLaptimes());
 		} catch (Exception e)
@@ -37,10 +34,10 @@ public abstract class TestClass
 			throw new RuntimeException(e);
 		} finally
 		{
-			response.clearCache();
+			DataRecord.clearCache();
 		}
 
-		TestResult testResult = new TestResult();
+		TestResult testResult = new TestResult2();
 		testResult.expected = predict.get_outcome();
 		testResult.actual = actualOutcome;
 		return testResult;

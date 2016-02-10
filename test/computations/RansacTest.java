@@ -1,4 +1,4 @@
-package framework_physics;
+package computations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.junit.Test;
 import computations.predictor.physics.ransac.RANSAC;
 import computations.utils.Helper;
 
-public class Ransac
+public class RansacTest
 {
 	@Test
 	public void test_ransac()

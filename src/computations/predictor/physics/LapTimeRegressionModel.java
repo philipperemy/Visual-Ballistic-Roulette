@@ -18,11 +18,6 @@ public class LapTimeRegressionModel
 		this.intercept = intercept;
 	}
 
-	public double predict(double revolutionCount)
-	{
-		return slope * revolutionCount + intercept;
-	}
-
 	@Override
 	public String toString()
 	{

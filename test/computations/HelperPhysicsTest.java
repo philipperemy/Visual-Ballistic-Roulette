@@ -1,4 +1,4 @@
-package physics;
+package computations;
 
 import org.junit.Assert;
 import org.junit.Test;

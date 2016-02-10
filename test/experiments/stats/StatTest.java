@@ -1,4 +1,4 @@
-package stats;
+package experiments.stats;
 
 import java.util.ArrayList;
 import java.util.Arrays;
