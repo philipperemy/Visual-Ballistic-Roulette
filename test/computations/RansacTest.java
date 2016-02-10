@@ -6,8 +6,8 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import computations.predictor.physics.ransac.RANSAC;
 import computations.utils.Helper;
+import computations.utils.RANSAC;
 
 public class RansacTest
 {

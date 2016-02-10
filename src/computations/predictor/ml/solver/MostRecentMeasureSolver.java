@@ -5,7 +5,7 @@ import java.util.List;
 import computations.predictor.ml.PredictorMachineLearning;
 import computations.predictor.ml.model.DataRecord;
 import computations.utils.Helper;
-import logger.Logger;
+import utils.logger.Logger;
 
 public class MostRecentMeasureSolver implements PredictorSolver
 {

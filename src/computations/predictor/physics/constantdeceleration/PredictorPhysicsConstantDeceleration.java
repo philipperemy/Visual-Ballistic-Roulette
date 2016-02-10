@@ -1,19 +1,17 @@
-package computations.predictor.statistical;
+package computations.predictor.physics.constantdeceleration;
 
 import java.util.List;
 
 import computations.Constants;
+import computations.Wheel;
 import computations.predictor.Phase;
 import computations.predictor.Predictor;
-import computations.predictor.physics.HelperPhysics;
-import computations.predictor.statistical.stats2.ConstantAccelerationModel;
-import computations.predictor.statistical.stats2.RegressionManager;
+import computations.predictor.physics.linearlaptimes.HelperPhysics;
 import computations.utils.Helper;
-import computations.wheel.Wheel;
 import database.DatabaseAccessorInterface;
-import logger.Logger;
+import utils.logger.Logger;
 
-public class PredictorStatisticalAnalysis2 implements Predictor
+public class PredictorPhysicsConstantDeceleration implements Predictor
 {
 	public int predict(List<Double> ballCumsumTimes, List<Double> wheelCumsumTimes)
 	{
@@ -29,7 +27,7 @@ public class PredictorStatisticalAnalysis2 implements Predictor
 
 		double constantWheelSpeed = Helper.getWheelSpeed(0, Helper.peek(wheelDiffTimes)); // trick
 
-		ConstantAccelerationModel ballModel = RegressionManager.computeModel(ballDiffTimes, Constants.Type.BALL);
+		ConstantDecelerationModel ballModel = RegressionManager.computeModel(ballDiffTimes, Constants.Type.BALL);
 
 		double cutoffSpeed = Constants.CUTOFF_SPEED;
 		double remainingTime = ballModel.estimateTime(ballDiffTimes.size(), cutoffSpeed);

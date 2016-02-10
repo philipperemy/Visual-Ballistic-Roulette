@@ -1,4 +1,4 @@
-package exceptions;
+package utils.exception;
 
 public class SessionNotReadyException extends Exception
 {

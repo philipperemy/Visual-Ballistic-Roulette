@@ -1,4 +1,4 @@
-package computations.predictor.statistical.stats;
+package computations.predictor.statistical;
 
 import java.util.Map;
 import java.util.Map.Entry;

@@ -2,8 +2,8 @@ package computations;
 
 import org.junit.Assert;
 
-import exceptions.SessionNotReadyException;
 import servlets.Response;
+import utils.exception.SessionNotReadyException;
 
 public class TestServlet
 {

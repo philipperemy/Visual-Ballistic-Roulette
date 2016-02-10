@@ -1,4 +1,4 @@
-package computations.predictor.statistical.stats2;
+package computations.predictor.physics.constantdeceleration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,8 @@ import computations.utils.Helper;
 
 public class RegressionManager
 {
-	private static ConstantAccelerationModel performLinearRegression(List<Double> speeds, Constants.Type type)
+	// TODO: wrap that in a generic function. Input should be x[] and y[]
+	private static ConstantDecelerationModel performLinearRegression(List<Double> speeds, Constants.Type type)
 	{
 		int n = speeds.size();
 		double[] x = new double[n];
@@ -29,11 +30,11 @@ public class RegressionManager
 			regression.addData(x[i], y[i]);
 		}
 
-		return new ConstantAccelerationModel(regression.getSlope(), regression.getIntercept(), type);
+		return new ConstantDecelerationModel(regression.getSlope(), regression.getIntercept(), type);
 	}
 
 	// Only for the BALL now.
-	public static ConstantAccelerationModel computeModel(List<Double> times, Constants.Type type)
+	public static ConstantDecelerationModel computeModel(List<Double> times, Constants.Type type)
 	{
 		List<Double> speeds = new ArrayList<>();
 		for (Double ţime : times)

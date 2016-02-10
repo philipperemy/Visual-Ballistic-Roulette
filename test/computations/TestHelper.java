@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import computations.utils.GaussianNoiseGenerator;
 import computations.utils.Helper;
-import logger.Logger;
+import utils.logger.Logger;
 
 public class TestHelper
 {

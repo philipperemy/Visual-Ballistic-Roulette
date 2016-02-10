@@ -6,7 +6,7 @@ import java.util.List;
 import computations.predictor.OutcomeStatistics;
 import computations.predictor.ml.PredictorMachineLearning;
 import computations.predictor.ml.model.DataRecord;
-import logger.Logger;
+import utils.logger.Logger;
 
 public class AllKnownMeasuresSolver implements PredictorSolver
 {

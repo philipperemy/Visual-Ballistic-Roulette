@@ -1,18 +1,18 @@
 package computations.predictor;
 
 import computations.predictor.ml.PredictorMachineLearning;
-import computations.predictor.physics.PredictorPhysics;
+import computations.predictor.physics.constantdeceleration.PredictorPhysicsConstantDeceleration;
+import computations.predictor.physics.linearlaptimes.PredictorPhysicsLinearLaptimes;
 import computations.predictor.statistical.PredictorStatisticalAnalysis;
-import computations.predictor.statistical.PredictorStatisticalAnalysis2;
 
 public class PredictorInterface
 {
-	private volatile Predictor					predictorMachineLearning		= new PredictorMachineLearning();
-	private volatile Predictor					predictorPhysics				= new PredictorPhysics();
-	private volatile Predictor					predictorStatisticalAnalysis	= new PredictorStatisticalAnalysis();
-	private volatile Predictor					predictorStatisticalAnalysis2	= new PredictorStatisticalAnalysis2();
+	private volatile Predictor					predictorMachineLearning				= new PredictorMachineLearning();
+	private volatile Predictor					physicsLinearLapTimes					= new PredictorPhysicsLinearLaptimes();
+	private volatile Predictor					predictorStatisticalAnalysis			= new PredictorStatisticalAnalysis();
+	private volatile Predictor					predictorPhysicsConstantDeceleration	= new PredictorPhysicsConstantDeceleration();
 
-	private static volatile PredictorInterface	instance						= PredictorInterface.getInstance();
+	private static volatile PredictorInterface	instance								= PredictorInterface.getInstance();
 
 	public static PredictorInterface getInstance()
 	{
@@ -28,9 +28,9 @@ public class PredictorInterface
 		return predictorMachineLearning;
 	}
 
-	public Predictor physics()
+	public Predictor physicsLinearLapTimes()
 	{
-		return predictorPhysics;
+		return physicsLinearLapTimes;
 	}
 
 	public Predictor statisticalAnalysis()
@@ -38,8 +38,8 @@ public class PredictorInterface
 		return predictorStatisticalAnalysis;
 	}
 
-	public Predictor statisticalAnalysis2()
+	public Predictor physicsConstantDeceleration()
 	{
-		return predictorStatisticalAnalysis2;
+		return predictorPhysicsConstantDeceleration;
 	}
 }

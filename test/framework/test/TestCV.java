@@ -7,7 +7,7 @@ import org.junit.Test;
 import framework.CrossValidationLeaveOneOut;
 import framework.TestClass;
 import framework.games.Game;
-import logger.Logger;
+import utils.logger.Logger;
 
 public class TestCV extends TestClass
 {

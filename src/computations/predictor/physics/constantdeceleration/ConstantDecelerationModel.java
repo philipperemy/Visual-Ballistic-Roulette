@@ -1,15 +1,15 @@
-package computations.predictor.statistical.stats2;
+package computations.predictor.physics.constantdeceleration;
 
 import computations.Constants;
 import computations.utils.Helper;
-import exceptions.PositiveValueExpectedException;
-import logger.Logger;
+import utils.exception.PositiveValueExpectedException;
+import utils.logger.Logger;
 
 /**
  * UNIBET case. The deceleration is constant, meaning that V(t) = At+b where
  * A<0. This is not the case of Roulette computers.com, it is true.
  */
-public class ConstantAccelerationModel
+public class ConstantDecelerationModel
 {
 	@Override
 	public String toString()
@@ -49,7 +49,7 @@ public class ConstantAccelerationModel
 		return remainingTime;
 	}
 
-	ConstantAccelerationModel(double slope, double intercept, Constants.Type type)
+	ConstantDecelerationModel(double slope, double intercept, Constants.Type type)
 	{
 		this.slope = slope;
 		this.intercept = intercept;

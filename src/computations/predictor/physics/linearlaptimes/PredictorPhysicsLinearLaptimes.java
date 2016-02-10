@@ -1,18 +1,18 @@
-package computations.predictor.physics;
+package computations.predictor.physics.linearlaptimes;
 
 import java.util.List;
 
 import computations.Constants;
+import computations.Wheel;
 import computations.predictor.Phase;
 import computations.predictor.Predictor;
 import computations.utils.Helper;
-import computations.wheel.Wheel;
 import database.DatabaseAccessorInterface;
-import exceptions.CriticalException;
-import exceptions.PositiveValueExpectedException;
-import logger.Logger;
+import utils.exception.CriticalException;
+import utils.exception.PositiveValueExpectedException;
+import utils.logger.Logger;
 
-public class PredictorPhysics implements Predictor
+public class PredictorPhysicsLinearLaptimes implements Predictor
 {
 	public int predict(List<Double> ballCumsumTimes, List<Double> wheelCumsumTimes)
 	{

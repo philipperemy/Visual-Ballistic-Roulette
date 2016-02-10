@@ -8,10 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import computations.session.SessionManager;
 import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;
-import logger.Logger;
+import utils.logger.Logger;
 
 //http://localhost:8080/RouletteServer/Request?ts=121212&type=wheel
 @WebServlet("/Request")

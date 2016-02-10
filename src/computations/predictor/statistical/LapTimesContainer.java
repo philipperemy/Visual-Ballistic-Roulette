@@ -1,4 +1,4 @@
-package computations.predictor.statistical.stats;
+package computations.predictor.statistical;
 
 import java.util.ArrayList;
 import java.util.List;

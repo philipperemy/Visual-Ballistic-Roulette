@@ -6,7 +6,7 @@ import computations.Constants;
 import framework.CrossValidationLeaveOneOut;
 import framework.TestClass;
 import framework.games.Game;
-import logger.Logger;
+import utils.logger.Logger;
 
 public class OptimizeParameters extends TestClass
 {

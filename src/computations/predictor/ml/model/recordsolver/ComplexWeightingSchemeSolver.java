@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import computations.Constants;
+import computations.Wheel;
 import computations.predictor.OutcomeStatistics;
 import computations.predictor.ml.model.DataRecord;
-import computations.wheel.Wheel;
-import logger.Logger;
+import utils.logger.Logger;
 
 public class ComplexWeightingSchemeSolver implements OutcomeSolver
 {

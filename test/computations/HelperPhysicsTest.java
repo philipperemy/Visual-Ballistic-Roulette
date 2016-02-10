@@ -4,9 +4,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import computations.Constants;
-import computations.predictor.physics.HelperPhysics;
-import computations.predictor.physics.LapTimeRegressionModel;
-import exceptions.PositiveValueExpectedException;
+import computations.predictor.physics.linearlaptimes.HelperPhysics;
+import computations.predictor.physics.linearlaptimes.LapTimeRegressionModel;
+import utils.exception.PositiveValueExpectedException;
 
 public class HelperPhysicsTest
 {

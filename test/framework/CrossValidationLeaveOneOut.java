@@ -6,8 +6,8 @@ import java.util.List;
 import computations.predictor.ml.model.DataRecord;
 import database.DatabaseAccessorStub;
 import framework.games.Game;
-import logger.Logger;
 import utils.TestResult;
+import utils.logger.Logger;
 
 public class CrossValidationLeaveOneOut
 {

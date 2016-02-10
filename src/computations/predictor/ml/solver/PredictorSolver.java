@@ -4,7 +4,7 @@ import java.util.List;
 
 import computations.predictor.ml.PredictorMachineLearning;
 import computations.predictor.ml.model.DataRecord;
-import exceptions.CriticalException;
+import utils.exception.CriticalException;
 
 public interface PredictorSolver
 {

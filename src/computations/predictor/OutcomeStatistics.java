@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import computations.Wheel;
 import computations.utils.Helper;
-import computations.wheel.Wheel;
-import exceptions.CriticalException;
-import logger.Logger;
+import utils.exception.CriticalException;
+import utils.logger.Logger;
 
 public class OutcomeStatistics
 {

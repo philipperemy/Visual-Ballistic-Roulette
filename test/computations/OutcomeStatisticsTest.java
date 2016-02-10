@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import computations.predictor.OutcomeStatistics;
-import exceptions.SessionNotReadyException;
+import utils.exception.SessionNotReadyException;
 
 public class OutcomeStatisticsTest
 {

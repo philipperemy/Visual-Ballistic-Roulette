@@ -5,10 +5,9 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
+import computations.Wheel.WheelWay;
 import computations.predictor.Phase;
 import computations.utils.Helper;
-import computations.wheel.Wheel;
-import computations.wheel.Wheel.WheelWay;
 
 public class TestWheel
 {

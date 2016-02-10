@@ -7,10 +7,10 @@ import java.util.List;
 import org.junit.Test;
 
 import computations.predictor.statistical.PredictorStatisticalAnalysis;
-import computations.predictor.statistical.stats.StatisticalLapTimesModel;
+import computations.predictor.statistical.StatisticalLapTimesModel;
 import computations.utils.Helper;
-import exceptions.SessionNotReadyException;
-import logger.Logger;
+import utils.exception.SessionNotReadyException;
+import utils.logger.Logger;
 
 public class StatTest
 {

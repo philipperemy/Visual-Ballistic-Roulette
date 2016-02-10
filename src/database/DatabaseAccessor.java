@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import computations.Constants;
-import exceptions.CriticalException;
-import logger.Logger;
+import computations.predictor.Outcome;
+import utils.exception.CriticalException;
+import utils.logger.Logger;
 
 public final class DatabaseAccessor implements DatabaseAccessorInterface
 {

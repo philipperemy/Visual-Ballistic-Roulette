@@ -12,12 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import computations.Constants;
 import computations.predictor.PredictorInterface;
 import computations.predictor.ml.model.DataRecord;
-import computations.session.SessionManager;
 import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;
-import exceptions.PositiveValueExpectedException;
-import exceptions.SessionNotReadyException;
-import logger.Logger;
+import utils.exception.PositiveValueExpectedException;
+import utils.exception.SessionNotReadyException;
+import utils.logger.Logger;
 
 //http://localhost:8080/RouletteServer/Response
 @WebServlet("/Response")
@@ -120,11 +119,7 @@ public class Response extends HttpServlet
 		List<Double> ballCumsumTimesSeconds = computations.utils.Helper.convertToSeconds(ballCumsumTimes);
 
 		// use a predictor big interface here.
-
 		int mostProbableNumberML = pr.machineLearning().predict(ballCumsumTimesSeconds, wheelCumsumTimesSeconds);
-		// int mostProbableNumberPH =
-		// pr.physics().predict(ballCumsumTimesSeconds,
-		// wheelCumsumTimesSeconds);
 		return mostProbableNumberML;
 	}
 

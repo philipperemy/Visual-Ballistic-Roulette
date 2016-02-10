@@ -7,11 +7,11 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import computations.Constants;
+import computations.Wheel.WheelWay;
 import computations.predictor.ml.model.recordsolver.OutcomeSolver;
 import computations.utils.Helper;
-import computations.wheel.Wheel.WheelWay;
-import exceptions.CriticalException;
-import logger.Logger;
+import utils.exception.CriticalException;
+import utils.logger.Logger;
 
 public class DataRecord
 {

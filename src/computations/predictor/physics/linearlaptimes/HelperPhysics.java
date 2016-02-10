@@ -1,7 +1,7 @@
-package computations.predictor.physics;
+package computations.predictor.physics.linearlaptimes;
 
-import computations.wheel.Wheel;
-import exceptions.PositiveValueExpectedException;
+import computations.Wheel;
+import utils.exception.PositiveValueExpectedException;
 
 public class HelperPhysics
 {

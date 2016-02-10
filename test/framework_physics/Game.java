@@ -3,8 +3,8 @@ package framework_physics;
 import java.util.ArrayList;
 import java.util.List;
 
+import computations.predictor.Outcome;
 import database.DatabaseAccessorInterface;
-import database.Outcome;
 
 public class Game
 {

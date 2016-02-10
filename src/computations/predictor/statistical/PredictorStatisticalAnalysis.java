@@ -3,16 +3,15 @@ package computations.predictor.statistical;
 import java.util.List;
 
 import computations.Constants;
+import computations.Wheel;
 import computations.predictor.Phase;
 import computations.predictor.Predictor;
-import computations.predictor.physics.HelperPhysics;
-import computations.predictor.statistical.stats.StatisticalLapTimesModel;
+import computations.predictor.physics.linearlaptimes.HelperPhysics;
 import computations.utils.Helper;
-import computations.wheel.Wheel;
 import database.DatabaseAccessorInterface;
-import exceptions.CriticalException;
-import exceptions.InitializationRequiredException;
-import logger.Logger;
+import utils.exception.CriticalException;
+import utils.exception.InitializationRequiredException;
+import utils.logger.Logger;
 
 public class PredictorStatisticalAnalysis implements Predictor
 {

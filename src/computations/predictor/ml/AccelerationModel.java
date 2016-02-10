@@ -2,7 +2,7 @@ package computations.predictor.ml;
 
 import computations.Constants;
 import computations.utils.Helper;
-import logger.Logger;
+import utils.logger.Logger;
 
 /**
  * Assuming the deceleration is constant. (1/Y) = AX + B. According to Roulette

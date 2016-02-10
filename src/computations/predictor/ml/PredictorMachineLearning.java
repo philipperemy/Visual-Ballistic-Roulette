@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import computations.Constants;
+import computations.predictor.Outcome;
 import computations.predictor.Phase;
 import computations.predictor.Predictor;
 import computations.predictor.ml.model.DataRecord;
 import computations.predictor.ml.solver.PredictorSolver;
 import computations.utils.Helper;
 import database.DatabaseAccessorInterface;
-import database.Outcome;
-import logger.Logger;
+import utils.logger.Logger;
 
 public class PredictorMachineLearning implements Predictor
 {

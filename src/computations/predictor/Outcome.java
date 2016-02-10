@@ -1,4 +1,4 @@
-package database;
+package computations.predictor;
 
 public class Outcome
 {

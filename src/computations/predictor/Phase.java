@@ -1,9 +1,9 @@
 package computations.predictor;
 
+import computations.Wheel;
+import computations.Wheel.WheelWay;
 import computations.utils.Helper;
-import computations.wheel.Wheel;
-import computations.wheel.Wheel.WheelWay;
-import exceptions.CriticalException;
+import utils.exception.CriticalException;
 
 public class Phase
 {

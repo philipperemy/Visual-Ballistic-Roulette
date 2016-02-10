@@ -1,6 +1,6 @@
-package computations.wheel;
+package computations;
 
-import exceptions.CriticalException;
+import utils.exception.CriticalException;
 
 public class Wheel
 {

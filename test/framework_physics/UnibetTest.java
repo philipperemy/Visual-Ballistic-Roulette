@@ -8,7 +8,7 @@ import org.junit.Test;
 import computations.Constants;
 import computations.utils.Helper;
 import framework_physics.cv.KFoldCrossValidation;
-import logger.Logger;
+import utils.logger.Logger;
 
 public class UnibetTest extends TestClass
 {

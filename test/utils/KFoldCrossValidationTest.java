@@ -6,9 +6,9 @@ import java.util.List;
 import computations.Constants;
 import computations.predictor.Predictor;
 import computations.predictor.ml.PredictorMachineLearning;
-import computations.predictor.physics.PredictorPhysics;
+import computations.predictor.physics.constantdeceleration.PredictorPhysicsConstantDeceleration;
+import computations.predictor.physics.linearlaptimes.PredictorPhysicsLinearLaptimes;
 import computations.predictor.statistical.PredictorStatisticalAnalysis;
-import computations.predictor.statistical.PredictorStatisticalAnalysis2;
 import computations.utils.Helper;
 import database.DatabaseAccessorInterface;
 
@@ -43,7 +43,7 @@ public class KFoldCrossValidationTest extends TestClass
 			if (predictor instanceof PredictorMachineLearning)
 			{
 				error += runCrossValidationMachineLearning(trainingSet, validationSet);
-			} else if (predictor instanceof PredictorPhysics | predictor instanceof PredictorStatisticalAnalysis2)
+			} else if (predictor instanceof PredictorPhysicsLinearLaptimes | predictor instanceof PredictorPhysicsConstantDeceleration)
 			{
 				error += runCrossValidationPhysics(trainingSet, validationSet);
 			} else if (predictor instanceof PredictorStatisticalAnalysis)

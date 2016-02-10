@@ -7,7 +7,7 @@ import computations.Constants;
 import computations.predictor.OutcomeStatistics;
 import computations.predictor.ml.PredictorMachineLearning;
 import computations.predictor.ml.model.DataRecord;
-import logger.Logger;
+import utils.logger.Logger;
 
 public class FixedMostRecentMeasuresSolver implements PredictorSolver
 {

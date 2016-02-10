@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import computations.Constants;
-import exceptions.CriticalException;
+import utils.exception.CriticalException;
 
 public class Helper
 {

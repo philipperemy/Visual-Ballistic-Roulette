@@ -1,10 +1,10 @@
 package computations;
 
+import computations.Wheel.WheelWay;
 import computations.predictor.ml.model.recordsolver.ComplexWeightingSchemeSolver;
 import computations.predictor.ml.model.recordsolver.OutcomeSolver;
 import computations.predictor.ml.solver.FixedMostRecentMeasuresSolver;
 import computations.predictor.ml.solver.PredictorSolver;
-import computations.wheel.Wheel.WheelWay;
 
 public class Constants
 {

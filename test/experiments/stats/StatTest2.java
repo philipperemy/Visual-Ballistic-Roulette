@@ -6,10 +6,10 @@ import java.util.List;
 import org.junit.Test;
 
 import computations.Constants;
-import computations.predictor.statistical.PredictorStatisticalAnalysis2;
+import computations.predictor.physics.constantdeceleration.PredictorPhysicsConstantDeceleration;
 import computations.utils.Helper;
-import exceptions.SessionNotReadyException;
-import logger.Logger;
+import utils.exception.SessionNotReadyException;
+import utils.logger.Logger;
 
 public class StatTest2
 {
@@ -40,7 +40,7 @@ public class StatTest2
 	{
 		Constants.CASE_DIAMETER = 0.65;
 
-		PredictorStatisticalAnalysis2 predictor = new PredictorStatisticalAnalysis2();
+		PredictorPhysicsConstantDeceleration predictor = new PredictorPhysicsConstantDeceleration();
 
 		List<Double> wheelCumsumTimes = Arrays.asList(1.0, 4.0);
 		a1 = a1.subList(0, a1.size() - 3);

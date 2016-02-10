@@ -1,11 +1,11 @@
-package computations.predictor.physics;
+package computations.predictor.physics.linearlaptimes;
 
 import java.util.List;
 
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
-import computations.predictor.physics.ransac.RANSAC;
 import computations.utils.Helper;
+import computations.utils.RANSAC;
 
 public class LapTimeRegressionModel
 {

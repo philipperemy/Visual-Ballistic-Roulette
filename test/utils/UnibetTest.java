@@ -9,8 +9,8 @@ import computations.predictor.Predictor;
 import computations.predictor.PredictorInterface;
 import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;
-import logger.Logger;
 import utils.KFoldCrossValidationTest.FilterSessionIds;
+import utils.logger.Logger;
 
 public class UnibetTest
 {
@@ -25,7 +25,7 @@ public class UnibetTest
 			games.add(new Game(String.valueOf(i), dbRef));
 		}
 		PredictorInterface predictorInterface = new PredictorInterface();
-		Predictor predictor = predictorInterface.machineLearning();
+		Predictor predictor = predictorInterface.physicsLinearLapTimes();
 		KFoldCrossValidationTest kfcv = new KFoldCrossValidationTest(games, predictor, dbRef, 2);
 		System.out.println(kfcv.getError());
 

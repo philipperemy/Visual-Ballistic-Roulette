@@ -1,8 +1,8 @@
-package computations.session;
+package servlets;
 
 import computations.Constants;
 import database.DatabaseAccessorInterface;
-import logger.Logger;
+import utils.logger.Logger;
 
 /**
  * A session corresponds to a game played or measured

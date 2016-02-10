@@ -6,16 +6,16 @@ import java.util.List;
 
 import org.junit.Test;
 
+import computations.Wheel;
 import computations.predictor.Predictor;
 import computations.predictor.PredictorInterface;
-import computations.predictor.statistical.PredictorStatisticalAnalysis2;
-import computations.wheel.Wheel;
+import computations.predictor.physics.constantdeceleration.PredictorPhysicsConstantDeceleration;
 import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;
-import logger.Logger;
 import utils.Game;
 import utils.KFoldCrossValidationTest;
 import utils.KFoldCrossValidationTest.FilterSessionIds;
+import utils.logger.Logger;
 
 public class UnibetVideo
 {
@@ -36,14 +36,13 @@ public class UnibetVideo
 
 	}
 
-	@Test
 	public void test()
 	{
 		List<Double> ballCumsumTimes = Arrays.asList(11.799, 12.350, 13.050, 13.716, 14.399, 15.166, 15.933, 16.816, 17.850, 19.250, 20.899, 22.816,
 				24.833, 27.050);
 		List<Double> wheelCumsumTimes = Arrays.asList(11.999, 16.616, 21.299, 26.050);
 
-		PredictorStatisticalAnalysis2 py = new PredictorStatisticalAnalysis2();
+		PredictorPhysicsConstantDeceleration py = new PredictorPhysicsConstantDeceleration();
 
 		int pred = py.predict(ballCumsumTimes, wheelCumsumTimes);
 		System.out.println(pred);

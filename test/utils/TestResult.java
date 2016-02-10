@@ -1,6 +1,6 @@
 package utils;
 
-import computations.wheel.Wheel;
+import computations.Wheel;
 
 public class TestResult
 {

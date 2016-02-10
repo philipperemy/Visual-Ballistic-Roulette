@@ -1,4 +1,4 @@
-package computations.predictor.statistical.stats;
+package computations.predictor.statistical;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-import exceptions.InitializationRequiredException;
-import logger.Logger;
+import utils.exception.InitializationRequiredException;
+import utils.logger.Logger;
 
 public class StatisticalLapTimesModel
 {
