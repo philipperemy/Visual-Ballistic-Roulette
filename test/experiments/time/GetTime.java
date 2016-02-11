@@ -1,4 +1,4 @@
-package framework.time;
+package experiments.time;
 
 public class GetTime
 {

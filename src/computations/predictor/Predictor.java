@@ -12,4 +12,6 @@ public interface Predictor
 	public void init(DatabaseAccessorInterface da, List<String> sessionIds);
 
 	public int predict(List<Double> ballLapTimes, List<Double> wheelLapTimes);
+
+	public void clear();
 }

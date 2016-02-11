@@ -124,4 +124,10 @@ public class PredictorMachineLearning implements Predictor
 
 		return dataRecords;
 	}
+
+	@Override
+	public void clear()
+	{
+		DataRecord.clearCache();
+	}
 }

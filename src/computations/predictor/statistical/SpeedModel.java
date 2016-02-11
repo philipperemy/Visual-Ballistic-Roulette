@@ -9,7 +9,6 @@ import java.util.TreeMap;
  */
 public class SpeedModel
 {
-
 	// ContainerId <-> speed.
 	private Map<Integer, Double> speeds = new TreeMap<>();
 

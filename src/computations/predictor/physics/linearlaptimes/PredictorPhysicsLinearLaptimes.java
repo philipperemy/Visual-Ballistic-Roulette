@@ -135,4 +135,9 @@ public class PredictorPhysicsLinearLaptimes implements Predictor
 	{
 	}
 
+	@Override
+	public void clear()
+	{
+	}
+
 }

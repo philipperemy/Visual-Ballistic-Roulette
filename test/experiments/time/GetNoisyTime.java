@@ -1,4 +1,4 @@
-package framework.time;
+package experiments.time;
 
 import computations.utils.GaussianNoiseGenerator;
 

@@ -33,12 +33,9 @@ public class Game
 		return _sessionId;
 	}
 
-	// cut it.
 	public List<Double> get_ballLaptimes()
 	{
-		// TOOD:know it.
 		return _ballLaptimes.subList(0, _ballLaptimes.size() - 5);
-		// return _ballLaptimes;
 	}
 
 	public List<Double> get_wheelLaptimes()

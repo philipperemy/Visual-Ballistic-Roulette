@@ -20,6 +20,11 @@ public class StatisticalLapTimesModel
 	// track.
 	Map<Integer, LapTimesContainer>	model						= new TreeMap<>();
 
+	public void free()
+	{
+		model = new TreeMap<>();
+	}
+
 	private void addLapTime(int containerId, double lapTime)
 	{
 		LapTimesContainer container = model.get(containerId);

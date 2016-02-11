@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import computations.predictor.Predictor;
-import computations.predictor.ml.model.DataRecord;
+import computations.predictor.error.DistanceError;
+import computations.predictor.error.OneHotError;
 import database.DatabaseAccessorInterface;
 
 public abstract class TestClass
@@ -17,16 +18,16 @@ public abstract class TestClass
 	public TestClass(Predictor predictor, DatabaseAccessorInterface dbRef)
 	{
 		this.dbRef = dbRef;
-		DataRecord.clearCache();
 		this.predictor = predictor;
+		this.predictor.clear();
 	}
 
-	public TestResult runTest(Game predict, List<String> sessionIdsToPutInDatabase)
+	public DistanceError runTest(Game predict, List<String> sessionIdsToPutInDatabase)
 	{
 		Integer actualOutcome = null;
 		try
 		{
-			DataRecord.clearCache();
+			predictor.clear();
 			predictor.init(dbRef, sessionIdsToPutInDatabase);
 			actualOutcome = predictor.predict(predict.get_ballLaptimes(), predict.get_wheelLaptimes());
 		} catch (Exception e)
@@ -34,10 +35,10 @@ public abstract class TestClass
 			throw new RuntimeException(e);
 		} finally
 		{
-			DataRecord.clearCache();
+			predictor.clear();
 		}
 
-		TestResult testResult = new TestResult2();
+		DistanceError testResult = new OneHotError();
 		testResult.expected = predict.get_outcome();
 		testResult.actual = actualOutcome;
 		return testResult;

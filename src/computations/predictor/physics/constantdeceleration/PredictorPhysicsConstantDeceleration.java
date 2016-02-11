@@ -75,4 +75,9 @@ public class PredictorPhysicsConstantDeceleration implements Predictor
 	public void init(DatabaseAccessorInterface da, List<String> sessionIds)
 	{
 	}
+
+	@Override
+	public void clear()
+	{
+	}
 }

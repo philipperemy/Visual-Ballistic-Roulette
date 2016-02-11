@@ -96,4 +96,10 @@ public class PredictorStatisticalAnalysis implements Predictor
 		}
 	}
 
+	@Override
+	public void clear()
+	{
+		manager.free();
+	}
+
 }

@@ -152,7 +152,6 @@ public class KFoldCrossValidationTest extends TestClass
 		double bestTrainingError = Double.MAX_VALUE;
 		Double best_cutoffSpeed = null;
 		Integer best_phase = null;
-		long count = 0;
 
 		for (int phase = 1; phase < 60; phase++)
 		{
