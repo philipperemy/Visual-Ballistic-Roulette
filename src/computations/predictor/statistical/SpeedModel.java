@@ -9,9 +9,8 @@ import java.util.TreeMap;
  */
 public class SpeedModel
 {
-	/**
-	 * ContainerId <-> speed.
-	 */
+
+	// ContainerId <-> speed.
 	private Map<Integer, Double> speeds = new TreeMap<>();
 
 	public void loadSpeeds(Map<Integer, LapTimesContainer> lapTimesModel)
@@ -21,5 +20,4 @@ public class SpeedModel
 			speeds.put(level.getKey(), 1 / (double) level.getValue().getAverage());
 		}
 	}
-
 }

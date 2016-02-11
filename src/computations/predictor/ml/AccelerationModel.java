@@ -5,8 +5,8 @@ import computations.utils.Helper;
 import utils.logger.Logger;
 
 /**
- * Assuming the deceleration is constant. (1/Y) = AX + B. According to Roulette
- * computers.com, it is true.
+ * Assuming the deceleration is constant. (1/Y) = AX + B. According to
+ * Roulettecomputers.com, it is true.
  */
 // TODO: integrate the physics model.
 class AccelerationModel
@@ -34,5 +34,4 @@ class AccelerationModel
 		this.type = type;
 		Logger.traceDEBUG(toString());
 	}
-
 }

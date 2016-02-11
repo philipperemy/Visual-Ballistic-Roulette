@@ -106,6 +106,12 @@ public class Helper
 	}
 
 	// m/s
+	public static double getBallSpeed(double t1, double t2)
+	{
+		return Constants.get_BALL_CIRCUMFERENCE() / (t2 - t1);
+	}
+
+	// m/s
 	public static double getWheelSpeed(double t1, double t2)
 	{
 		return Constants.get_WHEEL_CIRCUMFERENCE() / (t2 - t1);
@@ -116,10 +122,9 @@ public class Helper
 		return getBallSpeed(0, deltaT);
 	}
 
-	// m/s
-	public static double getBallSpeed(double t1, double t2)
+	public static double getWheelSpeed(double deltaT)
 	{
-		return Constants.get_BALL_CIRCUMFERENCE() / (t2 - t1);
+		return getWheelSpeed(0, deltaT);
 	}
 
 	public static double getTimeForOneBallLoop(double ballSpeed)

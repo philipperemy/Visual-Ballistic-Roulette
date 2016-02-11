@@ -34,7 +34,7 @@ public class PredictorStatisticalAnalysis implements Predictor
 		List<Double> ballDiffTimes = Helper.computeDiff(ballCumsumTimes);
 		List<Double> wheelDiffTimes = Helper.computeDiff(wheelCumsumTimes);
 
-		double constantWheelSpeed = Helper.getWheelSpeed(0, Helper.peek(wheelDiffTimes)); // trick
+		double constantWheelSpeed = Helper.getWheelSpeed(Helper.peek(wheelDiffTimes)); // trick
 
 		Double remainingTime = null; // highest value possible.
 		try
@@ -46,8 +46,7 @@ public class PredictorStatisticalAnalysis implements Predictor
 		}
 
 		double lastTimeBallPassesInFrontOfRef = Helper.peek(ballCumsumTimes);
-		double remainingDistance = Helper.estimateDistanceConstantSpeed(lastTimeBallPassesInFrontOfRef,
-				lastTimeBallPassesInFrontOfRef + remainingTime, constantWheelSpeed);
+		double remainingDistance = Helper.estimateDistanceConstantSpeed(lastTimeBallPassesInFrontOfRef, remainingTime, constantWheelSpeed);
 		double wheelSpeedInFrontOfMark = constantWheelSpeed;
 		double lastKnownSpeedWheel = constantWheelSpeed;
 

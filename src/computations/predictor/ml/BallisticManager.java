@@ -47,21 +47,15 @@ public class BallisticManager
 	 */
 	private static AccelerationModel performLinearRegression(List<ClockSpeed> speedMeasurements, Constants.Type type)
 	{
-		int n = speedMeasurements.size();
-		double[] x = new double[n];
-		double[] y = new double[n];
-		for (int i = 0; i < n; i++)
+		List<Double> xAxis = new ArrayList<>();
+		List<Double> yAxis = new ArrayList<>();
+		for (ClockSpeed cSpeed : speedMeasurements)
 		{
-			x[i] = speedMeasurements.get(i).time;
-			y[i] = Helper.inverseSpeed(speedMeasurements.get(i).speed);
+			xAxis.add(cSpeed.time);
+			yAxis.add(Helper.inverseSpeed(cSpeed.speed));
 		}
 
-		SimpleRegression regression = new SimpleRegression();
-		for (int i = 0; i < n; i++)
-		{
-			regression.addData(x[i], y[i]);
-		}
-
+		SimpleRegression regression = Helper.performRegression(xAxis, yAxis);
 		return new AccelerationModel(regression.getSlope(), regression.getIntercept(), type);
 	}
 

@@ -19,7 +19,6 @@ public class LapTimesContainer
 	public double getAverage()
 	{
 		double result = 0.0;
-
 		if (!revolutionTimes.isEmpty())
 		{
 			for (Double revolutionTime : revolutionTimes)
@@ -28,8 +27,6 @@ public class LapTimesContainer
 			}
 			result /= revolutionTimes.size();
 		}
-
 		return result;
 	}
-
 }

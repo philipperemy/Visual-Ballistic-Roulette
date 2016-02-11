@@ -111,7 +111,6 @@ public class TestWheel
 	 * 0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5,
 	 * 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26 };
 	 */
-	@SuppressWarnings("deprecation")
 	@Test
 	public void unitTests()
 	{
@@ -119,16 +118,6 @@ public class TestWheel
 		Assert.assertEquals(1, Wheel.distanceBetweenNumbers(26, 0));
 		Assert.assertEquals(1, Wheel.distanceBetweenNumbers(0, 26));
 		Assert.assertEquals(Wheel.distanceBetweenNumbers(18, 34), Wheel.distanceBetweenNumbers(34, 18));
-
-		Assert.assertEquals(0, Wheel.getMirrorNumber(0));
-		Assert.assertEquals(32, Wheel.getMirrorNumber(26));
-		Assert.assertEquals(15, Wheel.getMirrorNumber(3));
-		Assert.assertEquals(19, Wheel.getMirrorNumber(35));
-		Assert.assertEquals(4, Wheel.getMirrorNumber(12));
-		Assert.assertEquals(21, Wheel.getMirrorNumber(28));
-		Assert.assertEquals(2, Wheel.getMirrorNumber(7));
-		// getMirrorNumber
-		// distanceBetweenNumbers
 	}
 
 	@Test

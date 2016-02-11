@@ -18,12 +18,6 @@ public class PredictorPhysicsLinearLaptimes implements Predictor
 	{
 		double cutOffSpeed = Constants.CUTOFF_SPEED;
 
-		/**
-		 * Parameter that should be optimized. How many should we take.
-		 */
-		ballCumsumTimes = ballCumsumTimes.subList(0, ballCumsumTimes.size() - 4);
-		wheelCumsumTimes = wheelCumsumTimes.subList(0, wheelCumsumTimes.size());
-
 		double originTimeBall = Helper.head(ballCumsumTimes);
 		ballCumsumTimes = Helper.normalize(ballCumsumTimes, originTimeBall);
 
@@ -37,6 +31,8 @@ public class PredictorPhysicsLinearLaptimes implements Predictor
 		LapTimeRegressionModel ballSpeedModel = new LapTimeRegressionModel(Helper.performRegression(rangeBall, ballDiffTimes));
 		Logger.traceDEBUG("Ball Speed Model = " + ballSpeedModel);
 
+		// relative to normalize. Add originTimeBall to have the same time as
+		// the one in the video.
 		double timeAtCutoffBall = HelperPhysics.estimateTimeForSpeed(cutOffSpeed, Constants.get_BALL_CIRCUMFERENCE(), ballSpeedModel);
 		Logger.traceDEBUG("Cutoff time = " + Helper.printDigit(timeAtCutoffBall) + " s, relative to t_BALL(0) for speed = " + cutOffSpeed + " m/s");
 
@@ -70,8 +66,9 @@ public class PredictorPhysicsLinearLaptimes implements Predictor
 			LapTimeRegressionModel wheelSpeedModel = new LapTimeRegressionModel(Helper.performRegression(rangeWheel, wheelDiffTimes));
 			Logger.traceDEBUG("Wheel Speed Model = " + ballSpeedModel);
 
-			remainingDistance = HelperPhysics.estimateDistance(lastTimeBallPassesInFrontOfRef, lastTimeBallPassesInFrontOfRef + timeAtCutoffBall,
-					Constants.get_WHEEL_CIRCUMFERENCE(), wheelSpeedModel);
+			// maybe partEnt() - remainingPhase.
+			remainingDistance = HelperPhysics.estimateDistance(lastTimeBallPassesInFrontOfRef, timeAtCutoffBall, Constants.get_WHEEL_CIRCUMFERENCE(),
+					wheelSpeedModel);
 
 			wheelSpeedInFrontOfMark = HelperPhysics.estimateSpeed(lastWheelLapTimeInFrontOfRef, Constants.get_WHEEL_CIRCUMFERENCE(), wheelSpeedModel); // approximation
 
@@ -93,20 +90,38 @@ public class PredictorPhysicsLinearLaptimes implements Predictor
 		 * Comparing this value with the true value can be used to optimize the
 		 * algorithm.
 		 */
-		int initialPhase = Phase.findPhaseNumberBetweenBallAndWheel(lastTimeBallPassesInFrontOfRef, lastWheelLapTimeInFrontOfRef,
+		double diffOrigin = originTimeBall - originTimeWheel;
+		int initialPhase = Phase.findPhaseNumberBetweenBallAndWheel(lastTimeBallPassesInFrontOfRef, lastWheelLapTimeInFrontOfRef - diffOrigin,
 				wheelSpeedInFrontOfMark, Constants.DEFAULT_WHEEL_WAY);
 		/**
 		 * Shift depends on the speed of the wheel. High speed means more travel
 		 * on average.
 		 */
+		int numberAtCutoff = Wheel.getNumberWithPhase(initialPhase, shiftPhaseBetweenInitialTimeAndCutOff, computations.Wheel.WheelWay.ANTICLOCKWISE);
+
+		// Maybe change a bit Constants.get_BALL_CIRCUMFERENCE().
+		// HelperPhysics.estimateDistance(lastTimeBallPassesInFrontOfRef,
+		// timeAtCutoffBall, Constants.get_BALL_CIRCUMFERENCE(),
+		// ballSpeedModel)/Constants.get_BALL_CIRCUMFERENCE()
+		//
+		// double distBall = Constants.get_BALL_CIRCUMFERENCE()
+		// - Constants.get_BALL_CIRCUMFERENCE() *
+		// (HelperPhysics.estimateDistance(lastTimeBallPassesInFrontOfRef,
+		// timeAtCutoffBall,
+		// Constants.get_BALL_CIRCUMFERENCE(), ballSpeedModel) /
+		// Constants.get_BALL_CIRCUMFERENCE() % 1);
+		// int phaseAtCutOff = (int) (distBall /
+		// Constants.get_WHEEL_CIRCUMFERENCE() * Wheel.NUMBERS.length);
+
+		// int numberAtCutoff = Wheel.getNumberWithPhase(numberAtCutoff,
+		// phaseAtCutOff, computations.Wheel.WheelWay.CLOCKWISE);
+
 		int adjustedInitialPhase = (int) (Constants.DEFAULT_SHIFT_PHASE * lastKnownSpeedWheel);
-		int finalPredictedShift = shiftPhaseBetweenInitialTimeAndCutOff + adjustedInitialPhase;
 		Logger.traceDEBUG("Number of pockets (computed from angle) = " + shiftPhaseBetweenInitialTimeAndCutOff);
 		Logger.traceDEBUG("DEFAULT_SHIFT_PHASE = " + adjustedInitialPhase);
 
-		int predictedNumber = Wheel.getNumberWithPhase(initialPhase, finalPredictedShift, Constants.DEFAULT_WHEEL_WAY);
-		Logger.traceDEBUG(
-				"Initial phase was = " + initialPhase + ", Total shift = " + finalPredictedShift + ", Predicted number is = " + predictedNumber);
+		int predictedNumber = Wheel.getNumberWithPhase(numberAtCutoff, adjustedInitialPhase, Constants.DEFAULT_WHEEL_WAY);
+		Logger.traceDEBUG("Predicted number is = " + predictedNumber);
 		return predictedNumber;
 	}
 

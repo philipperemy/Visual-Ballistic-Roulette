@@ -50,7 +50,6 @@ public class Wheel
 		int newIdx = 0;
 		switch (way)
 		{
-
 			case CLOCKWISE:
 				newIdx = idxReferenceNumber - phaseCount;
 				break;
@@ -97,15 +96,5 @@ public class Wheel
 		int diff = Math.abs(idx1 - idx2);
 		int diff_to_maxlen = NUMBERS.length - diff;
 		return diff < diff_to_maxlen ? diff : diff_to_maxlen;
-	}
-
-	// Do not use it. We do not know the mirroring because we do not know at
-	// time 0.
-	@Deprecated
-	public static int getMirrorNumber(int number)
-	{
-		int idx = findIndexOfNumber(number);
-		int newIdx = getIndex(-idx + NUMBERS.length);
-		return NUMBERS[newIdx];
 	}
 }
