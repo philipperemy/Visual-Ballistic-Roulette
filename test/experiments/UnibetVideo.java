@@ -14,7 +14,6 @@ import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;
 import utils.Game;
 import utils.KFoldCrossValidationTest;
-import utils.KFoldCrossValidationTest.FilterSessionIds;
 import utils.logger.Logger;
 
 public class UnibetVideo
@@ -32,7 +31,7 @@ public class UnibetVideo
 		PredictorInterface predictorInterface = new PredictorInterface();
 		Predictor predictor = predictorInterface.statisticalAnalysis();
 		KFoldCrossValidationTest kfcv = new KFoldCrossValidationTest(games, predictor, dbRef, 2);
-		System.out.println(kfcv.evaluate(games, new FilterSessionIds()));
+		System.out.println(kfcv.evaluate(games));
 
 	}
 

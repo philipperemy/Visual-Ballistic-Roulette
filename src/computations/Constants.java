@@ -45,7 +45,7 @@ public class Constants
 
 	public static final String		DATABASE_NAME								= "roulette_db";
 
-	public static final double		TIME_LEFT_FOR_PLACING_BETS_SECONDS			= 5;
+	public static final double		TIME_LEFT_FOR_PLACING_BETS_SECONDS			= 2;
 
 	public enum Type
 	{

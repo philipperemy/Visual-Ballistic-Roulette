@@ -24,7 +24,7 @@ public class KFoldCrossValidationTest extends TestClass
 		this.K = K;
 	}
 
-	public double getError()
+	public void run()
 	{
 		List<List<Game>> gameFolds = Helper.split(games, (int) Math.floor(games.size() / K));
 		double error = 0.0;
@@ -53,10 +53,9 @@ public class KFoldCrossValidationTest extends TestClass
 			{
 				throw new RuntimeException("Invalid predictor.");
 			}
-
 		}
 		error /= K;
-		return error;
+		System.out.println("[validation] final error= " + error);
 	}
 
 	private double runCrossValidationStatistics(List<Game> trainingSet, List<Game> validationSet)
@@ -68,7 +67,7 @@ public class KFoldCrossValidationTest extends TestClass
 			Constants.DEFAULT_SHIFT_PHASE = phase;
 			try
 			{
-				double trainingSetError = evaluate(trainingSet, new FilterSessionIds());
+				double trainingSetError = evaluate(trainingSet);
 				if (trainingSetError < bestTrainingError)
 				{
 					bestTrainingError = trainingSetError;
@@ -86,7 +85,7 @@ public class KFoldCrossValidationTest extends TestClass
 			throw new RuntimeException("Error in the cross validation.");
 		}
 
-		double validationSetError = evaluate(validationSet, new FilterSessionIds());
+		double validationSetError = evaluate(validationSet);
 		System.out.println("valid=" + validationSetError);
 		return validationSetError;
 	}
@@ -96,26 +95,22 @@ public class KFoldCrossValidationTest extends TestClass
 		List<String> getAllSessionIdsButOne(List<Game> gameSet, Game gameToExclude);
 	}
 
-	public static class FilterSessionIds implements FilterSessionIdsInterface
+	public static List<String> getAllSessionIdsButOne(List<Game> gameSet, Game gameToExclude)
 	{
-		public List<String> getAllSessionIdsButOne(List<Game> gameSet, Game gameToExclude)
+		String sessionIdToExclude = gameToExclude.get_sessionId();
+		List<String> sessionIds = new ArrayList<>();
+		for (Game game : gameSet)
 		{
-			String sessionIdToExclude = gameToExclude.get_sessionId();
-			List<String> sessionIds = new ArrayList<>();
-			for (Game game : gameSet)
+			String currentSessionId = game.get_sessionId();
+			if (!currentSessionId.equals(sessionIdToExclude))
 			{
-				String currentSessionId = game.get_sessionId();
-				if (!currentSessionId.equals(sessionIdToExclude))
-				{
-					sessionIds.add(game.get_sessionId());
-				}
+				sessionIds.add(game.get_sessionId());
 			}
-			return sessionIds;
 		}
-
+		return sessionIds;
 	}
 
-	public double evaluate(List<Game> trainingSet, FilterSessionIdsInterface fsii)
+	public double evaluate(List<Game> trainingSet)
 	{
 		double trainingError = 0.0;
 		try
@@ -125,7 +120,7 @@ public class KFoldCrossValidationTest extends TestClass
 			{
 				try
 				{
-					double curError = runTest(trainingGame, fsii.getAllSessionIdsButOne(trainingSet, trainingGame)).error();
+					double curError = runTest(trainingGame, getAllSessionIdsButOne(trainingSet, trainingGame)).error();
 					// System.out.println(curError);
 					trainingError += curError;
 					trainingSampleSize++;
@@ -149,32 +144,33 @@ public class KFoldCrossValidationTest extends TestClass
 
 	private double runCrossValidationPhysics(List<Game> trainingSet, List<Game> validationSet)
 	{
+		System.out.println("__________________________");
 		double bestTrainingError = Double.MAX_VALUE;
 		Double best_cutoffSpeed = null;
 		Integer best_phase = null;
 
+		double cutoffSpeed = 1;
+		Constants.CUTOFF_SPEED = cutoffSpeed;
+		System.out.println("[training] set= " + trainingSet.toString());
 		for (int phase = 1; phase < 60; phase++)
 		{
 			Constants.DEFAULT_SHIFT_PHASE = phase;
-			for (double cutoffSpeed = 1.0; cutoffSpeed < 2.0; cutoffSpeed += 0.01)
+			try
 			{
-				Constants.CUTOFF_SPEED = cutoffSpeed;
-				try
+				double trainingSetError = evaluate(trainingSet);
+				if (trainingSetError < bestTrainingError)
 				{
-					double trainingSetError = evaluate(trainingSet, new FilterSessionIds());
-					if (trainingSetError < bestTrainingError)
-					{
-						bestTrainingError = trainingSetError;
-						best_cutoffSpeed = cutoffSpeed;
-						best_phase = phase;
-						System.out.println(
-								"e=" + bestTrainingError + ", p=" + Helper.printDigit(best_phase) + ", cs=" + Helper.printDigit(best_cutoffSpeed));
-					}
-				} catch (Exception e)
-				{
-					// Do nothing.
+					bestTrainingError = trainingSetError;
+					best_cutoffSpeed = cutoffSpeed;
+					best_phase = phase;
+					System.out.println("[training] error= " + bestTrainingError + ", scatter phase= " + Helper.printDigit(best_phase)
+							+ ", cutoff speed= " + Helper.printDigit(best_cutoffSpeed));
 				}
+			} catch (Exception e)
+			{
+				// Do nothing.
 			}
+
 		}
 
 		if (best_cutoffSpeed == null || best_phase == null)
@@ -182,7 +178,10 @@ public class KFoldCrossValidationTest extends TestClass
 			throw new RuntimeException("Error in the cross validation.");
 		}
 
-		double validationSetError = evaluate(validationSet, new FilterSessionIds());
+		double validationSetError = evaluate(validationSet);
+		System.out.println("[validation] set= " + validationSet.toString());
+		System.out.println("[validation] error= " + validationSetError);
+		System.out.println("__________________________");
 		return validationSetError;
 	}
 
@@ -199,7 +198,7 @@ public class KFoldCrossValidationTest extends TestClass
 			{
 				try
 				{
-					trainingError += runTest(trainingGame, new FilterSessionIds().getAllSessionIdsButOne(allGames, trainingGame)).error();
+					trainingError += runTest(trainingGame, getAllSessionIdsButOne(allGames, trainingGame)).error();
 					traininSampleSize++;
 				} catch (Exception e)
 				{

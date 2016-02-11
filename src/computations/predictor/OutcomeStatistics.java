@@ -12,13 +12,6 @@ import utils.logger.Logger;
 
 public class OutcomeStatistics
 {
-	@Override
-	public String toString()
-	{
-		return "OutcomeStatistics [meanNumber=" + meanNumber + ", stdDeviation=" + Helper.printDigit(stdDeviation) + ", "
-				+ (frequency != null ? "frequency=" + frequency + ", " : "") + "]";
-	}
-
 	public int						meanNumber;
 	public double					stdDeviation;
 	private Map<Integer, Integer>	frequency;
@@ -86,6 +79,13 @@ public class OutcomeStatistics
 		outcomeStatistics.frequency = frequencyPerNumber;
 		Logger.traceDEBUG("Statistics : " + outcomeStatistics);
 		return outcomeStatistics;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "OutcomeStatistics [meanNumber=" + meanNumber + ", stdDeviation=" + Helper.printDigit(stdDeviation) + ", "
+				+ (frequency != null ? "frequency=" + frequency + ", " : "") + "]";
 	}
 
 }

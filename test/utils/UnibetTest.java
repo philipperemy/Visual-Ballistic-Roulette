@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.junit.Test;
 
+import computations.Constants;
 import computations.predictor.Predictor;
 import computations.predictor.PredictorInterface;
 import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;
-import utils.KFoldCrossValidationTest.FilterSessionIds;
 import utils.logger.Logger;
 
 public class UnibetTest
@@ -25,9 +25,12 @@ public class UnibetTest
 			games.add(new Game(String.valueOf(i), dbRef));
 		}
 		PredictorInterface predictorInterface = new PredictorInterface();
-		Predictor predictor = predictorInterface.physicsConstantDeceleration();
-		KFoldCrossValidationTest kfcv = new KFoldCrossValidationTest(games, predictor, dbRef, 2);
-		System.out.println(kfcv.getError());
-		System.out.println(kfcv.evaluate(games, new FilterSessionIds()));
+		Predictor predictor = predictorInterface.physicsLinearLapTimes();
+		KFoldCrossValidationTest kfcv = new KFoldCrossValidationTest(games, predictor, dbRef, 3);
+		kfcv.run();
+
+		Constants.CUTOFF_SPEED = 0.95;
+		Constants.DEFAULT_SHIFT_PHASE = 45;
+		System.out.println("eval= " + kfcv.evaluate(games));
 	}
 }

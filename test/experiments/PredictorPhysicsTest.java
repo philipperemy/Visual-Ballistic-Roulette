@@ -21,7 +21,7 @@ public class PredictorPhysicsTest
 	public void test3() throws PositiveValueExpectedException, SessionNotReadyException
 	{
 		Constants.CUTOFF_SPEED = 0.96;
-		Constants.DEFAULT_SHIFT_PHASE = 20;
+		Constants.DEFAULT_SHIFT_PHASE = 25;
 		// 9.494 meters between t = 12520 and 20179
 		// aligned 22. Roughly 2 loops and 3 pockets more.
 

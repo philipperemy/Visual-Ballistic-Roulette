@@ -6,7 +6,6 @@ import java.util.Map;
 
 import computations.predictor.Predictor;
 import computations.predictor.error.DistanceError;
-import computations.predictor.error.OneHotError;
 import database.DatabaseAccessorInterface;
 
 public abstract class TestClass
@@ -38,7 +37,7 @@ public abstract class TestClass
 			predictor.clear();
 		}
 
-		DistanceError testResult = new OneHotError();
+		DistanceError testResult = new DistanceError();
 		testResult.expected = predict.get_outcome();
 		testResult.actual = actualOutcome;
 		return testResult;

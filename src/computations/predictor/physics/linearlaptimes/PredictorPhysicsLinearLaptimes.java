@@ -8,7 +8,6 @@ import computations.predictor.Phase;
 import computations.predictor.Predictor;
 import computations.utils.Helper;
 import database.DatabaseAccessorInterface;
-import utils.exception.CriticalException;
 import utils.exception.PositiveValueExpectedException;
 import utils.logger.Logger;
 
@@ -23,6 +22,8 @@ public class PredictorPhysicsLinearLaptimes implements Predictor
 
 		double originTimeWheel = Helper.head(wheelCumsumTimes);
 		wheelCumsumTimes = Helper.normalize(wheelCumsumTimes, originTimeWheel);
+
+		double diffOrigin = originTimeBall - originTimeWheel;
 
 		List<Double> ballDiffTimes = Helper.computeDiff(ballCumsumTimes);
 		List<Double> wheelDiffTimes = Helper.computeDiff(wheelCumsumTimes);
@@ -46,81 +47,28 @@ public class PredictorPhysicsLinearLaptimes implements Predictor
 
 		double lastWheelLapTimeInFrontOfRef = Helper.getLastTimeWheelIsInFrontOfRef(wheelCumsumTimes, lastTimeBallPassesInFrontOfRef);
 
-		Double remainingDistance = null;
-		Double wheelSpeedInFrontOfMark = null;
-		Double lastKnownSpeedWheel = null;
-		int wheelDiffTimesSize = wheelDiffTimes.size();
-		if (wheelDiffTimesSize == 1)
-		{
-			double constantWheelSpeed = Helper.getWheelSpeed(0, wheelDiffTimes.get(0)); // trick
-			remainingDistance = Helper.estimateDistanceConstantSpeed(lastTimeBallPassesInFrontOfRef,
-					lastTimeBallPassesInFrontOfRef + timeAtCutoffBall, constantWheelSpeed);
-			wheelSpeedInFrontOfMark = constantWheelSpeed;
-			lastKnownSpeedWheel = constantWheelSpeed;
+		double constantWheelSpeed = Helper.getWheelSpeed(wheelDiffTimes.get(0)); // trick
+		double wheelSpeedInFrontOfMark = constantWheelSpeed;
+		double lastKnownSpeedWheel = constantWheelSpeed;
 
-		} else if (wheelDiffTimesSize > 1)
-		{
-			List<Double> rangeWheel = Helper.range(1, wheelDiffTimes.size());
-			// ConstantDecelerationModel(regression.getSlope(),
-			// regression.getIntercept(), type);
-			LapTimeRegressionModel wheelSpeedModel = new LapTimeRegressionModel(Helper.performRegression(rangeWheel, wheelDiffTimes));
-			Logger.traceDEBUG("Wheel Speed Model = " + ballSpeedModel);
-
-			// maybe partEnt() - remainingPhase.
-			remainingDistance = HelperPhysics.estimateDistance(lastTimeBallPassesInFrontOfRef, timeAtCutoffBall, Constants.get_WHEEL_CIRCUMFERENCE(),
-					wheelSpeedModel);
-
-			wheelSpeedInFrontOfMark = HelperPhysics.estimateSpeed(lastWheelLapTimeInFrontOfRef, Constants.get_WHEEL_CIRCUMFERENCE(), wheelSpeedModel); // approximation
-
-			lastKnownSpeedWheel = HelperPhysics.estimateSpeed(lastTimeBallPassesInFrontOfRef + timeAtCutoffBall, Constants.get_WHEEL_CIRCUMFERENCE(),
-					wheelSpeedModel); // approximation
-		} else
-		{
-			throw new CriticalException("Invalid number of wheelDiffTimes.");
-		}
-
-		Logger.traceDEBUG("Remaining distance computed = " + Helper.printDigit(remainingDistance) + " m");
-
-		double angleAtCutOffTime = HelperPhysics.estimatePhaseAngleDegrees(remainingDistance, Constants.get_WHEEL_CIRCUMFERENCE());
-		Logger.traceDEBUG("Angle of the wheel at cutoff time = " + Helper.printDigit(angleAtCutOffTime) + " degrees.");
-
-		int shiftPhaseBetweenInitialTimeAndCutOff = HelperPhysics.estimateShiftWithAngle(angleAtCutOffTime);
-
-		/**
-		 * Comparing this value with the true value can be used to optimize the
-		 * algorithm.
-		 */
-		double diffOrigin = originTimeBall - originTimeWheel;
 		int initialPhase = Phase.findPhaseNumberBetweenBallAndWheel(lastTimeBallPassesInFrontOfRef, lastWheelLapTimeInFrontOfRef - diffOrigin,
 				wheelSpeedInFrontOfMark, Constants.DEFAULT_WHEEL_WAY);
-		/**
-		 * Shift depends on the speed of the wheel. High speed means more travel
-		 * on average.
-		 */
-		int numberAtCutoff = Wheel.getNumberWithPhase(initialPhase, shiftPhaseBetweenInitialTimeAndCutOff, computations.Wheel.WheelWay.ANTICLOCKWISE);
 
-		// Maybe change a bit Constants.get_BALL_CIRCUMFERENCE().
-		// HelperPhysics.estimateDistance(lastTimeBallPassesInFrontOfRef,
-		// timeAtCutoffBall, Constants.get_BALL_CIRCUMFERENCE(),
-		// ballSpeedModel)/Constants.get_BALL_CIRCUMFERENCE()
-		//
-		// double distBall = Constants.get_BALL_CIRCUMFERENCE()
-		// - Constants.get_BALL_CIRCUMFERENCE() *
-		// (HelperPhysics.estimateDistance(lastTimeBallPassesInFrontOfRef,
-		// timeAtCutoffBall,
-		// Constants.get_BALL_CIRCUMFERENCE(), ballSpeedModel) /
-		// Constants.get_BALL_CIRCUMFERENCE() % 1);
-		// int phaseAtCutOff = (int) (distBall /
-		// Constants.get_WHEEL_CIRCUMFERENCE() * Wheel.NUMBERS.length);
+		int shiftPhaseBetweenInitialTimeAndCutOff = (int) (((timeAtCutoffBall - lastTimeBallPassesInFrontOfRef) / Helper.peek(wheelDiffTimes) % 1)
+				* Wheel.NUMBERS.length);
 
-		// int numberAtCutoff = Wheel.getNumberWithPhase(numberAtCutoff,
-		// phaseAtCutOff, computations.Wheel.WheelWay.CLOCKWISE);
+		double distBall = HelperPhysics.estimateDistance(lastTimeBallPassesInFrontOfRef, timeAtCutoffBall, Constants.get_BALL_CIRCUMFERENCE(),
+				ballSpeedModel) / Constants.get_BALL_CIRCUMFERENCE() % 1;
+		int phaseAtCutOff = (int) (distBall * Wheel.NUMBERS.length);
+
+		int numberBelowBallAtCutoff = Wheel.getNumberWithPhase(initialPhase, shiftPhaseBetweenInitialTimeAndCutOff + phaseAtCutOff,
+				Constants.DEFAULT_WHEEL_WAY);
 
 		int adjustedInitialPhase = (int) (Constants.DEFAULT_SHIFT_PHASE * lastKnownSpeedWheel);
 		Logger.traceDEBUG("Number of pockets (computed from angle) = " + shiftPhaseBetweenInitialTimeAndCutOff);
 		Logger.traceDEBUG("DEFAULT_SHIFT_PHASE = " + adjustedInitialPhase);
 
-		int predictedNumber = Wheel.getNumberWithPhase(numberAtCutoff, adjustedInitialPhase, Constants.DEFAULT_WHEEL_WAY);
+		int predictedNumber = Wheel.getNumberWithPhase(numberBelowBallAtCutoff, adjustedInitialPhase, Constants.DEFAULT_WHEEL_WAY);
 		Logger.traceDEBUG("Predicted number is = " + predictedNumber);
 		return predictedNumber;
 	}
@@ -141,3 +89,17 @@ public class PredictorPhysicsLinearLaptimes implements Predictor
 	}
 
 }
+
+/*
+ * else if (wheelDiffTimesSize > 1) { List<Double> rangeWheel = Helper.range(1,
+ * wheelDiffTimes.size()); // ConstantDecelerationModel(regression.getSlope(),
+ * // regression.getIntercept(), type); LapTimeRegressionModel wheelSpeedModel =
+ * new LapTimeRegressionModel(Helper.performRegression(rangeWheel,
+ * wheelDiffTimes)); Logger.traceDEBUG("Wheel Speed Model = " + ballSpeedModel);
+ * wheelSpeedInFrontOfMark =
+ * HelperPhysics.estimateSpeed(lastWheelLapTimeInFrontOfRef - diffOrigin,
+ * Constants.get_WHEEL_CIRCUMFERENCE(), wheelSpeedModel); // approximation
+ * lastKnownSpeedWheel = HelperPhysics.estimateSpeed(timeAtCutoffBall -
+ * diffOrigin, Constants.get_WHEEL_CIRCUMFERENCE(), wheelSpeedModel); //
+ * approximation }
+ */
