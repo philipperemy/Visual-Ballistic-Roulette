@@ -11,6 +11,7 @@ import computations.predictor.physics.linearlaptimes.PredictorPhysicsLinearLapti
 import computations.predictor.statistical.PredictorStatisticalAnalysis;
 import computations.utils.Helper;
 import database.DatabaseAccessorInterface;
+import utils.logger.Logger;
 
 public class KFoldCrossValidationTest extends TestClass
 {
@@ -55,7 +56,7 @@ public class KFoldCrossValidationTest extends TestClass
 			}
 		}
 		error /= K;
-		System.out.println("[validation] final error= " + error);
+		Logger.traceINFO("[validation] final error= " + error);
 	}
 
 	private double runCrossValidationStatistics(List<Game> trainingSet, List<Game> validationSet)

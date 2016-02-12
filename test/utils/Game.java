@@ -5,6 +5,7 @@ import java.util.List;
 
 import computations.predictor.Outcome;
 import database.DatabaseAccessorInterface;
+import utils.logger.Logger;
 
 public class Game
 {
@@ -24,7 +25,7 @@ public class Game
 			_outcome = dbRef.getOutcome(_sessionId).number;
 		} else
 		{
-			System.out.println("Outcome is null for sessionId = " + sessionId);
+			Logger.traceERROR("Outcome is null for sessionId = " + sessionId);
 		}
 	}
 

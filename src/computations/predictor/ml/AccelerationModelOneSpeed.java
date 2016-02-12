@@ -6,7 +6,7 @@ import computations.Constants;
 //So we create an object to emulate this model, which returns the last wheel speed.
 class AccelerationModelOneSpeed extends AccelerationModel
 {
-	private double lastSpeed;
+	private double lastSpeed = 0;
 
 	@Override
 	public String toString()

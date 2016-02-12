@@ -85,7 +85,7 @@ public class StatTest
 		pred_c2_2 = pred_c2_2.subList(0, pred_c2_2.size() - 10);
 
 		Logger.setDebug(true);
-		System.out.println(predictor.predict(pred_c2_2, wheelCumsumTimes));
+		Logger.traceINFO(predictor.predict(pred_c2_2, wheelCumsumTimes));
 	}
 
 	@Test

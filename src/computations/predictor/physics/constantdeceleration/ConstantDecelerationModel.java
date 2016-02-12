@@ -3,7 +3,6 @@ package computations.predictor.physics.constantdeceleration;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
 import computations.utils.Helper;
-import utils.logger.Logger;
 
 /**
  * UNIBET case. The deceleration is constant, meaning that V(t) = At+b where
@@ -23,7 +22,6 @@ class ConstantDecelerationModel
 	{
 		this.slope = simpleRegression.getSlope();
 		this.intercept = simpleRegression.getIntercept();
-		Logger.traceDEBUG(toString());
 	}
 
 	@Override

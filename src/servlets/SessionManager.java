@@ -7,11 +7,11 @@ import utils.logger.Logger;
 /**
  * A session corresponds to a game played or measured
  */
-public class SessionManager
+public final class SessionManager
 {
-	private static volatile SessionManager	instance				= null;
-	private DatabaseAccessorInterface		da;
-	private long							timestampOfLastQuery	= 0;
+	private static SessionManager		instance				= null;
+	private DatabaseAccessorInterface	da;
+	private long						timestampOfLastQuery	= 0;
 
 	void init(DatabaseAccessorInterface da)
 	{

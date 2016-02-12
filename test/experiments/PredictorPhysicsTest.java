@@ -16,7 +16,6 @@ import utils.logger.Logger;
 
 public class PredictorPhysicsTest
 {
-
 	@Test
 	public void test3() throws PositiveValueExpectedException, SessionNotReadyException
 	{

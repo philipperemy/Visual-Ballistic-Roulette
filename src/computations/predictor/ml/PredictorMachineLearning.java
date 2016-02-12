@@ -117,7 +117,6 @@ public class PredictorMachineLearning implements Predictor
 			// this average.
 			smr.ballSpeedInFrontOfMark = ballAccModel.estimateSpeed(correspondingBallLapTime);
 			smr.wheelSpeedInFrontOfMark = wheelSpeedInFrontOfMark;
-			smr.sessionId = null;
 			smr.phaseOfWheelWhenBallPassesInFrontOfMark = phase;
 			dataRecords.add(smr);
 		}

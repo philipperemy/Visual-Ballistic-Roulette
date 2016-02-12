@@ -108,7 +108,7 @@ public class StatisticalLapTimesModel
 			if (error < bestError)
 			{
 				bestError = error;
-				result = new Integer(i);
+				result = i;
 			}
 			Logger.traceDEBUG("error=" + error + ", index=" + result);
 		}

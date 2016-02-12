@@ -46,7 +46,7 @@ public class StatTest2
 		a1 = a1.subList(0, a1.size() - 3);
 
 		Logger.setDebug(true);
-		System.out.println(predictor.predict(a1, wheelCumsumTimes));
+		Logger.traceINFO(predictor.predict(a1, wheelCumsumTimes));
 	}
 
 }

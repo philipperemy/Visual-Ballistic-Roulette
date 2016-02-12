@@ -2,7 +2,6 @@ package computations.predictor.ml;
 
 import computations.Constants;
 import computations.utils.Helper;
-import utils.logger.Logger;
 
 /**
  * Assuming the deceleration is constant. (1/Y) = AX + B. According to
@@ -32,6 +31,5 @@ class AccelerationModel
 		this.slope = slope;
 		this.intercept = intercept;
 		this.type = type;
-		Logger.traceDEBUG(toString());
 	}
 }
