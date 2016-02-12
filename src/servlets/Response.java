@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import computations.Constants;
 import computations.predictor.PredictorInterface;
-import computations.predictor.ml.model.DataRecord;
 import database.DatabaseAccessor;
 import database.DatabaseAccessorInterface;
 import utils.exception.PositiveValueExpectedException;
@@ -24,14 +23,9 @@ public class Response extends HttpServlet
 {
 	private static final long			serialVersionUID	= 1L;
 
-	public DatabaseAccessorInterface	da;
+	private DatabaseAccessorInterface	da;
 	private SessionManager				sm;
 	private PredictorInterface			pr;
-
-	public Response(DatabaseAccessorInterface da)
-	{
-		init(da);
-	}
 
 	public Response()
 	{
@@ -45,16 +39,6 @@ public class Response extends HttpServlet
 		this.pr = PredictorInterface.getInstance();
 		this.sm.init(da);
 		this.pr.machineLearning().init(da);
-	}
-
-	public void forceDatasetReInit()
-	{
-		pr.machineLearning().init(da);
-	}
-
-	public void clearCache()
-	{
-		DataRecord.clearCache();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

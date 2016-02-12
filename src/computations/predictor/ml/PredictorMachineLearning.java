@@ -36,7 +36,7 @@ public class PredictorMachineLearning implements Predictor
 		return solver.predict(this, ballLapTimes, wheelLapTimes);
 	}
 
-	public void load(List<String> sessionIds)
+	private void load(List<String> sessionIds)
 	{
 		for (String sessionId : sessionIds)
 		{
@@ -45,13 +45,13 @@ public class PredictorMachineLearning implements Predictor
 
 			if (wheelCumsumTimes.isEmpty())
 			{
-				Logger.traceERROR("Wheel lap times are empty for session id = " + sessionId + ". Ignoring this game.");
+				Logger.traceERROR("Wheel cumsum times are empty for session id = " + sessionId + ". Ignoring this game.");
 				continue;
 			}
 
 			if (ballCumsumTimes.isEmpty())
 			{
-				Logger.traceERROR("Ball lap times are empty for session id = " + sessionId + ". Ignoring this game.");
+				Logger.traceERROR("Ball cumsum times are empty for session id = " + sessionId + ". Ignoring this game.");
 				continue;
 			}
 

@@ -11,7 +11,6 @@ public class Constants
 	/**
 	 * TODO: To be measured. All is in m/s.
 	 */
-	// METERS
 	public static double	WHEEL_DIAMETER	= 0.547;// = 0.60;
 	public static double	CASE_DIAMETER	= 0.687;// = 0.80;
 

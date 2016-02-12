@@ -15,6 +15,8 @@ public class PredictorPhysicsConstantDeceleration implements Predictor
 {
 	public int predict(List<Double> ballCumsumTimes, List<Double> wheelCumsumTimes)
 	{
+		double cutoffSpeed = Constants.CUTOFF_SPEED;
+
 		// double originTimeBall = Helper.head(ballCumsumTimes);
 		// ballCumsumTimes = Helper.normalize(ballCumsumTimes, originTimeBall);
 
@@ -28,7 +30,6 @@ public class PredictorPhysicsConstantDeceleration implements Predictor
 		double constantWheelSpeed = Helper.getWheelSpeed(Helper.peek(wheelDiffTimes));
 		ConstantDecelerationModel ballModel = RegressionManager.computeModel(ballDiffTimes);
 
-		double cutoffSpeed = Constants.CUTOFF_SPEED;
 		double remainingTime = RegressionManager.estimateTime(ballModel, ballDiffTimes.size(), cutoffSpeed);
 
 		double lastTimeBallPassesInFrontOfRef = Helper.peek(ballCumsumTimes);

@@ -207,7 +207,7 @@ public class Helper
 		return range;
 	}
 
-	// Random - hyper parameters introduced.
+	// Random - hyper parameters introduced. So it's not very good.
 	public static LapTimeRegressionModel performRANSAC(List<Double> diffs)
 	{
 		List<Double> res = RANSAC.perform(diffs, 2, 100, 1, 0.2);

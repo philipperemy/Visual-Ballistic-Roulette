@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Only for the ball now. Comparable to an order book.
  */
-public class LapTimesContainer
+class LapTimesContainer
 {
 	@Override
 	public String toString()
@@ -14,7 +14,7 @@ public class LapTimesContainer
 		return "LapTimesContainer [revolutionTimes=" + revolutionTimes + "]";
 	}
 
-	public List<Double> revolutionTimes = new ArrayList<>();
+	List<Double> revolutionTimes = new ArrayList<>();
 
 	public double getAverage()
 	{

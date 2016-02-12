@@ -8,11 +8,11 @@ import java.util.Set;
 
 public class RANSAC
 {
-	static Random random = new Random();
+	private static Random random = new Random();
 
 	// RANDPERM(N,K) returns a vector of K unique values. This is sometimes
 	// referred to as a K-permutation of 1:N or as sampling without replacement.
-	public static Set<Integer> randPerm(int N, int K)
+	private static Set<Integer> randPerm(int N, int K)
 	{
 		Set<Integer> res = new LinkedHashSet<>(); // unsorted set.
 		while (res.size() < K)
@@ -22,12 +22,12 @@ public class RANSAC
 		return res;
 	}
 
-	public static double norm(List<Double> vec)
+	private static double norm(List<Double> vec)
 	{
 		return Math.sqrt(Math.pow(vec.get(0), 2) + Math.pow(vec.get(1), 2));
 	}
 
-	public static List<Integer> findLessThan(List<Double> distance, double threshDist)
+	private static List<Integer> findLessThan(List<Double> distance, double threshDist)
 	{
 		List<Integer> res = new ArrayList<>();
 		for (int i = 0; i < distance.size(); i++)

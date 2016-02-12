@@ -6,10 +6,10 @@ import java.util.List;
 import computations.utils.Helper;
 import utils.exception.PositiveValueExpectedException;
 
-public class RegressionManager
+class RegressionManager
 {
 	// Use with the cutoff speed.
-	public static double estimateTime(ConstantDecelerationModel constantDecelerationModel, int currentRevolution, double cutoffSpeed)
+	static double estimateTime(ConstantDecelerationModel constantDecelerationModel, int currentRevolution, double cutoffSpeed)
 	{
 		double revolutionCountLeft = (cutoffSpeed - constantDecelerationModel.intercept) / constantDecelerationModel.slope - currentRevolution;
 		if (revolutionCountLeft < 0)
@@ -31,7 +31,7 @@ public class RegressionManager
 		return remainingTime;
 	}
 
-	public static ConstantDecelerationModel computeModel(List<Double> diffTimes)
+	static ConstantDecelerationModel computeModel(List<Double> diffTimes)
 	{
 		List<Double> speeds = new ArrayList<>();
 		for (Double diffTime : diffTimes)

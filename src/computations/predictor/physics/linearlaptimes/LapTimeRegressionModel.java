@@ -6,8 +6,8 @@ import computations.utils.Helper;
 
 public class LapTimeRegressionModel
 {
-	public double	slope;
-	public double	intercept;
+	double	slope;
+	double	intercept;
 
 	public LapTimeRegressionModel(double slope, double intercept)
 	{
@@ -15,7 +15,7 @@ public class LapTimeRegressionModel
 		this.intercept = intercept;
 	}
 
-	public LapTimeRegressionModel(SimpleRegression simpleRegression)
+	LapTimeRegressionModel(SimpleRegression simpleRegression)
 	{
 		this.slope = simpleRegression.getSlope();
 		this.intercept = simpleRegression.getIntercept();

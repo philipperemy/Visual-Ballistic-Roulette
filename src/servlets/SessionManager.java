@@ -13,12 +13,12 @@ public class SessionManager
 	private DatabaseAccessorInterface		da;
 	private long							timestampOfLastQuery	= 0;
 
-	public void init(DatabaseAccessorInterface da)
+	void init(DatabaseAccessorInterface da)
 	{
 		this.da = da;
 	}
 
-	public static SessionManager getInstance()
+	static SessionManager getInstance()
 	{
 		if (instance == null)
 		{
@@ -31,7 +31,7 @@ public class SessionManager
 	{
 	}
 
-	public String callManager(long queryTime)
+	String callManager(long queryTime)
 	{
 		String newSessionId = null;
 		if (queryTime - timestampOfLastQuery > Constants.THRESHOLD_BEFORE_NEW_SESSION_IN_MS)
