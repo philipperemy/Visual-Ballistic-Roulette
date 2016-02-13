@@ -15,7 +15,7 @@ public class PredictorPhysicsLinearLaptimes implements Predictor
 {
 	public int predict(List<Double> ballCumsumTimes, List<Double> wheelCumsumTimes)
 	{
-		double cutOffSpeed = Constants.CUTOFF_SPEED;
+		double cutoffSpeed = Constants.CUTOFF_SPEED;
 
 		double originTimeBall = Helper.head(ballCumsumTimes);
 		ballCumsumTimes = Helper.normalize(ballCumsumTimes, originTimeBall);
@@ -24,6 +24,7 @@ public class PredictorPhysicsLinearLaptimes implements Predictor
 		wheelCumsumTimes = Helper.normalize(wheelCumsumTimes, originTimeWheel);
 
 		double diffOrigin = originTimeBall - originTimeWheel;
+		double lastTimeBallPassesInFrontOfRef = Helper.peek(ballCumsumTimes);
 
 		List<Double> ballDiffTimes = Helper.computeDiff(ballCumsumTimes);
 		List<Double> wheelDiffTimes = Helper.computeDiff(wheelCumsumTimes);
@@ -34,10 +35,9 @@ public class PredictorPhysicsLinearLaptimes implements Predictor
 
 		// relative to normalize. Add originTimeBall to have the same time as
 		// the one in the video.
-		double timeAtCutoffBall = HelperPhysics.estimateTimeForSpeed(cutOffSpeed, Constants.get_BALL_CIRCUMFERENCE(), ballSpeedModel);
-		Logger.traceDEBUG("Cutoff time = " + Helper.printDigit(timeAtCutoffBall) + " s, relative to t_BALL(0) for speed = " + cutOffSpeed + " m/s");
+		double timeAtCutoffBall = HelperPhysics.estimateTimeForSpeed(cutoffSpeed, Constants.get_BALL_CIRCUMFERENCE(), ballSpeedModel);
+		Logger.traceDEBUG("Cutoff time = " + Helper.printDigit(timeAtCutoffBall) + " s, relative to t_BALL(0) for speed = " + cutoffSpeed + " m/s");
 
-		double lastTimeBallPassesInFrontOfRef = Helper.peek(ballCumsumTimes);
 		if (timeAtCutoffBall < lastTimeBallPassesInFrontOfRef + Constants.TIME_LEFT_FOR_PLACING_BETS_SECONDS)
 		{
 			throw new PositiveValueExpectedException();
@@ -47,7 +47,7 @@ public class PredictorPhysicsLinearLaptimes implements Predictor
 
 		double lastWheelLapTimeInFrontOfRef = Helper.getLastTimeWheelIsInFrontOfRef(wheelCumsumTimes, lastTimeBallPassesInFrontOfRef);
 
-		double constantWheelSpeed = Helper.getWheelSpeed(wheelDiffTimes.get(0)); // trick
+		double constantWheelSpeed = Helper.getWheelSpeed(Helper.peek(wheelDiffTimes)); // trick
 		double wheelSpeedInFrontOfMark = constantWheelSpeed;
 		double lastKnownSpeedWheel = constantWheelSpeed;
 
