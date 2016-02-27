@@ -65,7 +65,7 @@ public class Response extends HttpServlet
 		{
 			da.insertOutcome(sessionId, outcome);
 			Logger.traceINFO("New outcome inserted. Session id = " + sessionId + ", outcome = " + outcome);
-			return; // Workflow finished.
+			return;
 		}
 
 		// Predict outcome workflow.
@@ -102,7 +102,6 @@ public class Response extends HttpServlet
 		List<Double> wheelCumsumTimesSeconds = computations.utils.Helper.convertToSeconds(wheelCumsumTimes);
 		List<Double> ballCumsumTimesSeconds = computations.utils.Helper.convertToSeconds(ballCumsumTimes);
 
-		// use a predictor big interface here.
 		int mostProbableNumberML = pr.machineLearning().predict(ballCumsumTimesSeconds, wheelCumsumTimesSeconds);
 		return mostProbableNumberML;
 	}

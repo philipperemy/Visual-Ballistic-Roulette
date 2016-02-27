@@ -24,7 +24,21 @@ public class Constants
 		return CASE_DIAMETER * Math.PI;
 	}
 
+	public enum Type
+	{
+		BALL, //
+		WHEEL
+	}
+	
+	public static final int			MIN_NUMBER_OF_WHEEL_TIMES_BEFORE_PREDICTION	= 2;
+	public static final int			MIN_NUMBER_OF_BALL_TIMES_BEFORE_PREDICTION	= 3;
+
 	public static final long		THRESHOLD_BEFORE_NEW_SESSION_IN_MS			= 30 * 1000;
+
+	// There is only one way. Never change this.
+	public static final WheelWay	DEFAULT_WHEEL_WAY							= WheelWay.ANTICLOCKWISE;
+	public static final String		DATABASE_NAME								= "roulette_db";
+	public static final double		TIME_LEFT_FOR_PLACING_BETS_SECONDS			= 2;
 
 	// Machine Learning
 	public static int				NUMBER_OF_NEIGHBORS_KNN						= 5;
@@ -35,20 +49,4 @@ public class Constants
 	// Physics
 	public static double			CUTOFF_SPEED								= 0.75;
 	public static int				DEFAULT_SHIFT_PHASE							= 77;
-
-	public static final int			MIN_NUMBER_OF_WHEEL_TIMES_BEFORE_PREDICTION	= 2;
-	public static final int			MIN_NUMBER_OF_BALL_TIMES_BEFORE_PREDICTION	= 3;
-
-	// There is only one way. Never change this.
-	public static final WheelWay	DEFAULT_WHEEL_WAY							= WheelWay.ANTICLOCKWISE;
-
-	public static final String		DATABASE_NAME								= "roulette_db";
-
-	public static final double		TIME_LEFT_FOR_PLACING_BETS_SECONDS			= 2;
-
-	public enum Type
-	{
-		BALL, //
-		WHEEL
-	}
 }

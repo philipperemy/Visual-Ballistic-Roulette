@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-import utils.exception.InitializationRequiredException;
+import utils.exception.CriticalException;
 import utils.logger.Logger;
 
 public class StatisticalLapTimesModel
@@ -59,7 +59,7 @@ public class StatisticalLapTimesModel
 	{
 		if (model.isEmpty())
 		{
-			throw new InitializationRequiredException();
+			throw new CriticalException("Initialization required before usage");
 		}
 
 		List<Double> avgs = new ArrayList<>();
