@@ -14,27 +14,6 @@ public class DatabaseAccessorStub implements DatabaseAccessorInterface
 	private Map<String, Integer>		_outcomes		= new HashMap<>();
 	private Integer						_sessionId		= 1;
 
-	private void appendMap(Map<String, List<Double>> map, String key, String value)
-	{
-		List<Double> list = map.get(key);
-		if (list == null)
-		{
-			list = new ArrayList<>();
-		}
-		list.add(Double.valueOf(value));
-		map.put(key, list);
-	}
-
-	private List<Double> getFromMap(Map<String, List<Double>> map, String key)
-	{
-		List<Double> list = map.get(key);
-		if (list == null)
-		{
-			list = new ArrayList<>();
-		}
-		return list;
-	}
-
 	@Override
 	public void insertBallLapTimes(String sessionId, String lapTime)
 	{
@@ -109,5 +88,27 @@ public class DatabaseAccessorStub implements DatabaseAccessorInterface
 		_outcomes = new HashMap<>();
 		_sessionId = 1;
 	}
+
+	private void appendMap(Map<String, List<Double>> map, String key, String value)
+	{
+		List<Double> list = map.get(key);
+		if (list == null)
+		{
+			list = new ArrayList<>();
+		}
+		list.add(Double.valueOf(value));
+		map.put(key, list);
+	}
+
+	private List<Double> getFromMap(Map<String, List<Double>> map, String key)
+	{
+		List<Double> list = map.get(key);
+		if (list == null)
+		{
+			list = new ArrayList<>();
+		}
+		return list;
+	}
+
 
 }

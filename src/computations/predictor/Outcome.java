@@ -1,6 +1,8 @@
 package computations.predictor;
 
-//Maybe we can also add the diamond hit by the ball.
+/**
+ * Models the outcome number of a game [0, 36]
+ */
 public class Outcome
 {
 	public int number;

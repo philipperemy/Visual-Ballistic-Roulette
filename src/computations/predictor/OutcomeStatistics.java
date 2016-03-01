@@ -16,6 +16,11 @@ public class OutcomeStatistics
 	public double					stdDeviation;
 	private Map<Integer, Integer>	frequency;
 
+	/**
+	 * Statistics of a bunch of numbers.
+	 * Example is: if we have two numbers 0, 32 and 15. mean(0,32,15) = 32 because on the wheel, they are sorted.
+	 * Also we can compute the variance. If all the numbers are very close one another, the variance will be low and the prediction be accurate.
+	 */
 	public static OutcomeStatistics create(List<Integer> outcomeNumbers)
 	{
 		Map<Integer, Integer> frequencyPerNumber = new HashMap<>(); // Number

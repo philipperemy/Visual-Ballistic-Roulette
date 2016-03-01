@@ -9,8 +9,6 @@ import computations.predictor.Predictor;
 import computations.predictor.physics.linearlaptimes.HelperPhysics;
 import computations.utils.Helper;
 import database.DatabaseAccessorInterface;
-import utils.exception.CriticalException;
-import utils.exception.InitializationRequiredException;
 import utils.logger.Logger;
 
 public class PredictorStatisticalAnalysis implements Predictor
@@ -36,14 +34,7 @@ public class PredictorStatisticalAnalysis implements Predictor
 
 		double constantWheelSpeed = Helper.getWheelSpeed(Helper.peek(wheelDiffTimes)); // trick
 
-		Double remainingTime = null; // highest value possible.
-		try
-		{
-			remainingTime = manager.remainingTime(ballDiffTimes);
-		} catch (InitializationRequiredException ire)
-		{
-			throw new CriticalException("Initialize Statistical Lap Time Model first.");
-		}
+		Double remainingTime = manager.remainingTime(ballDiffTimes);
 
 		double lastTimeBallPassesInFrontOfRef = Helper.peek(ballCumsumTimes);
 		double remainingDistance = Helper.estimateDistanceConstantSpeed(lastTimeBallPassesInFrontOfRef, remainingTime, constantWheelSpeed);
