@@ -22,27 +22,27 @@ public class DataRecord
 	// front of the mark)
 	// => possible to predict the outcome.
 
-	public double					ballSpeedInFrontOfMark;
-	public double					wheelSpeedInFrontOfMark;
+	public double ballSpeedInFrontOfMark;
+	public double wheelSpeedInFrontOfMark;
 
 	// Only for Logging purposes.
-	public String					sessionId	= null;
+	public String sessionId = null;
 
 	/**
 	 * Phases of the ball when the zero of the ball is in front of a landmark.
 	 * After it's just looking at the phase between each phase and what we have
 	 * to shift the outcome.
 	 */
-	public int						phaseOfWheelWhenBallPassesInFrontOfMark;
+	public int phaseOfWheelWhenBallPassesInFrontOfMark;
 
 	// Outcome of the game
-	public Integer					outcome		= null;
+	public Integer outcome = null;
 
-	private final WheelWay			way			= Constants.DEFAULT_WHEEL_WAY;
+	private final WheelWay way = Constants.DEFAULT_WHEEL_WAY;
 
-	private static List<DataRecord>	cache		= new ArrayList<>();
+	private static List<DataRecord> cache = new ArrayList<>();
 
-	private static OutcomeSolver	solver		= Constants.DATARECORD_SOLVER;
+	private static OutcomeSolver solver = Constants.DATARECORD_SOLVER;
 
 	public static void clearCache()
 	{

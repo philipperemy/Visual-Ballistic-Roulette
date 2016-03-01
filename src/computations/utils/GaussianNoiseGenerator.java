@@ -4,6 +4,7 @@ import org.apache.commons.math3.distribution.NormalDistribution;
 
 import utils.logger.Logger;
 
+//Not used.
 public class GaussianNoiseGenerator
 {
 	private NormalDistribution nd;

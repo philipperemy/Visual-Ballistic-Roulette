@@ -9,9 +9,9 @@ import utils.logger.Logger;
  */
 public final class SessionManager
 {
-	private static SessionManager		instance				= null;
-	private DatabaseAccessorInterface	da;
-	private long						timestampOfLastQuery	= 0;
+	private static SessionManager instance = null;
+	private DatabaseAccessorInterface da;
+	private long timestampOfLastQuery = 0;
 
 	void init(DatabaseAccessorInterface da)
 	{

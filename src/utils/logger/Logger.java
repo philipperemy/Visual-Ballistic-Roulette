@@ -5,15 +5,15 @@ import java.util.Date;
 
 public class Logger
 {
-	private static final String		INFO_KEY	= "INFO";
-	private static final String		ERROR_KEY	= "ERROR";
-	private static final String		DEBUG_KEY	= "DEBUG";
+	private static final String INFO_KEY = "INFO";
+	private static final String ERROR_KEY = "ERROR";
+	private static final String DEBUG_KEY = "DEBUG";
 
-	private static boolean			isDebug		= false;
+	private static boolean isDebug = false;
 
-	private static final Printer	out			= new Printer();
+	private static final Printer out = new Printer();
 
-	private static SimpleDateFormat	sdf			= new SimpleDateFormat("dd/MM/yyyy HH:mm:ss_SSS");
+	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss_SSS");
 
 	public static void stopLogging()
 	{

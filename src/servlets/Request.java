@@ -16,10 +16,10 @@ import utils.logger.Logger;
 @WebServlet("/Request")
 public class Request extends HttpServlet
 {
-	private static final long			serialVersionUID	= 1L;
+	private static final long serialVersionUID = 1L;
 
-	public DatabaseAccessorInterface	da;
-	private SessionManager				sm;
+	public DatabaseAccessorInterface da;
+	private SessionManager sm;
 
 	public Request(DatabaseAccessorInterface dai)
 	{
@@ -59,17 +59,17 @@ public class Request extends HttpServlet
 		String sessionId = sm.callManager(System.currentTimeMillis());
 		switch (type)
 		{
-			case Parameters.TYPE_BALL:
-				da.insertBallLapTimes(sessionId, time);
-				break;
+		case Parameters.TYPE_BALL:
+			da.insertBallLapTimes(sessionId, time);
+			break;
 
-			case Parameters.TYPE_WHEEL:
-				da.insertWheelLapTimes(sessionId, time);
-				break;
+		case Parameters.TYPE_WHEEL:
+			da.insertWheelLapTimes(sessionId, time);
+			break;
 
-			default:
-				Helper.notifyInvalidFieldError(response, Parameters.TYPE);
-				return;
+		default:
+			Helper.notifyInvalidFieldError(response, Parameters.TYPE);
+			return;
 		}
 	}
 

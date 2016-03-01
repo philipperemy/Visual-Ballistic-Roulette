@@ -5,14 +5,14 @@ import org.apache.commons.math3.stat.regression.SimpleRegression;
 import computations.predictor.physics.PhysicsRegressionModel;
 
 /**
- * UNIBET case. The deceleration is constant, meaning that V(t) = At+b where
- * A<0. This is not the case of Roulette computers.com, it is true.
+ * UNIBET case. The deceleration is constant across the revolutions, meaning
+ * that V(t) = At+b where A<0. This is not the case of Roulette computers.com.
  */
 class ConstantDecelerationModel extends PhysicsRegressionModel
 {
 	double estimateSpeed(double revolutionCount)
 	{
-		return slope * revolutionCount + intercept;
+		return evaluate(revolutionCount);
 	}
 
 	ConstantDecelerationModel(SimpleRegression simpleRegression)

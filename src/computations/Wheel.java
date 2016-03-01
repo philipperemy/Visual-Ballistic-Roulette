@@ -5,8 +5,9 @@ import utils.exception.CriticalException;
 public class Wheel
 {
 	/**
-	 * Roulette numbers represented as a 1D-vector. Each number is accessed with its index. Arithmetic operations are made on the indexes.
-	 * For example. Index of 0 is 0. Index of 32 is 1. Distance(0,32) = 1 - 0 = 1
+	 * Roulette numbers represented as a 1D-vector. Each number is accessed with
+	 * its index. Arithmetic operations are made on the indexes. For example.
+	 * Index of 0 is 0. Index of 32 is 1. Distance(0,32) = 1 - 0 = 1
 	 */
 	public static final int[] NUMBERS = { 0, 32, 15, 19, 4, 21, 2, 25, 17, //
 			34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, //
@@ -20,7 +21,9 @@ public class Wheel
 
 	/**
 	 * Calculate a valid index from Z -> [0, 36] (length = 37 numbers)
-	 * @param any integer
+	 * 
+	 * @param any
+	 *            integer
 	 * @return valid index
 	 */
 	public static int getIndex(int index)
@@ -37,8 +40,8 @@ public class Wheel
 	}
 
 	/**
-	 * Calculate the region around a specific number.
-	 * Example is: region(referenceNumber=32, halfSize = 2) = [26,0,32,15,19]
+	 * Calculate the region around a specific number. Example is:
+	 * region(referenceNumber=32, halfSize = 2) = [26,0,32,15,19]
 	 */
 	public static int[] getNearbyNumbers(int referenceNumber, int halfSize)
 	{
@@ -58,12 +61,18 @@ public class Wheel
 
 	/**
 	 * Translates a number on the wheel by a specific value.
-	 * @param referenceNumber The number on the wheel
-	 * @param phaseCount How many pockets should the reference number be translated
-	 * @param way Clockwise or Anticlockwise
-	 * @return Example is translated(referenceNumber=32, phaseCount=2, way=Anticlockwise) = 19
-	 * ATTENTION: This is a bit tricky because when the wheel turns anticlockwise, we scan the numbers forward and not backwards as we would imagine.
-	 * Sketch something if you aint sure.
+	 * 
+	 * @param referenceNumber
+	 *            The number on the wheel
+	 * @param phaseCount
+	 *            How many pockets should the reference number be translated
+	 * @param way
+	 *            Clockwise or Anticlockwise
+	 * @return Example is translated(referenceNumber=32, phaseCount=2,
+	 *         way=Anticlockwise) = 19 ATTENTION: This is a bit tricky because
+	 *         when the wheel turns anticlockwise, we scan the numbers forward
+	 *         and not backwards as we would imagine. Sketch something if you
+	 *         aint sure.
 	 */
 	public static int getNumberWithPhase(int referenceNumber, int phaseCount, WheelWay way)
 	{
@@ -72,16 +81,16 @@ public class Wheel
 		int newIdx = 0;
 		switch (way)
 		{
-			case CLOCKWISE:
-				newIdx = idxReferenceNumber - phaseCount;
-				break;
+		case CLOCKWISE:
+			newIdx = idxReferenceNumber - phaseCount;
+			break;
 
-			case ANTICLOCKWISE:
-				newIdx = idxReferenceNumber + phaseCount;
-				break;
+		case ANTICLOCKWISE:
+			newIdx = idxReferenceNumber + phaseCount;
+			break;
 
-			default:
-				throw new CriticalException("Unknown type.");
+		default:
+			throw new CriticalException("Unknown type.");
 		}
 
 		return NUMBERS[getIndex(newIdx)];
@@ -103,11 +112,10 @@ public class Wheel
 	}
 
 	/**
-	 * Calculates the translation between (phase1, outcome1) and applies this translation to phase2.
-	 * Example is: phase1 = 0, outcome1 = 32. phase2 = 19.
-	 * translation(phase1, outcome1) = you add 1 forward.
-	 * You take the number 19 and you add this translation.
-	 * The result is 4.
+	 * Calculates the translation between (phase1, outcome1) and applies this
+	 * translation to phase2. Example is: phase1 = 0, outcome1 = 32. phase2 =
+	 * 19. translation(phase1, outcome1) = you add 1 forward. You take the
+	 * number 19 and you add this translation. The result is 4.
 	 */
 	public static int predictOutcomeWithShift(int phase1, int outcome1, int phase2)
 	{
@@ -121,9 +129,8 @@ public class Wheel
 	}
 
 	/**
-	 * Here max distance is 37/2. Opposite of the wheel.
-	 * Calculate the shortest distance between two numbers.
-	 * Example: distance(0,32) = 1.
+	 * Here max distance is 37/2. Opposite of the wheel. Calculate the shortest
+	 * distance between two numbers. Example: distance(0,32) = 1.
 	 */
 	public static int distanceBetweenNumbers(int number1, int number2)
 	{

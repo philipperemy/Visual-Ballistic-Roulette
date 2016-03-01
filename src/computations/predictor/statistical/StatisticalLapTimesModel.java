@@ -11,14 +11,14 @@ import utils.logger.Logger;
 
 public class StatisticalLapTimesModel
 {
-	private static final int				FIRST_BACKWARD_IDENTIFIER	= 100;
+	private static final int FIRST_BACKWARD_IDENTIFIER = 100;
 
 	// should begin at FIRST_BACKWARD_IDENTIFIER and decreases.
 	// We know when the games ends
 	// because it is always the same
 	// speed that the ball falls in the
 	// track.
-	private Map<Integer, LapTimesContainer>	model						= new TreeMap<>();
+	private Map<Integer, LapTimesContainer> model = new TreeMap<>();
 
 	void free()
 	{

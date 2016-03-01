@@ -15,8 +15,8 @@ import utils.logger.Logger;
 
 public class KFoldCrossValidationTest extends TestClass
 {
-	private List<Game>	games	= new ArrayList<>();
-	private int			K		= 2;				// number of times you fold.
+	private List<Game> games = new ArrayList<>();
+	private int K = 2; // number of times you fold.
 
 	public KFoldCrossValidationTest(List<Game> games, Predictor predictor, DatabaseAccessorInterface dbRef, int K)
 	{

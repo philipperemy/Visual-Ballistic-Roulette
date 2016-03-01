@@ -9,10 +9,10 @@ import computations.predictor.Outcome;
 
 public class DatabaseAccessorStub implements DatabaseAccessorInterface
 {
-	private Map<String, List<Double>>	_ballLapTimes	= new HashMap<>();
-	private Map<String, List<Double>>	_wheelLapTimes	= new HashMap<>();
-	private Map<String, Integer>		_outcomes		= new HashMap<>();
-	private Integer						_sessionId		= 1;
+	private Map<String, List<Double>> _ballLapTimes = new HashMap<>();
+	private Map<String, List<Double>> _wheelLapTimes = new HashMap<>();
+	private Map<String, Integer> _outcomes = new HashMap<>();
+	private Integer _sessionId = 1;
 
 	@Override
 	public void insertBallLapTimes(String sessionId, String lapTime)
@@ -109,6 +109,5 @@ public class DatabaseAccessorStub implements DatabaseAccessorInterface
 		}
 		return list;
 	}
-
 
 }

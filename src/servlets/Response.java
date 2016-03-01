@@ -21,11 +21,11 @@ import utils.logger.Logger;
 @WebServlet("/Response")
 public class Response extends HttpServlet
 {
-	private static final long			serialVersionUID	= 1L;
+	private static final long serialVersionUID = 1L;
 
-	private DatabaseAccessorInterface	da;
-	private SessionManager				sm;
-	private PredictorInterface			pr;
+	private DatabaseAccessorInterface da;
+	private SessionManager sm;
+	private PredictorInterface pr;
 
 	public Response()
 	{

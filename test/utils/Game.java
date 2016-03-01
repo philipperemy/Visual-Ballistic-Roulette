@@ -9,10 +9,10 @@ import utils.logger.Logger;
 
 public class Game
 {
-	private List<Double>	_ballLaptimes	= new ArrayList<>();
-	private List<Double>	_wheelLaptimes	= new ArrayList<>();
-	private Integer			_outcome		= null;
-	private String			_sessionId		= null;
+	private List<Double> _ballLaptimes = new ArrayList<>();
+	private List<Double> _wheelLaptimes = new ArrayList<>();
+	private Integer _outcome = null;
+	private String _sessionId = null;
 
 	public Game(String sessionId, DatabaseAccessorInterface dbRef)
 	{

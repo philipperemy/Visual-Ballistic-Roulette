@@ -13,7 +13,7 @@ class AccelerationModel extends PhysicsRegressionModel
 	// The model fitted is f(x) = 1/y, f linear.
 	public double estimateSpeed(double time)
 	{
-		return Helper.inverseSpeed(slope * time + intercept);
+		return Helper.inverseSpeed(evaluate(time));
 	}
 
 	AccelerationModel(double slope, double intercept)

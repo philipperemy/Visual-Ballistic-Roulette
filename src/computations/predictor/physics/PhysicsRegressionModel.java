@@ -6,8 +6,8 @@ import computations.utils.Helper;
 
 public class PhysicsRegressionModel
 {
-	public double	slope;
-	public double	intercept;
+	public double slope;
+	public double intercept;
 
 	protected PhysicsRegressionModel(SimpleRegression simpleRegression)
 	{
@@ -25,5 +25,11 @@ public class PhysicsRegressionModel
 	public String toString()
 	{
 		return "[slope=" + Helper.printDigit(slope) + ", intercept=" + Helper.printDigit(intercept) + "]";
+	}
+
+	// y = ax + b
+	public double evaluate(double x)
+	{
+		return slope * x + intercept;
 	}
 }

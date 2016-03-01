@@ -15,8 +15,8 @@ import utils.logger.Logger;
 
 public class PredictorMachineLearning implements Predictor
 {
-	private DatabaseAccessorInterface	da;
-	private PredictorSolver				solver	= Constants.PREDICTOR_SOLVER;
+	private DatabaseAccessorInterface da;
+	private PredictorSolver solver = Constants.PREDICTOR_SOLVER;
 
 	@Override
 	public void init(DatabaseAccessorInterface da)

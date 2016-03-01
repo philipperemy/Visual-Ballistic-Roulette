@@ -143,12 +143,12 @@ public class Helper
 	{
 		switch (type)
 		{
-			case BALL:
-				return Helper.getBallSpeed(t1, t2);
-			case WHEEL:
-				return Helper.getWheelSpeed(t1, t2);
-			default:
-				throw new CriticalException("Unknown type.");
+		case BALL:
+			return Helper.getBallSpeed(t1, t2);
+		case WHEEL:
+			return Helper.getWheelSpeed(t1, t2);
+		default:
+			throw new CriticalException("Unknown type.");
 		}
 	}
 

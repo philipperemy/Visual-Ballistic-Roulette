@@ -7,12 +7,12 @@ import computations.predictor.statistical.PredictorStatisticalAnalysis;
 
 public class PredictorInterface
 {
-	private volatile Predictor			predictorMachineLearning				= new PredictorMachineLearning();
-	private volatile Predictor			physicsLinearLapTimes					= new PredictorPhysicsLinearLaptimes();
-	private volatile Predictor			predictorStatisticalAnalysis			= new PredictorStatisticalAnalysis();
-	private volatile Predictor			predictorPhysicsConstantDeceleration	= new PredictorPhysicsConstantDeceleration();
+	private volatile Predictor predictorMachineLearning = new PredictorMachineLearning();
+	private volatile Predictor physicsLinearLapTimes = new PredictorPhysicsLinearLaptimes();
+	private volatile Predictor predictorStatisticalAnalysis = new PredictorStatisticalAnalysis();
+	private volatile Predictor predictorPhysicsConstantDeceleration = new PredictorPhysicsConstantDeceleration();
 
-	private static PredictorInterface	instance								= PredictorInterface.getInstance();
+	private static PredictorInterface instance = PredictorInterface.getInstance();
 
 	public static PredictorInterface getInstance()
 	{

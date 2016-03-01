@@ -10,9 +10,9 @@ import database.DatabaseAccessorInterface;
 
 public abstract class TestClass
 {
-	public DatabaseAccessorInterface	dbRef;
-	protected Map<Integer, Game>		games	= new HashMap<>();
-	protected Predictor					predictor;
+	public DatabaseAccessorInterface dbRef;
+	protected Map<Integer, Game> games = new HashMap<>();
+	protected Predictor predictor;
 
 	public TestClass(Predictor predictor, DatabaseAccessorInterface dbRef)
 	{

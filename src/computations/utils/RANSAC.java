@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+//Not used.
 public class RANSAC
 {
 	private static Random random = new Random();

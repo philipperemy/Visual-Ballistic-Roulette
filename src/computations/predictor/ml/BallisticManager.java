@@ -13,8 +13,8 @@ class BallisticManager
 {
 	private static class ClockSpeed
 	{
-		private double	time;
-		private double	speed;
+		private double time;
+		private double speed;
 
 		@Override
 		public String toString()

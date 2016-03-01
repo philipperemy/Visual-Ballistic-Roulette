@@ -8,12 +8,22 @@ import utils.exception.CriticalException;
 public class Phase
 {
 	/**
-	 * We want to find the number of the wheel where the ball passes in front of the mark.
-	 * @param timeOfBallInFrontOfMark last time in seconds when the balls passes in front of the mark.
-	 * @param timeOfWheelInFrontOfMark last time in seconds when the zero of the wheel is in front of the mark.
-	 * @param lastWheelSpeed last known speed of the wheel.
-	 * @param way always ANTICLOCKWISE (despite the fact the clockwise way was implemented)
-	 * @return the number that is aligned with the mark when the ball was in front of the mark at time timeOfBallInFrontOfMark.
+	 * We want to find the number of the wheel where the ball passes in front of
+	 * the mark.
+	 * 
+	 * @param timeOfBallInFrontOfMark
+	 *            last time in seconds when the balls passes in front of the
+	 *            mark.
+	 * @param timeOfWheelInFrontOfMark
+	 *            last time in seconds when the zero of the wheel is in front of
+	 *            the mark.
+	 * @param lastWheelSpeed
+	 *            last known speed of the wheel.
+	 * @param way
+	 *            always ANTICLOCKWISE (despite the fact the clockwise way was
+	 *            implemented)
+	 * @return the number that is aligned with the mark when the ball was in
+	 *         front of the mark at time timeOfBallInFrontOfMark.
 	 */
 	public static int findPhaseNumberBetweenBallAndWheel(double timeOfBallInFrontOfMark, double timeOfWheelInFrontOfMark, double lastWheelSpeed,
 			WheelWay way)

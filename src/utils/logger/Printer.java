@@ -4,9 +4,9 @@ import java.io.PrintStream;
 
 class Printer
 {
-	private static final PrintStream	OUT_CONSOLE	= System.out;
+	private static final PrintStream OUT_CONSOLE = System.out;
 
-	static boolean						canLog		= true;
+	static boolean canLog = true;
 
 	public void println(String str)
 	{
