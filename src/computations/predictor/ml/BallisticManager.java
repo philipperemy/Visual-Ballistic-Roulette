@@ -56,7 +56,7 @@ class BallisticManager
 		}
 
 		SimpleRegression regression = Helper.performRegression(xAxis, yAxis);
-		return new AccelerationModel(regression.getSlope(), regression.getIntercept(), type);
+		return new AccelerationModel(regression.getSlope(), regression.getIntercept());
 	}
 
 	static AccelerationModel computeModel(List<Double> times, Constants.Type type)
@@ -67,7 +67,7 @@ class BallisticManager
 		if (speeds.size() == 1)
 		{
 			Logger.traceDEBUG("Only one speed detected for type: " + type);
-			return new AccelerationModelOneSpeed(type, speeds.get(0).speed);
+			return new AccelerationModelOneSpeed(speeds.get(0).speed);
 		}
 
 		return performLinearRegression(speeds, type);

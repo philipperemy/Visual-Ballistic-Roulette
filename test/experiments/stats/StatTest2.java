@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import computations.Constants;
 import computations.predictor.physics.constantdeceleration.PredictorPhysicsConstantDeceleration;
 import computations.utils.Helper;
 import utils.exception.SessionNotReadyException;
@@ -38,8 +37,6 @@ public class StatTest2
 	@Test
 	public void real_test() throws SessionNotReadyException
 	{
-		Constants.CASE_DIAMETER = 0.65;
-
 		PredictorPhysicsConstantDeceleration predictor = new PredictorPhysicsConstantDeceleration();
 
 		List<Double> wheelCumsumTimes = Arrays.asList(1.0, 4.0);

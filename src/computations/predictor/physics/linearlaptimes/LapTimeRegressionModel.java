@@ -2,28 +2,23 @@ package computations.predictor.physics.linearlaptimes;
 
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
-import computations.utils.Helper;
+import computations.predictor.physics.PhysicsRegressionModel;
 
-public class LapTimeRegressionModel
+public class LapTimeRegressionModel extends PhysicsRegressionModel
 {
-	double	slope;
-	double	intercept;
+	LapTimeRegressionModel(SimpleRegression simpleRegression)
+	{
+		super(simpleRegression);
+	}
 
 	public LapTimeRegressionModel(double slope, double intercept)
 	{
-		this.slope = slope;
-		this.intercept = intercept;
-	}
-
-	LapTimeRegressionModel(SimpleRegression simpleRegression)
-	{
-		this.slope = simpleRegression.getSlope();
-		this.intercept = simpleRegression.getIntercept();
+		super(slope, intercept);
 	}
 
 	@Override
 	public String toString()
 	{
-		return "LapTimeRegressionModel [slope=" + Helper.printDigit(slope) + ", intercept=" + Helper.printDigit(intercept) + "]";
+		return "LapTimeRegressionModel " + super.toString();
 	}
 }

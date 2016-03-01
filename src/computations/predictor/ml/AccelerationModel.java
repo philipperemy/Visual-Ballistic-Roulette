@@ -1,6 +1,6 @@
 package computations.predictor.ml;
 
-import computations.Constants;
+import computations.predictor.physics.PhysicsRegressionModel;
 import computations.utils.Helper;
 
 /**
@@ -8,28 +8,23 @@ import computations.utils.Helper;
  * Roulettecomputers.com, it is true.
  */
 // TODO: integrate the physics model.
-class AccelerationModel
+class AccelerationModel extends PhysicsRegressionModel
 {
-	@Override
-	public String toString()
-	{
-		return "AccelerationModel" + type + " [slope=" + Helper.printDigit(slope) + ", intercept=" + Helper.printDigit(intercept) + "]";
-	}
-
-	double			slope;
-	double			intercept;
-	Constants.Type	type;
-
 	// The model fitted is f(x) = 1/y, f linear.
 	public double estimateSpeed(double time)
 	{
 		return Helper.inverseSpeed(slope * time + intercept);
 	}
 
-	AccelerationModel(double slope, double intercept, Constants.Type type)
+	AccelerationModel(double slope, double intercept)
 	{
-		this.slope = slope;
-		this.intercept = intercept;
-		this.type = type;
+		super(slope, intercept);
 	}
+
+	@Override
+	public String toString()
+	{
+		return "AccelerationModel" + super.toString();
+	}
+
 }

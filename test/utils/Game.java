@@ -36,7 +36,7 @@ public class Game
 
 	public List<Double> get_ballLaptimes()
 	{
-		return _ballLaptimes.subList(0, _ballLaptimes.size() - 5);
+		return _ballLaptimes.subList(0, _ballLaptimes.size() - Constants.NUMBER_OF_BALL_LAP_TIMES_TO_DISCARD);
 	}
 
 	public List<Double> get_wheelLaptimes()

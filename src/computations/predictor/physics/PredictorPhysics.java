@@ -12,6 +12,7 @@ import utils.logger.Logger;
 
 public abstract class PredictorPhysics implements Predictor
 {
+	// Used as an auxiliary function.
 	protected static int predict(List<Double> wheelCumsumTimes, double diffOrigin, double lastTimeBallPassesInFrontOfRef, List<Double> wheelDiffTimes,
 			int phaseAtCutOff, double timeAtCutoffBall)
 	{

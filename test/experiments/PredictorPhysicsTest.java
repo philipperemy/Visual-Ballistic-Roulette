@@ -57,7 +57,7 @@ public class PredictorPhysicsTest
 		ballCumsumTimes = Helper.convertToSeconds(ballCumsumTimes);
 		wheelCumsumTimes = Helper.convertToSeconds(wheelCumsumTimes);
 
-		Assert.assertEquals(15, py.predict(ballCumsumTimes, wheelCumsumTimes));
+		Assert.assertEquals(19, py.predict(ballCumsumTimes, wheelCumsumTimes));
 	}
 
 	@Test
@@ -100,7 +100,7 @@ public class PredictorPhysicsTest
 		ballCumsumTimes = Helper.convertToSeconds(ballCumsumTimes);
 		wheelCumsumTimes = Helper.convertToSeconds(wheelCumsumTimes);
 
-		Assert.assertEquals(15, py.predict(ballCumsumTimes, wheelCumsumTimes));
+		Assert.assertEquals(0, py.predict(ballCumsumTimes, wheelCumsumTimes));
 	}
 
 }
