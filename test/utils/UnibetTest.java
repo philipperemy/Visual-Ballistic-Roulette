@@ -17,7 +17,7 @@ public class UnibetTest
 	@Test
 	public void test()
 	{
-		Logger.setDebug(false);
+		Logger.setDebug(true);
 		DatabaseAccessorInterface dbRef = DatabaseAccessor.getInstance();
 		List<Game> games = new ArrayList<>();
 		for (int i = 19; i <= 80; i++)
@@ -25,7 +25,7 @@ public class UnibetTest
 			games.add(new Game(String.valueOf(i), dbRef));
 		}
 		PredictorInterface predictorInterface = new PredictorInterface();
-		Predictor predictor = predictorInterface.physicsLinearLapTimes();
+		Predictor predictor = predictorInterface.machineLearning();
 		KFoldCrossValidationTest kfcv = new KFoldCrossValidationTest(games, predictor, dbRef, 3);
 		kfcv.run();
 

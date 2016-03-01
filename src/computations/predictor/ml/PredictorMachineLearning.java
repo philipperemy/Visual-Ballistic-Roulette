@@ -102,9 +102,10 @@ public class PredictorMachineLearning implements Predictor
 
 			Double lastWheelLapTimeInFrontOfRef = Helper.getLastTimeWheelIsInFrontOfRef(wheelLapTimes, correspondingBallLapTime);
 
-			// It means that the first record is a ball lap times.
+			// It means that the first record(s) is (are) prior to the first wheel recorded measurement.
 			if (lastWheelLapTimeInFrontOfRef == null)
 			{
+				Logger.traceDEBUG("Ball time = " + correspondingBallLapTime + " is ahead of the wheel. Skipping.");
 				continue;
 			}
 
