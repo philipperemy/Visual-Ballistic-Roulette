@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
 import computations.Constants;
-import computations.predictor.physics.linearlaptimes.LapTimeRegressionModel;
 import utils.exception.CriticalException;
 
 public class Helper
@@ -143,12 +142,12 @@ public class Helper
 	{
 		switch (type)
 		{
-		case BALL:
-			return Helper.getBallSpeed(t1, t2);
-		case WHEEL:
-			return Helper.getWheelSpeed(t1, t2);
-		default:
-			throw new CriticalException("Unknown type.");
+			case BALL:
+				return Helper.getBallSpeed(t1, t2);
+			case WHEEL:
+				return Helper.getWheelSpeed(t1, t2);
+			default:
+				throw new CriticalException("Unknown type.");
 		}
 	}
 
@@ -205,12 +204,5 @@ public class Helper
 			range.add((double) i);
 		}
 		return range;
-	}
-
-	// Random - hyper parameters introduced. So it's not very good.
-	public static LapTimeRegressionModel performRANSAC(List<Double> diffs)
-	{
-		List<Double> res = RANSAC.perform(diffs, 2, 100, 1, 0.2);
-		return new LapTimeRegressionModel(res.get(0), res.get(1));
 	}
 }

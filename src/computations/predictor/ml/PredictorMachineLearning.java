@@ -17,8 +17,8 @@ import utils.logger.Logger;
 
 public class PredictorMachineLearning implements Predictor
 {
-	private DatabaseAccessorInterface da;
-	private PredictorSolver solver = Constants.PREDICTOR_SOLVER;
+	private DatabaseAccessorInterface	da;
+	private PredictorSolver				solver	= Constants.PREDICTOR_SOLVER;
 
 	@Override
 	public void init(DatabaseAccessorInterface da)
@@ -87,22 +87,25 @@ public class PredictorMachineLearning implements Predictor
 			return dataRecords;
 		}
 
-		// We need at least three ball measures. To build the model (for one acceleration)
+		// We need at least three ball measures. To build the model (for one
+		// acceleration)
 		if (ballCumsumTimes.size() < Constants.MIN_NUMBER_OF_BALL_TIMES_BEFORE_PREDICTION)
 		{
 			return dataRecords;
 		}
-		
+
 		double originTimeBall = Helper.head(ballCumsumTimes);
 		ballCumsumTimes = Helper.normalize(ballCumsumTimes, originTimeBall);
-		
+
 		double originTimeWheel = Helper.head(wheelCumsumTimes);
 		wheelCumsumTimes = Helper.normalize(wheelCumsumTimes, originTimeWheel);
+
+		double diffOrigin = originTimeBall - originTimeWheel;
 
 		List<Double> ballDiffTimes = Helper.computeDiff(ballCumsumTimes);
 		List<Double> rangeBall = Helper.range(1, ballDiffTimes.size());
 		LapTimeRegressionModel ballSpeedModel = new LapTimeRegressionModel(Helper.performRegression(rangeBall, ballDiffTimes));
-		
+
 		List<Double> wheelDiffTimes = Helper.computeDiff(wheelCumsumTimes);
 		double constantWheelSpeed = Helper.getWheelSpeed(Helper.peek(wheelDiffTimes));
 
@@ -111,9 +114,10 @@ public class PredictorMachineLearning implements Predictor
 			double correspondingBallLapTime = ballCumsumTimes.get(i);
 			double wheelSpeedInFrontOfMark = constantWheelSpeed; // Simplification.
 
-			Double lastWheelLapTimeInFrontOfRef = Helper.getLastTimeWheelIsInFrontOfRef(wheelCumsumTimes, correspondingBallLapTime);
+			Double lastWheelLapTimeInFrontOfRef = Helper.getLastTimeWheelIsInFrontOfRef(wheelCumsumTimes, correspondingBallLapTime + diffOrigin);
 
-			// It means that the first record(s) is (are) prior to the first wheel recorded measurement.
+			// It means that the first record(s) is (are) prior to the first
+			// wheel recorded measurement.
 			if (lastWheelLapTimeInFrontOfRef == null)
 			{
 				Logger.traceDEBUG("Ball time = " + correspondingBallLapTime + " is ahead of the wheel. Skipping.");

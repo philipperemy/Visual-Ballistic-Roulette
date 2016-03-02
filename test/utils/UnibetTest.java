@@ -33,7 +33,7 @@ public class UnibetTest
 		Constants.DEFAULT_SHIFT_PHASE = 45;
 		System.out.println("eval= " + kfcv.evaluate(games));
 	}
-	
+
 	@Test
 	public void testMachineLearning()
 	{
@@ -46,7 +46,7 @@ public class UnibetTest
 		}
 		PredictorInterface predictorInterface = new PredictorInterface();
 		Predictor predictor = predictorInterface.machineLearning();
-		KFoldCrossValidationTest kfcv = new KFoldCrossValidationTest(games, predictor, dbRef, 3);
+		KFoldCrossValidationTest kfcv = new KFoldCrossValidationTest(games, predictor, dbRef, 2);
 		kfcv.run();
 	}
 }
