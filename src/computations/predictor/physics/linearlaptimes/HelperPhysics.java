@@ -78,5 +78,4 @@ public class HelperPhysics
 	{
 		return circumference * 0.5 / a * (Math.sqrt(Math.pow(a + 2 * b, 2) - 4 * a * (2 * b - 2 * x)) - (a + 2 * b));
 	}
-
 }

@@ -6,7 +6,7 @@ import computations.predictor.physics.PhysicsRegressionModel;
 
 public class LapTimeRegressionModel extends PhysicsRegressionModel
 {
-	LapTimeRegressionModel(SimpleRegression simpleRegression)
+	public LapTimeRegressionModel(SimpleRegression simpleRegression)
 	{
 		super(simpleRegression);
 	}
