@@ -6,6 +6,11 @@ import computations.predictor.ml.PredictorMachineLearning;
 import computations.predictor.ml.model.DataRecord;
 import utils.exception.CriticalException;
 
+/**
+ * A game has several data records (<ball speed, wheel speed, phase>). We
+ * investigate several strategies. For example we can keep only the most recent
+ * (up to now) data record we have of the game that is currently playing.
+ */
 public interface PredictorSolver
 {
 	public int predict(PredictorMachineLearning predictor, List<Double> ballLapTimes, List<Double> wheelLapTimes);
