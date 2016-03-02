@@ -15,8 +15,8 @@ import utils.logger.Logger;
 
 public class KFoldCrossValidationTest extends TestClass
 {
-	private List<Game> games = new ArrayList<>();
-	private int K = 2; // number of times you fold.
+	private List<Game>	games	= new ArrayList<>();
+	private int			K		= 2;				// number of times you fold.
 
 	public KFoldCrossValidationTest(List<Game> games, Predictor predictor, DatabaseAccessorInterface dbRef, int K)
 	{
@@ -122,7 +122,6 @@ public class KFoldCrossValidationTest extends TestClass
 				try
 				{
 					double curError = runTest(trainingGame, getAllSessionIdsButOne(trainingSet, trainingGame)).error();
-					// System.out.println(curError);
 					trainingError += curError;
 					trainingSampleSize++;
 					if (trainingSampleSize < trainingSet.size() * 0.7 || trainingError > 100)
@@ -131,7 +130,6 @@ public class KFoldCrossValidationTest extends TestClass
 					}
 				} catch (Exception e)
 				{
-					// System.err.println("cannot compute.");
 				}
 			}
 			trainingError /= trainingSampleSize;
@@ -188,35 +186,9 @@ public class KFoldCrossValidationTest extends TestClass
 
 	private double runCrossValidationMachineLearning(List<Game> trainingSet, List<Game> validationSet)
 	{
-		List<Game> allGames = new ArrayList<>(trainingSet);
-		allGames.addAll(validationSet);
-		double bestTrainingError = Double.MAX_VALUE;
-		try
-		{
-			double trainingError = 0.0;
-			int traininSampleSize = 0;
-			for (Game trainingGame : allGames)
-			{
-				try
-				{
-					trainingError += runTest(trainingGame, getAllSessionIdsButOne(allGames, trainingGame)).error();
-					traininSampleSize++;
-				} catch (Exception e)
-				{
-
-				}
-			}
-			trainingError /= traininSampleSize;
-			if (trainingError < bestTrainingError && traininSampleSize >= allGames.size() * 0.7)
-			{
-				bestTrainingError = trainingError;
-				System.out.println("count=" + traininSampleSize + ", training error=" + trainingError);
-			}
-		} catch (Exception e)
-		{
-			throw new RuntimeException();
-		}
-		return bestTrainingError;
+		double bestTrainingError = evaluate(trainingSet);
+		double bestValidationError = evaluate(trainingSet);
+		return 0.5 * bestTrainingError + 0.5 * bestValidationError;
 	}
 
 }
