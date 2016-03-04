@@ -187,8 +187,7 @@ public class KFoldCrossValidationTest extends TestClass
 	private double runCrossValidationMachineLearning(List<Game> trainingSet, List<Game> validationSet)
 	{
 		double bestTrainingError = evaluate(trainingSet);
-		double bestValidationError = evaluate(trainingSet);
+		double bestValidationError = evaluate(validationSet);
 		return 0.5 * bestTrainingError + 0.5 * bestValidationError;
 	}
-
 }
