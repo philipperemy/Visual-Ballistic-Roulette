@@ -5,11 +5,13 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 /*
- * Lets consider the diameter is one.
+ * The diameter does not impact the measures. We set it to one.
  */
 public class SpeedModel
 {
 	// ContainerId <-> speed.
+	// A TreeMap is a Map key->values that enforces the natural ordering of the
+	// keys.
 	private Map<Integer, Double> speeds = new TreeMap<>();
 
 	public void loadSpeeds(Map<Integer, LapTimesContainer> lapTimesModel)
