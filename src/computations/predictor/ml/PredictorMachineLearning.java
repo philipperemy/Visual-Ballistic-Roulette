@@ -3,18 +3,23 @@ package computations.predictor.ml;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.math3.stat.regression.SimpleRegression;
+
 import computations.Constants;
 import computations.predictor.Outcome;
 import computations.predictor.Phase;
 import computations.predictor.Predictor;
 import computations.predictor.ml.model.DataRecord;
 import computations.predictor.ml.solver.PredictorSolver;
-import computations.predictor.physics.linearlaptimes.HelperPhysics;
-import computations.predictor.physics.linearlaptimes.LapTimeRegressionModel;
+import computations.predictor.physics.linearlaptimes.HelperLinearLapTimes;
 import computations.utils.Helper;
 import database.DatabaseAccessorInterface;
 import utils.logger.Logger;
 
+/**
+ * This predictor uses machine learning algorithms to find the output of the game.
+ * For now it uses the linear regression of the lap times (and not the constant deceleration).
+ */
 public class PredictorMachineLearning implements Predictor
 {
 	private DatabaseAccessorInterface	da;
@@ -87,8 +92,7 @@ public class PredictorMachineLearning implements Predictor
 			return dataRecords;
 		}
 
-		// We need at least three ball measures. To build the model (for one
-		// acceleration)
+		// We need at least three ball measures. To build the model (for one acceleration)
 		if (ballCumsumTimes.size() < Constants.MIN_NUMBER_OF_BALL_TIMES_BEFORE_PREDICTION)
 		{
 			return dataRecords;
@@ -104,7 +108,7 @@ public class PredictorMachineLearning implements Predictor
 
 		List<Double> ballDiffTimes = Helper.computeDiff(ballCumsumTimes);
 		List<Double> rangeBall = Helper.range(1, ballDiffTimes.size());
-		LapTimeRegressionModel ballSpeedModel = new LapTimeRegressionModel(Helper.performRegression(rangeBall, ballDiffTimes));
+		SimpleRegression ballSpeedModel = Helper.performRegression(rangeBall, ballDiffTimes);
 
 		List<Double> wheelDiffTimes = Helper.computeDiff(wheelCumsumTimes);
 		double constantWheelSpeed = Helper.getWheelSpeed(Helper.peek(wheelDiffTimes));
@@ -116,8 +120,7 @@ public class PredictorMachineLearning implements Predictor
 
 			Double lastWheelLapTimeInFrontOfRef = Helper.getLastTimeWheelIsInFrontOfRef(wheelCumsumTimes, correspondingBallLapTime + diffOrigin);
 
-			// It means that the first record(s) is (are) prior to the first
-			// wheel recorded measurement.
+			// It means that the first record(s) occurred before the 1st wheel recorded measurement.
 			if (lastWheelLapTimeInFrontOfRef == null)
 			{
 				Logger.traceDEBUG("Ball time = " + correspondingBallLapTime + " is ahead of the wheel. Skipping.");
@@ -128,7 +131,7 @@ public class PredictorMachineLearning implements Predictor
 					Constants.DEFAULT_WHEEL_WAY);
 
 			DataRecord smr = new DataRecord();
-			smr.ballSpeedInFrontOfMark = HelperPhysics.estimateSpeed(correspondingBallLapTime, Constants.get_BALL_CIRCUMFERENCE(), ballSpeedModel);
+			smr.ballSpeedInFrontOfMark = HelperLinearLapTimes.estimateSpeed(correspondingBallLapTime, Constants.get_BALL_CIRCUMFERENCE(), ballSpeedModel);
 			smr.wheelSpeedInFrontOfMark = wheelSpeedInFrontOfMark;
 			smr.phaseOfWheelWhenBallPassesInFrontOfMark = phase;
 			dataRecords.add(smr);

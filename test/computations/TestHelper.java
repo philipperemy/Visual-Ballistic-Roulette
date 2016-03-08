@@ -95,14 +95,6 @@ public class TestHelper
 	}
 
 	@Test
-	public void helper_test_3()
-	{
-		Assert.assertEquals(0.1, Helper.inverseSpeed(10), 0.0001);
-		Assert.assertEquals(0.01, Helper.inverseSpeed(100), 0.0001);
-		Assert.assertEquals(0.25, Helper.inverseSpeed(4), 0.0001);
-	}
-
-	@Test
 	public void helper_test_4()
 	{
 		List<Double> list = Arrays.asList(1000.0, 2000.0, 3000.0);

@@ -35,7 +35,7 @@ public class Constants
 
 	public static final long		THRESHOLD_BEFORE_NEW_SESSION_IN_MS			= 30 * 1000;
 
-	// There is only one way. Never change this.
+	// There is only one way we accept in the games. Never change this.
 	public static final WheelWay	DEFAULT_WHEEL_WAY							= WheelWay.ANTICLOCKWISE;
 	public static final String		DATABASE_NAME								= "roulette_db";
 	public static final double		TIME_LEFT_FOR_PLACING_BETS_SECONDS			= 2;

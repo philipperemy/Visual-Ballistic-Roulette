@@ -7,9 +7,4 @@ public class SessionNotReadyException extends Exception
 	public SessionNotReadyException()
 	{
 	}
-
-	public SessionNotReadyException(String msg)
-	{
-		super(msg);
-	}
 }

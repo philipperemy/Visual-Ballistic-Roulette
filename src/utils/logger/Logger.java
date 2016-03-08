@@ -94,22 +94,6 @@ public class Logger
 		out.println(baseLogMessage(ERROR_KEY, msg));
 	}
 
-	public static void traceINFO(String... msgs)
-	{
-		StringBuilder sBuilder = new StringBuilder();
-		for (int i = 0; i < msgs.length; i++)
-		{
-			if (i == msgs.length - 1)
-			{
-				sBuilder.append(msgs[i]);
-			} else
-			{
-				sBuilder.append(msgs[i] + ", ");
-			}
-		}
-		out.println(baseLogMessage(INFO_KEY, sBuilder.toString()));
-	}
-
 	public static void traceERROR(Exception e)
 	{
 		if (e != null)

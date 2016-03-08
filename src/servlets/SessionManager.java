@@ -31,6 +31,12 @@ public final class SessionManager
 	{
 	}
 
+	/**
+	 * Everytime a new lap time (ball or wheel) is submitted, we chech if 30
+	 * seconds have elapsed. If this is the case, it means that this is a new
+	 * game and we should increment the session ID. If not, we just add it
+	 * normally.
+	 */
 	String callManager(long queryTime)
 	{
 		String newSessionId = null;

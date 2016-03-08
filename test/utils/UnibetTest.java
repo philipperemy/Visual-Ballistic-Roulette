@@ -17,7 +17,7 @@ public class UnibetTest
 	@Test
 	public void testPhysics()
 	{
-		Logger.setDebug(true);
+		Logger.setDebug(false);
 		DatabaseAccessorInterface dbRef = DatabaseAccessor.getInstance();
 		List<Game> games = new ArrayList<>();
 		for (int i = 19; i <= 80; i++)

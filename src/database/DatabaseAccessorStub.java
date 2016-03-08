@@ -7,6 +7,10 @@ import java.util.Map;
 
 import computations.predictor.Outcome;
 
+/**
+ * Not used anymore.
+ * This class emulates the database.
+ */
 public class DatabaseAccessorStub implements DatabaseAccessorInterface
 {
 	private Map<String, List<Double>> _ballLapTimes = new HashMap<>();

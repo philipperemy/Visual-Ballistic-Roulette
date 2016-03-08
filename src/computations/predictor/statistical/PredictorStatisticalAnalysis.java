@@ -6,7 +6,7 @@ import computations.Constants;
 import computations.Wheel;
 import computations.predictor.Phase;
 import computations.predictor.Predictor;
-import computations.predictor.physics.linearlaptimes.HelperPhysics;
+import computations.predictor.physics.linearlaptimes.HelperLinearLapTimes;
 import computations.utils.Helper;
 import database.DatabaseAccessorInterface;
 import utils.logger.Logger;
@@ -43,10 +43,10 @@ public class PredictorStatisticalAnalysis implements Predictor
 
 		Logger.traceDEBUG("Remaining distance computed = " + Helper.printDigit(remainingDistance) + " m");
 
-		double angleAtCutOffTime = HelperPhysics.estimatePhaseAngleDegrees(remainingDistance, Constants.get_WHEEL_CIRCUMFERENCE());
+		double angleAtCutOffTime = HelperLinearLapTimes.estimatePhaseAngleDegrees(remainingDistance, Constants.get_WHEEL_CIRCUMFERENCE());
 		Logger.traceDEBUG("Angle of the wheel at cutoff time = " + Helper.printDigit(angleAtCutOffTime) + " degrees.");
 
-		int shiftPhaseBetweenInitialTimeAndCutOff = HelperPhysics.estimateShiftWithAngle(angleAtCutOffTime);
+		int shiftPhaseBetweenInitialTimeAndCutOff = HelperLinearLapTimes.estimateShiftWithAngle(angleAtCutOffTime);
 
 		/**
 		 * Comparing this value with the true value can be used to optimize the

@@ -1,11 +1,11 @@
 package computations;
 
+import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.junit.Assert;
 import org.junit.Test;
 
 import computations.Constants;
-import computations.predictor.physics.linearlaptimes.HelperPhysics;
-import computations.predictor.physics.linearlaptimes.LapTimeRegressionModel;
+import computations.predictor.physics.linearlaptimes.HelperLinearLapTimes;
 import utils.exception.PositiveValueExpectedException;
 
 public class HelperPhysicsTest
@@ -22,17 +22,17 @@ public class HelperPhysicsTest
 	@Test
 	public void testEstimatePhaseAngleDegrees()
 	{
-		Assert.assertEquals(0.0, HelperPhysics.estimatePhaseAngleDegrees(100, 10), EPSILON);
-		Assert.assertEquals(180.0, HelperPhysics.estimatePhaseAngleDegrees(15, 10), EPSILON);
-		Assert.assertEquals(324.0, HelperPhysics.estimatePhaseAngleDegrees(19, 10), EPSILON);
+		Assert.assertEquals(0.0, HelperLinearLapTimes.estimatePhaseAngleDegrees(100, 10), EPSILON);
+		Assert.assertEquals(180.0, HelperLinearLapTimes.estimatePhaseAngleDegrees(15, 10), EPSILON);
+		Assert.assertEquals(324.0, HelperLinearLapTimes.estimatePhaseAngleDegrees(19, 10), EPSILON);
 	}
 
 	@Test
 	public void testEstimateShiftWithAngle()
 	{
-		Assert.assertEquals(0, HelperPhysics.estimateShiftWithAngle(0));
-		Assert.assertEquals(1, HelperPhysics.estimateShiftWithAngle(10));
-		Assert.assertEquals(2, HelperPhysics.estimateShiftWithAngle(20));
+		Assert.assertEquals(0, HelperLinearLapTimes.estimateShiftWithAngle(0));
+		Assert.assertEquals(1, HelperLinearLapTimes.estimateShiftWithAngle(10));
+		Assert.assertEquals(2, HelperLinearLapTimes.estimateShiftWithAngle(20));
 	}
 
 	@Test
@@ -40,8 +40,8 @@ public class HelperPhysicsTest
 	{
 		double a_b = 0.1362;
 		double b_b = 0.5962;
-		LapTimeRegressionModel lrv = new LapTimeRegressionModel(a_b, b_b);
-		Assert.assertEquals(0.4775, HelperPhysics.estimateSpeed(100, Constants.get_BALL_CIRCUMFERENCE(), lrv), EPSILON);
+		SimpleRegression lrv = generateLinearModel(a_b, b_b);
+		Assert.assertEquals(0.4775, HelperLinearLapTimes.estimateSpeed(100, Constants.get_BALL_CIRCUMFERENCE(), lrv), EPSILON);
 	}
 
 	@Test
@@ -49,8 +49,16 @@ public class HelperPhysicsTest
 	{
 		double a_b = 0.0266;
 		double b_b = 3.554;
-		LapTimeRegressionModel lrv = new LapTimeRegressionModel(a_b, b_b);
-		Assert.assertEquals(1.3238, HelperPhysics.estimateDistance(15.554, 18.128, Constants.get_WHEEL_CIRCUMFERENCE(), lrv), EPSILON);
+		SimpleRegression lrv = generateLinearModel(a_b, b_b);
+		Assert.assertEquals(1.3238, HelperLinearLapTimes.estimateDistance(15.554, 18.128, Constants.get_WHEEL_CIRCUMFERENCE(), lrv), EPSILON);
+	}
+
+	private SimpleRegression generateLinearModel(double a_b, double b_b)
+	{
+		SimpleRegression lrv = new SimpleRegression();
+		lrv.addData(0, b_b);
+		lrv.addData(1, a_b + b_b);
+		return lrv;
 	}
 
 	@Test
@@ -58,12 +66,12 @@ public class HelperPhysicsTest
 	{
 		double a_b = 0.1362;
 		double b_b = 0.5962;
-		LapTimeRegressionModel lrv = new LapTimeRegressionModel(a_b, b_b);
+		SimpleRegression lrv = generateLinearModel(a_b, b_b);
 
 		double time = 12.5;
-		double speed = HelperPhysics.estimateSpeed(time, Constants.get_BALL_CIRCUMFERENCE(), lrv);
+		double speed = HelperLinearLapTimes.estimateSpeed(time, Constants.get_BALL_CIRCUMFERENCE(), lrv);
 
-		Assert.assertEquals(time, HelperPhysics.estimateTimeForSpeed(speed, Constants.get_BALL_CIRCUMFERENCE(), lrv), EPSILON);
+		Assert.assertEquals(time, HelperLinearLapTimes.estimateTimeForSpeed(speed, Constants.get_BALL_CIRCUMFERENCE(), lrv), EPSILON);
 	}
 
 }

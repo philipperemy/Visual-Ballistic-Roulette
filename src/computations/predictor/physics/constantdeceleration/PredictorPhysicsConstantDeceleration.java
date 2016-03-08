@@ -2,6 +2,8 @@ package computations.predictor.physics.constantdeceleration;
 
 import java.util.List;
 
+import org.apache.commons.math3.stat.regression.SimpleRegression;
+
 import computations.Constants;
 import computations.Wheel;
 import computations.predictor.physics.PredictorPhysics;
@@ -28,12 +30,12 @@ public class PredictorPhysicsConstantDeceleration extends PredictorPhysics
 		List<Double> ballDiffTimes = Helper.computeDiff(ballCumsumTimes);
 		List<Double> wheelDiffTimes = Helper.computeDiff(wheelCumsumTimes);
 
-		ConstantDecelerationModel ballModel = RegressionManager.computeModel(ballDiffTimes);
+		SimpleRegression ballModel = HelperConstantDeceleration.computeModel(ballDiffTimes);
 
-		double numberOfRevolutionsLeftBall = RegressionManager.estimateRevolutionCountLeft(ballModel, ballDiffTimes.size(), cutoffSpeed);
+		double numberOfRevolutionsLeftBall = HelperConstantDeceleration.estimateRevolutionCountLeft(ballModel, ballDiffTimes.size(), cutoffSpeed);
 		int phaseAtCutOff = (int) ((numberOfRevolutionsLeftBall % 1) * Wheel.NUMBERS.length);
 
-		double timeAtCutoffBall = lastTimeBallPassesInFrontOfRef + RegressionManager.estimateTime(ballModel, ballDiffTimes.size(), cutoffSpeed);
+		double timeAtCutoffBall = lastTimeBallPassesInFrontOfRef + HelperConstantDeceleration.estimateTime(ballModel, ballDiffTimes.size(), cutoffSpeed);
 
 		return predict(wheelCumsumTimes, diffOrigin, lastTimeBallPassesInFrontOfRef, wheelDiffTimes, phaseAtCutOff, timeAtCutoffBall);
 	}

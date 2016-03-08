@@ -2,6 +2,8 @@ package computations.predictor.physics.linearlaptimes;
 
 import java.util.List;
 
+import org.apache.commons.math3.stat.regression.SimpleRegression;
+
 import computations.Constants;
 import computations.Wheel;
 import computations.predictor.physics.PredictorPhysics;
@@ -29,15 +31,15 @@ public class PredictorPhysicsLinearLaptimes extends PredictorPhysics
 		List<Double> wheelDiffTimes = Helper.computeDiff(wheelCumsumTimes);
 
 		List<Double> rangeBall = Helper.range(1, ballDiffTimes.size());
-		LapTimeRegressionModel ballSpeedModel = new LapTimeRegressionModel(Helper.performRegression(rangeBall, ballDiffTimes));
+		SimpleRegression ballSpeedModel = Helper.performRegression(rangeBall, ballDiffTimes);
 		Logger.traceDEBUG("Ball Speed Model = " + ballSpeedModel);
 
 		// relative to normalize. Add originTimeBall to have the same time as
 		// the one in the video.
-		double timeAtCutoffBall = HelperPhysics.estimateTimeForSpeed(cutoffSpeed, Constants.get_BALL_CIRCUMFERENCE(), ballSpeedModel);
+		double timeAtCutoffBall = HelperLinearLapTimes.estimateTimeForSpeed(cutoffSpeed, Constants.get_BALL_CIRCUMFERENCE(), ballSpeedModel);
 		Logger.traceDEBUG("Cutoff time = " + Helper.printDigit(timeAtCutoffBall) + " s, relative to t_BALL(0) for speed = " + cutoffSpeed + " m/s");
 
-		double distBall = HelperPhysics.estimateDistance(lastTimeBallPassesInFrontOfRef, timeAtCutoffBall, Constants.get_BALL_CIRCUMFERENCE(),
+		double distBall = HelperLinearLapTimes.estimateDistance(lastTimeBallPassesInFrontOfRef, timeAtCutoffBall, Constants.get_BALL_CIRCUMFERENCE(),
 				ballSpeedModel) / Constants.get_BALL_CIRCUMFERENCE() % 1;
 		int phaseAtCutOff = (int) (distBall * Wheel.NUMBERS.length);
 

@@ -59,11 +59,6 @@ public class Helper
 		return new DecimalFormat("###.####").format(number);
 	}
 
-	public static double inverseSpeed(final double speed)
-	{
-		return (double) 1.0 / speed;
-	}
-
 	public static Double getLastTimeWheelIsInFrontOfRef(List<Double> wheelLapTimes, double ballLapTimeInFrontOfRef)
 	{
 		Double res = null;
