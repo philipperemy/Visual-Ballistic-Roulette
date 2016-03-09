@@ -8,6 +8,12 @@ import computations.Wheel;
 import computations.predictor.OutcomeStatistics;
 import computations.predictor.ml.model.DataRecord;
 
+/**
+ * For one particular data record (ball speed, wheel speed, phase), we select
+ * from the database the records that are the closest. Each one is weighted
+ * according to its distance. A lower distance means a stronger weight. The
+ * final result is just a linear combination of the selected weighted games.
+ */
 public class SimpleWeightingSchemeSolver implements OutcomeSolver
 {
 	// Simple Weighting Scheme

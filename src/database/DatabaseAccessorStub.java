@@ -5,11 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import computations.predictor.Outcome;
-
 /**
- * Not used anymore.
- * This class emulates the database.
+ * Not used anymore. This class emulates the database.
  */
 public class DatabaseAccessorStub implements DatabaseAccessorInterface
 {
@@ -38,15 +35,15 @@ public class DatabaseAccessorStub implements DatabaseAccessorInterface
 	}
 
 	@Override
-	public Outcome getOutcome(String sessionId)
+	public Integer getOutcome(String sessionId)
 	{
-		Outcome outcome = new Outcome();
+		Integer outcome = null;
 		Integer num = _outcomes.get(sessionId);
 		if (num == null)
 		{
 			return null;
 		}
-		outcome.number = num;
+		outcome = new Integer(num);
 		return outcome;
 	}
 

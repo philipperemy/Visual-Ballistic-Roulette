@@ -2,7 +2,6 @@ package database;
 
 import java.util.List;
 
-import computations.predictor.Outcome;
 
 public interface DatabaseAccessorInterface
 {
@@ -12,7 +11,7 @@ public interface DatabaseAccessorInterface
 
 	public String incrementAndGetSessionId();
 
-	public Outcome getOutcome(String sessionId);
+	public Integer getOutcome(String sessionId);
 
 	public List<String> getSessionIds();
 

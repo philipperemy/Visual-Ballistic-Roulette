@@ -16,33 +16,33 @@ import utils.logger.Logger;
 public class DataRecord
 {
 	// Principle:
-	// - BallSpeed known in front of mark
+	// - Ball speed known in front of mark
 	// - Wheel speed known in front of mark
 	// - Phase between both (wheel number in front of mark when ball passes in
 	// front of the mark)
 	// => possible to predict the outcome.
 
-	public double					ballSpeedInFrontOfMark;
-	public double					wheelSpeedInFrontOfMark;
+	public double ballSpeedInFrontOfMark;
+	public double wheelSpeedInFrontOfMark;
 
 	// Only for Logging purposes.
-	public String					sessionId	= null;
+	public String sessionId = null;
 
 	/**
 	 * Phases of the ball when the zero of the ball is in front of a landmark.
 	 * After it's just looking at the phase between each phase and what we have
 	 * to shift the outcome.
 	 */
-	public int						phaseOfWheelWhenBallPassesInFrontOfMark;
+	public int phaseOfWheelWhenBallPassesInFrontOfMark;
 
 	// Outcome of the game
-	public Integer					outcome		= null;
+	public Integer outcome = null;
 
-	private final WheelWay			way			= Constants.DEFAULT_WHEEL_WAY;
+	private final WheelWay way = Constants.DEFAULT_WHEEL_WAY;
 
-	private static List<DataRecord>	cache		= new ArrayList<>();
+	private static List<DataRecord> cache = new ArrayList<>();
 
-	private static OutcomeSolver	solver		= Constants.DATARECORD_SOLVER;
+	private static OutcomeSolver solver = Constants.DATARECORD_SOLVER;
 
 	public static void clearCache()
 	{
@@ -58,7 +58,7 @@ public class DataRecord
 
 	// [100 1] with [101 2]
 	// ((101-100)/100+(2-1)/1)/2
-	// Result is 0.5050 and not 2.
+	// Result is 0.5050 and not 2. It means that we have roughly 50.5% increase.
 	private double mae(DataRecord smr)
 	{
 		return 0.5 * Math.abs(smr.ballSpeedInFrontOfMark - this.ballSpeedInFrontOfMark) / this.ballSpeedInFrontOfMark
@@ -67,7 +67,10 @@ public class DataRecord
 
 	public static List<DataRecord> matchCache(DataRecord predictRecord, int knnNumber)
 	{
-		Map<Double, DataRecord> distRecordsMap = new TreeMap<>();
+		// TreeMap ensures that the map is ordered by the distance.
+		Map<Double, DataRecord> distRecordsMap = new TreeMap<>(); // dist ->
+																	// data
+																	// record
 		for (DataRecord cacheRecord : cache)
 		{
 			double dist = cacheRecord.mae(predictRecord);
@@ -85,11 +88,11 @@ public class DataRecord
 		// print them all.
 		for (Entry<Double, DataRecord> entry : distRecordsMap.entrySet())
 		{
-			double dist = entry.getKey();
-			DataRecord cacheSmr = entry.getValue();
-			Logger.traceDEBUG("Dist : " + Helper.printDigit(dist) + ", " + cacheSmr);
+			Logger.traceDEBUG("Dist : " + Helper.printDigit(entry.getKey()) + ", " + entry.getValue());
 		}
 
+		// keep only the records with the lowest distance. If knn=5, keep the
+		// five with the lowest distance.
 		int i = 0;
 		List<DataRecord> knnList = new ArrayList<>();
 		for (Entry<Double, DataRecord> orderedCacheRecord : distRecordsMap.entrySet())

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import computations.Constants;
-import computations.predictor.Outcome;
 import utils.exception.CriticalException;
 import utils.logger.Logger;
 
@@ -87,17 +86,15 @@ public final class DatabaseAccessor implements DatabaseAccessorInterface
 		return getLastSessionId();
 	}
 
-	public Outcome getOutcome(String sessionId)
+	public Integer getOutcome(String sessionId)
 	{
 		String query = "SELECT * FROM `outcomes` WHERE SESSION_ID = " + sessionId + ";";
 		try
 		{
 			ResultSet resultSet = connect.createStatement().executeQuery(query);
-			Outcome outcome = new Outcome();
 			if (resultSet.next())
 			{
-				outcome.number = Integer.parseInt(resultSet.getString("NUMBER"));
-				return outcome;
+				return Integer.parseInt(resultSet.getString("NUMBER"));
 			}
 		} catch (SQLException e)
 		{

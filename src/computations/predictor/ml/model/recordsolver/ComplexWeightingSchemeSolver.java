@@ -4,24 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import computations.Constants;
-import computations.Wheel;
 import computations.predictor.OutcomeStatistics;
 import computations.predictor.ml.model.DataRecord;
 import utils.logger.Logger;
 
+/**
+ * For one particular data record (ball speed, wheel speed, phase), we select
+ * from the database the records that are the closest. Each one is equally
+ * weighted. Then we investigate the impact of the number of records we have
+ * selected previously. We average the simple scheme for different KNN numbers.
+ */
 public class ComplexWeightingSchemeSolver implements OutcomeSolver
 {
-	// Complex Weighting Aggregation Scheme
 	public int predictOutcome(DataRecord predict)
 	{
-		List<DataRecord> matchedRecordsList = DataRecord.matchCache(predict, Constants.NUMBER_OF_NEIGHBORS_KNN);
-		List<Integer> outcomeNumbersList = new ArrayList<>();
-		for (DataRecord matchedRecord : matchedRecordsList)
-		{
-			int predictedOutcome = Wheel.predictOutcomeWithShift(matchedRecord.phaseOfWheelWhenBallPassesInFrontOfMark, matchedRecord.outcome,
-					predict.phaseOfWheelWhenBallPassesInFrontOfMark);
-			outcomeNumbersList.add(predictedOutcome);
-		}
+		// Simple Scheme
+		List<Integer> outcomeNumbersList = outcomesFromKNNAlgorithm(predict);
 
 		// Do that in order to have a stable KNN. What is the behavior of my
 		// result if I change some parameters to the model?
@@ -33,7 +31,6 @@ public class ComplexWeightingSchemeSolver implements OutcomeSolver
 			outcomeMeanNumbersList.add(stat.meanNumber);
 		}
 
-		// Give more credit to the KNN(2), KNN(3)... as they appear more.
 		OutcomeStatistics outcomeStatistics = OutcomeStatistics.create(outcomeMeanNumbersList);
 		return outcomeStatistics.meanNumber;
 	}

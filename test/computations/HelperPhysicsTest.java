@@ -4,7 +4,6 @@ import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.junit.Assert;
 import org.junit.Test;
 
-import computations.Constants;
 import computations.predictor.physics.linearlaptimes.HelperLinearLapTimes;
 import utils.exception.PositiveValueExpectedException;
 

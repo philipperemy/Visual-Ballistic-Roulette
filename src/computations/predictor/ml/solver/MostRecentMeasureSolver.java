@@ -13,6 +13,7 @@ public class MostRecentMeasureSolver implements PredictorSolver
 	{
 		List<DataRecord> predictRecords = getPredictedRecords(predictor, ballLapTimes, wheelLapTimes);
 
+		// Consider only the most recent record we know up to now.
 		DataRecord predictRecord = Helper.peek(predictRecords);
 		Logger.traceDEBUG("Record to predict : " + predictRecord);
 

@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
 import computations.Constants;
-import computations.predictor.Outcome;
 import computations.predictor.Phase;
 import computations.predictor.Predictor;
 import computations.predictor.ml.model.DataRecord;
@@ -67,10 +66,10 @@ public class PredictorMachineLearning implements Predictor
 				List<DataRecord> records = buildDataRecords(ballCumsumTimes, wheelCumsumTimes);
 				for (DataRecord record : records)
 				{
-					Outcome outcome = da.getOutcome(sessionId);
+					Integer outcome = da.getOutcome(sessionId);
 					if (outcome != null)
 					{
-						record.outcome = outcome.number;
+						record.outcome = outcome;
 					} else
 					{
 						Logger.traceERROR("No outcome for session id = " + sessionId);

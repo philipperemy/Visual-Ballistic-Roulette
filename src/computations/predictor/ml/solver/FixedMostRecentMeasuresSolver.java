@@ -1,6 +1,5 @@
 package computations.predictor.ml.solver;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import computations.Constants;
@@ -14,16 +13,7 @@ public class FixedMostRecentMeasuresSolver implements PredictorSolver
 	public int predict(PredictorMachineLearning predictor, List<Double> ballLapTimes, List<Double> wheelLapTimes)
 	{
 		List<DataRecord> predictRecords = getPredictedRecords(predictor, ballLapTimes, wheelLapTimes);
-
-		List<Integer> mostProbableNumberList = new ArrayList<>();
-		for (int i = 0; i < predictRecords.size(); i++)
-		{
-			DataRecord predictRecord = predictRecords.get(i);
-			Logger.traceDEBUG("(" + i + ") Record to predict : " + predictRecord);
-			int mostProbableNumber = DataRecord.predictOutcome(predictRecord);
-			Logger.traceDEBUG("(" + i + ") Most probable number : " + mostProbableNumber);
-			mostProbableNumberList.add(mostProbableNumber);
-		}
+		List<Integer> mostProbableNumberList = mostProbableNumberForEachRecord(predictRecords);
 
 		int size = mostProbableNumberList.size();
 		int par = Constants.RECORDS_COUNT_FOR_PREDICTION;
@@ -37,4 +27,5 @@ public class FixedMostRecentMeasuresSolver implements PredictorSolver
 		Logger.traceDEBUG("(final) Most probable number : " + mostProbableFinalNumber);
 		return os.meanNumber;
 	}
+
 }

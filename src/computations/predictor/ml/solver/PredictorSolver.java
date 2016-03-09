@@ -1,10 +1,12 @@
 package computations.predictor.ml.solver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import computations.predictor.ml.PredictorMachineLearning;
 import computations.predictor.ml.model.DataRecord;
 import utils.exception.CriticalException;
+import utils.logger.Logger;
 
 /**
  * A game has several data records (<ball speed, wheel speed, phase>). We
@@ -15,10 +17,6 @@ public interface PredictorSolver
 {
 	public int predict(PredictorMachineLearning predictor, List<Double> ballLapTimes, List<Double> wheelLapTimes);
 
-	/*
-	 * Throws a SessionNotReadyException that can happen during the first games
-	 * when the database is empty.
-	 */
 	public default List<DataRecord> getPredictedRecords(PredictorMachineLearning predictor, List<Double> ballLapTimes, List<Double> wheelLapTimes)
 	{
 		// Phase is filled. All lap times are used to build the model.
@@ -29,5 +27,19 @@ public interface PredictorSolver
 			throw new CriticalException("No records to predict. Database is empty.");
 		}
 		return predictRecords;
+	}
+
+	public default List<Integer> mostProbableNumberForEachRecord(List<DataRecord> predictRecords)
+	{
+		List<Integer> mostProbableNumberList = new ArrayList<>();
+		for (int i = 0; i < predictRecords.size(); i++)
+		{
+			DataRecord predictRecord = predictRecords.get(i);
+			Logger.traceDEBUG("(" + i + ") Record to predict : " + predictRecord);
+			int mostProbableNumber = DataRecord.predictOutcome(predictRecord);
+			Logger.traceDEBUG("(" + i + ") Most probable number : " + mostProbableNumber);
+			mostProbableNumberList.add(mostProbableNumber);
+		}
+		return mostProbableNumberList;
 	}
 }

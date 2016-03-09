@@ -3,7 +3,6 @@ package utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import computations.predictor.Outcome;
 import database.DatabaseAccessorInterface;
 import utils.logger.Logger;
 
@@ -19,10 +18,10 @@ public class Game
 		_sessionId = sessionId;
 		_ballLaptimes = computations.utils.Helper.convertToSeconds(dbRef.selectBallLapTimes(_sessionId));
 		_wheelLaptimes = computations.utils.Helper.convertToSeconds(dbRef.selectWheelLapTimes(_sessionId));
-		Outcome out = dbRef.getOutcome(_sessionId);
+		Integer out = dbRef.getOutcome(_sessionId);
 		if (out != null)
 		{
-			_outcome = dbRef.getOutcome(_sessionId).number;
+			_outcome = dbRef.getOutcome(_sessionId);
 		} else
 		{
 			Logger.traceERROR("Outcome is null for sessionId = " + sessionId);
