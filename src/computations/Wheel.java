@@ -22,8 +22,7 @@ public class Wheel
 	/**
 	 * Calculate a valid index from Z -> [0, 36] (length = 37 numbers)
 	 * 
-	 * @param any
-	 *            integer
+	 * @param any integer
 	 * @return valid index
 	 */
 	public static int getIndex(int index)

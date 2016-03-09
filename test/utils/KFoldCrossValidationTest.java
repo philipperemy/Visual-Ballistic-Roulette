@@ -6,8 +6,7 @@ import java.util.List;
 import computations.Constants;
 import computations.predictor.Predictor;
 import computations.predictor.ml.PredictorMachineLearning;
-import computations.predictor.physics.constantdeceleration.PredictorPhysicsConstantDeceleration;
-import computations.predictor.physics.linearlaptimes.PredictorPhysicsLinearLaptimes;
+import computations.predictor.physics.PredictorPhysics;
 import computations.predictor.statistical.PredictorStatisticalAnalysis;
 import computations.utils.Helper;
 import database.DatabaseAccessorInterface;
@@ -15,8 +14,8 @@ import utils.logger.Logger;
 
 public class KFoldCrossValidationTest extends TestClass
 {
-	private List<Game>	games	= new ArrayList<>();
-	private int			K		= 2;				// number of times you fold.
+	private List<Game> games = new ArrayList<>();
+	private int K = 2; // number of times you fold.
 
 	public KFoldCrossValidationTest(List<Game> games, Predictor predictor, DatabaseAccessorInterface dbRef, int K)
 	{
@@ -29,6 +28,9 @@ public class KFoldCrossValidationTest extends TestClass
 	{
 		List<List<Game>> gameFolds = Helper.split(games, (int) Math.floor(games.size() / K));
 		double error = 0.0;
+		// Select one set as the validation set and all the others are gathered
+		// in the training set.
+		// Do that for every possible combination.
 		for (int foldId = 0; foldId < K; foldId++)
 		{
 			List<Game> validationSet = gameFolds.get(foldId);
@@ -41,10 +43,11 @@ public class KFoldCrossValidationTest extends TestClass
 				}
 			}
 
+			// Specific call depending on the type of the predictor.
 			if (predictor instanceof PredictorMachineLearning)
 			{
 				error += runCrossValidationMachineLearning(trainingSet, validationSet);
-			} else if (predictor instanceof PredictorPhysicsLinearLaptimes | predictor instanceof PredictorPhysicsConstantDeceleration)
+			} else if (predictor instanceof PredictorPhysics)
 			{
 				error += runCrossValidationPhysics(trainingSet, validationSet);
 			} else if (predictor instanceof PredictorStatisticalAnalysis)
@@ -89,11 +92,6 @@ public class KFoldCrossValidationTest extends TestClass
 		double validationSetError = evaluate(validationSet);
 		System.out.println("valid=" + validationSetError);
 		return validationSetError;
-	}
-
-	public interface FilterSessionIdsInterface
-	{
-		List<String> getAllSessionIdsButOne(List<Game> gameSet, Game gameToExclude);
 	}
 
 	public static List<String> getAllSessionIdsButOne(List<Game> gameSet, Game gameToExclude)
@@ -169,7 +167,6 @@ public class KFoldCrossValidationTest extends TestClass
 			{
 				// Do nothing.
 			}
-
 		}
 
 		if (best_cutoffSpeed == null || best_phase == null)

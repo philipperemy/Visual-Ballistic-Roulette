@@ -169,6 +169,10 @@ public class Helper
 		return false;
 	}
 
+	/**
+	 * Example is list of size 160, L=80.
+	 * We expect two lists of size 80.
+	 */
 	public static <T> List<List<T>> split(List<T> list, final int L)
 	{
 		List<List<T>> parts = new ArrayList<List<T>>();
@@ -180,13 +184,13 @@ public class Helper
 		return parts;
 	}
 
-	public static SimpleRegression performRegression(List<Double> _x, List<Double> _y)
+	public static SimpleRegression performRegression(List<Double> xValues, List<Double> yValues)
 	{
-		int n = _x.size();
+		int n = xValues.size();
 		SimpleRegression regression = new SimpleRegression();
 		for (int i = 0; i < n; i++)
 		{
-			regression.addData(_x.get(i), _y.get(i));
+			regression.addData(xValues.get(i), yValues.get(i));
 		}
 		return regression;
 	}

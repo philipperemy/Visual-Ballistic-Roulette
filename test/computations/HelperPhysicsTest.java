@@ -5,13 +5,11 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import computations.predictor.physics.linearlaptimes.HelperLinearLapTimes;
+import utils.TestConstants;
 import utils.exception.PositiveValueExpectedException;
 
 public class HelperPhysicsTest
 {
-
-	private static final double EPSILON = 0.001;
-
 	static
 	{
 		Constants.WHEEL_DIAMETER = 0.60;
@@ -21,9 +19,9 @@ public class HelperPhysicsTest
 	@Test
 	public void testEstimatePhaseAngleDegrees()
 	{
-		Assert.assertEquals(0.0, HelperLinearLapTimes.estimatePhaseAngleDegrees(100, 10), EPSILON);
-		Assert.assertEquals(180.0, HelperLinearLapTimes.estimatePhaseAngleDegrees(15, 10), EPSILON);
-		Assert.assertEquals(324.0, HelperLinearLapTimes.estimatePhaseAngleDegrees(19, 10), EPSILON);
+		Assert.assertEquals(0.0, HelperLinearLapTimes.estimatePhaseAngleDegrees(100, 10), TestConstants.EPSILON);
+		Assert.assertEquals(180.0, HelperLinearLapTimes.estimatePhaseAngleDegrees(15, 10), TestConstants.EPSILON);
+		Assert.assertEquals(324.0, HelperLinearLapTimes.estimatePhaseAngleDegrees(19, 10), TestConstants.EPSILON);
 	}
 
 	@Test
@@ -40,7 +38,7 @@ public class HelperPhysicsTest
 		double a_b = 0.1362;
 		double b_b = 0.5962;
 		SimpleRegression lrv = generateLinearModel(a_b, b_b);
-		Assert.assertEquals(0.4775, HelperLinearLapTimes.estimateSpeed(100, Constants.get_BALL_CIRCUMFERENCE(), lrv), EPSILON);
+		Assert.assertEquals(0.4775, HelperLinearLapTimes.estimateSpeed(100, Constants.get_BALL_CIRCUMFERENCE(), lrv), TestConstants.EPSILON);
 	}
 
 	@Test
@@ -49,7 +47,8 @@ public class HelperPhysicsTest
 		double a_b = 0.0266;
 		double b_b = 3.554;
 		SimpleRegression lrv = generateLinearModel(a_b, b_b);
-		Assert.assertEquals(1.3238, HelperLinearLapTimes.estimateDistance(15.554, 18.128, Constants.get_WHEEL_CIRCUMFERENCE(), lrv), EPSILON);
+		Assert.assertEquals(1.3238, HelperLinearLapTimes.estimateDistance(15.554, 18.128, Constants.get_WHEEL_CIRCUMFERENCE(), lrv),
+				TestConstants.EPSILON);
 	}
 
 	private SimpleRegression generateLinearModel(double a_b, double b_b)
@@ -70,7 +69,7 @@ public class HelperPhysicsTest
 		double time = 12.5;
 		double speed = HelperLinearLapTimes.estimateSpeed(time, Constants.get_BALL_CIRCUMFERENCE(), lrv);
 
-		Assert.assertEquals(time, HelperLinearLapTimes.estimateTimeForSpeed(speed, Constants.get_BALL_CIRCUMFERENCE(), lrv), EPSILON);
+		Assert.assertEquals(time, HelperLinearLapTimes.estimateTimeForSpeed(speed, Constants.get_BALL_CIRCUMFERENCE(), lrv), TestConstants.EPSILON);
 	}
 
 }

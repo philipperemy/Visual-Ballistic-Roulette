@@ -6,6 +6,5 @@ public class PositiveValueExpectedException extends RuntimeException
 
 	public PositiveValueExpectedException()
 	{
-		super("Positive value expected.");
 	}
 }

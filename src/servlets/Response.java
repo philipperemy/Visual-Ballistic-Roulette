@@ -83,7 +83,7 @@ public class Response extends HttpServlet
 		} catch (Exception e)
 		{
 			Logger.traceERROR(e);
-			Helper.notifyError(response, "Critical error.");
+			Helper.notifyError(response, "Critical error: " + e.getMessage());
 		}
 	}
 

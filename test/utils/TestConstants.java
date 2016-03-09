@@ -1,6 +1,7 @@
 package utils;
 
-public class Constants
+public class TestConstants
 {
 	public static final int NUMBER_OF_BALL_LAP_TIMES_TO_DISCARD = 5;
+	public static final double EPSILON = 0.001;
 }
