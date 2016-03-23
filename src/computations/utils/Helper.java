@@ -1,5 +1,8 @@
 package computations.utils;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -137,12 +140,12 @@ public class Helper
 	{
 		switch (type)
 		{
-			case BALL:
-				return Helper.getBallSpeed(t1, t2);
-			case WHEEL:
-				return Helper.getWheelSpeed(t1, t2);
-			default:
-				throw new CriticalException("Unknown type.");
+		case BALL:
+			return Helper.getBallSpeed(t1, t2);
+		case WHEEL:
+			return Helper.getWheelSpeed(t1, t2);
+		default:
+			throw new CriticalException("Unknown type.");
 		}
 	}
 
@@ -170,8 +173,7 @@ public class Helper
 	}
 
 	/**
-	 * Example is list of size 160, L=80.
-	 * We expect two lists of size 80.
+	 * Example is list of size 160, L=80. We expect two lists of size 80.
 	 */
 	public static <T> List<List<T>> split(List<T> list, final int L)
 	{
@@ -184,6 +186,9 @@ public class Helper
 		return parts;
 	}
 
+	static double mean_slope = 0;
+	static int len = 0;
+
 	public static SimpleRegression performRegression(List<Double> xValues, List<Double> yValues)
 	{
 		int n = xValues.size();
@@ -192,7 +197,33 @@ public class Helper
 		{
 			regression.addData(xValues.get(i), yValues.get(i));
 		}
-		return regression;
+
+		if (!Double.isNaN(regression.getSlope()))
+		{
+			mean_slope += regression.getSlope();
+			len++;
+		}
+
+		if (!Double.isNaN(regression.getIntercept()))
+			System.out.println(regression.getIntercept());
+
+		// System.out.println("slope=" + regression.getSlope() + ", intercept="
+		// + regression.getIntercept());
+		// System.out.println("len=" + len + ", mean slope="+ mean_slope);
+
+		double intercept = 0;
+		double fixedSlope = -0.2266;
+		for (int i = 0; i < n; i++)
+		{
+			intercept += yValues.get(i) - fixedSlope * xValues.get(i);
+		}
+		intercept /= n;
+
+		SimpleRegression sr2 = new SimpleRegression();
+		sr2.addData(0, intercept);
+		sr2.addData(1, fixedSlope + intercept);
+		// System.out.println("newreg = " + sr2.getSlope());
+		return sr2;
 	}
 
 	public static List<Double> range(int beg, int end)
@@ -203,5 +234,22 @@ public class Helper
 			range.add((double) i);
 		}
 		return range;
+	}
+
+	public static void generateCsvFile(String filename, String str)
+	{
+		try
+		{
+			File file = new File(filename);
+			FileWriter writer = new FileWriter(file, true);
+			System.out.println("written to " + file.getAbsolutePath());
+			writer.append(str);
+			writer.append('\n');
+			writer.flush();
+			writer.close();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

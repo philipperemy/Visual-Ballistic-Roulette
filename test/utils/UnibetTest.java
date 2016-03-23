@@ -20,17 +20,18 @@ public class UnibetTest
 		Logger.setDebug(false);
 		DatabaseAccessorInterface dbRef = DatabaseAccessor.getInstance();
 		List<Game> games = new ArrayList<>();
-		for (int i = 19; i <= 80; i++)
+		for (int i = 19; i <= 130; i++)
 		{
 			games.add(new Game(String.valueOf(i), dbRef));
 		}
 		PredictorInterface predictorInterface = new PredictorInterface();
-		Predictor predictor = predictorInterface.machineLearning();
+		Predictor predictor = predictorInterface.physicsConstantDeceleration();
 		KFoldCrossValidationTest kfcv = new KFoldCrossValidationTest(games, predictor, dbRef, 3);
-		kfcv.run();
+		// kfcv.run();
 
+		// 1 20
 		Constants.CUTOFF_SPEED = 0.95;
-		Constants.DEFAULT_SHIFT_PHASE = 45;
+		Constants.DEFAULT_SHIFT_PHASE = 15;
 		System.out.println("eval= " + kfcv.evaluate(games));
 	}
 
@@ -40,7 +41,7 @@ public class UnibetTest
 		Logger.setDebug(false);
 		DatabaseAccessorInterface dbRef = DatabaseAccessor.getInstance();
 		List<Game> games = new ArrayList<>();
-		for (int i = 19; i <= 80; i++)
+		for (int i = 19; i <= 130; i++)
 		{
 			games.add(new Game(String.valueOf(i), dbRef));
 		}
