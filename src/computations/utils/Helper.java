@@ -187,6 +187,7 @@ public class Helper
 	}
 
 	static double mean_slope = 0;
+	static double mean_intercept = 0;
 	static int len = 0;
 
 	public static SimpleRegression performRegression(List<Double> xValues, List<Double> yValues)
@@ -201,19 +202,21 @@ public class Helper
 		if (!Double.isNaN(regression.getSlope()))
 		{
 			mean_slope += regression.getSlope();
+			mean_intercept += regression.getIntercept();
 			len++;
 		}
 
 		if (!Double.isNaN(regression.getIntercept()))
 			System.out.println(regression.getIntercept());
 
-		// System.out.println("slope=" + regression.getSlope() + ", intercept="
-		// + regression.getIntercept());
-		// System.out.println("len=" + len + ", mean slope="+ mean_slope);
-
+		System.out.println("slope=" + regression.getSlope() + ", intercept="
+		 + regression.getIntercept());
+		System.out.println("len=" + len + ", mean slope="+ (mean_slope / len));
+		System.out.println("len=" + len + ", mean intercept="+ (mean_intercept / len));
+		
 		double intercept = 0;
-		double fixedSlope = -0.2266;
-		for (int i = 0; i < n; i++)
+		double fixedSlope = -0.23298278717151588; // mean slope across the games.
+		 for (int i = 0; i < n; i++)
 		{
 			intercept += yValues.get(i) - fixedSlope * xValues.get(i);
 		}

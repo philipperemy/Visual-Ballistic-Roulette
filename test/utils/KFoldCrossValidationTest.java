@@ -131,6 +131,7 @@ public class KFoldCrossValidationTest extends TestClass
 				}
 			}
 			trainingError /= trainingSampleSize;
+			System.out.println("trainingSampleSize=" + trainingSampleSize);
 		} catch (Exception e)
 		{
 			throw new RuntimeException();
